@@ -1,0 +1,16 @@
+{
+    "login": {
+        "title": "Autenticación",
+        "form": {
+            "password": "Contraseña",
+            "password.placeholder": "Tu contraseña",
+            "rememberme": "Login automático",
+            "button": "Autenticate"
+        },
+        "messages": {
+            "error": {
+                "authentication": "<strong>Ha fallado la autenticación!</strong> Por favor, comprueba tus datos."
+            }
+        }
+    }
+}

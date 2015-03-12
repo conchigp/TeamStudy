@@ -1,0 +1,24 @@
+{
+    "register": {
+        "title": "Registro",
+        "form": {
+            "button": "Registrar"
+        },
+        "messages": {
+            "validate": {
+                "login": {
+                    "required": "El nombre de usuario es obligatorio.",
+                    "minlength": "Tu nombre de usuario debe tener mas de un caracter",
+                    "maxlength": "Tu nombre de usuario no puede tener mas de 50 caracteres",
+                    "pattern": "Tu nombre de usuario puede tener dígitos y letras"
+                }
+            },
+            "success": "<strong>Se ha completado el registro!</strong> Comprueba tu e-mail para activar la cuenta.",
+            "error": {
+                "fail": "<strong>Error al registrar el usuario!</strong> Intentelo de nuevo.",
+                "userexists": "<strong>Ese nombre ya existe!</strong> Escoja otro.",
+                "emailexists": "<strong>El correo utilizado ya esta en uso!</strong> Escoja otro."
+            }
+        }
+    }
+}

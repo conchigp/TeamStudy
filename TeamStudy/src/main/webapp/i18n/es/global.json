@@ -1,0 +1,90 @@
+{
+    "global": {
+        "title": "TeamStudy",
+        "browsehappy": "Esta usando un navegador <strong>anticuado</strong>. Por favor, <a href=\"http://browsehappy.com/?locale=en\">actualice su navegador</a> para una mejor experiencia.",
+        "menu": {
+            "home": "Inicio",
+            "entities": {
+                "main": "Entidades",
+                "additionalEntity": "Puedes añadir entidades a Jhipster"
+            },
+            "account": {
+                "main": "Cuenta",
+                "settings": "Ajustes",
+                "password": "Contraseña",
+                "sessions": "Sesiones",
+                "login": "Autentificar",
+                "logout": "Log out",
+                "register": "Registrar"
+            },
+            "admin": {
+                "main": "Administracion",
+                "tracker": "Rastreador de usuarios",
+                "metrics": "Metricas",
+                "health": "Salud",
+                "configuration": "Configuracion",
+                "logs": "Logs",
+                "audits": "Auditorias",
+                "apidocs": "API",
+                "database": "Base de Datos"
+            },
+            "language": "Idioma"
+        },
+        "form": {
+            "username": "Login",
+            "username.placeholder": "Cuenta:",
+            "newpassword": "Nueva contraseña",
+            "newpassword.placeholder": "Nueva contraseña",
+            "confirmpassword": "Confirme su nueva contraseña",
+            "confirmpassword.placeholder": "Confirme su nueva contraseña",
+            "email": "E-mail",
+            "email.placeholder": "E-mail"
+        },
+        "messages": {
+            "info": {
+                "authenticated": "Si quieres <a href=\"#/login\">autentificarte</a>, puedes usar las cuentas predeterminadas:<br/>- Administrador (login=\"admin\" and password=\"admin\") <br/>- Usuario (login=\"user\" and password=\"user\").",
+                "register": "Aún no tienes una cuenta? <a href=\"#/register\">Registrate</a>"
+            },
+            "error": {
+                "dontmatch" : "La contraseñas no coinciden!"
+            },
+            "validate": {
+                "newpassword": {
+                    "required": "La contraseña es obligatoria.",
+                    "minlength": "Tu contraseña debe tener más de 5 caracteres",
+                    "maxlength": "Tu contraseña debe tener menos de 50 caracteres",
+                    "strength": "Seguridad de la contraseña:"
+                },
+                "confirmpassword": {
+                    "required": "La confirmacion de la contraseña es obligatoria.",
+                    "minlength": "Tu contraseña debe tener más de 5 caracteres",
+                    "maxlength": "Tu contraseña debe tener menos de 50 caracteres"
+                },
+                "email": {
+                    "required": "El e-mail es obligatorio.",
+                    "invalid": "Tu e-mail no es válido.",
+                    "minlength": "Tu e-mail debe tener más de 5 caracteres",
+                    "maxlength": "Tu e-mail debe tener menos de 50 caracteres"
+                }
+            }
+        }
+    },
+    "entity": {
+        "action": {
+            "back": "Atras",
+            "cancel": "Cancelar",
+            "delete": "Borrar",
+            "edit": "Editar",
+            "save": "Guardar",
+            "view": "Vista"
+        },
+        "detail": {
+            "field": "Campo",
+            "value": "Valor"
+        },
+        "delete": {
+            "title": "Confirmar el borrado"
+        }
+    },
+    "footer": "Este es tu footer"
+}
