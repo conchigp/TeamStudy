@@ -15,14 +15,14 @@ async:
 
 spring:
     mail:
-        host: localhost
+        host: smtp.gmail.com
         port: 25
-        user:
-        password:
+        user: teamstudyproject@gmail.com
+        password: ispp2015
         protocol: smtp
-        tls: false
-        auth: false
-        from: teamstudy@localhost
+        tls: true
+        auth: true
+        from: teamstudyproject@gmail.com
 
     messageSource:
         cacheSeconds: 1

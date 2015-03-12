@@ -1,23 +1,23 @@
 package com.teamstudy.myapp.service;
 
-import com.teamstudy.myapp.domain.Authority;
-import com.teamstudy.myapp.domain.User;
-import com.teamstudy.myapp.repository.AuthorityRepository;
-import com.teamstudy.myapp.repository.UserRepository;
-import com.teamstudy.myapp.security.SecurityUtils;
-import com.teamstudy.myapp.service.util.RandomUtil;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
-import org.joda.time.LocalDate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.teamstudy.myapp.domain.Authority;
+import com.teamstudy.myapp.domain.User;
+import com.teamstudy.myapp.repository.UserRepository;
+import com.teamstudy.myapp.security.SecurityUtils;
+import com.teamstudy.myapp.service.util.RandomUtil;
 
 /**
  * Service class for managing users.
@@ -32,9 +32,6 @@ public class UserService {
 
     @Inject
     private UserRepository userRepository;
-
-    @Inject
-    private AuthorityRepository authorityRepository;
 
     public  User activateRegistration(String key) {
         log.debug("Activating user for activation key {}", key);
@@ -56,6 +53,7 @@ public class UserService {
         authority.setName("ROLE_ADMIN");
         Set<Authority> authorities = new HashSet<>();
         String encryptedPassword = passwordEncoder.encode(password);
+        newUser.setTeacher(false);
         newUser.setLogin(login);
         // new user gets initially a generated password
         newUser.setPassword(encryptedPassword);

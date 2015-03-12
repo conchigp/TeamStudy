@@ -1,12 +1,12 @@
 package com.teamstudy.myapp.web.rest.util;
 
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-
-import java.net.URI;
-import java.net.URISyntaxException;
 
 /**
  * Utility class for handling pagination.
