@@ -3,6 +3,7 @@ package com.teamstudy.myapp.config;
 
 import javax.inject.Inject;
 
+import org.mongeez.Mongeez;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
@@ -11,6 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.ClassPathResource;
 import org.springframework.data.mongodb.config.AbstractMongoConfiguration;
 import org.springframework.data.mongodb.config.EnableMongoAuditing;
 import org.springframework.data.mongodb.core.mapping.event.ValidatingMongoEventListener;
@@ -53,7 +55,7 @@ public class DatabaseConfiguration extends AbstractMongoConfiguration  {
     public Mongo mongo() throws Exception {
         return mongo;
     }
-/*
+
     @Bean
     @Profile("!" + Constants.SPRING_PROFILE_FAST)
     public Mongeez mongeez() {
@@ -64,5 +66,5 @@ public class DatabaseConfiguration extends AbstractMongoConfiguration  {
         mongeez.setDbName(mongoProperties.getDatabase());
         mongeez.process();
         return mongeez;
-    }*/
+    }
 }
