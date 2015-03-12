@@ -6,8 +6,8 @@ spring:
         active: dev
     data:
         mongodb:
-            host: ds033709.mongolab.com
-            port: 33709
+            host: ds039311.mongolab.com
+            port: 39311
             database: teamstudy
             username: teamstudy
             password: teamstudy
