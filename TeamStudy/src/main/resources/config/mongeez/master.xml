@@ -1,3 +1,9 @@
 <changeFiles>
     <file path="users.xml"/>
+    <file path="groups.xml"/>
+    <file path="threads.xml"/>
+    <file path="messages.xml"/>
+    <file path="news.xml"/>
+    <file path="chats.xml"/>
+    <file path="folders.xml"/>
 </changeFiles>

@@ -7,24 +7,39 @@ import java.util.List;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_GROUP")
 public class Group extends AbstractAuditingEntity implements Serializable {
 
+	@Id
+	private String id;
+
 	@NotNull
 	private String name;
-	
+
 	private String description;
-	
+
 	@Past
 	private Date creationMoment;
-	
+
+	// Hace referencia al ID del usuario
 	@NotNull
-	private User2 teacher;
-	
-	//lista de ids de alumnos
+	private String teacherId;
+
+	// lista de ids de alumnos
 	private List<String> alums;
+
+	private Wiki wiki;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName() {
 		return name;
@@ -50,12 +65,12 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 		this.creationMoment = creationMoment;
 	}
 
-	public User2 getTeacher() {
-		return teacher;
+	public String getTeacherId() {
+		return teacherId;
 	}
 
-	public void setTeacher(User2 teacher) {
-		this.teacher = teacher;
+	public void setTeacherId(String teacherId) {
+		this.teacherId = teacherId;
 	}
 
 	public List<String> getAlums() {
@@ -66,10 +81,20 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 		this.alums = alums;
 	}
 
-    @Override
-    public String toString() {
-        return "Group{" + "name='" + name + '\'' + ", description='" + description + '\'' + ", creationMoment='" + creationMoment
-                + '\'' + ", teacher='" + teacher + '\'' + ", alums='" + alums + '\'' + "}";
-    }
+	public Wiki getWiki() {
+		return wiki;
+	}
+
+	public void setWiki(Wiki wiki) {
+		this.wiki = wiki;
+	}
+
+	@Override
+	public String toString() {
+		return "Group{" + "name='" + name + '\'' + ", description='"
+				+ description + '\'' + ", creationMoment='" + creationMoment
+				+ '\'' + ", teacherId='" + teacherId + '\'' + ", alums='"
+				+ alums + '\'' + "}";
+	}
 
 }

@@ -1,0 +1,17 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-2" author="jhipster">
+        <script>
+        db.T_GROUP.insert(
+        {
+                "_id" : "group-0",
+                "name" : "grupo",
+                "description" : "Prueba grupo 1",
+                "creationMoment": new Date(),
+                "teacherId": "user-3",
+                "alums": ["user-4","user-5"],
+                "wiki": {"text": "HOOOOOOLAAAAAAAAA"}
+            });
+        
+        </script>
+    </changeSet>
+</mongoChangeLog>

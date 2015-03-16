@@ -6,59 +6,72 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_MESSAGECHAT")
 public class MessageChat extends AbstractAuditingEntity implements Serializable {
 
-    @NotNull
-    private String content;
+	@Id
+	private String id;
 
-    @Past
-    private Date creationMoment;
+	@NotNull
+	private String content;
 
-    @NotNull
-    private Group group;
+	@Past
+	private Date creationMoment;
 
-    @NotNull
-    private User user;
+	@NotNull
+	private String groupId;
 
-    public String getContent() {
-        return content;
-    }
+	@NotNull
+	private String userId;
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public Date getCreationMoment() {
-        return creationMoment;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setCreationMoment(Date creationMoment) {
-        this.creationMoment = creationMoment;
-    }
+	public String getContent() {
+		return content;
+	}
 
-    public Group getGroup() {
-        return group;
-    }
+	public void setContent(String content) {
+		this.content = content;
+	}
 
-    public void setGroup(Group group) {
-        this.group = group;
-    }
+	public Date getCreationMoment() {
+		return creationMoment;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setCreationMoment(Date creationMoment) {
+		this.creationMoment = creationMoment;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public String getGroupId() {
+		return groupId;
+	}
 
-    @Override
-    public String toString() {
-        return "MessageChat{" + "content='" + content + '\'' + ", creationMoment='" + creationMoment + '\''
-                + ", group='" + group + '\'' + ", user='" + user + '\'' + "}";
-    }
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		return "MessageChat{" + "content='" + content + '\''
+				+ ", creationMoment='" + creationMoment + '\'' + ", groupId='"
+				+ groupId + '\'' + ", userId='" + userId + '\'' + "}";
+	}
 
 }

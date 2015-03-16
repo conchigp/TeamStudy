@@ -6,59 +6,73 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_REPLY")
 public class Reply extends AbstractAuditingEntity implements Serializable {
 
-    @NotNull
-    private String description;
+	@Id
+	private String id;
 
-    @Past
-    private Date creationMoment;
+	@NotNull
+	private String description;
 
-    @NotNull
-    private Message message;
+	@Past
+	private Date creationMoment;
 
-    @NotNull
-    private User user;
+	@NotNull
+	private String messageId;
 
-    public String getDescription() {
-        return description;
-    }
+	@NotNull
+	private String userId;
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public Date getCreationMoment() {
-        return creationMoment;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setCreationMoment(Date creationMoment) {
-        this.creationMoment = creationMoment;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Message getMessage() {
-        return message;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setMessage(Message message) {
-        this.message = message;
-    }
+	public Date getCreationMoment() {
+		return creationMoment;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setCreationMoment(Date creationMoment) {
+		this.creationMoment = creationMoment;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public String getMessageId() {
+		return messageId;
+	}
 
-    @Override
-    public String toString() {
-        return "Reply{" + "description='" + description + '\'' + ", creationMoment='" + creationMoment + '\''
-                + ", message='" + message + '\'' + ", user='" + user + '\'' + "}";
-    }
+	public void setMessageId(String messageId) {
+		this.messageId = messageId;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		return "Reply{" + "description='" + description + '\''
+				+ ", creationMoment='" + creationMoment + '\''
+				+ ", messageId='" + messageId + '\'' + ", userId='" + userId
+				+ '\'' + "}";
+	}
 
 }

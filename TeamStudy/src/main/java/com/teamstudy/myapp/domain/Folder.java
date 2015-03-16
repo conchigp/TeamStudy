@@ -6,48 +6,60 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_FOLDER")
 public class Folder extends AbstractAuditingEntity implements Serializable {
 
-    @NotNull
-    private String title;
+	@Id
+	private String id;
 
-    @Past
-    private Date creationMoment;
+	@NotNull
+	private String title;
 
-    @NotNull
-    private Group group;
+	@Past
+	private Date creationMoment;
 
-    public String getTitle() {
-        return title;
-    }
+	@NotNull
+	private String groupId;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public Date getCreationMoment() {
-        return creationMoment;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setCreationMoment(Date creationMoment) {
-        this.creationMoment = creationMoment;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public Group getGroup() {
-        return group;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setGroup(Group group) {
-        this.group = group;
-    }
+	public Date getCreationMoment() {
+		return creationMoment;
+	}
 
-    @Override
-    public String toString() {
-        return "Folder{" + "title='" + title + '\'' + ", creationMoment='" + creationMoment + '\'' + ", group='"
-                + group + '\'' + "}";
-    }
+	public void setCreationMoment(Date creationMoment) {
+		this.creationMoment = creationMoment;
+	}
+
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
+	@Override
+	public String toString() {
+		return "Folder{" + "title='" + title + '\'' + ", creationMoment='"
+				+ creationMoment + '\'' + ", groupId='" + groupId + '\'' + "}";
+	}
 
 }

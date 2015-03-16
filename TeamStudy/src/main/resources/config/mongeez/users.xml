@@ -1,5 +1,5 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-2" author="jhipster">
+    <changeSet changeId="ChangeSet-1" author="jhipster">
         <script>
             db.T_USER.ensureIndex({"login" : 1});
             db.T_USER.ensureIndex({"email" : 1});
@@ -27,7 +27,7 @@
                 "last_name": "User",
                 "email": "",
                 "activated": true,
-                "isTeacher": true,
+                "isTeacher": false,
                 "lang_key": "en",
                 "created_by": "system",
                 "created_date": new Date(),
@@ -58,6 +58,38 @@
                 "email": "",
                 "activated": true,
                 "isTeacher": true,
+                "lang_key": "en",
+                "created_by": "system",
+                "created_date": new Date(),
+                "authorities": [{"_id": "ROLE_USER"}]
+            });
+            
+            db.T_USER.insert(
+            {
+                "_id" : "user-4", 
+                "login" : "user1",
+                "password" : "$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K",
+                "first_name": "",
+                "last_name": "User",
+                "email": "",
+                "activated": true,
+                "isTeacher": false,
+                "lang_key": "en",
+                "created_by": "system",
+                "created_date": new Date(),
+                "authorities": [{"_id": "ROLE_USER"}]
+            });
+            
+            db.T_USER.insert(
+            {
+                "_id" : "user-5", 
+                "login" : "user2",
+                "password" : "$2a$10$VEjxo0jq2YG9Rbk2HmX9S.k1uZBGYUHdUcid3g/vfiEl7lwWgOH/K",
+                "first_name": "",
+                "last_name": "User",
+                "email": "",
+                "activated": true,
+                "isTeacher": false,
                 "lang_key": "en",
                 "created_by": "system",
                 "created_date": new Date(),

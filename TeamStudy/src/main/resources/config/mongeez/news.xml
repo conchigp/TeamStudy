@@ -1,0 +1,7 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-5" author="jhipster">
+        <script>
+        
+        </script>
+    </changeSet>
+</mongoChangeLog>

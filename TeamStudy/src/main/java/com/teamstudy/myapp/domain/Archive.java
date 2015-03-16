@@ -8,93 +8,108 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.URL;
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_ARCHIVE")
 public class Archive extends AbstractAuditingEntity implements Serializable {
 
-    @NotNull
-    private String title;
+	@Id
+	private String id;
 
-    @Past
-    private Date creationMoment;
+	@NotNull
+	private String title;
 
-    @Min(0)
-    private Double size;
+	@Past
+	private Date creationMoment;
 
-    private String format;
+	@Min(0)
+	private Double size;
 
-    @NotNull
-    @URL
-    private String url;
+	private String format;
 
-    @NotNull
-    private User2 user;
+	@NotNull
+	@URL
+	private String url;
 
-    @NotNull
-    private Folder folder;
+	// Hace referencia al ID del usuario.
+	@NotNull
+	private String userId;
 
-    public String getTitle() {
-        return title;
-    }
+	@NotNull
+	private Folder folder;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public Date getCreationMoment() {
-        return creationMoment;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setCreationMoment(Date creationMoment) {
-        this.creationMoment = creationMoment;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public Double getSize() {
-        return size;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setSize(Double size) {
-        this.size = size;
-    }
+	public Date getCreationMoment() {
+		return creationMoment;
+	}
 
-    public String getFormat() {
-        return format;
-    }
+	public void setCreationMoment(Date creationMoment) {
+		this.creationMoment = creationMoment;
+	}
 
-    public void setFormat(String format) {
-        this.format = format;
-    }
+	public Double getSize() {
+		return size;
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public void setSize(Double size) {
+		this.size = size;
+	}
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+	public String getFormat() {
+		return format;
+	}
 
-    public User2 getUser() {
-        return user;
-    }
+	public void setFormat(String format) {
+		this.format = format;
+	}
 
-    public void setUser(User2 user) {
-        this.user = user;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public Folder getFolder() {
-        return folder;
-    }
+	public void setUrl(String url) {
+		this.url = url;
+	}
 
-    public void setFolder(Folder folder) {
-        this.folder = folder;
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    @Override
-    public String toString() {
-        return "Archive{" + "title='" + title + '\'' + ", creationMoment='" + creationMoment + '\'' + ", size='" + size
-                + '\'' + ", format='" + format + '\'' + ", url='" + url + '\'' + ", user='" + user + '\''
-                + ", folder='" + folder + '\'' + "}";
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	public Folder getFolder() {
+		return folder;
+	}
+
+	public void setFolder(Folder folder) {
+		this.folder = folder;
+	}
+
+	@Override
+	public String toString() {
+		return "Archive{" + "title='" + title + '\'' + ", creationMoment='"
+				+ creationMoment + '\'' + ", size='" + size + '\''
+				+ ", format='" + format + '\'' + ", url='" + url + '\''
+				+ ", userId='" + userId + '\'' + ", folder='" + folder + '\''
+				+ "}";
+	}
 
 }

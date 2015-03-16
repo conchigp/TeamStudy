@@ -6,70 +6,84 @@ import java.util.Date;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_MESSAGE")
 public class Message extends AbstractAuditingEntity implements Serializable {
 
-    @NotNull
-    private String title;
+	@Id
+	private String id;
 
-    @NotNull
-    private String description;
+	@NotNull
+	private String title;
 
-    @Past
-    private Date creationMoment;
+	@NotNull
+	private String description;
 
-    @NotNull
-    private Thread thread;
+	@Past
+	private Date creationMoment;
 
-    @NotNull
-    private User user;
+	@NotNull
+	private Thread thread;
 
-    public String getTitle() {
-        return title;
-    }
+	@NotNull
+	private String userId;
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public String getTitle() {
+		return title;
+	}
 
-    public Date getCreationMoment() {
-        return creationMoment;
-    }
+	public void setTitle(String title) {
+		this.title = title;
+	}
 
-    public void setCreationMoment(Date creationMoment) {
-        this.creationMoment = creationMoment;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public Thread getThread() {
-        return thread;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public void setThread(Thread thread) {
-        this.thread = thread;
-    }
+	public Date getCreationMoment() {
+		return creationMoment;
+	}
 
-    public User getUser() {
-        return user;
-    }
+	public void setCreationMoment(Date creationMoment) {
+		this.creationMoment = creationMoment;
+	}
 
-    public void setUser(User user) {
-        this.user = user;
-    }
+	public Thread getThread() {
+		return thread;
+	}
 
-    @Override
-    public String toString() {
-        return "Message{" + "title='" + title + '\'' + ", description='" + description + '\'' + ", creationMoment='"
-                + creationMoment + '\'' + ", thread='" + thread + '\'' + ", user='" + user + '\'' + "}";
-    }
+	public void setThread(Thread thread) {
+		this.thread = thread;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+
+	@Override
+	public String toString() {
+		return "Message{" + "title='" + title + '\'' + ", description='"
+				+ description + '\'' + ", creationMoment='" + creationMoment
+				+ '\'' + ", thread='" + thread + '\'' + ", userId='" + userId
+				+ '\'' + "}";
+	}
 
 }
