@@ -2,6 +2,7 @@ package com.teamstudy.myapp.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -23,6 +24,9 @@ public class Folder extends AbstractAuditingEntity implements Serializable {
 
 	@NotNull
 	private String groupId;
+
+	@NotNull
+	private List<Archive> archives;
 
 	public String getId() {
 		return id;
@@ -56,10 +60,18 @@ public class Folder extends AbstractAuditingEntity implements Serializable {
 		this.groupId = groupId;
 	}
 
+	public List<Archive> getArchives() {
+		return archives;
+	}
+
+	public void setArchives(List<Archive> archives) {
+		this.archives = archives;
+	}
+
 	@Override
 	public String toString() {
-		return "Folder{" + "title='" + title + '\'' + ", creationMoment='"
-				+ creationMoment + '\'' + ", groupId='" + groupId + '\'' + "}";
+		return "Folder{" + "id='" + id + '\'' + "title='" + title + '\'' + ", creationMoment='"
+				+ creationMoment + '\'' + ", groupId='" + groupId + '\'' + ", archives='" + archives + '\'' + "}";
 	}
 
 }

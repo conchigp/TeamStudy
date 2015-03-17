@@ -2,6 +2,7 @@ package com.teamstudy.myapp.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -29,6 +30,9 @@ public class Message extends AbstractAuditingEntity implements Serializable {
 
 	@NotNull
 	private String userId;
+
+	@NotNull
+	private List<Reply> replies;
 
 	public String getId() {
 		return id;
@@ -78,12 +82,20 @@ public class Message extends AbstractAuditingEntity implements Serializable {
 		this.userId = userId;
 	}
 
+	public List<Reply> getReplies() {
+		return replies;
+	}
+
+	public void setReplies(List<Reply> replies) {
+		this.replies = replies;
+	}
+
 	@Override
 	public String toString() {
-		return "Message{" + "title='" + title + '\'' + ", description='"
-				+ description + '\'' + ", creationMoment='" + creationMoment
-				+ '\'' + ", thread='" + thread + '\'' + ", userId='" + userId
-				+ '\'' + "}";
+		return "Message{" + "id='" + id + '\'' + "title='" + title + '\''
+				+ ", description='" + description + '\'' + ", creationMoment='"
+				+ creationMoment + '\'' + ", thread='" + thread + '\''
+				+ ", userId='" + userId + '\'' + ", replies='" + replies + '\'' + "}";
 	}
 
 }

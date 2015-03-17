@@ -70,7 +70,7 @@ public class New extends AbstractAuditingEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "New{" + "title='" + title + '\'' + ",  description='"
+		return "New{" + "id='" + id + '\'' + "title='" + title + '\'' + ",  description='"
 				+ description + '\'' + ",  creationMoment='" + creationMoment
 				+ '\'' + ",  groupId='" + groupId + '\'' + "}";
 	}

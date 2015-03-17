@@ -2,6 +2,7 @@ package com.teamstudy.myapp.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
@@ -80,7 +81,7 @@ public class Thread extends AbstractAuditingEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Thread{" + "title='" + title + '\'' + ", description='"
+		return "Thread{" + "id='" + id + '\'' + "title='" + title + '\'' + ", description='"
 				+ description + '\'' + ", creationMoment='" + creationMoment
 				+ '\'' + ", groupId='" + groupId + '\'' + ", userId='" + userId
 				+ '\'' + "}";

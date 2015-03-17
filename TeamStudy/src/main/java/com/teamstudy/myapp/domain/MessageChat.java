@@ -69,7 +69,7 @@ public class MessageChat extends AbstractAuditingEntity implements Serializable 
 
 	@Override
 	public String toString() {
-		return "MessageChat{" + "content='" + content + '\''
+		return "MessageChat{" + "id='" + id + '\'' + "content='" + content + '\''
 				+ ", creationMoment='" + creationMoment + '\'' + ", groupId='"
 				+ groupId + '\'' + ", userId='" + userId + '\'' + "}";
 	}

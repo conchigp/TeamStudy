@@ -1,39 +1,17 @@
 package com.teamstudy.myapp.domain;
 
-import java.io.Serializable;
 import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
-
-@Document(collection = "T_REPLY")
-public class Reply extends AbstractAuditingEntity implements Serializable {
-
-	@Id
-	private String id;
+public class Reply {
 
 	@NotNull
 	private String description;
 
 	@Past
 	private Date creationMoment;
-
-	@NotNull
-	private String messageId;
-
-	@NotNull
-	private String userId;
-
-	public String getId() {
-		return id;
-	}
-
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getDescription() {
 		return description;
@@ -51,28 +29,10 @@ public class Reply extends AbstractAuditingEntity implements Serializable {
 		this.creationMoment = creationMoment;
 	}
 
-	public String getMessageId() {
-		return messageId;
-	}
-
-	public void setMessageId(String messageId) {
-		this.messageId = messageId;
-	}
-
-	public String getUserId() {
-		return userId;
-	}
-
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
-
 	@Override
 	public String toString() {
 		return "Reply{" + "description='" + description + '\''
-				+ ", creationMoment='" + creationMoment + '\''
-				+ ", messageId='" + messageId + '\'' + ", userId='" + userId
-				+ '\'' + "}";
+				+ ", creationMoment='" + creationMoment + '\'' + "}";
 	}
 
 }

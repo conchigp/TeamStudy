@@ -91,10 +91,9 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Group{" + "name='" + name + '\'' + ", description='"
+		return "Group{" + "id='" + id + '\'' + "name='" + name + '\'' + ", description='"
 				+ description + '\'' + ", creationMoment='" + creationMoment
 				+ '\'' + ", teacherId='" + teacherId + '\'' + ", alums='"
-				+ alums + '\'' + "}";
+				+ alums + '\'' + ", wiki='" + wiki + '\'' + "}";
 	}
-
 }
