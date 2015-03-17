@@ -25,7 +25,6 @@ public class Group extends AbstractAuditingEntity implements Serializable {
 	private Date creationMoment;
 
 	// Hace referencia al ID del usuario
-	@NotNull
 	private String teacherId;
 
 	// lista de ids de alumnos

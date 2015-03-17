@@ -9,82 +9,84 @@ import java.util.List;
 
 public class UserDTO {
 
-    @Pattern(regexp = "^[a-z0-9]*$")
-    @NotNull
-    @Size(min = 1, max = 50)
-    private String login;
+	@Pattern(regexp = "^[a-z0-9]*$")
+	@NotNull
+	@Size(min = 1, max = 50)
+	private String login;
 
-    @NotNull
-    @Size(min = 5, max = 100)
-    private String password;
+	@NotNull
+	@Size(min = 5, max = 100)
+	private String password;
 
-    @Size(max = 50)
-    private String firstName;
+	@Size(max = 50)
+	private String firstName;
 
-    @Size(max = 50)
-    private String lastName;
+	@Size(max = 50)
+	private String lastName;
 
-    @Email
-    @Size(min = 5, max = 100)
-    private String email;
+	@Email
+	@Size(min = 5, max = 100)
+	private String email;
 
-    @Size(min = 2, max = 5)
-    private String langKey;
+	@Size(min = 2, max = 5)
+	private String langKey;
 
-    private List<String> roles;
+	private List<String> roles;
 
-    public UserDTO() {
-    }
+	private boolean isTeacher;
 
-    public UserDTO(String login, String password, String firstName, String lastName, String email, String langKey,
-                   List<String> roles) {
-        this.login = login;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.langKey = langKey;
-        this.roles = roles;
-    }
+	public UserDTO() {
+	}
 
-    public String getPassword() {
-        return password;
-    }
+	public UserDTO(String login, String password, String firstName,
+			String lastName, String email, String langKey, List<String> roles, boolean isTeacher) {
+		this.login = login;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.langKey = langKey;
+		this.roles = roles;
+		this.isTeacher = isTeacher;
+	}
 
-    public String getLogin() {
-        return login;
-    }
+	public String getPassword() {
+		return password;
+	}
 
-    public String getFirstName() {
-        return firstName;
-    }
+	public String getLogin() {
+		return login;
+	}
 
-    public String getLastName() {
-        return lastName;
-    }
+	public String getFirstName() {
+		return firstName;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public String getLastName() {
+		return lastName;
+	}
 
-    public String getLangKey() {
-        return langKey;
-    }
+	public String getEmail() {
+		return email;
+	}
 
-    public List<String> getRoles() {
-        return roles;
-    }
+	public String getLangKey() {
+		return langKey;
+	}
 
-    @Override
-    public String toString() {
-        return "UserDTO{" +
-        "login='" + login + '\'' +
-        ", password='" + password + '\'' +
-        ", firstName='" + firstName + '\'' +
-        ", lastName='" + lastName + '\'' +
-        ", email='" + email + '\'' +
-        ", langKey='" + langKey + '\'' +
-        ", roles=" + roles +
-        '}';
-    }
+	public List<String> getRoles() {
+		return roles;
+	}
+
+	public boolean isTeacher() {
+		return isTeacher;
+	}
+
+	@Override
+	public String toString() {
+		return "UserDTO{" + "login='" + login + '\'' + ", password='"
+				+ password + '\'' + ", firstName='" + firstName + '\''
+				+ ", lastName='" + lastName + '\'' + ", email='" + email + '\''
+				+ ", langKey='" + langKey + '\'' + ", roles=" + roles + '\'' + ", isTeacher=" + isTeacher + '}';
+	}
 }

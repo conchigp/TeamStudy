@@ -3,6 +3,7 @@ package com.teamstudy.myapp.web.rest;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,6 +24,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.Authority;
 import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.repository.UserRepository;
+import com.teamstudy.myapp.security.AuthoritiesConstants;
 import com.teamstudy.myapp.security.SecurityUtils;
 import com.teamstudy.myapp.service.MailService;
 import com.teamstudy.myapp.service.UserService;
@@ -53,6 +55,7 @@ public class AccountResource {
             method = RequestMethod.POST,
             produces = MediaType.TEXT_PLAIN_VALUE)
     @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
     public ResponseEntity<?> registerAccount(@Valid @RequestBody UserDTO userDTO, HttpServletRequest request) {
         User user = userRepository.findOneByLogin(userDTO.getLogin());
         if (user != null) {
@@ -63,7 +66,7 @@ public class AccountResource {
             }
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
             userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-            userDTO.getLangKey());
+            userDTO.getLangKey(), userDTO.isTeacher());
             String baseUrl = request.getScheme() + // "http"
             "://" +                            // "://"
             request.getServerName() +          // "myhost"
@@ -125,7 +128,8 @@ public class AccountResource {
                 user.getLastName(),
                 user.getEmail(),
                 user.getLangKey(),
-                roles),
+                roles,
+                user.isTeacher()),
             HttpStatus.OK);
     }
 
