@@ -1,0 +1,15 @@
+{
+    "sessions": {
+        "title": "Sesiones activas para [<b>{{username}}</b>]",
+        "table": {
+            "ipaddress": "Dirección IP",
+            "useragent": "Usuario",
+            "date": "Fecha",
+            "button": "Invalido"
+        },
+        "messages": {
+            "success": "<strong>Sesión invalida!</strong>",
+            "error": "<strong>Ha ocurrido un error!</strong> La sesión tiene que ser valida."
+        }
+    }
+}
