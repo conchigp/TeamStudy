@@ -75,6 +75,17 @@ a.show-sidebar:hover {
   -o-transition: 0.2s;
   transition: 0.2s;
 }
+#sidebar-right {
+  position:relative;
+  z-index: inherit;
+  padding-bottom: 3000px !important;
+  margin-bottom: -3000px !important;
+  background: #6AA6D6 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  -webkit-transition: 0.2s;
+  -moz-transition: 0.2s;
+  -o-transition: 0.2s;
+  transition: 0.2s;
+}
 #content {
   position: relative;
   z-index: 10;
