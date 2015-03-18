@@ -1,0 +1,22 @@
+<mongoChangeLog>
+    <changeSet changeId="ChangeSet-6" author="jhipster">
+        <script>
+          db.T_MESSAGECHAT.insert(
+         {
+                 "_id" : "messagechat-0",
+                 "content" : "messagechat0",
+                 "creationMoment": new Date(),
+                 "groupId" : "group-0",
+                 "userId" : "user-4"
+             });
+             db.T_MESSAGECHAT.insert(
+            {
+                  "_id" : "messagechat-1",
+                  "content" : "messagechat1",
+                  "creationMoment": new Date(),
+                  "groupId" : "group-1",
+                  "userId" : "user-1"
+              });
+        </script>
+    </changeSet>
+</mongoChangeLog>

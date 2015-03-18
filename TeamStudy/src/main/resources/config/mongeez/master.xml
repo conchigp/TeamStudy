@@ -4,6 +4,6 @@
     <file path="threads.xml"/>
     <file path="messages.xml"/>
     <file path="news.xml"/>
-    <file path="chats.xml"/>
+    <file path="messagechat.xml"/>
     <file path="folders.xml"/>
 </changeFiles>

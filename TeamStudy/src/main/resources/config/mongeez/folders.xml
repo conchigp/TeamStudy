@@ -3,12 +3,20 @@
         <script>
          db.T_FOLDER.insert(
         {
-                "_id" : "folder-0",
-                "title" : "folder0",
-                "creationMoment": new Date(),
-                "groupId" : "group-0",
-                "archives": []
+                  "_id" : "folder-0",
+                  "title" : "folder0",
+                  "creationMoment": new Date(),
+                  "groupId" : "group-0",
+                  "archives": []
             });
+            db.T_FOLDER.insert(
+           {
+                   "_id" : "folder-1",
+                   "title" : "folder1",
+                   "creationMoment": new Date(),
+                   "groupId" : "group-1",
+                   "archives": []
+               });
         </script>
     </changeSet>
 </mongoChangeLog>

@@ -1,7 +1,26 @@
 <mongoChangeLog>
     <changeSet changeId="ChangeSet-3" author="jhipster">
         <script>
-        
+          db.T_THREAD.insert(
+         {
+                 "_id" : "thread-0",
+                 "title" : "title of thread0",
+                 "description" : "description of thread0",
+                 "creationMoment": new Date(),
+                 "groupId" : "group-0",
+                 "userId" : "user-0",
+                 "message": ["message-0"]
+             });
+             db.T_THREAD.insert(
+            {
+                    "_id" : "thread-1",
+                    "title" : "title of thread1",
+                    "description" : "description of thread1",
+                    "creationMoment": new Date(),
+                    "groupId" : "group-1",
+                    "userId" : "user-4",
+                    "message": ["message-1"]
+                });
         </script>
     </changeSet>
 </mongoChangeLog>
