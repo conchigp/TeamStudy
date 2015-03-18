@@ -17,7 +17,7 @@ public class Archive {
 	private Date creationMoment;
 
 	@Min(0)
-	private Double size;
+	private Long size;
 
 	private String format;
 
@@ -28,6 +28,9 @@ public class Archive {
 	// Hace referencia al ID del usuario.
 	@NotNull
 	private String userId;
+
+	@NotNull
+	private Object gridId;
 
 	public String getTitle() {
 		return title;
@@ -45,11 +48,11 @@ public class Archive {
 		this.creationMoment = creationMoment;
 	}
 
-	public Double getSize() {
+	public Long getSize() {
 		return size;
 	}
 
-	public void setSize(Double size) {
+	public void setSize(Long size) {
 		this.size = size;
 	}
 
@@ -75,6 +78,14 @@ public class Archive {
 
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+
+	public Object getGridId() {
+		return gridId;
+	}
+
+	public void setGridId(Object gridId) {
+		this.gridId = gridId;
 	}
 
 	@Override

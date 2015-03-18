@@ -28,7 +28,7 @@ import com.teamstudy.myapp.service.GroupService;
 @RequestMapping("/api/groups")
 public class GroupResource {
 
-	private final Logger log = LoggerFactory.getLogger(UserResource.class);
+	private final Logger log = LoggerFactory.getLogger(GroupResource.class);
 
 	@Inject
 	private GroupRepository groupRepository;

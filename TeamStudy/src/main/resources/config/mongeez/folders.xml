@@ -1,7 +1,14 @@
 <mongoChangeLog>
     <changeSet changeId="ChangeSet-7" author="jhipster">
         <script>
-        
+         db.T_FOLDER.insert(
+        {
+                "_id" : "folder-0",
+                "title" : "folder0",
+                "creationMoment": new Date(),
+                "groupId" : "group-0",
+                "archives": []
+            });
         </script>
     </changeSet>
 </mongoChangeLog>
