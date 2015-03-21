@@ -6,5 +6,6 @@
 /.tmp
 npm-debug.log
 .editorconfig
-
+.jshintrc
+/bower_components
 
