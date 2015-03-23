@@ -3,8 +3,11 @@ body {
   background: #6AA6D6 url(../img/devoops_pattern_b10.png) 0 0 repeat;
 }
 #prueba {
-	margin: auto;
-	margin-top: -50px;
+/* 	border-bottom: medium; */
+/* 	bottom: 200px; */
+	margin-bottom: -50px;
+	padding-bottom: 0px;
+	border-collapse: collapse;	
 }
 .body-expanded, .modal-open {
   overflow-y:hidden;
@@ -22,7 +25,7 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 #logo {
   position:relative;
-  background: #525252 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  background: #ffffff url(../img/devoops_pattern_b10.png) 0 0 repeat;
 }
 #logo a {
   color: #fff;
@@ -92,7 +95,7 @@ a.show-sidebar:hover {
 }
 #content {
   position: relative;
-  z-index: 10;
+  z-index: 0;
   background: #ebebeb;
   box-shadow: 0 0 6px #131313;
   padding-bottom: 3000px !important;

@@ -1,5 +1,13 @@
 'use strict';
 
+var app = angular.module("register", ["ngResource"]);
+
+app.controller("register.controller", function (&scope, &http, dataResource){
+	&http.get('/api/register').success(funtion(data){
+		&scope.datos=data;
+	});
+})
+
 angular.module('teamstudyApp')
     .config(function ($stateProvider) {
         $stateProvider
