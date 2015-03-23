@@ -1,9 +1,11 @@
 package com.teamstudy.myapp.web.rest;
 
-import com.codahale.metrics.annotation.Timed;
-import com.teamstudy.myapp.domain.User;
-import com.teamstudy.myapp.repository.UserRepository;
-import com.teamstudy.myapp.security.AuthoritiesConstants;
+import java.util.List;
+
+import javax.annotation.security.RolesAllowed;
+import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
@@ -12,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.annotation.security.RolesAllowed;
-import javax.inject.Inject;
-import java.util.List;
-import javax.servlet.http.HttpServletResponse;
+import com.codahale.metrics.annotation.Timed;
+import com.teamstudy.myapp.domain.Group;
+import com.teamstudy.myapp.domain.User;
+import com.teamstudy.myapp.repository.UserRepository;
+import com.teamstudy.myapp.security.AuthoritiesConstants;
+import com.teamstudy.myapp.service.GroupService;
 
 /**
  * REST controller for managing users.
@@ -28,6 +32,9 @@ public class UserResource {
 
 	@Inject
 	private UserRepository userRepository;
+	
+	@Inject
+	private GroupService groupService;
 
 	/**
 	 * GET /users -> get all users.
@@ -53,5 +60,15 @@ public class UserResource {
 		}
 		return user;
 	}
+	
+	//Get groups for user (MIO)
+		@RequestMapping(value = "/user/{userId}/groups", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+		@Timed
+		@RolesAllowed(AuthoritiesConstants.USER)
+		public List<Group> getAllGroupForUSer(@PathVariable String userId,
+				HttpServletResponse response) {
+			log.debug("REST request to get all groups for user");
+			return groupService.getGroupsForUser(userId);
+		}
 
 }

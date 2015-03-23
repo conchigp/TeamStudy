@@ -6,12 +6,15 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,6 +26,7 @@ import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
 import com.teamstudy.myapp.service.GroupService;
+import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
 @RestController
 @RequestMapping("/api/groups")
@@ -180,5 +184,49 @@ public class GroupResource {
 			}
 		}
 	}
+	
+	 //create group.(MIO)
+    @RequestMapping(value = "/create", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+    @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<?> createGroup(@Valid @RequestBody GroupDTO groupDTO, HttpServletRequest request) {
+        Group group = groupRepository.findOneByName(groupDTO.getName());
+        if (group != null) {
+            return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).body("existing group");
+        } else {
+            group = groupService.createGroup(groupDTO.getName(), groupDTO.getDescription(), groupDTO.getTeacherId(), 
+            	    groupDTO.getAlums(), groupDTO.getWiki());
+
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
+    }
+    
+    //update the current group information (MIO)
+    @RequestMapping(value = "/update", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<String> updateGroup(@RequestBody GroupDTO groupDTO) {
+        Group group = groupRepository.findOneByName(groupDTO.getName());
+        if (group == null) {
+        	return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).body("nonexistent group");
+        }
+        groupService.updateGroupInformation(group.getId(), groupDTO.getName(), groupDTO.getDescription(), 
+        		groupDTO.getTeacherId(), groupDTO.getAlums(), groupDTO.getWiki());
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    
+    
+    //delete group (MIO)
+    @RequestMapping(value = "/delete//{groupId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+    @Timed
+    @RolesAllowed(AuthoritiesConstants.ADMIN)
+    public ResponseEntity<String> updateGroup(@PathVariable String groupId, HttpServletRequest request) {
+        Group group = groupRepository.findOneById(groupId);
+        if (group == null) {
+        	return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN).body("nonexistent group");
+        }
+        groupService.deleteGroup(groupId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

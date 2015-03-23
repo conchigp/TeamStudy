@@ -1,6 +1,7 @@
 package com.teamstudy.myapp.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
+import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 
@@ -63,5 +65,62 @@ public class GroupService {
 		}
 		return students;
 	}
+	
+public List<Group> getGroupsForUser(String userId){
+		
+		User user = userRepository.findOne(userId);
+		List<Group> groups = groupRepository.findAll();
+		List<Group> myGroups = new ArrayList<Group>();
+		
+		for (Group g : groups){
+			if(g.getAlums().contains(user.getId())){
+				myGroups.add(g);
+			}
+		}
+		
+		return myGroups;
+	}
+	
+	//MIO
+		public Group createGroup(String name, String description, String teacherId,
+				List<String> alums, Wiki wiki) {
+			Group newGroup = new Group();
+			
+			newGroup.setId("group-200");
+			newGroup.setAlums(alums);
+			newGroup.setCreationMoment(new Date(System.currentTimeMillis()));
+			newGroup.setName(name);
+			newGroup.setDescription(description);
+			newGroup.setTeacherId(teacherId);
+			newGroup.setWiki(wiki);
+
+			groupRepository.save(newGroup);
+			log.debug("Created Information for Group: {}", newGroup);
+			return newGroup;
+		}
+		
+		//MIO
+		public void updateGroupInformation(String groupId, String name, String description, String teacherId,
+				List<String> alums, Wiki wiki) {
+			Group group = groupRepository.findOne(groupId);
+			
+			group.setName(name);
+			group.setDescription(description);
+			group.setTeacherId(teacherId);
+			group.setAlums(alums);
+			group.setWiki(wiki);
+
+			groupRepository.save(group);
+			log.debug("Changed Information for Group: {}", group);
+		}
+		
+		//MIO
+		public void deleteGroup(String groupId){
+			Group group = groupRepository.findOne(groupId);
+			groupRepository.delete(group);
+		}
+		
+	
+
 
 }
