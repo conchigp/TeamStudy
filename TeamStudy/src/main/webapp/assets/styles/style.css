@@ -5,9 +5,7 @@ body {
 #prueba {
 /* 	border-bottom: medium; */
 /* 	bottom: 200px; */
-	margin-bottom: -50px;
-	padding-bottom: 0px;
-	border-collapse: collapse;	
+	
 }
 .body-expanded, .modal-open {
   overflow-y:hidden;
@@ -45,9 +43,12 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 .navbar {
   margin: 0;
+  margin-bottom: 0;
+  margin-top: 0px;
   border: 0;
   position: fixed;
   top:0;
+  bottom: 0px;
   left: 0;
   width:100%;
   -webkit-border-radius: 0;
