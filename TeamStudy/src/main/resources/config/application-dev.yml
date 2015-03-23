@@ -6,9 +6,10 @@ spring:
         active: dev
     data:
         mongodb:
-            host: localhost
-            port: 27017
+            host: teamstudy.me
+            port: 9090
             database: teamstudy
+            
 
     mail:
         baseUrl: http://localhost:8080

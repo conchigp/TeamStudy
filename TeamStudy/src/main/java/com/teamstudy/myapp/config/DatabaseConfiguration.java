@@ -4,6 +4,7 @@ package com.teamstudy.myapp.config;
 import javax.inject.Inject;
 
 import org.mongeez.Mongeez;
+import org.mongeez.MongoAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
@@ -63,6 +64,7 @@ public class DatabaseConfiguration extends AbstractMongoConfiguration  {
         Mongeez mongeez = new Mongeez();
         mongeez.setFile(new ClassPathResource("/config/mongeez/master.xml"));
         mongeez.setMongo(mongo);
+//        mongeez.setAuth(new MongoAuth(mongoProperties.getUsername(), new String(mongoProperties.getPassword())));
         mongeez.setDbName(mongoProperties.getDatabase());
         mongeez.process();
         return mongeez;

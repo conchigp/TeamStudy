@@ -86,7 +86,6 @@ public List<Group> getGroupsForUser(String userId){
 				List<String> alums, Wiki wiki) {
 			Group newGroup = new Group();
 			
-			newGroup.setId("group-200");
 			newGroup.setAlums(alums);
 			newGroup.setCreationMoment(new Date(System.currentTimeMillis()));
 			newGroup.setName(name);

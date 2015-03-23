@@ -3,22 +3,22 @@
 angular.module('teamstudyApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('register', {
-                parent: 'account',
-                url: '/register',
+            .state('group', {
+                parent: 'site',
+                url: '/group',
                 data: {
-                    roles: [],
-                    pageTitle: 'register.title'
+                    roles: ['ROLE_USER'],
+                    pageTitle: 'group.title'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/account/register/register.html',
-                        controller: 'RegisterController'
+                        templateUrl: 'scripts/app/group/group.html',
+                        controller: 'GroupController'
                     }
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('register');
+                        $translatePartialLoader.addPart('group');
                         return $translate.refresh();
                     }]
                 }
