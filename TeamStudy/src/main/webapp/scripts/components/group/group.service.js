@@ -2,14 +2,15 @@
 
 angular.module('teamstudyApp')
     .factory('Group', function ($resource) {
-        return $resource('api/user/', {}, {
-                'query': {method: 'GET', isArray: true},
-                'get': {
-                    method: 'GET',
-                    transformResponse: function (data) {
-                        data = angular.fromJson(data);
-                        return data;
+        return $resource('api/user/:id/groups', {}, {
+        	'get': { method: 'GET', params: {}, isArray: true,
+                interceptor: {
+                    response: function(response) {
+                        // expose response
+                        return response;
                     }
                 }
-            });
+            }
+          
+        });
         });

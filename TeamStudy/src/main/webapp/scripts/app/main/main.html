@@ -6,88 +6,28 @@
 	<div id="main" class="container-fluid" style="margin-top: -15px">
 		<div class="row">
 			<div id="sidebar-left" class="col-xs-2 col-sm-2">
-				<ul class="nav main-menu">
-					<li><a href="ajax/dashboard.html" class="active ajax-link">
-							<i class="fa fa-dashboard"></i> <span class="hidden-xs">GROUPS</span>
-					</a></li>
-				</ul>
-
-				<!--  buscador -->
-
-				<div class="col-ln-2">
-					<div class="box2">
-						<div class="box-header2">
-
-							<form class="navbar-form navbar-left" role="search">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Search">
-								</div>
-								
-								<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
-<!-- 								<button type="submit" class="btn btn-default">Submit</button> -->
-							</form>
-
-<!-- 							<div class="col-xs-8 col-ln-4"> -->
-<!-- 								<a href="#" class="show-sidebar"> <i class="fa fa-bars"></i> -->
-<!-- 								</a> -->
-<!-- 								<div id="search"> -->
-<!-- 									<input type="text" placeholder="search" /> <i -->
-<!-- 										class="fa fa-search"></i> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-						</div>
-					</div>
+				<div class="page-header">
+					<h2>Tus Grupos</h2>
 				</div>
+				<div class=list-group>
 
-
-				<!--  grupos -->
-
-				<div class="col-ln-2">
-					<div class="box">
+					<a ng-repeat="group in groups">
+					<div class = "box">
 						<div class="box-header">
-							<div class="box-name">
-								<i class="fa fa-user"></i> <span>Manager</span>
-							</div>
-							<div class="box-icons">
-								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-								<span class="glyphicon glyphicon-cloud-upload" aria-hidden="true"></span>
-								<span class="glyphicon glyphicon-menu-down" aria-hidden="true"></span>
-								
-							 	
-							 	
-							 	
-							 	<a class="close-link"> <i class="fa fa-times"></i></a>
-							</div>
-							<div class="no-move"></div>
+							<div class = "box-name"> <b>{{group.name}}</b></div>
 						</div>
 						<div class="box-content">
-							<div class="card">
-								<h4 class="page-header">Jonh Smith</h4>
-								<h5 class="page-header">Manager</h5>
-								<p>
-									<span>+1 (123) 434-123445</span> <br> <a
-										href="mailto:john@company.com">john@company.com</a>
-								</p>
-								<span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-							</div>
-							<div class="card address">
-								<div class="vcard">
-									<a href="#"><i class="fa fa-file"></i>.vCard</a>
-								</div>
-								<h4>Adress:</h4>
-								<p>
-									<span>123456, Silicon walley</span> <br> <span>str.
-										Nonest. building 33</span>
-								</p>
-							</div>
+							<p>{{group.description}}</p>
+							<footer>{{group.creationMoment | date: "dd-MM-yyyy" }}</footer>
 						</div>
-					</div>
+						 </div>
+					</a>
 				</div>
-
 			</div>
 
 			<!--Start Content-->
 			<div id="content" class="col-xs-10 col-sm-8">
+
 				<div class="btn-group btn-group-justified" role="group"
 					aria-label="...">
 					<div class="btn-group" role="group">

@@ -1,6 +1,9 @@
 'use strict';
 
 angular.module('teamstudyApp')
-    .controller('GroupController', function ($scope, Group) {
+    .controller('GroupController', function ($stateParams,$scope,Groups,Principal) {
+    	
+
+
        
         });

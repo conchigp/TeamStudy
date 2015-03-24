@@ -14,6 +14,16 @@ public class UserDTO {
 	@Size(min = 1, max = 50)
 	private String login;
 
+	private String id;
+	
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@NotNull
 	@Size(min = 5, max = 100)
 	private String password;
@@ -38,8 +48,9 @@ public class UserDTO {
 	public UserDTO() {
 	}
 
-	public UserDTO(String login, String password, String firstName,
+	public UserDTO(String id,String login, String password, String firstName,
 			String lastName, String email, String langKey, List<String> roles, boolean isTeacher) {
+		this.id = id;
 		this.login = login;
 		this.password = password;
 		this.firstName = firstName;

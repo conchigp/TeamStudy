@@ -7,7 +7,7 @@ angular.module('teamstudyApp')
                 parent: 'site',
                 url: '/group',
                 data: {
-                    roles: ['ROLE_USER'],
+                    roles: [],
                     pageTitle: 'group.title'
                 },
                 views: {
