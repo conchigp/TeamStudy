@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_NEW")
-public class New extends AbstractAuditingEntity implements Serializable {
+public class New implements Serializable {
 	
 	@Id
     private String id;

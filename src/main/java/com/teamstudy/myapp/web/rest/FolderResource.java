@@ -1,10 +1,14 @@
 package com.teamstudy.myapp.web.rest;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
@@ -21,6 +25,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.teamstudy.myapp.domain.Folder;
 import com.teamstudy.myapp.domain.Group;
+import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.repository.FolderRepository;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
@@ -64,13 +69,20 @@ public class FolderResource {
 						.body("This folder does not exist");
 			} else {
 				Group group = groupRepository.findOne(folder.getGroupId());
-				String userId = userRepository.findOneByLogin(
-						SecurityUtils.getCurrentLogin()).getId();
-				if (!group.getAlums().contains(userId)) {
+				User user = userRepository.findOneByLogin(SecurityUtils
+						.getCurrentLogin());
+				if (!user.isTeacher()
+						&& !group.getAlums().contains(user.getId())) {
 					return ResponseEntity
 							.badRequest()
 							.contentType(MediaType.TEXT_PLAIN)
-							.body("You do not have permission to upload files to this group");
+							.body("You do not have permission to upload files to this group(U)");
+				} else if (user.isTeacher()
+						&& !group.getTeacherId().equals(user.getId())) {
+					return ResponseEntity
+							.badRequest()
+							.contentType(MediaType.TEXT_PLAIN)
+							.body("You do not have permission to upload files to this group(T)");
 				} else {
 					File file = new File(filePath);
 					folderService.addArchive(file, folderId);
@@ -84,8 +96,8 @@ public class FolderResource {
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> downloadFileFromFolder(
-			@PathVariable String folderId, @PathVariable String gridId, String downloadPath,
-			HttpServletRequest request) throws Exception {
+			@PathVariable String folderId, @PathVariable String gridId,
+			HttpServletResponse response) throws Exception, IOException {
 		Folder folder = folderRepository.findOne(folderId);
 		if (folder == null) {
 			return ResponseEntity.badRequest()
@@ -93,13 +105,19 @@ public class FolderResource {
 					.body("This folder does not exist");
 		} else {
 			Group group = groupRepository.findOne(folder.getGroupId());
-			String userId = userRepository.findOneByLogin(
-					SecurityUtils.getCurrentLogin()).getId();
-			if (!group.getAlums().contains(userId)) {
+			User user = userRepository.findOneByLogin(SecurityUtils
+					.getCurrentLogin());
+			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
 				return ResponseEntity
 						.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to download files from this group");
+						.body("You do not have permission to upload files to this group(U)");
+			} else if (user.isTeacher()
+					&& !group.getTeacherId().equals(user.getId())) {
+				return ResponseEntity
+						.badRequest()
+						.contentType(MediaType.TEXT_PLAIN)
+						.body("You do not have permission to upload files to this group(T)");
 			} else {
 				ObjectId id = new ObjectId(gridId);
 				GridFSDBFile file = folderService.downloadFile(id);
@@ -108,13 +126,21 @@ public class FolderResource {
 							.contentType(MediaType.TEXT_PLAIN)
 							.body("The file does not exist");
 				} else {
-					if(downloadPath == null){
-						return ResponseEntity.badRequest()
-								.contentType(MediaType.TEXT_PLAIN)
-								.body("Download path is required");
-					}else{
-						return ResponseEntity.ok("Downloading");
+					response.setHeader("Content-Disposition","attachment;filename=" + file.getFilename());
+					try{
+						InputStream fileIn = file.getInputStream();
+						ServletOutputStream out = response.getOutputStream();
+						byte[] outputByte = new byte[4096];
+						while (fileIn.read(outputByte, 0, 4096) != -1) {
+							out.write(outputByte, 0, 4096);
+						}
+						fileIn.close();
+						out.flush();
+						out.close();
+					}catch(Exception e){
+						e.printStackTrace();
 					}
+					return ResponseEntity.ok("Downloading");
 				}
 			}
 		}

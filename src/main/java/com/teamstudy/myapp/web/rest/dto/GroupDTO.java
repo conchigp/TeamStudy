@@ -10,7 +10,7 @@ import com.teamstudy.myapp.domain.Wiki;
 
 public class GroupDTO {
 
-	@Id
+	
 	private String id;
 
 	@NotNull
