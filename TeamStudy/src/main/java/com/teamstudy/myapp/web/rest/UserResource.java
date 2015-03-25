@@ -3,6 +3,7 @@ package com.teamstudy.myapp.web.rest;
 import java.net.URISyntaxException;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,10 +41,10 @@ public class UserResource {
 
 	@Inject
 	private UserRepository userRepository;
-	
+
 	@Inject
 	private GroupService groupService;
-	
+
 	@Inject
 	private GroupRepository groupRepository;
 
@@ -70,52 +72,64 @@ public class UserResource {
 		}
 		return user;
 	}
-	
-	//Get groups for user (MIO)
-		@RequestMapping(value = "/users/{userId}/groups", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-		@Timed
-		@RolesAllowed(AuthoritiesConstants.USER)
-		public List<Group> getAllGroupForUSer(@PathVariable String userId,
-				HttpServletResponse response) {
-			log.debug("REST request to get all groups for user");
-			return groupService.getGroupsForUser(userId);
+
+	// Get groups for user (MIO)
+	@RequestMapping(value = "/users/{userId}/groups", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public List<Group> getAllGroupForUSer(@PathVariable String userId,
+			HttpServletResponse response) {
+		log.debug("REST request to get all groups for user");
+		return groupService.getGroupsForUser(userId);
+	}
+
+	// create group.(MIO)
+	@RequestMapping(value = "/users/groups", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public ResponseEntity<?> createGroup(@Valid @RequestBody Group group) {
+		if (group.getId() != null) {
+			return ResponseEntity.badRequest()
+					.header("Failure", "A new group cannot already have an ID")
+					.build();
+		} else {
+
+			groupService.createGroup(group);
+
+			return new ResponseEntity<>(HttpStatus.CREATED);
 		}
-		
-		//create group.(MIO)
-	    @RequestMapping(value = "/users/groups", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	    @Timed
-	    @RolesAllowed(AuthoritiesConstants.ADMIN)
-	    public ResponseEntity<?> createGroup(@Valid @RequestBody Group group) {
-//	        Group group2 = groupRepository.findOneById(group.getId());
-	        if (group.getId() != null) {
-	            return ResponseEntity.badRequest().header("Failure", "A new group cannot already have an ID").build();
-	        } else {
-//	            groupService.createGroup(groupDTO.getName(), groupDTO.getDescription(), groupDTO.getTeacherId(), 
-//	            	    groupDTO.getAlums(), groupDTO.getWiki());
-	        	
-	        	
-	        	group.setCreationMoment(new Date(System.currentTimeMillis()));
-	        	groupRepository.save(group);
+	}
 
-	            return new ResponseEntity<>(HttpStatus.CREATED);
-	        }
-	    }
-
-		// update the current group information (MIO)
-		@RequestMapping(value = "/users/groups", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-		@Timed
-		@RolesAllowed(AuthoritiesConstants.ADMIN)
-		public ResponseEntity<?> updateGroup(@RequestBody Group group) throws URISyntaxException{
-			log.debug("REST request to update Group : {}", group);
-//			Group group2 = groupRepository.findOneById(group.getId());
-			if (group.getId() == null) {
-				return createGroup(group);
-			}
-//			groupService.updateGroupInformation(group.getId(), groupDTO.getName(),
-//					groupDTO.getDescription(), groupDTO.getTeacherId(),
-//					groupDTO.getAlums(), groupDTO.getWiki());
-			groupRepository.save(group);
-			return new ResponseEntity<>(HttpStatus.OK);
+	// update the current group information (MIO)
+	@RequestMapping(value = "/users/groups", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public ResponseEntity<?> updateGroup(@Valid @RequestBody Group group)
+			throws URISyntaxException {
+		log.debug("REST request to update Group : {}", group);
+		if (group.getId() == null) {
+			return createGroup(group);
 		}
 
+		groupService.updateGroupInformation(group);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
+	/**
+	 * GET /books/:id -> get the "id" book.
+	 */
+	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	public ResponseEntity<Group> get(@PathVariable String id) {
+		log.debug("REST request to get Book : {}", id);
+
+		Group group = groupRepository.findOne(id);
+
+		if (group != null) {
+			return new ResponseEntity<>(group, HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+
+	}
 }

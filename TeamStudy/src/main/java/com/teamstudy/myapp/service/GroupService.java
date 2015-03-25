@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
@@ -83,32 +84,32 @@ public List<Group> getGroupsForUser(String userId){
 	}
 	
 //MIO
-		public Group createGroup(String name, String description, String teacherId,
-				List<String> alums, Wiki wiki) {
-			Group newGroup = new Group();
+		public void createGroup(Group group){ 
 			
-			newGroup.setAlums(alums);
-			newGroup.setCreationMoment(new Date(System.currentTimeMillis()));
-			newGroup.setName(name);
-			newGroup.setDescription(description);
-			newGroup.setTeacherId(teacherId);
-			newGroup.setWiki(wiki);
-
-			groupRepository.save(newGroup);
-			log.debug("Created Information for Group: {}", newGroup);
-			return newGroup;
+			List<String> alums = new ArrayList<String>();
+		    Wiki wiki = new Wiki();
+		    
+		    group.setTeacherId(null);
+		    group.setAlums(alums);
+		    group.setWiki(wiki);
+		    group.setCreationMoment(new Date(System.currentTimeMillis()));
+		    
+			groupRepository.save(group);
+			log.debug("Created Information for Group: {}", group);
+			
 		}
 		
 		//MIO
-		public void updateGroupInformation(String groupId, String name, String description, String teacherId,
-				List<String> alums, Wiki wiki) {
-			Group group = groupRepository.findOne(groupId);
+		public void updateGroupInformation(Group group) {
 			
-			group.setName(name);
-			group.setDescription(description);
-			group.setTeacherId(teacherId);
-			group.setAlums(alums);
-			group.setWiki(wiki);
+			
+			Assert.notNull(group);
+			
+			group.setName(group.getName());
+			group.setDescription(group.getDescription());
+			group.setTeacherId(group.getTeacherId());
+			group.setAlums(group.getAlums());
+			group.setWiki(group.getWiki());
 
 			groupRepository.save(group);
 			log.debug("Changed Information for Group: {}", group);
