@@ -35,6 +35,17 @@ public class GroupDTO {
 		this.alums = alums;
 		this.wiki = wiki;
 	}
+	
+	public GroupDTO(String name, String description,
+			String teacherId, List<String> alums, Wiki wiki) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.teacherId = teacherId;
+		this.alums = alums;
+		this.wiki = wiki;
+	}
+
 
 	public String getName() {
 		return name;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
@@ -26,6 +27,7 @@ import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
 import com.teamstudy.myapp.service.GroupService;
+import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
 /**
  * REST controller for managing users.
@@ -97,19 +99,20 @@ public class UserResource {
 		}
 	}
 
-	// update the current group information (MIO)
-	@RequestMapping(value = "/users/groups", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	// update group information (MIO)
+	@RequestMapping(value = "/groups/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> updateGroup(@Valid @RequestBody Group group)
-			throws URISyntaxException {
-		log.debug("REST request to update Group : {}", group);
-		if (group.getId() == null) {
-			return createGroup(group);
+	public ResponseEntity<?> updateGroup(@Valid @RequestBody GroupDTO groupDTO,@PathVariable String id, HttpServletRequest request) {
+		log.debug("REST request to update Group : {}", groupDTO);
+		if (groupDTO.getId() == null) {
+			return ResponseEntity.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
+					.body("This group does not exist");
+			
 		}
-
-		groupService.updateGroupInformation(group);
-		return new ResponseEntity<>(HttpStatus.OK);
+		groupService.updateGroupInformation(groupDTO,id);
+		return ResponseEntity.ok("group update");
 	}
 
 	/**

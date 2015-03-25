@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.neo4j.cypher.internal.compiler.v2_1.planner.logical.findShortestPaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
+import com.teamstudy.myapp.web.rest.GroupResource;
 import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
 
@@ -100,16 +102,18 @@ public List<Group> getGroupsForUser(String userId){
 		}
 		
 		//MIO
-		public void updateGroupInformation(Group group) {
+		public void updateGroupInformation(GroupDTO groupDTO,String id) {
 			
 			
-			Assert.notNull(group);
+			Assert.notNull(groupDTO);
 			
-			group.setName(group.getName());
-			group.setDescription(group.getDescription());
-			group.setTeacherId(group.getTeacherId());
-			group.setAlums(group.getAlums());
-			group.setWiki(group.getWiki());
+			Group group = groupRepository.findOneById(id);
+			
+			group.setName(groupDTO.getName());
+			group.setDescription(groupDTO.getDescription());
+			group.setTeacherId(groupDTO.getTeacherId());
+			group.setAlums(groupDTO.getAlums());
+			group.setWiki(groupDTO.getWiki());
 
 			groupRepository.save(group);
 			log.debug("Changed Information for Group: {}", group);
