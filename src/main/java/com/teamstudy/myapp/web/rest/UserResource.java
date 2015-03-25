@@ -115,6 +115,21 @@ public class UserResource {
 		return ResponseEntity.ok("group update");
 	}
 
+	// update the current group information (MIO)
+	@RequestMapping(value = "/users/groups/{groupId}/wiki", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public ResponseEntity<?> updateGroupWiki(@PathVariable String groupId,
+			@Valid @RequestBody Group group) throws URISyntaxException {
+		log.debug("REST request to update Group : {}", group);
+		if (group.getId() == null) {
+			return createGroup(group);
+		}
+
+		groupService.updateGroupInformation(group);
+		return new ResponseEntity<>(HttpStatus.OK);
+	}
+
 	/**
 	 * GET /books/:id -> get the "id" book.
 	 */
