@@ -1,0 +1,172 @@
+<div ng-cloak>
+	<!-- Start Header -->
+
+	<!-- End Header -->
+	<!--Start Container-->
+	<div id="main" class="container-fluid" style="margin-top: -15px">
+		<div class="row">
+			<div id="sidebar-left" class="col-xs-2 col-sm-2">
+				<div class="page-header">
+					<h2>Tus Grupos</h2>
+					<button class="" data-toggle="modal" data-target="#saveBookModal"
+						ng-click="clear()">
+						<a class="close-link">
+							<h6>
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</h6>
+						</a>
+					</button>
+					<div class="modal fade" id="saveBookModal" tabindex="-1"
+						role="dialog" aria-labelledby="myBookLabel" aria-hidden="true"
+						style="display: none;">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form name="editForm" role="form" novalidate=""
+									ng-submit="create()" show-validation=""
+									class="ng-valid ng-pristine">
+
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true" ng-click="clear()">×</button>
+										<h4 class="modal-title ng-scope" id="myGroupLabel"
+											translate="">Crear o editar un grupo</h4>
+									</div>
+									<div class="modal-body">
+										<div class="form-group">
+											<label translate="" class="ng-scope">Nombre</label> <input
+												type="text"
+												class="form-control ng-valid ng-pristine ng-untouched"
+												name="name" ng-model="group.name">
+
+											<div ng-show="editForm.name.$invalid" class="ng-hide">
+											</div>
+										</div>
+										<div class="form-group">
+											<label translate="" class="ng-scope">Descripcion</label> <input
+												type="text"
+												class="form-control ng-valid ng-pristine ng-untouched"
+												name="description" ng-model="group.description">
+
+											<div ng-show="editForm.description.$invalid" class="ng-hide">
+											</div>
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal" ng-click="clear()">
+											<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+												translate="entity.action.cancel" class="ng-scope">Cancel</span>
+										</button>
+										<button type="submit" ng-disabled="editForm.$invalid"
+											class="btn btn-primary">
+											<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+												translate="entity.action.save" class="ng-scope">Save</span>
+										</button>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				<div class="list-group">
+
+					<a ng-repeat="group in groups">
+						<div class="box">
+							<div class="box-header">
+								<div class="box-name">
+									<b>{{group.name}}</b>
+								</div>
+								<div class="box-icons">
+									<a>
+									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span>
+									</a>
+								</div>
+							</div>
+							<div class="box-content">
+								<p>{{group.description}}</p>
+								<footer>{{group.creationMoment | date: "dd-MM-yyyy" }}</footer>
+							</div>
+						</div>
+					</a>
+				</div>
+
+				<!-- 				<div class="box"> -->
+				<!-- 					<div class="box-header"> -->
+				<!-- 						<div class="box-name"> -->
+				<!-- 							<b>{{group.name}}</b> -->
+				<!-- 						</div> -->
+				<!-- 						<div class="box-icons"> -->
+				<!-- 							<a class="collapse-link"> <i class="fa fa-chevron-up"></i> -->
+				<!-- 							</a> <a class="expand-link"> <i class="fa fa-expand"></i> -->
+				<!-- 							</a> <a class="close-link"> <i class="fa fa-times"></i> -->
+				<!-- 							</a> -->
+				<!-- 						</div> -->
+				<!-- 						<div class="no-move"></div> -->
+				<!-- 					</div> -->
+				<!-- 					<div class="box-content" style="display: block;"> -->
+				<!-- 						<p>{{group.description}}</p> -->
+				<!-- 						<footer>{{group.creationMoment | date: "dd-MM-yyyy" }}</footer> -->
+				<!-- 					</div> -->
+				<!-- 				</div> -->
+
+
+
+
+			</div>
+
+			<!--Start Content-->
+			<div id="content" class="col-xs-10 col-sm-8">
+
+				<div class="btn-group btn-group-justified" role="group"
+					aria-label="...">
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default">Wiki</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default">Repository</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default">Forum</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default">Chat</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button type="button" class="btn btn-default">Dashboard</button>
+					</div>
+				</div>
+				<div id="contentInfo" class="">Prueba para el contenido
+					principal de la web.</div>
+			</div>
+
+			<!--End Content-->
+
+			<div id="sidebar-right" class="col-xs-2 col-sm-2">
+				<div id="firstTable" class="">
+					<ul class="nav main-menu">
+						<li><a href="ajax/dashboard.html" class="active ajax-link">
+								<i class="fa fa-dashboard"></i> <span class="hidden-xs">GROUPS</span>
+						</a>
+							<div id="infoFirstTable" class="">
+								<p>
+									PRUEBA <br /> PRUEBA
+								</p>
+							</div></li>
+					</ul>
+				</div>
+				<div id="secondTable" class="">
+					<ul class="nav main-menu">
+						<li><a href="" class="active ajax-link"> <i class=""></i><span
+								class="">CHAT</span>
+						</a></li>
+					</ul>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!--End Container-->
+
+</div>
