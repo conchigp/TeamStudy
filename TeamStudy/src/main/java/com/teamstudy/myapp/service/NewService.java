@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.teamstudy.myapp.domain.New;
 import com.teamstudy.myapp.repository.NewRepository;
 import com.teamstudy.myapp.repository.UserRepository;
+import com.teamstudy.myapp.web.rest.dto.NewsDTO;
 
 
 
@@ -25,14 +26,15 @@ public class NewService {
 	@Inject
 	private UserRepository userRepository;
 	
-	public void createNew(New noticia,String groupId){
+	public void createNew(NewsDTO noticia,String groupId){
 	    
-		noticia.setCreationMoment(new Date(System.currentTimeMillis()));
-	    noticia.setDescription("");
-	    noticia.setTitle("");
-	    noticia.setGroupId(groupId);
+		New news = new New();
+		news.setCreationMoment(new Date(System.currentTimeMillis()));
+		news.setDescription(noticia.getDescription());
+		news.setTitle(noticia.getTitle());
+		news.setGroupId(groupId);
 
-	    newRepository.save(noticia);
+	    newRepository.save(news);
 	    
 	    log.debug("Changed new: {}", noticia);
 	}
