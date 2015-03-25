@@ -7,20 +7,20 @@ angular.module('teamstudyApp')
                 parent: 'site',
                 url: '/wiki',
                 data: {
-                    roles: ['ROLE_USER', 'ROLE_ADMIN'],
+                    roles: [],
                     pageTitle: 'Wiki'
                 },
                 views: {
-                    'toolsContent@': {
+                    'wiki@': {
                         templateUrl: 'scripts/app/wiki/wiki.html',
                         controller: 'WikiController'
                     }
-                },
-                resolve: {
-                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('wiki');
-                        return $translate.refresh();
-                    }]
                 }
+//                resolve: {
+//                    translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
+//                        $translatePartialLoader.addPart('wiki');
+//                        return $translate.refresh();
+//                    }]
+//                }
             });
     });

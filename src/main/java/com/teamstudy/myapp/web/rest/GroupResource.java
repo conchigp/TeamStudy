@@ -243,25 +243,25 @@ public class GroupResource {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	/**
-	 * GET /group/wiki:groupId -> get the "wiki" by groupId.
-	 */
-	@RequestMapping(value = "/groups/{groupId}/wiki", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.USER)
-	public Wiki getWiki(@PathVariable String groupId,
-			HttpServletResponse response) {
-		log.debug("REST request to get Wiki of the group with id: ", groupId);
-		Group group = groupRepository.findOneById(groupId);
-		if (group == null) {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		}
-		Wiki wiki = group.getWiki();
-		if (wiki == null) {
-			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-		}
-		return wiki;
-	}
+//	/**
+//	 * GET /group/wiki:groupId -> get the "wiki" by groupId.
+//	 */
+//	@RequestMapping(value = "/groups/{groupId}/wiki", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+//	@Timed
+//	@RolesAllowed(AuthoritiesConstants.USER)
+//	public Wiki getWiki(@PathVariable String groupId,
+//			HttpServletResponse response) {
+//		log.debug("REST request to get Wiki of the group with id: ", groupId);
+//		Group group = groupRepository.findOneById(groupId);
+//		if (group == null) {
+//			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//		}
+//		Wiki wiki = group.getWiki();
+//		if (wiki == null) {
+//			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+//		}
+//		return wiki;
+//	}
 
 
 }

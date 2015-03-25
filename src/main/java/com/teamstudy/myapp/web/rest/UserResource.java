@@ -127,21 +127,4 @@ public class UserResource {
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 
-	/**
-	 * GET /books/:id -> get the "id" book.
-	 */
-	@RequestMapping(value = "/books/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	public ResponseEntity<Group> get(@PathVariable String id) {
-		log.debug("REST request to get Book : {}", id);
-
-		Group group = groupRepository.findOne(id);
-
-		if (group != null) {
-			return new ResponseEntity<>(group, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-
-	}
 }
