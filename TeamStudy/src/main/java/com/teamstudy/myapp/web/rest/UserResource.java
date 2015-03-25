@@ -1,9 +1,7 @@
 package com.teamstudy.myapp.web.rest;
 
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
-import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
