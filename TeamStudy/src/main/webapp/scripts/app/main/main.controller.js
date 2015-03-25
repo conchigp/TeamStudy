@@ -32,5 +32,12 @@ angular.module('teamstudyApp').controller('MainController',
 	            $scope.editForm.$setPristine();
 	            $scope.editForm.$setUntouched();
 	        };
+	        
+	        $scope.update = function (id) {
+	            Group.get({id: id}, function(result) {
+	                $scope.group = result;
+	                $('#saveBookModal').modal('show');
+	            });
+	        };
 
 		});
