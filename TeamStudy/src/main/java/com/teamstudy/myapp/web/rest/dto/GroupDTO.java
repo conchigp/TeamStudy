@@ -4,9 +4,14 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
+import org.springframework.data.annotation.Id;
+
 import com.teamstudy.myapp.domain.Wiki;
 
 public class GroupDTO {
+
+	@Id
+	private String id;
 
 	@NotNull
 	private String name;
@@ -20,8 +25,10 @@ public class GroupDTO {
 
 	private Wiki wiki;
 
-	public GroupDTO(String name, String description, String teacherId,
-			List<String> alums, Wiki wiki) {
+	public GroupDTO(String id, String name, String description,
+			String teacherId, List<String> alums, Wiki wiki) {
+		super();
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.teacherId = teacherId;
@@ -49,10 +56,19 @@ public class GroupDTO {
 		return wiki;
 	}
 
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	@Override
 	public String toString() {
-		return "GroupDTO{" + "name='" + name + '\'' + ", description='"
-				+ description + '\'' + ", teacherId='" + teacherId + '\''
-				+ ", alums='" + alums + '\'' + ", wiki='" + wiki + '}';
+		return "GroupDTO [id=" + id + ", name=" + name + ", description="
+				+ description + ", teacherId=" + teacherId + ", alums=" + alums
+				+ ", wiki=" + wiki + "]";
 	}
+
 }

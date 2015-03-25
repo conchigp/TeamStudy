@@ -15,6 +15,7 @@ import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
+import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
 
 @Service
@@ -81,7 +82,7 @@ public List<Group> getGroupsForUser(String userId){
 		return myGroups;
 	}
 	
-	//MIO
+//MIO
 		public Group createGroup(String name, String description, String teacherId,
 				List<String> alums, Wiki wiki) {
 			Group newGroup = new Group();

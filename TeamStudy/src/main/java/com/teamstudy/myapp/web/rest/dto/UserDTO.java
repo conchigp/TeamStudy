@@ -60,6 +60,18 @@ public class UserDTO {
 		this.roles = roles;
 		this.isTeacher = isTeacher;
 	}
+	
+	public UserDTO(String login, String password, String firstName,
+			String lastName, String email, String langKey, List<String> roles, boolean isTeacher) {
+		this.login = login;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.langKey = langKey;
+		this.roles = roles;
+		this.isTeacher = isTeacher;
+	}
 
 	public String getPassword() {
 		return password;
