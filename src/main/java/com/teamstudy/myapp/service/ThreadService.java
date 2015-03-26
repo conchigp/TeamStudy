@@ -1,6 +1,6 @@
 package com.teamstudy.myapp.service;
 
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import com.teamstudy.myapp.domain.Thread;
-import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.repository.ThreadRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.SecurityUtils;
@@ -36,11 +35,9 @@ public class ThreadService {
 	/* POST Methods */
 	
 	public Thread create(ThreadDTO threadDTO, String groupId){
-		Calendar currentDate = Calendar.getInstance();
-		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		Thread thread = new Thread();
-		thread.setUserId(user.getId());
-		thread.setCreationMoment(currentDate.getTime());
+		thread.setUserId(userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).getId());
+		thread.setCreationMoment(new Date());
 		thread.setDescription(threadDTO.getDescription());
 		thread.setGroupId(groupId);
 		thread.setTitle(threadDTO.getTitle());

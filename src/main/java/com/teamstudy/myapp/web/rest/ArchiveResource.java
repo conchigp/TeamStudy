@@ -11,8 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -35,9 +33,7 @@ import com.teamstudy.myapp.service.FolderService;
 
 @RestController
 @RequestMapping("/api")
-public class FolderResource {
-
-	private final Logger log = LoggerFactory.getLogger(FolderResource.class);
+public class ArchiveResource {
 
 	@Inject
 	private FolderService folderService;
@@ -51,12 +47,12 @@ public class FolderResource {
 	@Inject
 	private UserRepository userRepository;
 
-	@RequestMapping(value = "folders/{folderId}/add", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> addFileToFolder(@PathVariable String folderId,
-			@RequestParam String filePath, HttpServletRequest request)
-			throws Exception {
+	public ResponseEntity<?> upload(@PathVariable String folderId,
+			@RequestParam("filePath") String filePath,
+			HttpServletRequest request) throws Exception {
 		Folder folder = folderRepository.findOne(folderId);
 		if (filePath == null) {
 			return ResponseEntity.badRequest()
@@ -92,12 +88,13 @@ public class FolderResource {
 		}
 	}
 
-	@RequestMapping(value = "folders/{folderId}/download/{gridId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> downloadFileFromFolder(
-			@PathVariable String folderId, @PathVariable String gridId,
-			HttpServletResponse response) throws Exception, IOException {
+	public ResponseEntity<?> download(
+			@PathVariable String folderId,
+			@RequestParam("gridId") String gridId, HttpServletResponse response)
+			throws Exception, IOException {
 		Folder folder = folderRepository.findOne(folderId);
 		if (folder == null) {
 			return ResponseEntity.badRequest()
@@ -126,8 +123,9 @@ public class FolderResource {
 							.contentType(MediaType.TEXT_PLAIN)
 							.body("The file does not exist");
 				} else {
-					response.setHeader("Content-Disposition","attachment;filename=" + file.getFilename());
-					try{
+					response.setHeader("Content-Disposition",
+							"attachment;filename=" + file.getFilename());
+					try {
 						InputStream fileIn = file.getInputStream();
 						ServletOutputStream out = response.getOutputStream();
 						byte[] outputByte = new byte[4096];
@@ -137,7 +135,7 @@ public class FolderResource {
 						fileIn.close();
 						out.flush();
 						out.close();
-					}catch(Exception e){
+					} catch (Exception e) {
 						e.printStackTrace();
 					}
 					return ResponseEntity.ok("Downloading");
