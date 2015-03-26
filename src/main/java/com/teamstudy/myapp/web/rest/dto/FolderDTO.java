@@ -3,11 +3,13 @@ package com.teamstudy.myapp.web.rest.dto;
 import javax.validation.constraints.NotNull;
 
 public class FolderDTO {
-	
+
 	private String id;
-	
+
 	@NotNull
 	private String title;
+
+	private String groupId;
 
 	public FolderDTO(String id, String title) {
 		this.id = id;
@@ -38,6 +40,14 @@ public class FolderDTO {
 		this.title = title;
 	}
 
+	public String getGroupId() {
+		return groupId;
+	}
+
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -65,10 +75,7 @@ public class FolderDTO {
 
 	@Override
 	public String toString() {
-		return "FolderDTO [id='" + id + '\'' + ", title='" + title + '\'' + "]";
+		return "FolderDTO [id='" + id + '\'' + ", title='" + title + '\'' + ", groupId='" + groupId + '\'' + "]";
 	}
-	
-	
-	
 
 }

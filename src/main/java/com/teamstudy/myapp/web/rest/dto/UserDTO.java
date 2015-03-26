@@ -15,7 +15,7 @@ public class UserDTO {
 	private String login;
 
 	private String id;
-	
+
 	public String getId() {
 		return id;
 	}
@@ -48,8 +48,9 @@ public class UserDTO {
 	public UserDTO() {
 	}
 
-	public UserDTO(String id,String login, String password, String firstName,
-			String lastName, String email, String langKey, List<String> roles, boolean isTeacher) {
+	public UserDTO(String id, String login, String password, String firstName,
+			String lastName, String email, String langKey, List<String> roles,
+			boolean isTeacher) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
@@ -60,9 +61,10 @@ public class UserDTO {
 		this.roles = roles;
 		this.isTeacher = isTeacher;
 	}
-	
+
 	public UserDTO(String login, String password, String firstName,
-			String lastName, String email, String langKey, List<String> roles, boolean isTeacher) {
+			String lastName, String email, String langKey, List<String> roles,
+			boolean isTeacher) {
 		this.login = login;
 		this.password = password;
 		this.firstName = firstName;
@@ -110,6 +112,7 @@ public class UserDTO {
 		return "UserDTO{" + "login='" + login + '\'' + ", password='"
 				+ password + '\'' + ", firstName='" + firstName + '\''
 				+ ", lastName='" + lastName + '\'' + ", email='" + email + '\''
-				+ ", langKey='" + langKey + '\'' + ", roles=" + roles + '\'' + ", isTeacher=" + isTeacher + '}';
+				+ ", langKey='" + langKey + '\'' + ", roles=" + roles + '\''
+				+ ", isTeacher=" + isTeacher + '}';
 	}
 }

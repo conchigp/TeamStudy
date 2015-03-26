@@ -48,7 +48,7 @@ public class User extends AbstractAuditingEntity implements Serializable {
 
     private boolean activated = false;
 
-    @Field("isTeacher")
+    @Field("is_teacher")
     private boolean isTeacher;
 
     @Size(min = 2, max = 5)

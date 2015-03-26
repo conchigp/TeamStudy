@@ -123,9 +123,19 @@ public class FolderService {
 		folderRepository.save(folder);
 	}
 	
-	public void remove(String folderId, String gridId){
-		Archive archive = findOne(gridId, folderId);
+	public void remove(String folderId, String gridId) throws Exception{	
 		Folder folder = folderRepository.findOne(folderId);
+		List<Archive> archives = folder.getArchives();
+		GridFS fs = connectDatabase();
+		fs.remove(new ObjectId(gridId));
+		for(Archive a: archives){
+			if(a.getGridId().equals(gridId)){
+				archives.remove(a);
+				break;
+			}
+		}
+		folder.setArchives(archives);
+		folderRepository.save(folder);
 	}
 
 	/**

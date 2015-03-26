@@ -26,7 +26,6 @@ import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
 import com.teamstudy.myapp.security.SecurityUtils;
-import com.teamstudy.myapp.service.MailService;
 import com.teamstudy.myapp.service.UserService;
 import com.teamstudy.myapp.web.rest.dto.UserDTO;
 
@@ -45,8 +44,6 @@ public class AccountResource {
     @Inject
     private UserService userService;
 
-    @Inject
-    private MailService mailService;
 
     /**
      * POST  /register -> register the user.
@@ -67,13 +64,6 @@ public class AccountResource {
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
             userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
             userDTO.getLangKey(), userDTO.isTeacher());
-            String baseUrl = request.getScheme() + // "http"
-            "://" +                            // "://"
-            request.getServerName() +          // "myhost"
-            ":" +                              // ":"
-            request.getServerPort();           // "80"
-
-            mailService.sendActivationEmail(user, baseUrl);
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
