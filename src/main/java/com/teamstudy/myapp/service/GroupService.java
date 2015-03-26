@@ -6,7 +6,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.neo4j.cypher.internal.compiler.v2_1.planner.logical.findShortestPaths;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -17,7 +16,6 @@ import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
-import com.teamstudy.myapp.web.rest.GroupResource;
 import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
 
