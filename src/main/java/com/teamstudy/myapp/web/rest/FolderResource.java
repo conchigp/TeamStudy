@@ -34,7 +34,7 @@ import com.teamstudy.myapp.security.SecurityUtils;
 import com.teamstudy.myapp.service.FolderService;
 
 @RestController
-@RequestMapping("/api/folders")
+@RequestMapping("/api")
 public class FolderResource {
 
 	private final Logger log = LoggerFactory.getLogger(FolderResource.class);
@@ -51,7 +51,7 @@ public class FolderResource {
 	@Inject
 	private UserRepository userRepository;
 
-	@RequestMapping(value = "/{folderId}/add", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "folders/{folderId}/add", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> addFileToFolder(@PathVariable String folderId,
@@ -92,7 +92,7 @@ public class FolderResource {
 		}
 	}
 
-	@RequestMapping(value = "/{folderId}/download/{gridId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "folders/{folderId}/download/{gridId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> downloadFileFromFolder(

@@ -1,0 +1,22 @@
+<mongoChangeLog>
+	<changeSet changeId="ChangeSet-5" author="jhipster">
+		<script>
+			db.T_REPLY.insert(
+			{
+				"_id" : "reply-0",
+				"description" : "description of reply0",
+				"creationMoment": new Date(),
+				"messageId": "message-0"
+				"userId": "user-4"
+			});
+			db.T_REPLY.insert(
+			{
+				"_id" : "reply-1",
+				"description" : "description of reply1",
+				"creationMoment": new Date(),
+				"messageId": "message-1"
+				"userId": "user-1"
+			});
+		</script>
+	</changeSet>
+</mongoChangeLog>

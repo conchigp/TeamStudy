@@ -1,5 +1,5 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-7" author="jhipster">
+    <changeSet changeId="ChangeSet-8" author="jhipster">
         <script>
          db.T_FOLDER.insert(
         {

@@ -1,5 +1,5 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-5" author="jhipster">
+    <changeSet changeId="ChangeSet-6" author="jhipster">
         <script>
           db.T_NEW.insert(
          {

@@ -1,7 +1,6 @@
 package com.teamstudy.myapp.service;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -9,7 +8,6 @@ import javax.inject.Inject;
 
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import com.mongodb.DB;
 import com.mongodb.Mongo;
