@@ -84,18 +84,23 @@ public List<Group> getGroupsForUser(String userId){
 	}
 	
 //MIO
-		public void createGroup(Group group){ 
+		public Group createGroup(GroupDTO groupDTO){ 
 			
-			List<String> alums = new ArrayList<String>();
-		    Wiki wiki = new Wiki();
+			Group group = new Group();
+//			List<String> alums = new ArrayList<String>();
+//		    Wiki wiki = new Wiki();
+//		    wiki.setText("mierda de to");
 		    
-		    group.setTeacherId(null);
-		    group.setAlums(alums);
-		    group.setWiki(wiki);
+		    group.setTeacherId(groupDTO.getTeacherId());
+		    group.setAlums(groupDTO.getAlums());
+		    group.setWiki(groupDTO.getWiki());
 		    group.setCreationMoment(new Date(System.currentTimeMillis()));
-		    
+		    group.setDescription(groupDTO.getDescription());
+		    group.setName(groupDTO.getName());
+
 			groupRepository.save(group);
 			log.debug("Created Information for Group: {}", group);
+			return group;
 			
 		}
 		

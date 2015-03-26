@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -278,16 +279,24 @@ public class GroupResource {
 		@RequestMapping(value = "/groups", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 		@Timed
 		@RolesAllowed(AuthoritiesConstants.ADMIN)
-		public ResponseEntity<?> createGroup(@Valid @RequestBody Group group) {
-			if (group.getId() != null) {
+		public ResponseEntity<?> createGroup(@Valid @RequestBody GroupDTO groupDTO, HttpServletRequest httpServletRequest) {
+			Group group = groupRepository.findOneById(groupDTO.getId());
+			if (group != null) {
 				return ResponseEntity.badRequest()
 						.header("Failure", "A new group cannot already have an ID")
 						.build();
 			} else {
-
-				groupService.createGroup(group);
-
-				return new ResponseEntity<>(HttpStatus.CREATED);
+				
+				User user = userRepository.findOneById(groupDTO.getTeacherId());
+				if(!user.isTeacher()){
+					return ResponseEntity.badRequest()
+							.contentType(MediaType.TEXT_PLAIN)
+							.body("engaña a tu madre, q ese nota no es profesor");
+				}else{
+				groupService.createGroup(groupDTO);
+				}
+				
+				return ResponseEntity.ok("Group created");
 			}
 		}
 
@@ -315,7 +324,7 @@ public class GroupResource {
 				@Valid @RequestBody Group group) throws URISyntaxException {
 			log.debug("REST request to update Group : {}", group);
 			if (group.getId() == null) {
-				return createGroup(group);
+				//return createGroup(group);
 			}
 
 			//groupService.updateGroupInformation(group);
