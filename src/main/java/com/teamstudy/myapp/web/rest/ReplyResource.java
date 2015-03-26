@@ -59,7 +59,7 @@ public class ReplyResource {
 	@RequestMapping(value = "/replies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public List<Reply> getAllByThread(@RequestParam("messageId") String messageId,
+	public List<Reply> getAllByMessage(@RequestParam("messageId") String messageId,
 			HttpServletResponse response) {
 		return replyService.findAllByMessage(messageId);
 	}
