@@ -10,10 +10,10 @@ import javax.validation.Valid;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -56,30 +56,30 @@ public class ReplyResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/reply/{messageId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/replies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public List<Reply> getAllByThread(@PathVariable String messageId,
+	public List<Reply> getAllByThread(@RequestParam("messageId") String messageId,
 			HttpServletResponse response) {
 		return replyService.findAllByMessage(messageId);
 	}
 
-	@RequestMapping(value = "/reply/{replyId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/reply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public Reply getOne(@PathVariable String replyId,
+	public Reply getOne(@RequestParam("replyId") String replyId,
 			HttpServletResponse response) {
 		return replyRepository.findOne(replyId);
 	}
 	
 	/* POST Methods */
 	
-	@RequestMapping(value = "/reply/{messageId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/reply", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> createReply(
 			@Valid @RequestBody ReplyDTO replyDTO,
-			@PathVariable String messageId, HttpServletRequest httpServletRequest) {
+			@RequestParam("messageId") String messageId, HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		Message message = messageRepository.findOne(messageId);
 		if (message == null) {
@@ -105,7 +105,7 @@ public class ReplyResource {
 		}
 	}
 	
-	@RequestMapping(value = "/reply", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/reply", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> updateReply(
@@ -140,11 +140,11 @@ public class ReplyResource {
 		}
 	}
 	
-	@RequestMapping(value = "/reply/{replyId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/reply", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> deleteReply(
-			@PathVariable String replyId,
+			@RequestParam("replyId") String replyId,
 			HttpServletRequest httpServletRequest) {
 
 		User user = userRepository.findOneByLogin(SecurityUtils

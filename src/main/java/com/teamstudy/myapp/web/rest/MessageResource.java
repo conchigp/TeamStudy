@@ -10,10 +10,10 @@ import javax.validation.Valid;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -50,36 +50,38 @@ public class MessageResource {
 
 	@Inject
 	private GroupRepository groupRepository;
-	
+
 	@Inject
 	private ReplyService replyService;
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/message/{threadId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/messages", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public List<Message> getAllByThread(@PathVariable String threadId,
+	public List<Message> getAllByThread(
+			@RequestParam("threadId") String threadId,
 			HttpServletResponse response) {
 		return messageService.findAllByThread(threadId);
 	}
 
-	@RequestMapping(value = "/message/{messageId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/message", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public Message getOne(@PathVariable String messageId,
+	public Message getOne(@RequestParam("messageId") String messageId,
 			HttpServletResponse response) {
 		return messageRepository.findOne(messageId);
 	}
 
 	/* POST Methods */
 
-	@RequestMapping(value = "/message/{threadId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/message", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> createMessage(
 			@Valid @RequestBody MessageDTO messageDTO,
-			@PathVariable String threadId, HttpServletRequest httpServletRequest) {
+			@RequestParam("threadId") String threadId,
+			HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		Thread thread = threadRepository.findOne(threadId);
@@ -105,7 +107,7 @@ public class MessageResource {
 		}
 	}
 
-	@RequestMapping(value = "/message", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/message", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> updateMessage(
@@ -121,7 +123,7 @@ public class MessageResource {
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This thread does not exist");
 		} else {
-			Thread thread = threadRepository.findOne(message.getId());
+			Thread thread = threadRepository.findOne(message.getThreadId());
 			Group group = groupRepository.findOne(thread.getGroupId());
 			if (!user.isTeacher()
 					&& !messageDTO.getUserId().equals(user.getId())) {
@@ -134,7 +136,7 @@ public class MessageResource {
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("You can not update a Message in this group");
 			} else {
-				if (!replies.isEmpty()) {
+				if (!user.isTeacher() && !replies.isEmpty()) {
 					return ResponseEntity.badRequest()
 							.contentType(MediaType.TEXT_PLAIN)
 							.body("You can not update a Message with replies");
@@ -146,10 +148,11 @@ public class MessageResource {
 		}
 	}
 
-	@RequestMapping(value = "/message/{messageId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/message", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> deleteMessage(@PathVariable String messageId,
+	public ResponseEntity<?> deleteMessage(
+			@RequestParam("messageId") String messageId,
 			HttpServletRequest httpServletRequest) {
 		Message message = messageRepository.findOne(messageId);
 		User user = userRepository.findOneByLogin(SecurityUtils
@@ -159,7 +162,8 @@ public class MessageResource {
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This message does not exist");
 		} else {
-			List<Reply> replies = replyService.findAllByMessage(message.getId());
+			List<Reply> replies = replyService
+					.findAllByMessage(message.getId());
 			Thread thread = threadRepository.findOne(message.getThreadId());
 			Group group = groupRepository.findOne(thread.getGroupId());
 			if (!user.isTeacher() && !replies.isEmpty()) {

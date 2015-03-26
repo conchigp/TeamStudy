@@ -10,10 +10,10 @@ import javax.validation.Valid;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
@@ -51,18 +51,18 @@ public class ThreadResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/thread/{groupId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/threads", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public List<Thread> getAllByGroup(@PathVariable String groupId,
+	public List<Thread> getAllByGroup(@RequestParam("groupId") String groupId,
 			HttpServletResponse response) {
-		return threadService.findAllByGroup(groupId);
+		return threadRepository.findAllByGroupId(groupId);
 	}
 
-	@RequestMapping(value = "/thread/{threadId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/thread", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public Thread getOne(@PathVariable String threadId,
+	public Thread getOne(@RequestParam("threadId") String threadId,
 			HttpServletResponse response) {
 		return threadRepository.findOne(threadId);
 	}
@@ -70,12 +70,12 @@ public class ThreadResource {
 	/* POST Methods */
 
 	// Crear Hilo
-	@RequestMapping(value = "/thread/{groupId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/thread", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> createThread(
 			@Valid @RequestBody ThreadDTO threadDTO,
-			@PathVariable String groupId, HttpServletRequest httpServletRequest) {
+			@RequestParam("groupId") String groupId, HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		Group group = groupRepository.findOne(groupId);
@@ -101,14 +101,13 @@ public class ThreadResource {
 	}
 
 	// Modificar Hilo
-	@RequestMapping(value = "/thread", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/thread", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> updateThread(
 			@Valid @RequestBody ThreadDTO threadDTO,
 			HttpServletRequest httpServletRequest) {
-		User user = userRepository.findOneByLogin(SecurityUtils
-				.getCurrentLogin());
+		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		Thread thread = threadRepository.findOne(threadDTO.getId());
 		List<Message> messages = messageService.findAllByThread(threadDTO.getId());
 		Group group = groupRepository.findOne(threadDTO.getGroupId());
@@ -139,13 +138,13 @@ public class ThreadResource {
 		}
 	}
 
-	@RequestMapping(value = "/thread/{threadId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/thread", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> deleteThread(@PathVariable String threadId,
+	public ResponseEntity<?> deleteThread(@RequestParam("threadId") String threadId,
 			HttpServletRequest httpServletRequest) {
 		Thread thread = threadRepository.findOne(threadId);
-		User user = userRepository.findOne(SecurityUtils.getCurrentLogin());
+		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		List<Message> messages = messageService.findAllByThread(threadId);
 		if (thread == null) {
 			return ResponseEntity.badRequest()
