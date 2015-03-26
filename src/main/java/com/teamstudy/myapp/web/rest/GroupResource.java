@@ -28,6 +28,7 @@ import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
+import com.teamstudy.myapp.security.SecurityUtils;
 import com.teamstudy.myapp.service.GroupService;
 import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
@@ -301,19 +302,34 @@ public class GroupResource {
 		}
 
 		// update group information (MIO)
-		@RequestMapping(value = "/groups/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+		@RequestMapping(value = "/groups/{groupId}", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 		@Timed
-		@RolesAllowed(AuthoritiesConstants.ADMIN)
-		public ResponseEntity<?> updateGroup(@Valid @RequestBody GroupDTO groupDTO,@PathVariable String id, HttpServletRequest request) {
-			log.debug("REST request to update Group : {}", groupDTO);
-			if (groupDTO.getId() == null) {
+		@RolesAllowed(AuthoritiesConstants.USER)
+		public ResponseEntity<?> updateGroup(@Valid @RequestBody GroupDTO groupDTO,@PathVariable String groupId, HttpServletRequest request) {
+			Group group = groupRepository.findOneById(groupId);
+			User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
+			User teacher = userRepository.findOneById(groupDTO.getTeacherId());
+			if (group == null) {
 				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("This group does not exist");
 				
+			}else{
+				if(!user.isTeacher()){
+					return ResponseEntity.badRequest()
+							.contentType(MediaType.TEXT_PLAIN)
+							.body("engaña a tu madre, q ese nota no es profesor");
+				}
+				if(!teacher.isTeacher()){
+					return ResponseEntity.badRequest()
+							.contentType(MediaType.TEXT_PLAIN)
+							.body("engaña a tu madre, q ese nota no es profesor");
+				}else{
+				
+					groupService.updateGroupInformation(groupDTO,groupId);
+					return ResponseEntity.ok("group update");
+				}
 			}
-			groupService.updateGroupInformation(groupDTO,id);
-			return ResponseEntity.ok("group update");
 		}
 
 		// update the current group information (MIO)
