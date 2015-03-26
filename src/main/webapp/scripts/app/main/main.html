@@ -5,9 +5,10 @@
 	<!--Start Container-->
 	<div id="main" class="container-fluid" style="margin-top: -15px">
 		<div class="row">
+			<!-- Sidebar Right -->
 			<div id="sidebar-left" class="col-xs-2 col-sm-2">
 				<div class="page-header">
-					<h2>Tus Grupos</h2>
+					<h4>Tus Grupos</h4>
 					<button class="" data-toggle="modal" data-target="#saveBookModal"
 						ng-click="clear()">
 						<a class="close-link">
@@ -71,18 +72,17 @@
 
 				</div>
 				<div class="list-group">
-
 					<a ng-repeat="group in groups">
 						<div class="box">
 							<div class="box-header">
 								<div class="box-name">
-									<b>{{group.name}}</b>
+									<b>{{group.name}}</b> <b>GRUPOS</b>
 								</div>
-<!-- 								<div class="box-icons"> -->
-<!-- 									<a> -->
-<!-- 									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
-<!-- 									</a> -->
-<!-- 								</div> -->
+								<!-- 								<div class="box-icons"> -->
+								<!-- 									<a> -->
+								<!-- 									<span class="glyphicon glyphicon-edit" aria-hidden="true"></span> -->
+								<!-- 									</a> -->
+								<!-- 								</div> -->
 							</div>
 							<div class="box-content">
 								<p>{{group.description}}</p>
@@ -115,7 +115,7 @@
 
 
 			</div>
-
+			<!-- End Sidebar Left -->
 			<!--Start Content-->
 			<div id="content" class="col-xs-10 col-sm-8">
 
@@ -137,35 +137,45 @@
 						<button type="button" class="btn btn-default">Dashboard</button>
 					</div>
 				</div>
-				
+
 			</div>
 
 			<!--End Content-->
-
+			<!--Sidebar Right -->
 			<div id="sidebar-right" class="col-xs-2 col-sm-2">
-				<div id="firstTable" class="">
-					<ul class="nav main-menu">
-						<li><a href="ajax/dashboard.html" class="active ajax-link">
-								<i class="fa fa-dashboard"></i> <span class="hidden-xs">GROUPS</span>
-						</a>
-							<div id="infoFirstTable" class="">
-								<p>
-									PRUEBA <br /> PRUEBA
-								</p>
-							</div></li>
-					</ul>
-				</div>
-				<div id="secondTable" class="">
-					<ul class="nav main-menu">
-						<li><a href="" class="active ajax-link"> <i class=""></i><span
-								class="">CHAT</span>
-						</a></li>
-					</ul>
+				<div>
+					<div class="page-header" id="firstTable">
+						<div class="header">
+							<div class="title">
+								<h2>Alumnos</h2>
+							</div>
+						</div>
+						<div class="content">
+							
+						</div>
+					</div>
+					
+					<div class="page-header" id="secondTable">
+						<div class="header">
+							<div class="title">
+								<h2>Chat</h2>
+							</div>
+						</div>
+						<div class="content">
+							
+							<div class="footer">
+							
+							</div>
+						</div>
+					</div>
+					<span id="sb-4" class="skip-block-to"></span>
 				</div>
 			</div>
-
+			<!-- End Sidebar Right -->
 		</div>
+
 	</div>
-	<!--End Container-->
+</div>
+<!--End Container-->
 
 </div>
