@@ -243,7 +243,7 @@ public class GroupResource {
 					.body("nonexistent group");
 		}
 		groupService.deleteGroup(groupId);
-		return new ResponseEntity<>(HttpStatus.OK);
+		return ResponseEntity.ok("Group deleted");
 	}
 
 //	/**
@@ -332,7 +332,7 @@ public class GroupResource {
 			}
 		}
 
-		// update the current group information (MIO)
+		
 		@RequestMapping(value = "/groups/{groupId}/wiki", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 		@Timed
 		@RolesAllowed(AuthoritiesConstants.ADMIN)

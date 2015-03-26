@@ -124,6 +124,9 @@ public List<Group> getGroupsForUser(String userId){
 		
 		//MIO
 		public void deleteGroup(String groupId){
+			
+			Assert.notNull(groupId);
+			
 			Group group = groupRepository.findOne(groupId);
 			groupRepository.delete(group);
 		}
