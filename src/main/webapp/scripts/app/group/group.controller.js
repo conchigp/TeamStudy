@@ -12,7 +12,7 @@ angular.module('teamstudyApp')
         };
         
         $scope.update = function (id) {
-            Book.get({id: id}, function(result) {
+            Group.get({id: id}, function(result) {
                 $scope.group = result;
                 $('#saveBookModal').modal('show');
             });
