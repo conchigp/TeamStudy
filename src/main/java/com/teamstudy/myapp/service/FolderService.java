@@ -77,7 +77,7 @@ public class FolderService {
 	 *
 	 */
 	
-	/* GET Mehotds */
+	/* GET Methods */
 	
 	public Archive findOne(String gridId, String folderId){
 		Folder folder = folderRepository.findOne(folderId);
@@ -88,6 +88,16 @@ public class FolderService {
 			}
 		}
 		return archive;
+	}
+	
+	public List<Archive> findAllByFolder(String folderId){
+		return folderRepository.findOne(folderId).getArchives();
+	}
+	
+	public GridFSDBFile download(String objectId) throws Exception {
+		GridFS fs = connectDatabase();
+		GridFSDBFile file = fs.find(new ObjectId(objectId));
+		return file;
 	}
 	
 	/* POST Methods */ 
@@ -112,6 +122,11 @@ public class FolderService {
 		folder.setArchives(archives);
 		folderRepository.save(folder);
 	}
+	
+	public void remove(String folderId, String gridId){
+		Archive archive = findOne(gridId, folderId);
+		Folder folder = folderRepository.findOne(folderId);
+	}
 
 	/**
 	 * 
@@ -124,12 +139,6 @@ public class FolderService {
 		DB db = mongo.getDB("teamstudy");
 		GridFS fs = new GridFS(db);
 		return fs;
-	}
-
-	public GridFSDBFile download(String objectId) throws Exception {
-		GridFS fs = connectDatabase();
-		GridFSDBFile file = fs.find(new ObjectId(objectId));
-		return file;
 	}
 
 }

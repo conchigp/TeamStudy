@@ -3,6 +3,7 @@ package com.teamstudy.myapp.web.rest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mongodb.gridfs.GridFSDBFile;
+import com.teamstudy.myapp.domain.Archive;
 import com.teamstudy.myapp.domain.Folder;
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
@@ -45,49 +47,23 @@ public class ArchiveResource {
 
 	@Inject
 	private UserRepository userRepository;
-
-	@RequestMapping(value = "/archive/{folderId}/upload", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	
+	/* GET Methods */
+	
+	@RequestMapping(value = "/archives", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> upload(@PathVariable String folderId,
-			@RequestParam("filePath") String filePath,
-			HttpServletRequest request) throws Exception {
-		Folder folder = folderRepository.findOne(folderId);
-		if (filePath == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("Folder path can not be null");
-		} else {
-			if (folder == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This folder does not exist");
-			} else {
-				Group group = groupRepository.findOne(folder.getGroupId());
-				User user = userRepository.findOneByLogin(SecurityUtils
-						.getCurrentLogin());
-				if (!user.isTeacher()
-						&& !group.getAlums().contains(user.getId())) {
-					return ResponseEntity
-							.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You do not have permission to upload files to this group(U)");
-				} else if (user.isTeacher()
-						&& !group.getTeacherId().equals(user.getId())) {
-					return ResponseEntity
-							.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You do not have permission to upload files to this group(T)");
-				} else {
-					File file = new File(filePath);
-					folderService.add(file, folderId);
-					return ResponseEntity.ok("File has been upload");
-				}
-			}
-		}
+	public List<Archive> getAllByFolder(@RequestParam("folderId") String folderId, HttpServletResponse httpServletResponse){
+		return folderService.findAllByFolder(folderId);
 	}
-
-	@RequestMapping(value = "/archive/{folderId}/download", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public Archive getOne(@PathVariable String folderId, @RequestParam("gridId") String gridId, HttpServletResponse httpServletResponse){
+		return folderService.findOne(gridId, folderId);
+	}
+	
+	@RequestMapping(value = "/archive/download/{folderId}", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> download(
@@ -141,5 +117,80 @@ public class ArchiveResource {
 			}
 		}
 	}
+	
+	/* POST Methods */
 
+	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public ResponseEntity<?> upload(@PathVariable String folderId,
+			@RequestParam("filePath") String filePath,
+			HttpServletRequest request) throws Exception {
+		Folder folder = folderRepository.findOne(folderId);
+		if (filePath == null) {
+			return ResponseEntity.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
+					.body("Folder path can not be null");
+		} else {
+			if (folder == null) {
+				return ResponseEntity.badRequest()
+						.contentType(MediaType.TEXT_PLAIN)
+						.body("This folder does not exist");
+			} else {
+				Group group = groupRepository.findOne(folder.getGroupId());
+				User user = userRepository.findOneByLogin(SecurityUtils
+						.getCurrentLogin());
+				if (!user.isTeacher()
+						&& !group.getAlums().contains(user.getId())) {
+					return ResponseEntity
+							.badRequest()
+							.contentType(MediaType.TEXT_PLAIN)
+							.body("You do not have permission to upload files to this group(U)");
+				} else if (user.isTeacher()
+						&& !group.getTeacherId().equals(user.getId())) {
+					return ResponseEntity
+							.badRequest()
+							.contentType(MediaType.TEXT_PLAIN)
+							.body("You do not have permission to upload files to this group(T)");
+				} else {
+					File file = new File(filePath);
+					folderService.add(file, folderId);
+					return ResponseEntity.ok("File has been upload");
+				}
+			}
+		}
+	}
+	
+	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public ResponseEntity<?> delete(@PathVariable String folderId,
+			@RequestParam("gridId") String gridId,
+			HttpServletRequest request) throws Exception {
+		Folder folder = folderRepository.findOne(folderId);
+		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
+		Archive archive = folderService.findOne(gridId, folderId);
+		Group group = groupRepository.findOne(folder.getGroupId());
+		if(archive == null){
+			return ResponseEntity
+					.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
+					.body("This archive does not exist");
+		}else{
+			if(!user.isTeacher() && !archive.getUserId().equals(user.getId())){
+				return ResponseEntity
+						.badRequest()
+						.contentType(MediaType.TEXT_PLAIN)
+						.body("You do not have permission to delete this file");
+			} else if(user.isTeacher() && !user.getId().equals(group.getTeacherId())){
+				return ResponseEntity
+						.badRequest()
+						.contentType(MediaType.TEXT_PLAIN)
+						.body("You do not have permission to delete this file");
+			} else{
+				folderService.remove(folderId, gridId);
+				return ResponseEntity.ok("Archive deleted");
+			}
+		}
+	}
 }
