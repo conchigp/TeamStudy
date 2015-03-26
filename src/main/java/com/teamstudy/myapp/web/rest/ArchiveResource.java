@@ -10,7 +10,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,7 +46,7 @@ public class ArchiveResource {
 	@Inject
 	private UserRepository userRepository;
 
-	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/archive/{folderId}/upload", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> upload(@PathVariable String folderId,
@@ -81,14 +80,14 @@ public class ArchiveResource {
 							.body("You do not have permission to upload files to this group(T)");
 				} else {
 					File file = new File(filePath);
-					folderService.addArchive(file, folderId);
+					folderService.add(file, folderId);
 					return ResponseEntity.ok("File has been upload");
 				}
 			}
 		}
 	}
 
-	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/archive/{folderId}/download", method = RequestMethod.GET, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> download(
@@ -116,8 +115,7 @@ public class ArchiveResource {
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("You do not have permission to upload files to this group(T)");
 			} else {
-				ObjectId id = new ObjectId(gridId);
-				GridFSDBFile file = folderService.downloadFile(id);
+				GridFSDBFile file = folderService.download(gridId);
 				if (file == null) {
 					return ResponseEntity.badRequest()
 							.contentType(MediaType.TEXT_PLAIN)
