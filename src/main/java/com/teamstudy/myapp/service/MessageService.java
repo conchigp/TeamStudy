@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.teamstudy.myapp.domain.Message;
@@ -42,14 +43,14 @@ public class MessageService {
 	}
 
 	public Message update(MessageDTO messageDTO) {
-		Message message = messageRepository.findOne(messageDTO.getId());
+		Message message = messageRepository.findOneById(new ObjectId(messageDTO.getId()));
 		message.setDescription(messageDTO.getDescription());
 		messageRepository.save(message);
 		return message;
 	}
 
 	public void delete(String messageId) {
-		Message message = messageRepository.findOne(messageId);
+		Message message = messageRepository.findOneById(new ObjectId(messageId));
 		messageRepository.delete(message);
 	}
 }

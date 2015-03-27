@@ -60,14 +60,14 @@ public class FolderService {
 	}
 
 	public Folder update(FolderDTO folderDTO) {
-		Folder folder = folderRepository.findOne(folderDTO.getId());
+		Folder folder = folderRepository.findOneById(new ObjectId(folderDTO.getId()));
 		folder.setTitle(folderDTO.getTitle());
 		folderRepository.save(folder);
 		return folder;
 	}
 
 	public void delete(String folderId) {
-		Folder folder = folderRepository.findOne(folderId);
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		folderRepository.delete(folder);
 	}
 
@@ -80,7 +80,7 @@ public class FolderService {
 	/* GET Methods */
 	
 	public Archive findOne(String gridId, String folderId){
-		Folder folder = folderRepository.findOne(folderId);
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		Archive archive = new Archive();
 		for (Archive a: folder.getArchives()){
 			if(a.getGridId().equals(gridId)){
@@ -91,7 +91,7 @@ public class FolderService {
 	}
 	
 	public List<Archive> findAllByFolder(String folderId){
-		return folderRepository.findOne(folderId).getArchives();
+		return folderRepository.findOneById(new ObjectId(folderId)).getArchives();
 	}
 	
 	public GridFSDBFile download(String objectId) throws Exception {
@@ -103,7 +103,7 @@ public class FolderService {
 	/* POST Methods */ 
 
 	public void add(File file, String folderId) throws Exception {
-		Folder folder = folderRepository.findOne(folderId);
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		List<Archive> archives = folder.getArchives();
 		Archive archive = new Archive();
 
@@ -124,7 +124,7 @@ public class FolderService {
 	}
 	
 	public void remove(String folderId, String gridId) throws Exception{	
-		Folder folder = folderRepository.findOne(folderId);
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		List<Archive> archives = folder.getArchives();
 		GridFS fs = connectDatabase();
 		fs.remove(new ObjectId(gridId));

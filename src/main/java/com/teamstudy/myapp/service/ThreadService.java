@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -47,7 +48,7 @@ public class ThreadService {
 	}
 	
 	public Thread update(ThreadDTO threadDTO){
-		Thread thread = threadRepository.findOne(threadDTO.getId());
+		Thread thread = threadRepository.findOneById(new ObjectId(threadDTO.getId()));
 		thread.setDescription(threadDTO.getDescription());
 		thread.setTitle(threadDTO.getTitle());
 		threadRepository.save(thread);
@@ -55,7 +56,7 @@ public class ThreadService {
 	}
 	
 	public void delete(String threadId){
-		Thread thread = threadRepository.findOne(threadId);
+		Thread thread = threadRepository.findOneById(new ObjectId(threadId));
 		threadRepository.delete(thread);
 	}
 }

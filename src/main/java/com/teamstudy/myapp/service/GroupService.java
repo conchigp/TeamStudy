@@ -14,7 +14,6 @@ import org.springframework.util.Assert;
 
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
-import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.web.rest.dto.GroupDTO;
@@ -32,7 +31,7 @@ public class GroupService {
 	private UserRepository userRepository;
 	
 	public void deleteStudentFromGroup(String studentId, String groupId){
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<String> students = group.getAlums();
 		students.remove(studentId);
 		group.setAlums(students);
@@ -40,13 +39,13 @@ public class GroupService {
 	}
 	
 	public void deleteTeacherFromGroup(String groupId){
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		group.setTeacherId(null);
 		groupRepository.save(group);
 	}
 	
 	public void addStudentToGroup(String studentId, String groupId){
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<String> students = group.getAlums();
 		students.add(studentId);
 		group.setAlums(students);
@@ -54,16 +53,16 @@ public class GroupService {
 	}
 	
 	public void addTeacherToGroup(String teacherId, String groupId){
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		group.setTeacherId(teacherId);
 		groupRepository.save(group);
 	}
 	
 	public List<User> getStudentsByGroup(String groupId){
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<User> students = new ArrayList<User>();
 		for(String s: group.getAlums()){
-			User user = userRepository.findOne(s);
+			User user = userRepository.findOneById(new ObjectId(s));
 			students.add(user);
 		}
 		return students;
@@ -71,7 +70,7 @@ public class GroupService {
 	
 public List<Group> getGroupsForUser(String userId){
 		
-		User user = userRepository.findOne(userId);
+		User user = userRepository.findOneById(new ObjectId(userId));
 		List<Group> groups = groupRepository.findAll();
 		List<Group> myGroups = new ArrayList<Group>();
 		
@@ -138,7 +137,7 @@ public List<Group> getGroupsForUser(String userId){
 			
 			Assert.notNull(groupId);
 			
-			Group group = groupRepository.findOne(groupId);
+			Group group = groupRepository.findOneById(new ObjectId(groupId));
 			groupRepository.delete(group);
 		}
 		
