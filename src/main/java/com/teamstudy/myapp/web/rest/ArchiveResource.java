@@ -2,7 +2,6 @@ package com.teamstudy.myapp.web.rest;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.List;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
-import com.mongodb.gridfs.GridFSDBFile;
 import com.teamstudy.myapp.domain.Archive;
 import com.teamstudy.myapp.domain.Folder;
 import com.teamstudy.myapp.domain.Group;
@@ -96,22 +94,15 @@ public class ArchiveResource {
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("You do not have permission to upload files to this group(T)");
 			} else {
-				GridFSDBFile file = folderService.download(gridId);
-				if (file == null) {
+				if (!folderService.existFile(gridId)) {
 					return ResponseEntity.badRequest()
 							.contentType(MediaType.TEXT_PLAIN)
 							.body("The file does not exist");
 				} else {
-					InputStream is = file.getInputStream();
-					int read = 0;
-					byte[] bytes = new byte[4096];
-					OutputStream os = response.getOutputStream();
-					while ((read = is.read(bytes)) != -1) {
-						os.write(bytes, 0, read);
-					}
+					/*OutputStream os = folderService.download(gridId, response);
 					os.flush();
-					os.close();
-
+					os.close();*/
+					folderService.download(gridId, response);
 					return ResponseEntity.ok("Downloading");
 				}
 			}
