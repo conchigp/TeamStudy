@@ -30,6 +30,10 @@
             <div class="" ui-view="content"></div>
 <!--             <div ui-view="wiki"  class=""></div> -->
             <div class="footer">
+                <a ng-repeat="group in groups">
+					<b>{{ group.name }}</b>
+					<b>{{ group.description }}</b>
+				</a>
                 <p translate="footer">This is your footer</p>
             </div>
         </div>

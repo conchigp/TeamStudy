@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').factory('Group', function($resource) {
-	return $resource('api/users/:id/groups', {}, {
+	return $resource('api/groups/:id/', {}, {
 		'get' : {
 			method : 'GET',
 			params : {},
