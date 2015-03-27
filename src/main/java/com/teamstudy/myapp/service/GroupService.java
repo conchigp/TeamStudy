@@ -115,12 +115,12 @@ public List<Group> getGroupsForUser(String userId){
 			return group;
 		}*/
 		//MIO
-		public void updateGroupInformation(GroupDTO groupDTO,String id) {
+		public void updateGroupInformation(GroupDTO groupDTO) {
 			
 			
 			Assert.notNull(groupDTO);
 			
-			Group group = groupRepository.findOneById(new ObjectId(id));
+			Group group = groupRepository.findOneById(new ObjectId(groupDTO.getId()));
 			
 			group.setName(groupDTO.getName());
 			group.setDescription(groupDTO.getDescription());
