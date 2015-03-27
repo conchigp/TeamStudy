@@ -3,19 +3,19 @@
 		<script>
 			db.T_MESSAGE.insert(
 			{
-				"_id" : "message-0",
+				"_id" : new ObjectId("551523054df1e47ccf055632"),
 				"description" : "description of message0",
 				"creationMoment": new Date(),
-				"threadId" : "thread-0",
-				"userId" : "user-5"
+				"threadId" : "551523024df1e47ccf05562e",
+				"userId" : "551523014df1e47ccf05562d"
 			});
 			db.T_MESSAGE.insert(
 			{
-				"_id" : "message-1",
+				"_id" : new ObjectId("551523064df1e47ccf055633"),
 				"description" : "description of message1",
 				"creationMoment": new Date(),
-				"threadId" : "thread-1",
-				"userId" : "user-1"
+				"threadId" : "551523024df1e47ccf05562f",
+				"userId" : "551522f94df1e47ccf055629"
 			});
 		</script>
 	</changeSet>

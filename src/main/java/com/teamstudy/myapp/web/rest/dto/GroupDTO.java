@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.validation.constraints.NotNull;
 
-import org.springframework.data.annotation.Id;
-
 import com.teamstudy.myapp.domain.Wiki;
 
 public class GroupDTO {
@@ -18,7 +16,6 @@ public class GroupDTO {
 
 	private String description;
 
-	@NotNull
 	private String teacherId;
 
 	private List<String> alums;
@@ -47,6 +44,12 @@ public class GroupDTO {
 		this.teacherId = teacherId;
 		this.alums = alums;
 		this.wiki = wiki;
+	}
+	
+	public GroupDTO(String name, String description) {
+		super();
+		this.name = name;
+		this.description = description;
 	}
 
 

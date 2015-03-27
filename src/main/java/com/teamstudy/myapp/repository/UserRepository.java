@@ -2,6 +2,7 @@ package com.teamstudy.myapp.repository;
 
 import com.teamstudy.myapp.domain.User;
 
+import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -22,6 +23,6 @@ public interface UserRepository extends MongoRepository<User, String> {
     
     User findOneByIsTeacher(String isTeacher);
     
-    User findOneById(String userId);
+    User findOneById(ObjectId objectId);
 
 }

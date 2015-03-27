@@ -3,19 +3,19 @@
         <script>
           db.T_MESSAGECHAT.insert(
          {
-                 "_id" : "messagechat-0",
+                 "_id" : new ObjectId("5515230b4df1e47ccf055638"),
                  "content" : "messagechat0",
                  "creationMoment": new Date(),
-                 "groupId" : "group-0",
-                 "userId" : "user-4"
+                 "groupId" : "551523074df1e47ccf055634",
+                 "userId" : "551523004df1e47ccf05562c"
              });
              db.T_MESSAGECHAT.insert(
             {
-                  "_id" : "messagechat-1",
+                  "_id" : new ObjectId("5515230c4df1e47ccf055639"),
                   "content" : "messagechat1",
                   "creationMoment": new Date(),
-                  "groupId" : "group-1",
-                  "userId" : "user-1"
+                  "groupId" : "551523084df1e47ccf055635",
+                  "userId" : "551522f94df1e47ccf055629"
               });
         </script>
     </changeSet>

@@ -3,21 +3,21 @@
 		<script>
 			db.T_THREAD.insert(
 			{
-				"_id" : "thread-0",
+				"_id" : new ObjectId("551523024df1e47ccf05562e"),
 				"title" : "title of thread0",
 				"description" : "description of thread0",
 				"creationMoment": new Date(),
-				"groupId" : "group-0",
-				"userId" : "user-0",
+				"groupId" : "551523074df1e47ccf055634",
+				"userId" : "55151cb763d138142cd840e6",
 			});
 			db.T_THREAD.insert(
 			{
-				"_id" : "thread-1",
+				"_id" : new ObjectId("551523024df1e47ccf05562f"),
 				"title" : "title of thread1",
 				"description" : "description of thread1",
 				"creationMoment": new Date(),
-				"groupId" : "group-1",
-				"userId" : "user-4",
+				"groupId" : "551523084df1e47ccf055635",
+				"userId" : "551523004df1e47ccf05562c",
 			});
 		</script>
 	</changeSet>

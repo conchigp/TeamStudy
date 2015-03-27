@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -66,7 +67,7 @@ public class NewResource {
 			HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)

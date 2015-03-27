@@ -16,10 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.User;
-import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
-import com.teamstudy.myapp.service.GroupService;
 
 /**
  * REST controller for managing users.
@@ -32,12 +30,6 @@ public class UserResource {
 
 	@Inject
 	private UserRepository userRepository;
-
-	@Inject
-	private GroupService groupService;
-
-	@Inject
-	private GroupRepository groupRepository;
 
 	/**
 	 * GET /users -> get all users.

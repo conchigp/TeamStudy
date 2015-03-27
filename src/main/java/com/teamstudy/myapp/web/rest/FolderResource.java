@@ -6,6 +6,7 @@ import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.validation.Valid;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -47,7 +48,7 @@ public class FolderResource {
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Folder getOne(@RequestParam("folderId") String folderId){
-		return folderRepository.findOne(folderId);
+		return folderRepository.findOneById(new ObjectId(folderId));
 	}
 	
 	@RequestMapping(value = "/folders", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -61,7 +62,7 @@ public class FolderResource {
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> create(@Valid @RequestBody FolderDTO folderDTO, @RequestParam("groupId") String groupId){
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if(group == null){
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -87,7 +88,7 @@ public class FolderResource {
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> create(@Valid @RequestBody FolderDTO folderDTO){
-		Group group = groupRepository.findOne(folderDTO.getGroupId());
+		Group group = groupRepository.findOneById(new ObjectId(folderDTO.getGroupId()));
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		if(!user.isTeacher() && !group.getAlums().contains(user.getId())){
 			return ResponseEntity.badRequest()
@@ -107,13 +108,13 @@ public class FolderResource {
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> create(@RequestParam("folderId") String folderId){
-		Folder folder = folderRepository.findOne(folderId);
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if(folder == null){
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("Folder does not exist");
 		}else{
-			Group group = groupRepository.findOne(folder.getGroupId());
+			Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
 			User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 			if(!user.isTeacher() && !group.getAlums().contains(user.getId())){
 				return ResponseEntity.badRequest()

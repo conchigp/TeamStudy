@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -102,15 +103,25 @@ public List<Group> getGroupsForUser(String userId){
 			log.debug("Created Information for Group: {}", group);
 			return group;
 			
-		}
-		
+		}/*
+		// Cristian (Metodo para generar ObjectId para el populate)
+		public Group createGroup(GroupDTO groupDTO){ 
+		    group.setAlums(new ArrayList<String>());
+		    group.setWiki(new Wiki());
+		    group.setCreationMoment(new Date());
+		    group.setDescription(groupDTO.getDescription());
+		    group.setName(groupDTO.getName());
+			groupRepository.save(group);
+			log.debug("Created Information for Group: {}", group);
+			return group;
+		}*/
 		//MIO
 		public void updateGroupInformation(GroupDTO groupDTO,String id) {
 			
 			
 			Assert.notNull(groupDTO);
 			
-			Group group = groupRepository.findOneById(id);
+			Group group = groupRepository.findOneById(new ObjectId(id));
 			
 			group.setName(groupDTO.getName());
 			group.setDescription(groupDTO.getDescription());

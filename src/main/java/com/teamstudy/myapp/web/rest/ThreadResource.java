@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -64,7 +65,7 @@ public class ThreadResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Thread getOne(@RequestParam("threadId") String threadId,
 			HttpServletResponse response) {
-		return threadRepository.findOne(threadId);
+		return threadRepository.findOneById(new ObjectId(threadId));
 	}
 
 	/* POST Methods */
@@ -78,7 +79,7 @@ public class ThreadResource {
 			@RequestParam("groupId") String groupId, HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -108,9 +109,9 @@ public class ThreadResource {
 			@Valid @RequestBody ThreadDTO threadDTO,
 			HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
-		Thread thread = threadRepository.findOne(threadDTO.getId());
+		Thread thread = threadRepository.findOneById(new ObjectId(threadDTO.getId()));
 		List<Message> messages = messageService.findAllByThread(threadDTO.getId());
-		Group group = groupRepository.findOne(threadDTO.getGroupId());
+		Group group = groupRepository.findOneById(new ObjectId(threadDTO.getGroupId()));
 		if (thread == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -143,7 +144,7 @@ public class ThreadResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> deleteThread(@RequestParam("threadId") String threadId,
 			HttpServletRequest httpServletRequest) {
-		Thread thread = threadRepository.findOne(threadId);
+		Thread thread = threadRepository.findOneById(new ObjectId(threadId));
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		List<Message> messages = messageService.findAllByThread(threadId);
 		if (thread == null) {
@@ -156,7 +157,7 @@ public class ThreadResource {
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("You can not delete a thread with messages");
 			} else {
-				Group group = groupRepository.findOne(thread.getGroupId());
+				Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 				if (!user.isTeacher() && !user.getId().equals(thread.getUserId())) {
 					return ResponseEntity.badRequest()
 							.contentType(MediaType.TEXT_PLAIN)

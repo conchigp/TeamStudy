@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -18,13 +19,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
-import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
@@ -64,8 +63,8 @@ public class GroupResource {
 	public ResponseEntity<?> removeStudentFromGroup(
 			@PathVariable String groupId, @PathVariable String studentId,
 			HttpServletRequest request) {
-		Group group = groupRepository.findOne(groupId);
-		User student = userRepository.findOne(studentId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		User student = userRepository.findOneById(new ObjectId(studentId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -101,8 +100,8 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> addStudentToGroup(@PathVariable String groupId,
 			@PathVariable String studentId, HttpServletRequest request) {
-		Group group = groupRepository.findOne(groupId);
-		User student = userRepository.findOne(studentId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		User student = userRepository.findOneById(new ObjectId(studentId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -137,8 +136,8 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> addTeacherToGroup(@PathVariable String groupId,
 			@PathVariable String teacherId, HttpServletRequest request) {
-		Group group = groupRepository.findOne(groupId);
-		User teacher = userRepository.findOne(teacherId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		User teacher = userRepository.findOneById(new ObjectId(teacherId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -173,7 +172,7 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> removeTeacherFromGroup(
 			@PathVariable String groupId, HttpServletRequest request) {
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -236,7 +235,7 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<String> updateGroup(@PathVariable String groupId,
 			HttpServletRequest request) {
-		Group group = groupRepository.findOneById(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -255,7 +254,7 @@ public class GroupResource {
 //	public Wiki getWiki(@PathVariable String groupId,
 //			HttpServletResponse response) {
 //		log.debug("REST request to get Wiki of the group with id: ", groupId);
-//		Group group = groupRepository.findOneById(groupId);
+//		Group group = groupRepository.findOneById(new ObjectId(groupId));
 //		if (group == null) {
 //			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 //		}
@@ -281,22 +280,13 @@ public class GroupResource {
 		@Timed
 		@RolesAllowed(AuthoritiesConstants.ADMIN)
 		public ResponseEntity<?> createGroup(@Valid @RequestBody GroupDTO groupDTO, HttpServletRequest httpServletRequest) {
-			Group group = groupRepository.findOneById(groupDTO.getId());
-			if (group != null) {
+			User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
+			if(!user.isTeacher()){
 				return ResponseEntity.badRequest()
-						.header("Failure", "A new group cannot already have an ID")
-						.build();
-			} else {
-				
-				User user = userRepository.findOneById(groupDTO.getTeacherId());
-				if(!user.isTeacher()){
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("engaña a tu madre, q ese nota no es profesor");
-				}else{
+						.contentType(MediaType.TEXT_PLAIN)
+						.body("engaña a tu madre, q ese nota no es profesor");
+			}else{
 				groupService.createGroup(groupDTO);
-				}
-				
 				return ResponseEntity.ok("Group created");
 			}
 		}
@@ -306,9 +296,9 @@ public class GroupResource {
 		@Timed
 		@RolesAllowed(AuthoritiesConstants.USER)
 		public ResponseEntity<?> updateGroup(@Valid @RequestBody GroupDTO groupDTO,@PathVariable String groupId, HttpServletRequest request) {
-			Group group = groupRepository.findOneById(groupId);
+			Group group = groupRepository.findOneById(new ObjectId(groupId));
 			User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
-			User teacher = userRepository.findOneById(groupDTO.getTeacherId());
+			User teacher = userRepository.findOneById(new ObjectId(groupDTO.getTeacherId()));
 			if (group == null) {
 				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)

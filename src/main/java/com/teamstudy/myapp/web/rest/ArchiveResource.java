@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -74,13 +75,13 @@ public class ArchiveResource {
 	public ResponseEntity<?> download(@PathVariable String folderId,
 			@RequestParam("gridId") String gridId, HttpServletResponse response)
 			throws Exception, IOException {
-		Folder folder = folderRepository.findOne(folderId);
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if (folder == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This folder does not exist");
 		} else {
-			Group group = groupRepository.findOne(folder.getGroupId());
+			Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
 			User user = userRepository.findOneByLogin(SecurityUtils
 					.getCurrentLogin());
 			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
@@ -125,7 +126,7 @@ public class ArchiveResource {
 	public ResponseEntity<?> upload(@PathVariable String folderId,
 			@RequestParam("filePath") String filePath,
 			HttpServletRequest request) throws Exception {
-		Folder folder = folderRepository.findOne(folderId);
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if (filePath == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
@@ -136,7 +137,7 @@ public class ArchiveResource {
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("This folder does not exist");
 			} else {
-				Group group = groupRepository.findOne(folder.getGroupId());
+				Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
 				User user = userRepository.findOneByLogin(SecurityUtils
 						.getCurrentLogin());
 				if (!user.isTeacher()
@@ -166,11 +167,11 @@ public class ArchiveResource {
 	public ResponseEntity<?> delete(@PathVariable String folderId,
 			@RequestParam("gridId") String gridId, HttpServletRequest request)
 			throws Exception {
-		Folder folder = folderRepository.findOne(folderId);
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		Archive archive = folderService.findOne(gridId, folderId);
-		Group group = groupRepository.findOne(folder.getGroupId());
+		Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
 		if (archive == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)

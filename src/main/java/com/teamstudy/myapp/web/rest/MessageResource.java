@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.bson.types.ObjectId;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,7 +71,7 @@ public class MessageResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Message getOne(@RequestParam("messageId") String messageId,
 			HttpServletResponse response) {
-		return messageRepository.findOne(messageId);
+		return messageRepository.findOneById(new ObjectId(messageId));
 	}
 
 	/* POST Methods */
@@ -84,13 +85,13 @@ public class MessageResource {
 			HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
-		Thread thread = threadRepository.findOne(threadId);
+		Thread thread = threadRepository.findOneById(new ObjectId(threadId));
 		if (thread == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This thread does not exist");
 		} else {
-			Group group = groupRepository.findOne(thread.getGroupId());
+			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
 				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
@@ -116,15 +117,15 @@ public class MessageResource {
 
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
-		Message message = messageRepository.findOne(messageDTO.getId());
+		Message message = messageRepository.findOneById(new ObjectId(messageDTO.getId()));
 		List<Reply> replies = replyService.findAllByMessage(messageDTO.getId());
 		if (message == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This thread does not exist");
 		} else {
-			Thread thread = threadRepository.findOne(message.getThreadId());
-			Group group = groupRepository.findOne(thread.getGroupId());
+			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
+			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher()
 					&& !messageDTO.getUserId().equals(user.getId())) {
 				return ResponseEntity.badRequest()
@@ -154,7 +155,7 @@ public class MessageResource {
 	public ResponseEntity<?> deleteMessage(
 			@RequestParam("messageId") String messageId,
 			HttpServletRequest httpServletRequest) {
-		Message message = messageRepository.findOne(messageId);
+		Message message = messageRepository.findOneById(new ObjectId(messageId));
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		if (message == null) {
@@ -164,8 +165,8 @@ public class MessageResource {
 		} else {
 			List<Reply> replies = replyService
 					.findAllByMessage(message.getId());
-			Thread thread = threadRepository.findOne(message.getThreadId());
-			Group group = groupRepository.findOne(thread.getGroupId());
+			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
+			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher() && !replies.isEmpty()) {
 				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
