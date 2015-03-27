@@ -1,6 +1,5 @@
 package com.teamstudy.myapp.web.rest;
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -12,7 +11,6 @@ import javax.validation.Valid;
 import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -328,18 +326,45 @@ public class GroupResource {
 
 	}
 
+	// update group information (MIO)
 	@RequestMapping(value = "/groups/{groupId}/wiki", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> updateGroupWiki(@PathVariable String groupId,
-			@Valid @RequestBody Group group) throws URISyntaxException {
-		log.debug("REST request to update Group : {}", group);
-		if (group.getId() == null) {
-			// return createGroup(group);
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public ResponseEntity<?> updateGroupWiki(@Valid @RequestBody GroupDTO groupDTO,
+			HttpServletRequest request) {
+
+		if (groupDTO == null) {
+			return ResponseEntity.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
+					.body("This group does not exist");
+
+		}
+		
+		if (groupDTO.getId() == null) {
+			createGroup(groupDTO);
+
 		}
 
-		// groupService.updateGroupInformation(group);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
+		User user = userRepository.findOneByLogin(SecurityUtils
+				.getCurrentLogin());
+		User teacher = userRepository.findOneById(new ObjectId(groupDTO
+				.getTeacherId()));
 
+		if (!user.isTeacher()) {
+			return ResponseEntity.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
+					.body("engaña a tu madre, q ese nota no es profesor");
+		}
+		if (!teacher.isTeacher()) {
+			return ResponseEntity.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
+					.body("engaña a tu madre, q ese nota no es profesor");
+		} else {
+
+			groupService.updateGroupInformation(groupDTO);
+			return ResponseEntity.ok("group update");
+		}
+
+	}
+	
 }
