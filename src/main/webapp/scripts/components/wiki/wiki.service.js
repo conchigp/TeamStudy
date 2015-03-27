@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('teamstudyApp').factory('Group', function($resource) {
+angular.module('teamstudyApp').factory('Wiki', function($resource) {
 	return $resource('api/groups/:id/wiki', {}, {
 		'get' : {
 			method : 'GET',
