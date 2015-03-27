@@ -1,11 +1,14 @@
 package com.teamstudy.myapp.service;
 
 import java.io.File;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
@@ -94,11 +97,51 @@ public class FolderService {
 		return folderRepository.findOneById(new ObjectId(folderId)).getArchives();
 	}
 	
-	public GridFSDBFile download(String objectId) throws Exception {
+	public boolean existFile(String gridId) throws Exception{
+		GridFS fs = connectDatabase();
+		GridFSDBFile file = fs.find(new ObjectId(gridId));
+		if(file != null){
+			return true;
+		}else{
+			return false;
+		}
+	}
+	
+	/**
+	 * 
+	 * Method 1
+	 * 
+	 */
+	/*public OutputStream download(String objectId, HttpServletResponse response) throws Exception {
 		GridFS fs = connectDatabase();
 		GridFSDBFile file = fs.find(new ObjectId(objectId));
-		return file;
+		InputStream is = file.getInputStream();
+		response.addHeader("Content-Type", "application/octet-stream");
+		response.addHeader("Content-Disposition", "attachment; filename={}");
+		int read = 0;
+		byte[] bytes = new byte[4096];
+		OutputStream os = response.getOutputStream();
+		while ((read = is.read(bytes)) != -1) {
+			os.write(bytes, 0, read);
+		}
+		return os;
+	}*/
+	
+	/**
+	 * 
+	 * Method 2
+	 * 
+	 */
+	
+	public long download(String objectId, HttpServletResponse response) throws Exception {
+		GridFS fs = connectDatabase();
+		GridFSDBFile file = fs.find(new ObjectId(objectId));
+		response.addHeader("Content-Type", "application/octet-stream");
+		response.addHeader("Content-Disposition", "attachment; filename={"+file.getFilename()+"}");
+		OutputStream os = response.getOutputStream();
+		return file.writeTo(os);
 	}
+	
 	
 	/* POST Methods */ 
 
