@@ -270,7 +270,7 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Group> getAllGroupForUSer(@PathVariable String userId,
 			HttpServletResponse response) {
-		log.debug("REST request to get all groups for user");
+		log.debug("REST request to get all groups for user => " + userId);
 		return groupService.getGroupsForUser(userId);
 	}
 

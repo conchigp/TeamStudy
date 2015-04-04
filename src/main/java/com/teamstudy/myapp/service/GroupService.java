@@ -75,8 +75,10 @@ public List<Group> getGroupsForUser(String userId){
 		List<Group> myGroups = new ArrayList<Group>();
 		
 		for (Group g : groups){
-			if(g.getAlums().contains(user.getId())){
-				myGroups.add(g);
+			if (g.getAlums() != null){
+				if(g.getAlums().contains(user.getId())){
+					myGroups.add(g);
+			}
 			}
 		}
 		
