@@ -57,7 +57,7 @@ public class MessageResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/messages", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/message/thread", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Message> getAllByThread(
@@ -79,7 +79,7 @@ public class MessageResource {
 	@RequestMapping(value = "/message", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> createMessage(
+	public ResponseEntity<?> create(
 			@Valid @RequestBody MessageDTO messageDTO,
 			@RequestParam("threadId") String threadId,
 			HttpServletRequest httpServletRequest) {
@@ -111,7 +111,7 @@ public class MessageResource {
 	@RequestMapping(value = "/message", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> updateMessage(
+	public ResponseEntity<?> update(
 			@Valid @RequestBody MessageDTO messageDTO,
 			HttpServletRequest httpServletRequest) {
 
@@ -152,7 +152,7 @@ public class MessageResource {
 	@RequestMapping(value = "/message", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> deleteMessage(
+	public ResponseEntity<?> delete(
 			@RequestParam("messageId") String messageId,
 			HttpServletRequest httpServletRequest) {
 		Message message = messageRepository.findOneById(new ObjectId(messageId));

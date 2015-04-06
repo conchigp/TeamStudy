@@ -51,7 +51,7 @@ public class FolderResource {
 		return folderRepository.findOneById(new ObjectId(folderId));
 	}
 	
-	@RequestMapping(value = "/folders", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/folder/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Folder> getAllByGroup(@RequestParam("groupId") String groupId){
@@ -87,7 +87,7 @@ public class FolderResource {
 	@RequestMapping(value = "/folder", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> create(@Valid @RequestBody FolderDTO folderDTO){
+	public ResponseEntity<?> update(@Valid @RequestBody FolderDTO folderDTO){
 		Group group = groupRepository.findOneById(new ObjectId(folderDTO.getGroupId()));
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		if(!user.isTeacher() && !group.getAlums().contains(user.getId())){
@@ -107,7 +107,7 @@ public class FolderResource {
 	@RequestMapping(value = "/folder", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> create(@RequestParam("folderId") String folderId) throws Exception{
+	public ResponseEntity<?> delete(@RequestParam("folderId") String folderId) throws Exception{
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if(folder == null){
 			return ResponseEntity.badRequest()

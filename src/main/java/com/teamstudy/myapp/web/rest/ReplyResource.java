@@ -57,7 +57,7 @@ public class ReplyResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/replies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/reply/message", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Reply> getAllByMessage(@RequestParam("messageId") String messageId,
@@ -78,7 +78,7 @@ public class ReplyResource {
 	@RequestMapping(value = "/reply", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> createReply(
+	public ResponseEntity<?> create(
 			@Valid @RequestBody ReplyDTO replyDTO,
 			@RequestParam("messageId") String messageId, HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
@@ -109,7 +109,7 @@ public class ReplyResource {
 	@RequestMapping(value = "/reply", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> updateReply(
+	public ResponseEntity<?> update(
 			@Valid @RequestBody ReplyDTO replyDTO,
 			HttpServletRequest httpServletRequest) {
 
@@ -144,7 +144,7 @@ public class ReplyResource {
 	@RequestMapping(value = "/reply", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> deleteReply(
+	public ResponseEntity<?> delete(
 			@RequestParam("replyId") String replyId,
 			HttpServletRequest httpServletRequest) {
 

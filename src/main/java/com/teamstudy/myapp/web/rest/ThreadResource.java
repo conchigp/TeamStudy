@@ -52,7 +52,7 @@ public class ThreadResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/threads", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/thread/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Thread> getAllByGroup(@RequestParam("groupId") String groupId,
@@ -74,7 +74,7 @@ public class ThreadResource {
 	@RequestMapping(value = "/thread", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> createThread(
+	public ResponseEntity<?> create(
 			@Valid @RequestBody ThreadDTO threadDTO,
 			@RequestParam("groupId") String groupId, HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils
@@ -105,7 +105,7 @@ public class ThreadResource {
 	@RequestMapping(value = "/thread", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> updateThread(
+	public ResponseEntity<?> update(
 			@Valid @RequestBody ThreadDTO threadDTO,
 			HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
@@ -142,7 +142,7 @@ public class ThreadResource {
 	@RequestMapping(value = "/thread", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> deleteThread(@RequestParam("threadId") String threadId,
+	public ResponseEntity<?> delete(@RequestParam("threadId") String threadId,
 			HttpServletRequest httpServletRequest) {
 		Thread thread = threadRepository.findOneById(new ObjectId(threadId));
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());

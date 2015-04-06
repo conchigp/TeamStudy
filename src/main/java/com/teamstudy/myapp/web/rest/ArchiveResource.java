@@ -48,7 +48,7 @@ public class ArchiveResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/archives", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/archive", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Archive> getAllByFolder(

@@ -59,10 +59,10 @@ public class NewResource {
 		return news;
 	}
 
-	@RequestMapping(value = "/new", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/news", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> createNew(@Valid @RequestBody NewsDTO newsDTO,
+	public ResponseEntity<?> create(@Valid @RequestBody NewsDTO newsDTO,
 			@RequestParam("groupId") String groupId,
 			HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils

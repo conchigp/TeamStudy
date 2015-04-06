@@ -1,11 +1,8 @@
 package com.teamstudy.myapp.web.rest;
 
-import java.util.List;
-
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
@@ -19,70 +16,56 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.Group;
-import com.teamstudy.myapp.domain.MessageChat;
 import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
 import com.teamstudy.myapp.security.SecurityUtils;
-import com.teamstudy.myapp.service.ChatService;
-import com.teamstudy.myapp.web.rest.dto.ChatDTO;
+import com.teamstudy.myapp.service.GroupService;
+import com.teamstudy.myapp.web.rest.dto.GroupDTO;
+
 
 @RestController
 @RequestMapping("/api")
-public class ChatResource {
-
-	@Inject
-	private ChatService chatService;
-
+public class WikiResource {
+	
 	@Inject
 	private GroupRepository groupRepository;
-
+	
+	@Inject
+	private GroupService groupService;
+	
 	@Inject
 	private UserRepository userRepository;
-
-	/* GET Methods */
-
-	@RequestMapping(value = "/chat", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	
+	@RequestMapping(value = "/wiki", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public List<MessageChat> getAllByGroup(
-			@RequestParam("groupId") String groupId,
-			HttpServletResponse httpServletResponse) {
-		return chatService.findAllByGroup(groupId);
-	}
-
-	/* POST Methods */
-
-	@RequestMapping(value = "/chat", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> create(@Valid @RequestBody ChatDTO chatDTO,
-			@RequestParam("groupId") String groupId,
-			HttpServletRequest httpServletRequest) {
-		Group group = groupRepository.findOneById(new ObjectId(groupId));
-		if (group == null) {
+	public ResponseEntity<?> update(
+			@Valid @RequestBody GroupDTO groupDTO,
+			@RequestParam("groupId") String groupId, HttpServletRequest request) {
+		if (groupDTO == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This group does not exist");
 		} else {
 			User user = userRepository.findOneByLogin(SecurityUtils
 					.getCurrentLogin());
-			if (!user.isTeacher()
-					&& !group.getAlums().contains(user.getId().toString())) {
-				return ResponseEntity
-						.badRequest()
+			Group group = groupRepository.findOneById(new ObjectId(groupId));
+			if (!user.isTeacher()) {
+				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
-						.body("You have not permission to create a message in this group");
+						.body("You can not modify this wiky");
 			} else if (user.isTeacher()
-					&& !group.getTeacherId().equals(user.getId().toString())) {
-				return ResponseEntity
-						.badRequest()
+					&& !(new ObjectId(group.getTeacherId())
+							.equals(user.getId()))) {
+				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
-						.body("You have not permission to create a message in this group");
+						.body("You can not modify this wiky");
 			} else {
-				chatService.create(chatDTO, groupId);
-				return ResponseEntity.ok("Message sent");
+				groupService.updateGroupInformation(groupDTO);
+				return ResponseEntity.ok("Group update");
 			}
 		}
 	}
