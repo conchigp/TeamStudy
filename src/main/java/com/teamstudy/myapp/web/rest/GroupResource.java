@@ -190,47 +190,7 @@ public class GroupResource {
 		}
 	}
 
-	// //create group.(MIO)
-	// @RequestMapping(value = "/groups", method = RequestMethod.POST, produces
-	// = MediaType.TEXT_PLAIN_VALUE)
-	// @Timed
-	// @RolesAllowed(AuthoritiesConstants.ADMIN)
-	// public ResponseEntity<?> createGroup(@Valid @RequestBody Group group) {
-	// // Group group2 = groupRepository.findOneById(group.getId());
-	// if (group.getId() != null) {
-	// return ResponseEntity.badRequest().header("Failure",
-	// "A new group cannot already have an ID").build();
-	// } else {
-	// // groupService.createGroup(groupDTO.getName(),
-	// groupDTO.getDescription(), groupDTO.getTeacherId(),
-	// // groupDTO.getAlums(), groupDTO.getWiki());
-	// group.setCreationMoment(new Date(System.currentTimeMillis()));
-	// groupRepository.save(group);
-	//
-	// return new ResponseEntity<>(HttpStatus.CREATED);
-	// }
-	// }
-	//
-	// // update the current group information (MIO)
-	// @RequestMapping(value = "/groups", method = RequestMethod.PUT, produces =
-	// MediaType.APPLICATION_JSON_VALUE)
-	// @Timed
-	// @RolesAllowed(AuthoritiesConstants.ADMIN)
-	// public ResponseEntity<?> updateGroup(@RequestBody Group group) throws
-	// URISyntaxException{
-	// log.debug("REST request to update Group : {}", group);
-	// // Group group2 = groupRepository.findOneById(group.getId());
-	// if (group.getId() == null) {
-	// return createGroup(group);
-	// }
-	// // groupService.updateGroupInformation(group.getId(), groupDTO.getName(),
-	// // groupDTO.getDescription(), groupDTO.getTeacherId(),
-	// // groupDTO.getAlums(), groupDTO.getWiki());
-	// groupRepository.save(group);
-	// return new ResponseEntity<>(HttpStatus.OK);
-	// }
-
-	// delete group (MIO)
+	
 	@RequestMapping(value = "/group", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
@@ -240,34 +200,12 @@ public class GroupResource {
 		if (group == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
-					.body("nonexistent group");
+					.body("This group does not exist");
 		}
 		groupService.deleteGroup(groupId);
 		return ResponseEntity.ok("Group deleted");
 	}
 
-	// /**
-	// * GET /group/wiki:groupId -> get the "wiki" by groupId.
-	// */
-	// @RequestMapping(value = "/groups/{groupId}/wiki", method =
-	// RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	// @Timed
-	// @RolesAllowed(AuthoritiesConstants.USER)
-	// public Wiki getWiki(@PathVariable String groupId,
-	// HttpServletResponse response) {
-	// log.debug("REST request to get Wiki of the group with id: ", groupId);
-	// Group group = groupRepository.findOneById(new ObjectId(groupId));
-	// if (group == null) {
-	// response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-	// }
-	// Wiki wiki = group.getWiki();
-	// if (wiki == null) {
-	// response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-	// }
-	// return wiki;
-	// }
-
-	// Get groups for user (MIO)
 	@RequestMapping(value = "/groups", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
@@ -277,98 +215,57 @@ public class GroupResource {
 		return groupService.getGroupsForUser(userId);
 	}
 
-	// create group.(MIO)
 	@RequestMapping(value = "/group", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> createGroup(@Valid @RequestBody GroupDTO groupDTO) {
-
 		groupService.createGroup(groupDTO);
 		return ResponseEntity.ok("Group created");
-
 	}
 
-	// update group information (MIO)
 	@RequestMapping(value = "/group", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	@RolesAllowed(AuthoritiesConstants.USER)
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> updateGroup(@Valid @RequestBody GroupDTO groupDTO,
 			HttpServletRequest request) {
-
 		if (groupDTO == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This group does not exist");
 
-		}
-
-		if (groupDTO.getId() == null) {
-			createGroup(groupDTO);
-
-		}
-
-		User user = userRepository.findOneByLogin(SecurityUtils
-				.getCurrentLogin());
-		User teacher = userRepository.findOneById(new ObjectId(groupDTO
-				.getTeacherId()));
-
-		if (!user.isTeacher()) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("engaña a tu madre, q ese nota no es profesor");
-		}
-		if (!teacher.isTeacher()) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("engaña a tu madre, q ese nota no es profesor");
-		} else {
-
+		}else{
 			groupService.updateGroupInformation(groupDTO);
-			return ResponseEntity.ok("group update");
+			return ResponseEntity.ok("Group update");
 		}
-
 	}
 
-	// update group information (MIO)
 	@RequestMapping(value = "/group/wiki", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> updateGroupWiki(
 			@Valid @RequestBody GroupDTO groupDTO,
-			@RequestParam("groupId") String group, HttpServletRequest request) {
-
+			@RequestParam("groupId") String groupId, HttpServletRequest request) {
 		if (groupDTO == null) {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This group does not exist");
-
-		}
-
-		if (groupDTO.getId() == null) {
-			createGroup(groupDTO);
-
-		}
-
-		User user = userRepository.findOneByLogin(SecurityUtils
-				.getCurrentLogin());
-		User teacher = userRepository.findOneById(new ObjectId(groupDTO
-				.getTeacherId()));
-
-		if (!user.isTeacher()) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("engaña a tu madre, q ese nota no es profesor");
-		}
-		if (!teacher.isTeacher()) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("engaña a tu madre, q ese nota no es profesor");
 		} else {
-
-			groupService.updateGroupInformation(groupDTO);
-			return ResponseEntity.ok("group update");
+			User user = userRepository.findOneByLogin(SecurityUtils
+					.getCurrentLogin());
+			Group group = groupRepository.findOneById(new ObjectId(groupId));
+			if(!user.isTeacher()){
+				return ResponseEntity.badRequest()
+						.contentType(MediaType.TEXT_PLAIN)
+						.body("You can not modify this wiky");
+			}else if(user.isTeacher() && !(new ObjectId(group.getTeacherId()).equals(user.getId()))){
+				return ResponseEntity.badRequest()
+						.contentType(MediaType.TEXT_PLAIN)
+						.body("You can not modify this wiky");
+			}else{
+				groupService.updateGroupInformation(groupDTO);
+				return ResponseEntity.ok("Group update");
+			}
 		}
-
 	}
 
 }
