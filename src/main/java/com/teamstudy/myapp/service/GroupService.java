@@ -86,13 +86,21 @@ public class GroupService {
 		User user = userRepository.findOneById(new ObjectId(userId));
 		List<Group> groups = groupRepository.findAll();
 		List<Group> myGroups = new ArrayList<Group>();
-		for (Group g : groups){
-			if (g.getAlums() != null){
-				if(g.getAlums().contains(user.getId())){
+		if(user.isTeacher()){
+			for (Group g : groups){
+				if (g.getTeacherId().equals(user.getId().toString())){
 					myGroups.add(g);
 				}
-			}
-		}	
+			}	
+		} else {
+			for (Group g : groups){
+				if (g.getAlums() != null){
+					if(g.getAlums().contains(user.getId())){
+						myGroups.add(g);
+					}
+				}
+			}	
+		}
 		return myGroups;
 	}
 	
