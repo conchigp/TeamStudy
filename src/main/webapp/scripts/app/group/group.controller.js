@@ -21,7 +21,7 @@ angular.module('teamstudyApp')
         
         $scope.clear = function () {
         	//El teacherID lo acabo de iniciar a ver si mostraba algo de información sobre él.
-            $scope.group = {name: null, description: null, teacherId: $scope.username};
+            $scope.group = {name: null, description: null};
             $scope.editForm.$setPristine();
             $scope.editForm.$setUntouched();
         };

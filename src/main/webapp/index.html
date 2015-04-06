@@ -31,11 +31,17 @@
 	<div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
 	<div ui-view="navbar" ng-cloak=""></div>
 	<div id="prueba" class="prueba">
-		<div id="main" class="container-fluid" style="margin-top: -15px">
-			<div id="sleft" class="sidebar-left" ui-view="sidebar-left"></div>
-			<div id="ct" class="content" ui-view="content"></div>
-			<div id="sright" class="sidebar-right" ui-view="sidebar-right"></div>
+		<div class="row" style="margin-top: -15px">
+ 			<div id="sleft" class="col-md-2" ui-view="sidebar-left"></div>
+  			<div id="ct" class="col-md-8" ui-view="content"></div>
+  			<div id="sright" class="col-md-2" ui-view="sidebar-right"></div>
 		</div>
+<!-- 		<div id="main" class="container-fluid" style="margin-top: -15px"> -->
+<!-- 					<div id="sleft" class="sidebar-left" ui-view="sidebar-left"></div> -->
+<!-- 					<div id="ct" class="content" ui-view="content"></div> -->
+<!-- 					<div id="sright" class="sidebar-right" ui-view="sidebar-right"></div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
 		<div class="footer">
 			<p translate="footer">This is your footer</p>
 		</div>
