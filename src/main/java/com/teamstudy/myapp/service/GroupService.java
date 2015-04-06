@@ -14,8 +14,10 @@ import org.springframework.util.Assert;
 
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
+import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
+import com.teamstudy.myapp.security.SecurityUtils;
 import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
 
@@ -89,13 +91,19 @@ public List<Group> getGroupsForUser(String userId){
 		public Group createGroup(GroupDTO groupDTO){ 
 			
 			Group group = new Group();
-//			List<String> alums = new ArrayList<String>();
-//		    Wiki wiki = new Wiki();
-//		    wiki.setText("mierda de to");
+			List<String> alums = new ArrayList<String>();
+		    Wiki wiki = new Wiki();
+		    wiki.setText("Escriba aqui el contenido de su wiki");
+			
+			User currentUser = userRepository.findOneByLogin(SecurityUtils
+					.getCurrentLogin());
+			
+			Assert.isTrue(currentUser.isTeacher());
+		
 		    
-		    group.setTeacherId(groupDTO.getTeacherId());
-		    group.setAlums(groupDTO.getAlums());
-		    group.setWiki(groupDTO.getWiki());
+		    group.setTeacherId(currentUser.getId());
+		    group.setAlums(alums);
+		    group.setWiki(wiki);
 		    group.setCreationMoment(new Date(System.currentTimeMillis()));
 		    group.setDescription(groupDTO.getDescription());
 		    group.setName(groupDTO.getName());

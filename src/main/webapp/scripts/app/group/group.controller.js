@@ -25,6 +25,8 @@ angular.module('teamstudyApp')
             $scope.editForm.$setPristine();
             $scope.editForm.$setUntouched();
         };
+        
+        
 
        
         });

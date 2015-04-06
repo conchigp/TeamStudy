@@ -8,7 +8,7 @@ angular.module('teamstudyApp').controller('MainController',
 				$scope.isAuthenticated = Principal.isAuthenticated;
 			}).then(function() {
 				$scope.groups = Group.get({
-					id : $scope.account.id
+					userId : $scope.account.id
 				});
 			});
 			
@@ -21,7 +21,7 @@ angular.module('teamstudyApp').controller('MainController',
 	        };
 	        
 	        $scope.update = function (id) {
-	            Book.get({id: id}, function(result) {
+	            Group.get({id: id}, function(result) {
 	                $scope.group = result;
 	                $('#saveBookModal').modal('show');
 	            });
