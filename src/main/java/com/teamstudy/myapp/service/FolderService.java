@@ -155,10 +155,11 @@ public class FolderService {
 
 		archive.setCreationMoment(new Date());
 		archive.setSize(file.getTotalSpace());
-		archive.setTitle(file.getName());
+		archive.setTitle(file.getName().substring(0,file.getName().lastIndexOf(".")));
 		archive.setUserId(userRepository.findOneByLogin(
 				SecurityUtils.getCurrentLogin()).getId().toString());
-
+		
+		archive.setFormat(file.getName().substring(file.getName().lastIndexOf(".")+1));
 		GridFS fs = connectDatabase();
 		GridFSInputFile in = fs.createFile(file);
 		in.save();
