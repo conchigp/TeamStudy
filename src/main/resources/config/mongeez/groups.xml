@@ -3,22 +3,22 @@
         <script>
         db.T_GROUP.insert(
         {
-                "_id" : "group-0",
+                "_id" : new ObjectId("551523074df1e47ccf055634"),
                 "name" : "grupo0",
                 "description" : "Prueba grupo 0",
                 "creationMoment": new Date(),
-                "teacherId": "user-3",
-                "alums": ["user-4","user-5"],
+                "teacherId": "551522ff4df1e47ccf05562b",
+                "alums": ["551523004df1e47ccf05562c","551523014df1e47ccf05562d"],
                 "wiki": {"text": "HOOOOOOLAAAAAAAAA"}
             });
             db.T_GROUP.insert(
             {
-                  "_id" : "group-1",
+                  "_id" : new ObjectId("551523084df1e47ccf055635"),
                   "name" : "grupo1",
                   "description" : "Prueba grupo 1",
                   "creationMoment": new Date(),
-                  "teacherId": "user-2",
-                  "alums": ["user-1"],
+                  "teacherId": "551522fe4df1e47ccf05562a",
+                  "alums": ["551522f94df1e47ccf055629"],
                   "wiki": {"text": "Adios"}
                 });
 

@@ -1,28 +1,21 @@
 package com.teamstudy.myapp.web.rest;
 
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
-import com.mongodb.gridfs.GridFSDBFile;
 import com.teamstudy.myapp.domain.Folder;
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
@@ -32,118 +25,118 @@ import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
 import com.teamstudy.myapp.security.SecurityUtils;
 import com.teamstudy.myapp.service.FolderService;
+import com.teamstudy.myapp.web.rest.dto.FolderDTO;
+
 
 @RestController
-@RequestMapping("/api/folders")
+@RequestMapping("/api")
 public class FolderResource {
-
-	private final Logger log = LoggerFactory.getLogger(FolderResource.class);
-
-	@Inject
-	private FolderService folderService;
-
-	@Inject
-	private FolderRepository folderRepository;
-
-	@Inject
-	private GroupRepository groupRepository;
-
+	
 	@Inject
 	private UserRepository userRepository;
 
-	@RequestMapping(value = "/{folderId}/add", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Inject
+	private GroupRepository groupRepository;
+	
+	@Inject
+	private FolderRepository folderRepository;
+	
+	@Inject
+	private FolderService folderService;
+	
+	@RequestMapping(value = "/folder", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> addFileToFolder(@PathVariable String folderId,
-			@RequestParam String filePath, HttpServletRequest request)
-			throws Exception {
-		Folder folder = folderRepository.findOne(folderId);
-		if (filePath == null) {
+	public Folder getOne(@RequestParam("folderId") String folderId){
+		return folderRepository.findOneById(new ObjectId(folderId));
+	}
+	
+	@RequestMapping(value = "/folders", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public List<Folder> getAllByGroup(@RequestParam("groupId") String groupId){
+		return folderService.findAllByGroup(groupId);
+	}
+	
+	@RequestMapping(value = "/folder", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public ResponseEntity<?> create(@Valid @RequestBody FolderDTO folderDTO, @RequestParam("groupId") String groupId){
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		if(group == null){
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
-					.body("Folder path can not be null");
-		} else {
-			if (folder == null) {
+					.body("This group does not exist");
+		}else{
+			User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
+			if(!user.isTeacher() && !group.getAlums().contains(user.getId())){
 				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
-						.body("This folder does not exist");
-			} else {
-				Group group = groupRepository.findOne(folder.getGroupId());
-				User user = userRepository.findOneByLogin(SecurityUtils
-						.getCurrentLogin());
-				if (!user.isTeacher()
-						&& !group.getAlums().contains(user.getId())) {
-					return ResponseEntity
-							.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You do not have permission to upload files to this group(U)");
-				} else if (user.isTeacher()
-						&& !group.getTeacherId().equals(user.getId())) {
-					return ResponseEntity
-							.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You do not have permission to upload files to this group(T)");
-				} else {
-					File file = new File(filePath);
-					folderService.addArchive(file, folderId);
-					return ResponseEntity.ok("File has been upload");
-				}
+						.body("You do not have permission to create folder");
+			}else if(user.isTeacher() && !group.getTeacherId().equals(user.getId())){
+				return ResponseEntity.badRequest()
+						.contentType(MediaType.TEXT_PLAIN)
+						.body("You do not have permission to create folder");
+			}else{
+				folderService.create(folderDTO, groupId);
+				return ResponseEntity.ok("Folder created");
 			}
 		}
 	}
-
-	@RequestMapping(value = "/{folderId}/download/{gridId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	
+	@RequestMapping(value = "/folder", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> downloadFileFromFolder(
-			@PathVariable String folderId, @PathVariable String gridId,
-			HttpServletResponse response) throws Exception, IOException {
-		Folder folder = folderRepository.findOne(folderId);
-		if (folder == null) {
+	public ResponseEntity<?> create(@Valid @RequestBody FolderDTO folderDTO){
+		Group group = groupRepository.findOneById(new ObjectId(folderDTO.getGroupId()));
+		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
+		if(!user.isTeacher() && !group.getAlums().contains(user.getId())){
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
-					.body("This folder does not exist");
-		} else {
-			Group group = groupRepository.findOne(folder.getGroupId());
-			User user = userRepository.findOneByLogin(SecurityUtils
-					.getCurrentLogin());
-			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-				return ResponseEntity
-						.badRequest()
+					.body("You do not have permission to create folder");
+		}else if(user.isTeacher() && !group.getTeacherId().equals(user.getId())){
+			return ResponseEntity.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
+					.body("You do not have permission to create folder");
+		}else{
+			folderService.update(folderDTO);
+			return ResponseEntity.ok("Folder created");
+		}
+	}
+	
+	@RequestMapping(value = "/folder", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public ResponseEntity<?> create(@RequestParam("folderId") String folderId) throws Exception{
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
+		if(folder == null){
+			return ResponseEntity.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
+					.body("Folder does not exist");
+		}else{
+			Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
+			User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
+			if(!user.isTeacher() && !group.getAlums().contains(user.getId())){
+				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to upload files to this group(U)");
-			} else if (user.isTeacher()
-					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity
-						.badRequest()
+						.body("You do not have permission to create folder");
+			}else if(user.isTeacher() && !group.getTeacherId().equals(user.getId())){
+				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to upload files to this group(T)");
-			} else {
-				ObjectId id = new ObjectId(gridId);
-				GridFSDBFile file = folderService.downloadFile(id);
-				if (file == null) {
+						.body("You do not have permission to create folder");
+			}else{
+				if(!folder.getArchives().isEmpty()){
 					return ResponseEntity.badRequest()
 							.contentType(MediaType.TEXT_PLAIN)
-							.body("The file does not exist");
-				} else {
-					response.setHeader("Content-Disposition","attachment;filename=" + file.getFilename());
-					try{
-						InputStream fileIn = file.getInputStream();
-						ServletOutputStream out = response.getOutputStream();
-						byte[] outputByte = new byte[4096];
-						while (fileIn.read(outputByte, 0, 4096) != -1) {
-							out.write(outputByte, 0, 4096);
-						}
-						fileIn.close();
-						out.flush();
-						out.close();
-					}catch(Exception e){
-						e.printStackTrace();
-					}
-					return ResponseEntity.ok("Downloading");
+							.body("You can not to remove a folder with archives");
+				}else{
+					folderService.delete(folderId);
+					return ResponseEntity.ok("Folder created");
 				}
 			}
 		}
 	}
+	
+	
 
 }

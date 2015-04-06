@@ -6,19 +6,18 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>TeamStudy</title>
+        <title>teamstudy</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css assets/styles/vendor.css -->
-        <link rel="stylesheet" href="assets/styles/style.css">
-        <link rel="stylesheet" href="assets/styles/main.css">
-		
         <!-- bower:css -->
-        <link rel="stylesheet" href="../../../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
         <!-- endbower -->
         <!-- endbuild -->
-        
+        <!-- build:css assets/styles/main.css -->
+        <link rel="stylesheet" href="assets/styles/main.css">
+        <!-- endbuild -->
     </head>
     <body ng-app="teamstudyApp">
         <!--[if lt IE 10]>
@@ -26,8 +25,9 @@
         <![endif]-->
         <div ng-show="{{ENV === 'dev'}}" class="development" ng-cloak=""></div>
         <div ui-view="navbar" ng-cloak=""></div>
-        <div id="prueba" class="prueba">
-            <div class="" ui-view="content"></div>
+        <div class="container">
+            <div class="well" ui-view="content"></div>
+
             <div class="footer">
                 <p translate="footer">This is your footer</p>
             </div>
@@ -45,26 +45,26 @@
 
         <!-- build:js scripts/vendor.js -->
         <!-- bower:js -->
-        <script src="../../../bower_components/modernizr/modernizr.js"></script>
-        <script src="../../../bower_components/jquery/dist/jquery.js"></script>
-        <script src="../../../bower_components/bootstrap/dist/js/bootstrap.js"></script>
-        <script src="../../../bower_components/json3/lib/json3.js"></script>
-        <script src="../../../bower_components/angular/angular.js"></script>
-        <script src="../../../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-        <script src="../../../bower_components/angular-resource/angular-resource.js"></script>
-        <script src="../../../bower_components/angular-cookies/angular-cookies.js"></script>
-        <script src="../../../bower_components/angular-sanitize/angular-sanitize.js"></script>
-        <script src="../../../bower_components/angular-translate/angular-translate.js"></script>
-        <script src="../../../bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
-        <script src="../../../bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
-        <script src="../../../bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
-        <script src="../../../bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
-        <script src="../../../bower_components/angular-cache-buster/angular-cache-buster.js"></script>
-        <script src="../../../bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
+        <script src="bower_components/modernizr/modernizr.js"></script>
+        <script src="bower_components/jquery/dist/jquery.js"></script>
+        <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="bower_components/json3/lib/json3.js"></script>
+        <script src="bower_components/angular/angular.js"></script>
+        <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+        <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+        <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+        <script src="bower_components/angular-translate/angular-translate.js"></script>
+        <script src="bower_components/angular-translate-storage-cookie/angular-translate-storage-cookie.js"></script>
+        <script src="bower_components/angular-translate-loader-partial/angular-translate-loader-partial.js"></script>
+        <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
+        <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+        <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
+        <script src="bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
-		<script src="scripts/devoops/devoops.js"></script>
+
         <!-- build:js({.tmp,src/main/webapp}) scripts/app.js -->
         <script src="scripts/app/app.js"></script>
         <script src="scripts/app/app.constants.js"></script>
@@ -87,9 +87,6 @@
         <script src="scripts/components/util/truncate.filter.js"></script>
         <script src="scripts/components/util/base64.service.js"></script>
         <script src="scripts/components/util/parse-links.service.js"></script>
-        
-        <script src="scripts/components/group/group.service.js"></script>
-        
         <script src="scripts/app/account/account.js"></script>
         <script src="scripts/app/account/activate/activate.js"></script>
         <script src="scripts/app/account/activate/activate.controller.js"></script>
@@ -121,6 +118,42 @@
         <script src="scripts/app/main/main.js"></script>
         <script src="scripts/app/main/main.controller.js"></script>
         <script src="scripts/components/auth/provider/auth.xauth.service.js"></script>
+        <script src="scripts/app/entities/archive/archive.js"></script>
+        <script src="scripts/app/entities/archive/archive.controller.js"></script>
+        <script src="scripts/app/entities/archive/archive-detail.controller.js"></script>
+        <script src="scripts/components/entities/archive/archive.service.js"></script>
+        <script src="scripts/app/entities/folder/folder.js"></script>
+        <script src="scripts/app/entities/folder/folder.controller.js"></script>
+        <script src="scripts/app/entities/folder/folder-detail.controller.js"></script>
+        <script src="scripts/components/entities/folder/folder.service.js"></script>
+        <script src="scripts/app/entities/group/group.js"></script>
+        <script src="scripts/app/entities/group/group.controller.js"></script>
+        <script src="scripts/app/entities/group/group-detail.controller.js"></script>
+        <script src="scripts/components/entities/group/group.service.js"></script>
+        <script src="scripts/app/entities/message/message.js"></script>
+        <script src="scripts/app/entities/message/message.controller.js"></script>
+        <script src="scripts/app/entities/message/message-detail.controller.js"></script>
+        <script src="scripts/components/entities/message/message.service.js"></script>
+        <script src="scripts/app/entities/messageChat/messageChat.js"></script>
+        <script src="scripts/app/entities/messageChat/messageChat.controller.js"></script>
+        <script src="scripts/app/entities/messageChat/messageChat-detail.controller.js"></script>
+        <script src="scripts/components/entities/messageChat/messageChat.service.js"></script>
+        <script src="scripts/app/entities/new/new.js"></script>
+        <script src="scripts/app/entities/new/new.controller.js"></script>
+        <script src="scripts/app/entities/new/new-detail.controller.js"></script>
+        <script src="scripts/components/entities/new/new.service.js"></script>
+        <script src="scripts/app/entities/reply/reply.js"></script>
+        <script src="scripts/app/entities/reply/reply.controller.js"></script>
+        <script src="scripts/app/entities/reply/reply-detail.controller.js"></script>
+        <script src="scripts/components/entities/reply/reply.service.js"></script>
+        <script src="scripts/app/entities/thread/thread.js"></script>
+        <script src="scripts/app/entities/thread/thread.controller.js"></script>
+        <script src="scripts/app/entities/thread/thread-detail.controller.js"></script>
+        <script src="scripts/components/entities/thread/thread.service.js"></script>
+        <script src="scripts/app/entities/wiki/wiki.js"></script>
+        <script src="scripts/app/entities/wiki/wiki.controller.js"></script>
+        <script src="scripts/app/entities/wiki/wiki-detail.controller.js"></script>
+        <script src="scripts/components/entities/wiki/wiki.service.js"></script>
         <!-- endbuild -->
 </body>
 </html>

@@ -1,0 +1,19 @@
+{
+    "teamstudyApp": {
+        "new" : {
+            "home": {
+                "title": "News",
+                "createLabel": "Créer un nouveau New",
+                "createOrEditLabel": "Créer ou éditer un New"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le New {{ id }} ?"
+            },
+            "detail": {
+                "title": "New"
+            },
+            "title": "Title"
+        }
+    }
+}
+

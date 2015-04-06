@@ -11,7 +11,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "T_GROUP")
-public class Group implements Serializable {
+public class Group extends AbstractAuditingEntity implements Serializable {
 
 	@Id
 	private String id;

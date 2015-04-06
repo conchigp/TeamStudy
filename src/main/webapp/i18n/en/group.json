@@ -1,6 +1,18 @@
 {
-    "group": {
-        "title": "Grupo"
- 
+    "teamstudyApp": {
+        "group" : {
+            "home": {
+                "title": "Groups",
+                "createLabel": "Create a new Group",
+                "createOrEditLabel": "Create or edit a Group"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Group {{ id }}?"
+            },
+            "detail": {
+                "title": "Group"
+            },
+            "title": "Title"
+        }
     }
 }

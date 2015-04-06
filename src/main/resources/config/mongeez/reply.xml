@@ -1,0 +1,22 @@
+<mongoChangeLog>
+	<changeSet changeId="ChangeSet-5" author="jhipster">
+		<script>
+			db.T_REPLY.insert(
+			{
+				"_id" : new ObjectId("551523034df1e47ccf055630"),
+				"description" : "description of reply0",
+				"creationMoment": new Date(),
+				"messageId": "551523054df1e47ccf055632",
+				"userId": "551523004df1e47ccf05562c"
+			});
+			db.T_REPLY.insert(
+			{
+				"_id" : new ObjectId("551523044df1e47ccf055631"),
+				"description" : "description of reply1",
+				"creationMoment": new Date(),
+				"messageId": "551523064df1e47ccf055633",
+				"userId": "551522f94df1e47ccf055629"
+			});
+		</script>
+	</changeSet>
+</mongoChangeLog>

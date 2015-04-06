@@ -1,0 +1,18 @@
+{
+    "teamstudyApp": {
+        "folder" : {
+            "home": {
+                "title": "Folders",
+                "createLabel": "Create a new Folder",
+                "createOrEditLabel": "Create or edit a Folder"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Folder {{ id }}?"
+            },
+            "detail": {
+                "title": "Folder"
+            },
+            "title": "Title"
+        }
+    }
+}

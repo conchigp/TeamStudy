@@ -1,0 +1,19 @@
+{
+    "teamstudyApp": {
+        "wiki" : {
+            "home": {
+                "title": "Wikis",
+                "createLabel": "Créer un nouveau Wiki",
+                "createOrEditLabel": "Créer ou éditer un Wiki"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Wiki {{ id }} ?"
+            },
+            "detail": {
+                "title": "Wiki"
+            },
+            "title": "Title"
+        }
+    }
+}
+

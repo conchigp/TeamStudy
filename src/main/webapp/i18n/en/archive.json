@@ -1,0 +1,18 @@
+{
+    "teamstudyApp": {
+        "archive" : {
+            "home": {
+                "title": "Archives",
+                "createLabel": "Create a new Archive",
+                "createOrEditLabel": "Create or edit a Archive"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Archive {{ id }}?"
+            },
+            "detail": {
+                "title": "Archive"
+            },
+            "title": "Title"
+        }
+    }
+}

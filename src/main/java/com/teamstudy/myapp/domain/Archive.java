@@ -22,15 +22,10 @@ public class Archive {
 	private String format;
 
 	@NotNull
-	@URL
-	private String url;
-
-	// Hace referencia al ID del usuario.
-	@NotNull
 	private String userId;
 
 	@NotNull
-	private Object gridId;
+	private String gridId;
 
 	public String getTitle() {
 		return title;
@@ -64,14 +59,6 @@ public class Archive {
 		this.format = format;
 	}
 
-	public String getUrl() {
-		return url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	public String getUserId() {
 		return userId;
 	}
@@ -80,11 +67,11 @@ public class Archive {
 		this.userId = userId;
 	}
 
-	public Object getGridId() {
+	public String getGridId() {
 		return gridId;
 	}
 
-	public void setGridId(Object gridId) {
+	public void setGridId(String gridId) {
 		this.gridId = gridId;
 	}
 
@@ -92,8 +79,8 @@ public class Archive {
 	public String toString() {
 		return "Archive{" + "title='" + title + '\'' + ", creationMoment='"
 				+ creationMoment + '\'' + ", size='" + size + '\''
-				+ ", format='" + format + '\'' + ", url='" + url + '\''
-				+ ", userId='" + userId + '\'' + "}";
+				+ ", format='" + format + '\'' + ", userId='" + userId + '\''
+				+ "}";
 	}
 
 }

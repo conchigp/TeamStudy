@@ -3,6 +3,7 @@
     <file path="groups.xml"/>
     <file path="threads.xml"/>
     <file path="messages.xml"/>
+    <file path="reply.xml"/>
     <file path="news.xml"/>
     <file path="messagechat.xml"/>
     <file path="folders.xml"/>

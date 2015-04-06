@@ -1,0 +1,19 @@
+{
+    "teamstudyApp": {
+        "group" : {
+            "home": {
+                "title": "Groups",
+                "createLabel": "Créer un nouveau Group",
+                "createOrEditLabel": "Créer ou éditer un Group"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Group {{ id }} ?"
+            },
+            "detail": {
+                "title": "Group"
+            },
+            "title": "Title"
+        }
+    }
+}
+

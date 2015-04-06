@@ -1,0 +1,19 @@
+{
+    "teamstudyApp": {
+        "messageChat" : {
+            "home": {
+                "title": "MessageChats",
+                "createLabel": "Créer un nouveau MessageChat",
+                "createOrEditLabel": "Créer ou éditer un MessageChat"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le MessageChat {{ id }} ?"
+            },
+            "detail": {
+                "title": "MessageChat"
+            },
+            "title": "Title"
+        }
+    }
+}
+

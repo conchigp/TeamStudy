@@ -1,20 +1,20 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-7" author="jhipster">
+    <changeSet changeId="ChangeSet-8" author="jhipster">
         <script>
          db.T_FOLDER.insert(
         {
-                  "_id" : "folder-0",
+                  "_id" : new ObjectId("5515230d4df1e47ccf05563a"),
                   "title" : "folder0",
                   "creationMoment": new Date(),
-                  "groupId" : "group-0",
+                  "groupId" : "551523074df1e47ccf055634",
                   "archives": []
             });
             db.T_FOLDER.insert(
            {
-                   "_id" : "folder-1",
+                   "_id" : new ObjectId("5515230e4df1e47ccf05563b"),
                    "title" : "folder1",
                    "creationMoment": new Date(),
-                   "groupId" : "group-1",
+                   "groupId" : "551523084df1e47ccf055635",
                    "archives": []
                });
         </script>

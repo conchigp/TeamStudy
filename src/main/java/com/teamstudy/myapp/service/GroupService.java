@@ -6,12 +6,14 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
+import com.teamstudy.myapp.domain.Folder;
 import com.teamstudy.myapp.domain.Group;
+import com.teamstudy.myapp.domain.Thread;
 import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
@@ -30,98 +32,106 @@ public class GroupService {
 	@Inject
 	private UserRepository userRepository;
 	
-	public void deleteStudentFromGroup(String studentId, String groupId){
-		Group group = groupRepository.findOne(groupId);
+	@Inject
+	private ChatService chatService;
+	
+	@Inject
+	private ThreadService threadService;
+	
+	@Inject
+	private NewService newService;
+	
+	@Inject
+	private FolderService folderService;
+	
+	public void deleteStudent(String studentId, String groupId){
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<String> students = group.getAlums();
 		students.remove(studentId);
 		group.setAlums(students);
 		groupRepository.save(group);
 	}
 	
-	public void deleteTeacherFromGroup(String groupId){
-		Group group = groupRepository.findOne(groupId);
+	public void deleteTeacher(String groupId){
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		group.setTeacherId(null);
 		groupRepository.save(group);
 	}
 	
-	public void addStudentToGroup(String studentId, String groupId){
-		Group group = groupRepository.findOne(groupId);
+	public void addStudent(String studentId, String groupId){
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<String> students = group.getAlums();
 		students.add(studentId);
 		group.setAlums(students);
 		groupRepository.save(group);
 	}
 	
-	public void addTeacherToGroup(String teacherId, String groupId){
-		Group group = groupRepository.findOne(groupId);
+	public void addTeacher(String teacherId, String groupId){
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		group.setTeacherId(teacherId);
 		groupRepository.save(group);
 	}
 	
 	public List<User> getStudentsByGroup(String groupId){
-		Group group = groupRepository.findOne(groupId);
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<User> students = new ArrayList<User>();
 		for(String s: group.getAlums()){
-			User user = userRepository.findOne(s);
+			User user = userRepository.findOneById(new ObjectId(s));
 			students.add(user);
 		}
 		return students;
 	}
 	
-public List<Group> getGroupsForUser(String userId){
-		
-		User user = userRepository.findOne(userId);
+	public List<Group> getGroupsForUser(String userId){
+		User user = userRepository.findOneById(new ObjectId(userId));
 		List<Group> groups = groupRepository.findAll();
 		List<Group> myGroups = new ArrayList<Group>();
-		
 		for (Group g : groups){
-			if(g.getAlums().contains(user.getId())){
-				myGroups.add(g);
+			if (g.getAlums() != null){
+				if(g.getAlums().contains(user.getId())){
+					myGroups.add(g);
+				}
 			}
-		}
-		
+		}	
 		return myGroups;
 	}
 	
-//MIO
-		public void createGroup(Group group){ 
-			
-			List<String> alums = new ArrayList<String>();
-		    Wiki wiki = new Wiki();
-		    
-		    group.setTeacherId(null);
-		    group.setAlums(alums);
-		    group.setWiki(wiki);
-		    group.setCreationMoment(new Date(System.currentTimeMillis()));
-		    
-			groupRepository.save(group);
-			log.debug("Created Information for Group: {}", group);
-			
-		}
-		
-		//MIO
-		public void updateGroupInformation(Group group) {
-			
-			
-			Assert.notNull(group);
-			
-			group.setName(group.getName());
-			group.setDescription(group.getDescription());
-			group.setTeacherId(group.getTeacherId());
-			group.setAlums(group.getAlums());
-			group.setWiki(group.getWiki());
-
-			groupRepository.save(group);
-			log.debug("Changed Information for Group: {}", group);
-		}
-		
-		//MIO
-		public void deleteGroup(String groupId){
-			Group group = groupRepository.findOne(groupId);
-			groupRepository.delete(group);
-		}
-		
+	public Group createGroup(GroupDTO groupDTO){ 	
+		Group group = new Group();   
+	    group.setAlums(new ArrayList<String>());
+	    group.setWiki(new Wiki());
+	    group.setCreationMoment(new Date(System.currentTimeMillis()));
+	    group.setDescription(groupDTO.getDescription());
+	    group.setName(groupDTO.getName());
+		groupRepository.save(group);
+		log.debug("Created Information for Group: {}", group);
+		return group;	
+	}
 	
-
-
+	public void updateGroupInformation(GroupDTO groupDTO) {
+		Group group = groupRepository.findOneById(new ObjectId(groupDTO.getId()));
+		group.setName(groupDTO.getName());
+		group.setDescription(groupDTO.getDescription());
+		group.setTeacherId(groupDTO.getTeacherId());
+		group.setAlums(groupDTO.getAlums());
+		group.setWiki(groupDTO.getWiki());
+		groupRepository.save(group);
+		log.debug("Changed Information for Group: {}", group);
+	}
+	
+	public void deleteGroup(String groupId) throws Exception{
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		List<Thread> threads = threadService.findAllByGroup(groupId);
+		List<Folder> folders = folderService.findAllByGroup(groupId);
+		for(Thread t : threads){
+			threadService.delete(t.getId().toString());
+		}
+		for(Folder f : folders){
+			folderService.delete(f.getId().toString());
+		}
+		newService.delete(groupId);
+		chatService.delete(groupId);
+		groupRepository.delete(group);
+	}
+	
 }

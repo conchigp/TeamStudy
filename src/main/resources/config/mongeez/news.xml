@@ -1,21 +1,21 @@
 <mongoChangeLog>
-    <changeSet changeId="ChangeSet-5" author="jhipster">
+    <changeSet changeId="ChangeSet-6" author="jhipster">
         <script>
           db.T_NEW.insert(
          {
-                 "_id" : "new-0",
+                 "_id" : new ObjectId("551523094df1e47ccf055636"),
                  "title" : "new0",
                  "description" : "description of new0",
                  "creationMoment": new Date(),
-                 "groupId" : "group-0"
+                 "groupId" : "551523074df1e47ccf055634"
              });
              db.T_NEW.insert(
             {
-                    "_id" : "new-1",
+                    "_id" : new ObjectId("5515230a4df1e47ccf055637"),
                     "title" : "new1",
                     "description" : "description of new1",
                     "creationMoment": new Date(),
-                    "groupId" : "group-1"
+                    "groupId" : "551523084df1e47ccf055635"
                 });
         </script>
     </changeSet>

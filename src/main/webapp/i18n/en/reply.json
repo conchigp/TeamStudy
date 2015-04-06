@@ -1,0 +1,18 @@
+{
+    "teamstudyApp": {
+        "reply" : {
+            "home": {
+                "title": "Replys",
+                "createLabel": "Create a new Reply",
+                "createOrEditLabel": "Create or edit a Reply"
+            },
+            "delete": {
+                "question": "Are you sure you want to delete Reply {{ id }}?"
+            },
+            "detail": {
+                "title": "Reply"
+            },
+            "title": "Title"
+        }
+    }
+}

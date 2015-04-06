@@ -1,0 +1,19 @@
+{
+    "teamstudyApp": {
+        "thread" : {
+            "home": {
+                "title": "Threads",
+                "createLabel": "Créer un nouveau Thread",
+                "createOrEditLabel": "Créer ou éditer un Thread"
+            },
+            "delete": {
+                "question": "Etes-vous certain de vouloir supprimer le Thread {{ id }} ?"
+            },
+            "detail": {
+                "title": "Thread"
+            },
+            "title": "Title"
+        }
+    }
+}
+
