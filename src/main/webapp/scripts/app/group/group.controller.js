@@ -19,7 +19,7 @@ angular.module('teamstudyApp')
         };
         
         $scope.clear = function () {
-            $scope.group = {name: null, description: null};
+            $scope.group = {name: null, description: null, teacherId: null};
             $scope.editForm.$setPristine();
             $scope.editForm.$setUntouched();
         };
