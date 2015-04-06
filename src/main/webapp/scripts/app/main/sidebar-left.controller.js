@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('teamstudyApp').controller('MainController',
+angular.module('teamstudyApp').controller('SidebarleftController',
 		function($scope, Group, Principal) {
 
 			Principal.identity().then(function(account) {
@@ -33,6 +33,11 @@ angular.module('teamstudyApp').controller('MainController',
 	            $scope.editForm.$setUntouched();
 	        };
 	        
-	    
+	        $scope.update = function (id) {
+	            Group.get({id: id}, function(result) {
+	                $scope.group = result;
+	                $('#saveBookModal').modal('show');
+	            });
+	        };
 
 		});

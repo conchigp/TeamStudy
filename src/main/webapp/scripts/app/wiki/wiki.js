@@ -11,7 +11,7 @@ angular.module('teamstudyApp')
                     pageTitle: 'Wiki'
                 },
                 views: {
-                    'wiki@': {
+                    'content@': {
                         templateUrl: 'scripts/app/wiki/wiki.html',
                         controller: 'WikiController'
                     }

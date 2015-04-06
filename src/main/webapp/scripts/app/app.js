@@ -99,10 +99,15 @@ angular
 												templateUrl : 'scripts/components/navbar/navbar.html',
 												controller : 'NavbarController'
 											},
-											'wiki@' : {
-												templateUrl : 'scripts/app/wiki/wiki.html',
-												controller : 'WikiController'
+											'sidebar-left@' : {
+												templateUrl : 'scripts/app/main/sidebar-left.html',
+												controller : 'SidebarleftController'
+											},
+											'sidebar-right@' : {
+												templateUrl : 'scripts/app/main/sidebar-right.html',
+												controller : 'SidebarrightController'
 											}
+											
 										},
 										resolve : {
 											authorize : [
@@ -124,6 +129,11 @@ angular
 													} ]
 										}
 									});
+//							.state('wiki', {
+//					            url:'/wiki',
+//					            templateUrl: 'scripts/app/wiki/wiki.html',
+//					            controller: 'WikiController'
+//					        });
 
 					$httpProvider.interceptors.push('authInterceptor');
 
