@@ -190,7 +190,6 @@ public class GroupResource {
 		}
 	}
 
-	
 	@RequestMapping(value = "/group", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
@@ -201,7 +200,7 @@ public class GroupResource {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This group does not exist");
-		}else{
+		} else {
 			groupService.deleteGroup(groupId);
 			return ResponseEntity.ok("Group deleted");
 		}
@@ -224,20 +223,30 @@ public class GroupResource {
 		return ResponseEntity.ok("Group created");
 	}
 
-	@RequestMapping(value = "/group", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/groups", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> updateGroup(@Valid @RequestBody GroupDTO groupDTO,
 			HttpServletRequest request) {
+		
+		ResponseEntity<?> res = null;
+		
+		if (groupDTO.getId() == null) {
+			createGroup(groupDTO);
+
+		}
 		if (groupDTO == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
+			res = ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN)
 					.body("This group does not exist");
 
-		}else{
+		} else {
+
 			groupService.updateGroupInformation(groupDTO);
-			return ResponseEntity.ok("Group update");
+			res = ResponseEntity.ok("group update");
+
 		}
+		return res;
+
 	}
 
 	@RequestMapping(value = "/group/wiki", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -254,15 +263,17 @@ public class GroupResource {
 			User user = userRepository.findOneByLogin(SecurityUtils
 					.getCurrentLogin());
 			Group group = groupRepository.findOneById(new ObjectId(groupId));
-			if(!user.isTeacher()){
+			if (!user.isTeacher()) {
 				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("You can not modify this wiky");
-			}else if(user.isTeacher() && !(new ObjectId(group.getTeacherId()).equals(user.getId()))){
+			} else if (user.isTeacher()
+					&& !(new ObjectId(group.getTeacherId())
+							.equals(user.getId()))) {
 				return ResponseEntity.badRequest()
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("You can not modify this wiky");
-			}else{
+			} else {
 				groupService.updateGroupInformation(groupDTO);
 				return ResponseEntity.ok("Group update");
 			}
