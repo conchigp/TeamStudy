@@ -10,6 +10,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.teamstudy.myapp.domain.Message;
 import com.teamstudy.myapp.domain.Thread;
 import com.teamstudy.myapp.repository.ThreadRepository;
 import com.teamstudy.myapp.repository.UserRepository;
@@ -26,6 +27,9 @@ public class ThreadService {
 	
 	@Inject
 	private UserRepository userRepository;
+	
+	@Inject
+	private MessageService messageService;
 	
 	/* GET Methods */
 	
@@ -57,6 +61,10 @@ public class ThreadService {
 	
 	public void delete(String threadId){
 		Thread thread = threadRepository.findOneById(new ObjectId(threadId));
+		List<Message> messages = messageService.findAllByThread(threadId);
+		for(Message m : messages){
+			messageService.delete(m.getId().toString());
+		}
 		threadRepository.delete(thread);
 	}
 }

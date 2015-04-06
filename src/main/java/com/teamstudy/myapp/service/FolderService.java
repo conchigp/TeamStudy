@@ -68,8 +68,12 @@ public class FolderService {
 		return folder;
 	}
 
-	public void delete(String folderId) {
+	public void delete(String folderId) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
+		List<Archive> archives = findAllByFolder(folderId);
+		for(Archive a : archives){
+			remove(folderId, a.getGridId());
+		}
 		folderRepository.delete(folder);
 	}
 

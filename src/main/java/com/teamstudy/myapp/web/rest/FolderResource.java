@@ -107,7 +107,7 @@ public class FolderResource {
 	@RequestMapping(value = "/folder", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> create(@RequestParam("folderId") String folderId){
+	public ResponseEntity<?> create(@RequestParam("folderId") String folderId) throws Exception{
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if(folder == null){
 			return ResponseEntity.badRequest()

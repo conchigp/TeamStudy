@@ -9,6 +9,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 
 import com.teamstudy.myapp.domain.Message;
+import com.teamstudy.myapp.domain.Reply;
 import com.teamstudy.myapp.repository.MessageRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.SecurityUtils;
@@ -22,6 +23,9 @@ public class MessageService {
 
 	@Inject
 	private UserRepository userRepository;
+	
+	@Inject
+	private ReplyService replyService;
 
 	/* GET Methods */
 
@@ -51,6 +55,10 @@ public class MessageService {
 
 	public void delete(String messageId) {
 		Message message = messageRepository.findOneById(new ObjectId(messageId));
+		List<Reply> replies = replyService.findAllByMessage(messageId);
+		for(Reply r : replies){
+			replyService.delete(r.getId().toString());
+		}
 		messageRepository.delete(message);
 	}
 }

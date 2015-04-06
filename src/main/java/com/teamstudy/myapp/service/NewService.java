@@ -43,5 +43,12 @@ public class NewService {
 		}
 		return news;
 	}
+	
+	public void delete(String groupId){
+		List<New> news = newRepository.findAllByGroupId(groupId);
+		for(New n : news){
+			newRepository.delete(n);
+		}
+	}
 
 }

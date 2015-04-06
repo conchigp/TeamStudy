@@ -194,7 +194,7 @@ public class GroupResource {
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<String> deleteGroup(
-			@RequestParam("groupId") String groupId, HttpServletRequest request) {
+			@RequestParam("groupId") String groupId, HttpServletRequest request) throws Exception {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
@@ -223,30 +223,19 @@ public class GroupResource {
 		return ResponseEntity.ok("Group created");
 	}
 
-	@RequestMapping(value = "/groups", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/group", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> updateGroup(@Valid @RequestBody GroupDTO groupDTO,
 			HttpServletRequest request) {
-		
-		ResponseEntity<?> res = null;
-		
-		if (groupDTO.getId() == null) {
-			createGroup(groupDTO);
-
-		}
-		if (groupDTO == null) {
-			res = ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN)
+		Group group = groupRepository.findOneById(new ObjectId(groupDTO.getId()));
+		if (group == null) {
+			return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN)
 					.body("This group does not exist");
-
 		} else {
-
 			groupService.updateGroupInformation(groupDTO);
-			res = ResponseEntity.ok("group update");
-
+			return ResponseEntity.ok("Group updated");
 		}
-		return res;
-
 	}
 
 	@RequestMapping(value = "/group/wiki", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)

@@ -53,5 +53,12 @@ public class ChatService {
 		chatRepository.save(chat);
 		return chat;
 	}
+	
+	public void delete(String groupId){
+		List<MessageChat> messages = findAllByGroup(groupId);
+		for(MessageChat m : messages){
+			chatRepository.delete(m);
+		}
+	}
 
 }

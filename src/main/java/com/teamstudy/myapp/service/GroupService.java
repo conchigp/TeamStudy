@@ -11,7 +11,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+import com.teamstudy.myapp.domain.Folder;
 import com.teamstudy.myapp.domain.Group;
+import com.teamstudy.myapp.domain.Thread;
 import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
@@ -29,6 +31,18 @@ public class GroupService {
 	
 	@Inject
 	private UserRepository userRepository;
+	
+	@Inject
+	private ChatService chatService;
+	
+	@Inject
+	private ThreadService threadService;
+	
+	@Inject
+	private NewService newService;
+	
+	@Inject
+	private FolderService folderService;
 	
 	public void deleteStudent(String studentId, String groupId){
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
@@ -105,8 +119,18 @@ public class GroupService {
 		log.debug("Changed Information for Group: {}", group);
 	}
 	
-	public void deleteGroup(String groupId){
+	public void deleteGroup(String groupId) throws Exception{
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		List<Thread> threads = threadService.findAllByGroup(groupId);
+		List<Folder> folders = folderService.findAllByGroup(groupId);
+		for(Thread t : threads){
+			threadService.delete(t.getId().toString());
+		}
+		for(Folder f : folders){
+			folderService.delete(f.getId().toString());
+		}
+		newService.delete(groupId);
+		chatService.delete(groupId);
 		groupRepository.delete(group);
 	}
 	
