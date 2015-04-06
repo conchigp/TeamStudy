@@ -37,7 +37,7 @@ public class ThreadService {
 	
 	public Thread create(ThreadDTO threadDTO, String groupId){
 		Thread thread = new Thread();
-		thread.setUserId(userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).getId());
+		thread.setUserId(userRepository.findOneByLogin(SecurityUtils.getCurrentLogin()).getId().toString());
 		thread.setCreationMoment(new Date());
 		thread.setDescription(threadDTO.getDescription());
 		thread.setGroupId(groupId);

@@ -10,14 +10,12 @@ import org.bson.types.ObjectId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import org.springframework.util.Assert;
 
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.domain.Wiki;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
-import com.teamstudy.myapp.security.SecurityUtils;
 import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
 
@@ -32,7 +30,7 @@ public class GroupService {
 	@Inject
 	private UserRepository userRepository;
 	
-	public void deleteStudentFromGroup(String studentId, String groupId){
+	public void deleteStudent(String studentId, String groupId){
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<String> students = group.getAlums();
 		students.remove(studentId);
@@ -40,13 +38,13 @@ public class GroupService {
 		groupRepository.save(group);
 	}
 	
-	public void deleteTeacherFromGroup(String groupId){
+	public void deleteTeacher(String groupId){
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		group.setTeacherId(null);
 		groupRepository.save(group);
 	}
 	
-	public void addStudentToGroup(String studentId, String groupId){
+	public void addStudent(String studentId, String groupId){
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<String> students = group.getAlums();
 		students.add(studentId);
@@ -54,7 +52,7 @@ public class GroupService {
 		groupRepository.save(group);
 	}
 	
-	public void addTeacherToGroup(String teacherId, String groupId){
+	public void addTeacher(String teacherId, String groupId){
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		group.setTeacherId(teacherId);
 		groupRepository.save(group);
@@ -70,88 +68,46 @@ public class GroupService {
 		return students;
 	}
 	
-public List<Group> getGroupsForUser(String userId){
-		
+	public List<Group> getGroupsForUser(String userId){
 		User user = userRepository.findOneById(new ObjectId(userId));
 		List<Group> groups = groupRepository.findAll();
 		List<Group> myGroups = new ArrayList<Group>();
-		
 		for (Group g : groups){
 			if (g.getAlums() != null){
 				if(g.getAlums().contains(user.getId())){
 					myGroups.add(g);
+				}
 			}
-			}
-		}
-		
+		}	
 		return myGroups;
 	}
 	
-//MIO
-		public Group createGroup(GroupDTO groupDTO){ 
-			
-			Group group = new Group();
-			List<String> alums = new ArrayList<String>();
-		    Wiki wiki = new Wiki();
-		    wiki.setText("Escriba aqui el contenido de su wiki");
-			
-			User currentUser = userRepository.findOneByLogin(SecurityUtils
-					.getCurrentLogin());
-			
-			Assert.isTrue(currentUser.isTeacher());
-		
-		    
-		    group.setTeacherId(currentUser.getId());
-		    group.setAlums(alums);
-		    group.setWiki(wiki);
-		    group.setCreationMoment(new Date(System.currentTimeMillis()));
-		    group.setDescription(groupDTO.getDescription());
-		    group.setName(groupDTO.getName());
-
-			groupRepository.save(group);
-			log.debug("Created Information for Group: {}", group);
-			return group;
-			
-		}/*
-		// Cristian (Metodo para generar ObjectId para el populate)
-		public Group createGroup(GroupDTO groupDTO){ 
-		    group.setAlums(new ArrayList<String>());
-		    group.setWiki(new Wiki());
-		    group.setCreationMoment(new Date());
-		    group.setDescription(groupDTO.getDescription());
-		    group.setName(groupDTO.getName());
-			groupRepository.save(group);
-			log.debug("Created Information for Group: {}", group);
-			return group;
-		}*/
-		//MIO
-		public void updateGroupInformation(GroupDTO groupDTO) {
-			
-			
-			Assert.notNull(groupDTO);
-			
-			Group group = groupRepository.findOneById(new ObjectId(groupDTO.getId()));
-			
-			group.setName(groupDTO.getName());
-			group.setDescription(groupDTO.getDescription());
-			group.setTeacherId(groupDTO.getTeacherId());
-			group.setAlums(groupDTO.getAlums());
-			group.setWiki(groupDTO.getWiki());
-
-			groupRepository.save(group);
-			log.debug("Changed Information for Group: {}", group);
-		}
-		
-		//MIO
-		public void deleteGroup(String groupId){
-			
-			Assert.notNull(groupId);
-			
-			Group group = groupRepository.findOneById(new ObjectId(groupId));
-			groupRepository.delete(group);
-		}
-		
+	public Group createGroup(GroupDTO groupDTO){ 	
+		Group group = new Group();   
+	    group.setAlums(new ArrayList<String>());
+	    group.setWiki(new Wiki());
+	    group.setCreationMoment(new Date(System.currentTimeMillis()));
+	    group.setDescription(groupDTO.getDescription());
+	    group.setName(groupDTO.getName());
+		groupRepository.save(group);
+		log.debug("Created Information for Group: {}", group);
+		return group;	
+	}
 	
-
-
+	public void updateGroupInformation(GroupDTO groupDTO) {
+		Group group = groupRepository.findOneById(new ObjectId(groupDTO.getId()));
+		group.setName(groupDTO.getName());
+		group.setDescription(groupDTO.getDescription());
+		group.setTeacherId(groupDTO.getTeacherId());
+		group.setAlums(groupDTO.getAlums());
+		group.setWiki(groupDTO.getWiki());
+		groupRepository.save(group);
+		log.debug("Changed Information for Group: {}", group);
+	}
+	
+	public void deleteGroup(String groupId){
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		groupRepository.delete(group);
+	}
+	
 }

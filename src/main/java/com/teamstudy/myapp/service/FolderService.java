@@ -1,7 +1,6 @@
 package com.teamstudy.myapp.service;
 
 import java.io.File;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -137,7 +136,7 @@ public class FolderService {
 		GridFS fs = connectDatabase();
 		GridFSDBFile file = fs.find(new ObjectId(objectId));
 		response.addHeader("Content-Type", "application/octet-stream");
-		response.addHeader("Content-Disposition", "attachment; filename={"+file.getFilename()+"}");
+		response.addHeader("Content-Disposition", "attachment; filename="+file.getFilename());
 		OutputStream os = response.getOutputStream();
 		return file.writeTo(os);
 	}
@@ -154,7 +153,7 @@ public class FolderService {
 		archive.setSize(file.getTotalSpace());
 		archive.setTitle(file.getName());
 		archive.setUserId(userRepository.findOneByLogin(
-				SecurityUtils.getCurrentLogin()).getId());
+				SecurityUtils.getCurrentLogin()).getId().toString());
 
 		GridFS fs = connectDatabase();
 		GridFSInputFile in = fs.createFile(file);

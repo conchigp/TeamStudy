@@ -36,7 +36,7 @@ public class ReplyService {
 		reply.setDescription(replyDTO.getDescription());
 		reply.setMessageId(messageId);
 		reply.setUserId(userRepository.findOneByLogin(
-				SecurityUtils.getCurrentLogin()).getId());
+				SecurityUtils.getCurrentLogin()).getId().toString());
 		replyRepository.save(reply);
 		return reply;
 	}

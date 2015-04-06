@@ -2,7 +2,6 @@ package com.teamstudy.myapp.web.rest;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -67,7 +66,7 @@ public class ArchiveResource {
 		return folderService.findOne(gridId, folderId);
 	}
 
-	@RequestMapping(value = "/archive/download/{folderId}", method = RequestMethod.GET, produces = MediaType.ALL_VALUE)
+	@RequestMapping(value = "/archive/download/{folderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> download(@PathVariable String folderId,

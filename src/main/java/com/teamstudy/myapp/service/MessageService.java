@@ -37,7 +37,7 @@ public class MessageService {
 		message.setDescription(messageDTO.getDescription());
 		message.setThreadId(threadId);
 		message.setUserId(userRepository.findOneByLogin(
-				SecurityUtils.getCurrentLogin()).getId());
+				SecurityUtils.getCurrentLogin()).getId().toString());
 		messageRepository.save(message);
 		return message;
 	}

@@ -84,7 +84,7 @@ public class GroupResource {
 								.contentType(MediaType.TEXT_PLAIN)
 								.body("This student is not in the group");
 					} else {
-						groupService.deleteStudentFromGroup(studentId, groupId);
+						groupService.deleteStudent(studentId, groupId);
 						return ResponseEntity.ok("Student removed");
 					}
 				}
@@ -122,7 +122,7 @@ public class GroupResource {
 								.contentType(MediaType.TEXT_PLAIN)
 								.body("This student is already in the group");
 					} else {
-						groupService.addStudentToGroup(studentId, groupId);
+						groupService.addStudent(studentId, groupId);
 						return ResponseEntity.ok("Student added");
 					}
 				}
@@ -159,7 +159,7 @@ public class GroupResource {
 								.contentType(MediaType.TEXT_PLAIN)
 								.body("This group has already a teacher");
 					} else {
-						groupService.addTeacherToGroup(teacherId, groupId);
+						groupService.addTeacher(teacherId, groupId);
 						return ResponseEntity.ok("Teacher added");
 					}
 				}
@@ -184,7 +184,7 @@ public class GroupResource {
 						.contentType(MediaType.TEXT_PLAIN)
 						.body("This group has not a teacher");
 			} else {
-				groupService.deleteTeacherFromGroup(groupId);
+				groupService.deleteTeacher(groupId);
 				return ResponseEntity.ok("Teacher removed");
 			}
 		}
@@ -201,9 +201,10 @@ public class GroupResource {
 			return ResponseEntity.badRequest()
 					.contentType(MediaType.TEXT_PLAIN)
 					.body("This group does not exist");
+		}else{
+			groupService.deleteGroup(groupId);
+			return ResponseEntity.ok("Group deleted");
 		}
-		groupService.deleteGroup(groupId);
-		return ResponseEntity.ok("Group deleted");
 	}
 
 	@RequestMapping(value = "/groups", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
