@@ -73,6 +73,15 @@ a.show-sidebar {
 a.show-sidebar:hover {
   color:#000;
 }
+#sleft {
+	
+}
+#ct {
+	
+}
+#sright {
+	
+}
 #sidebar-left {
   position:relative;
   z-index: inherit;
