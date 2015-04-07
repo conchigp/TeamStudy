@@ -47,13 +47,13 @@ public class UserService {
 	}
 
 	public User createUserInformation(String login, String password,
-			String firstName, String lastName, String email, String langKey, boolean isTeacher, String imageUrl) {
+			String firstName, String lastName, String email, String langKey, String isTeacher, String imageUrl) {
 		User newUser = new User();
 		Authority authority = new Authority();
 		authority.setName("ROLE_USER");
 		Set<Authority> authorities = new HashSet<>();
 		String encryptedPassword = passwordEncoder.encode(password);
-		newUser.setTeacher(isTeacher);
+		newUser.setTeacher(new Boolean(isTeacher));
 		newUser.setLogin(login);
 		newUser.setPassword(encryptedPassword);
 		newUser.setFirstName(firstName);
