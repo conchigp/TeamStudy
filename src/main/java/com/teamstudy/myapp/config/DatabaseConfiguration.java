@@ -4,7 +4,6 @@ package com.teamstudy.myapp.config;
 import javax.inject.Inject;
 
 import org.mongeez.Mongeez;
-import org.mongeez.MongoAuth;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
