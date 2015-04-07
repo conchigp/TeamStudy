@@ -14,6 +14,7 @@ angular.module('teamstudyApp')
                         templateUrl: 'scripts/app/main/main.html',
                         controller: 'MainController'
                     }
+                    
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {

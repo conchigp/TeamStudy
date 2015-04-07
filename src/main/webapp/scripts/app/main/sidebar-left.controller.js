@@ -15,15 +15,18 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 			$scope.create = function () {
 	            Group.update($scope.group,
 	                function () {
-	                    $('#saveBookModal').modal('hide');
+	                    $('#saveGroupModal').modal('hide');
 	                    $scope.clear();
 	                });
+	        };
+	        $scope.close = function(){
+                   $('#saveGroupModal').modal('hide');
 	        };
 	        
 	        $scope.update = function (id) {
 	            Group.get({id: id}, function(result) {
 	                $scope.group = result;
-	                $('#saveBookModal').modal('show');
+	                $('#saveGroupModal').modal('show');
 	            });
 	        };
 	        
@@ -36,7 +39,7 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 	        $scope.update = function (id) {
 	            Group.get({id: id}, function(result) {
 	                $scope.group = result;
-	                $('#saveBookModal').modal('show');
+	                $('#saveGroupModal').modal('show');
 	            });
 	        };
 
