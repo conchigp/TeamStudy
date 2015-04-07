@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('MainController',
-		function($scope,Group,Principal) {
+		function($scope,Principal) {
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
