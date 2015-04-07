@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,27 +44,19 @@ public class StudentResource {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		User student = userRepository.findOneById(new ObjectId(studentId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			if (student == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This student does not exist");
+				return new ResponseEntity<>("Student not exist", HttpStatus.NOT_FOUND);
 			} else {
 				if (student.isTeacher()) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("This user is not a student");
+					return new ResponseEntity<>("This user is not a student", HttpStatus.UNAUTHORIZED);
 				} else {
 					if (!group.getAlums().contains(studentId)) {
-						return ResponseEntity.badRequest()
-								.contentType(MediaType.TEXT_PLAIN)
-								.body("This student is not in the group");
+						return new ResponseEntity<>("This student is not in the group", HttpStatus.UNAUTHORIZED);
 					} else {
 						groupService.deleteStudent(studentId, groupId);
-						return ResponseEntity.ok("Student removed");
+						return new ResponseEntity<>("Student removed", HttpStatus.ACCEPTED);
 					}
 				}
 			}
@@ -81,27 +74,19 @@ public class StudentResource {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		User student = userRepository.findOneById(new ObjectId(studentId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			if (student == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This student does not exist");
+				return new ResponseEntity<>("Student not exist", HttpStatus.NOT_FOUND);
 			} else {
 				if (student.isTeacher()) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("This user is not a student");
+					return new ResponseEntity<>("This user is not a student", HttpStatus.UNAUTHORIZED);
 				} else {
 					if (group.getAlums().contains(studentId)) {
-						return ResponseEntity.badRequest()
-								.contentType(MediaType.TEXT_PLAIN)
-								.body("This student is already in the group");
+						return new ResponseEntity<>("This student is already in the group", HttpStatus.UNAUTHORIZED);
 					} else {
 						groupService.addStudent(studentId, groupId);
-						return ResponseEntity.ok("Student added");
+						return new ResponseEntity<>("Student added", HttpStatus.ACCEPTED);
 					}
 				}
 			}

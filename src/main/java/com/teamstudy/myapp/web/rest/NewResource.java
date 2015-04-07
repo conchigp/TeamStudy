@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -73,16 +74,16 @@ public class NewResource {
 				.getCurrentLogin());
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This Group does not exist");
-		} else if (group.getAlums().contains(user.getId())) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("The Alumn not belong at the group");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
-			newService.create(newsDTO, groupId);
-			return ResponseEntity.ok("Thread created");
+			if(!user.isTeacher()){
+				return new ResponseEntity<>("Can not create a news in this group", HttpStatus.UNAUTHORIZED);
+			} else if (user.isTeacher() && !group.getTeacherId().equals(user.getId().toString())){
+				return new ResponseEntity<>("Can not create a news in this group", HttpStatus.UNAUTHORIZED);
+			}else{
+				newService.create(newsDTO, groupId);
+				return new ResponseEntity<>("Thread created", HttpStatus.CREATED);
+			}
 		}
 	}
 }

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,27 +46,18 @@ public class WikiResource {
 	public ResponseEntity<?> update(
 			@Valid @RequestBody GroupDTO groupDTO,
 			@RequestParam("groupId") String groupId, HttpServletRequest request) {
-		if (groupDTO == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
-			User user = userRepository.findOneByLogin(SecurityUtils
-					.getCurrentLogin());
+			User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 			Group group = groupRepository.findOneById(new ObjectId(groupId));
 			if (!user.isTeacher()) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not modify this wiky");
-			} else if (user.isTeacher()
-					&& !(new ObjectId(group.getTeacherId())
-							.equals(user.getId()))) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not modify this wiky");
+				return new ResponseEntity<>("Can not update this wiki", HttpStatus.UNAUTHORIZED);
+			} else if (user.isTeacher() && !(new ObjectId(group.getTeacherId()).equals(user.getId()))) {
+				return new ResponseEntity<>("Can not update this wiki", HttpStatus.UNAUTHORIZED);
 			} else {
 				groupService.updateGroupInformation(groupDTO);
-				return ResponseEntity.ok("Group update");
+				return new ResponseEntity<>("Wiki updated", HttpStatus.ACCEPTED);
 			}
 		}
 	}

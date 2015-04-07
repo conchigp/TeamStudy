@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -91,22 +92,16 @@ public class ThreadResource {
 				.getCurrentLogin());
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not create a Thread in this group");
+				return new ResponseEntity<>("It is not your group", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not create a Thread in this group");
+				return new ResponseEntity<>("It is not your group", HttpStatus.UNAUTHORIZED);
 			} else {
 				threadService.create(threadDTO, groupId);
-				return ResponseEntity.ok("Thread created");
+				return new ResponseEntity<>("Thread created", HttpStatus.CREATED);
 			}
 		}
 	}
@@ -123,27 +118,18 @@ public class ThreadResource {
 		List<Message> messages = messageService.findAllByThread(threadDTO.getId());
 		Group group = groupRepository.findOneById(new ObjectId(threadDTO.getGroupId()));
 		if (thread == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Thread not exist", HttpStatus.NOT_FOUND);
 		} else {
 			if(!user.isTeacher() && !messages.isEmpty()){
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not update a thread with messages");
+				return new ResponseEntity<>("Can not update a thread with messages", HttpStatus.UNAUTHORIZED);
 			} else {
 				if (!user.isTeacher() && !user.getId().equals(thread.getUserId())) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You can not modify this thread");
-				
+					return new ResponseEntity<>("Can not update this thread", HttpStatus.UNAUTHORIZED);
 				}else if(user.isTeacher() && !user.getId().equals(group.getTeacherId())){
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You can not modify this thread");
+					return new ResponseEntity<>("Can not update this thread", HttpStatus.UNAUTHORIZED);
 				}else{
 					threadService.update(threadDTO);
-					return ResponseEntity.ok("Thread updated");
+					return new ResponseEntity<>("Thread updated", HttpStatus.ACCEPTED);
 				}
 			}
 		}
@@ -158,28 +144,19 @@ public class ThreadResource {
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		List<Message> messages = messageService.findAllByThread(threadId);
 		if (thread == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Thread not exist", HttpStatus.NOT_FOUND);
 		} else {
 			if(!user.isTeacher() && !messages.isEmpty()){
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not delete a thread with messages");
+				return new ResponseEntity<>("Can not delete a thread with messages", HttpStatus.UNAUTHORIZED);
 			} else {
 				Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 				if (!user.isTeacher() && !user.getId().equals(thread.getUserId())) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You can not delete this thread");
-				
+					return new ResponseEntity<>("Can not delete this thread", HttpStatus.UNAUTHORIZED);
 				}else if(user.isTeacher() && !user.getId().equals(group.getTeacherId())){
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You can not delete this thread");
+					return new ResponseEntity<>("Can not delete this thread", HttpStatus.UNAUTHORIZED);
 				}else{
 					threadService.delete(threadId);
-					return ResponseEntity.ok("Thread deleted");
+					return new ResponseEntity<>("Thread updated", HttpStatus.ACCEPTED);
 				}
 			}
 		}

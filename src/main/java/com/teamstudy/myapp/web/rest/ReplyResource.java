@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -94,24 +95,18 @@ public class ReplyResource {
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		Message message = messageRepository.findOneById(new ObjectId(messageId));
 		if (message == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This message does not exist");
+			return new ResponseEntity<>("Message not exist", HttpStatus.NOT_FOUND);
 		} else {
 			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
 			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not create a Reply in this group");
+				return new ResponseEntity<>("Can not create a Reply", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not create a Reply in this group");
+				return new ResponseEntity<>("Can not create a Reply", HttpStatus.UNAUTHORIZED);
 			} else {
 				replyService.create(replyDTO, messageId);
-				return ResponseEntity.ok("Message created");
+				return new ResponseEntity<>("Message created", HttpStatus.CREATED);
 			}
 		}
 	}
@@ -128,25 +123,19 @@ public class ReplyResource {
 		Message message = messageRepository.findOneById(new ObjectId(replyDTO.getMessageId()));
 		Reply reply = replyRepository.findOneById(new ObjectId(replyDTO.getId()));
 		if (reply == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Reply not exist", HttpStatus.NOT_FOUND);
 		} else {
 			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
 			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher()
 					&& !replyDTO.getUserId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not update this reply");
+				return new ResponseEntity<>("You can not update this reply", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not update this reply");
+				return new ResponseEntity<>("You can not update this reply", HttpStatus.UNAUTHORIZED);
 			} else {
 				replyService.update(replyDTO);
-				return ResponseEntity.ok("Reply updated");
+				return new ResponseEntity<>("Reply updated", HttpStatus.ACCEPTED);
 			}
 		}
 	}
@@ -162,26 +151,20 @@ public class ReplyResource {
 				.getCurrentLogin());
 		Reply reply = replyRepository.findOneById(new ObjectId(replyId));
 		if (reply == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Reply not exist", HttpStatus.NOT_FOUND);
 		} else {
 			Message message = messageRepository.findOneById(new ObjectId(reply.getMessageId()));
 			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
 			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher()
 					&& !reply.getUserId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not delete this reply");
+				return new ResponseEntity<>("You can not delete this reply", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not delete this reply");
+				return new ResponseEntity<>("You can not delete this reply", HttpStatus.UNAUTHORIZED);
 			} else {
 				replyService.delete(replyId);
-				return ResponseEntity.ok("Reply delete");
+				return new ResponseEntity<>("Reply delete", HttpStatus.ACCEPTED);
 			}
 		}
 	}

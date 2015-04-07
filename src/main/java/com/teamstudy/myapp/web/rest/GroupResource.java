@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -61,12 +62,10 @@ public class GroupResource {
 			throws Exception {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			groupService.deleteGroup(groupId);
-			return ResponseEntity.ok("Group deleted");
+			return new ResponseEntity<>("Group deleted", HttpStatus.ACCEPTED);
 		}
 	}
 
@@ -88,7 +87,7 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> create(@Valid @RequestBody GroupDTO groupDTO) {
 		groupService.createGroup(groupDTO);
-		return ResponseEntity.ok("Group created");
+		return new ResponseEntity<>("Group created", HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/group", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -99,12 +98,10 @@ public class GroupResource {
 		Group group = groupRepository
 				.findOneById(new ObjectId(groupDTO.getId()));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			groupService.updateGroupInformation(groupDTO);
-			return ResponseEntity.ok("Group updated");
+			return new ResponseEntity<>("Group updated", HttpStatus.ACCEPTED);
 		}
 	}
 

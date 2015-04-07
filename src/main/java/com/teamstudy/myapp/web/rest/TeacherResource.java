@@ -5,6 +5,7 @@ import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -43,27 +44,19 @@ public class TeacherResource {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		User teacher = userRepository.findOneById(new ObjectId(teacherId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			if (teacher == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This teacher does not exist");
+				return new ResponseEntity<>("Teacher not exist", HttpStatus.NOT_FOUND);
 			} else {
 				if (!teacher.isTeacher()) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("This user is not a teacher");
+					return new ResponseEntity<>("This user is not a teacher", HttpStatus.UNAUTHORIZED);
 				} else {
 					if (group.getTeacherId() != null) {
-						return ResponseEntity.badRequest()
-								.contentType(MediaType.TEXT_PLAIN)
-								.body("This group has already a teacher");
+						return new ResponseEntity<>("This group has already a teacher", HttpStatus.UNAUTHORIZED);
 					} else {
 						groupService.addTeacher(teacherId, groupId);
-						return ResponseEntity.ok("Teacher added");
+						return new ResponseEntity<>("Teacher added", HttpStatus.ACCEPTED);
 					}
 				}
 			}
@@ -78,17 +71,13 @@ public class TeacherResource {
 			HttpServletRequest request) {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			if (group.getTeacherId() == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This group has not a teacher");
+				return new ResponseEntity<>("This group has not a teacher", HttpStatus.UNAUTHORIZED);
 			} else {
 				groupService.deleteTeacher(groupId);
-				return ResponseEntity.ok("Teacher removed");
+				return new ResponseEntity<>("Teacher removed", HttpStatus.ACCEPTED);
 			}
 		}
 	}

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -77,24 +78,21 @@ public class FolderResource {
 			@RequestParam("groupId") String groupId) {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			User user = userRepository.findOneByLogin(SecurityUtils
 					.getCurrentLogin());
 			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to create folder");
+				return new ResponseEntity<>("Can not create a folder",
+						HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to create folder");
+				return new ResponseEntity<>("Can not create a folder",
+						HttpStatus.UNAUTHORIZED);
 			} else {
 				folderService.create(folderDTO, groupId);
-				return ResponseEntity.ok("Folder created");
+				return new ResponseEntity<>("Folder created",
+						HttpStatus.CREATED);
 			}
 		}
 	}
@@ -108,17 +106,16 @@ public class FolderResource {
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("You do not have permission to create folder");
+			return new ResponseEntity<>("Can not update a folder",
+					HttpStatus.UNAUTHORIZED);
 		} else if (user.isTeacher()
 				&& !group.getTeacherId().equals(user.getId())) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("You do not have permission to create folder");
+			return new ResponseEntity<>("Can not update a folder",
+					HttpStatus.UNAUTHORIZED);
 		} else {
 			folderService.update(folderDTO);
-			return ResponseEntity.ok("Folder created");
+			return new ResponseEntity<>("Folder updated",
+					HttpStatus.ACCEPTED);
 		}
 	}
 
@@ -129,32 +126,23 @@ public class FolderResource {
 			throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if (folder == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("Folder does not exist");
+			return new ResponseEntity<>("Folder not exist", HttpStatus.NOT_FOUND);
 		} else {
 			Group group = groupRepository.findOneById(new ObjectId(folder
 					.getGroupId()));
 			User user = userRepository.findOneByLogin(SecurityUtils
 					.getCurrentLogin());
 			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to create folder");
+				return new ResponseEntity<>("Can not delete a folder", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to create folder");
+				return new ResponseEntity<>("Can not delete a folder", HttpStatus.UNAUTHORIZED);
 			} else {
 				if (!folder.getArchives().isEmpty()) {
-					return ResponseEntity
-							.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You can not to remove a folder with archives");
+					return new ResponseEntity<>("Can not delete a folder with files", HttpStatus.UNAUTHORIZED);
 				} else {
 					folderService.delete(folderId);
-					return ResponseEntity.ok("Folder created");
+					return new ResponseEntity<>("Folder deleted", HttpStatus.ACCEPTED);
 				}
 			}
 		}
