@@ -1,0 +1,46 @@
+<div ng-cloak>
+	<!-- 	<ul class="nav main-menu"> -->
+
+
+	<!-- 	</ul> -->
+
+	<div class="row">
+		<div class="list-group">
+
+			
+			<div ng-repeat="group in groups">
+				<div class="box-name">
+					<b>{{group.name}}</b>
+				</div>
+
+			</div>
+			<div ng-repeat="group in groups">
+				<div class="box">
+					<div class="box-header">
+						<div class="box-name">
+							<b>{{group.name}}</b>
+						</div>
+						<div class="box-icons">
+							<a><span class="glyphicon glyphicon-edit" aria-hidden="true"
+								data-toggle="modal" data-target="#saveGroupModal"
+								ng-click="clear()"></span></a>
+
+						</div>
+					</div>
+					<div class="box-content">
+
+
+						<p>{{group.description}}</p>
+						<footer>{{group.creationMoment | date: "dd-MM-yyyy" }}</footer>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+
+
