@@ -24,7 +24,12 @@
             </div>
 
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
-
+            	<img ng-src="{{ registerAccount.imageUrl }}" style="width: 150px; height: 150px; margin-left:40%; background-image: url(../../../assets/images/user.png); border: 0px" /><br/>
+				<div class="form-group">
+                    <label translate="global.form.image">Image URL</label>
+                    <input type="text" class="form-control" name="imageUrl" placeholder="{{'global.form.image.placeholder' | translate}}"
+                           ng-model="registerAccount.imageUrl">     
+                </div>
                 <div class="form-group">
                     <label translate="global.form.username">Login</label>
                     <input type="text" class="form-control" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
@@ -112,15 +117,9 @@
                 </div>
                  <div class="form-group">
                     <label translate="global.form.teacher">Teacher</label> <br/>
-                    <input type="radio" class="form-horizontal" ng-model="isTeacher" ng-value="true" >  {{ 'global.form.teacher.true' | translate}}<br/>
-					<input type="radio" class="form-horizontal" ng-model="isTeacher" ng-value="false"> {{ 'global.form.teacher.false' | translate}}<br/>
+                    <input type="radio" class="form-horizontal" name="isTeacher" ng-model="registerAccount.isTeacher" value="true">  {{ 'global.form.teacher.true' | translate}}<br/>
+					<input type="radio" class="form-horizontal" name="isTeacher" ng-model="registerAccount.isTeacher" value="false"> {{ 'global.form.teacher.false' | translate}}<br/>
                 </div>
-                <div class="form-group">
-                    <label translate="global.form.image">Image URL</label>
-                    <input type="url" class="form-control" name="imageUrl" placeholder="{{'global.form.image.placeholder' | translate}}"
-                           ng-model="imageUrl">     
-                </div>
-
                 <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
             </form>
             <p></p>

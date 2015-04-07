@@ -63,7 +63,7 @@ public class AccountResource {
             }
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
             userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-            userDTO.getLangKey(), userDTO.isTeacher(), userDTO.getImageUrl());
+            userDTO.getLangKey(), userDTO.getIsTeacher(), userDTO.getImageUrl());
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }
@@ -110,6 +110,12 @@ public class AccountResource {
         for (Authority authority : user.getAuthorities()) {
             roles.add(authority.getName());
         }
+        String iT;
+        if(user.isTeacher()){
+        	iT = "true";
+        }else{
+        	iT = "true";
+        }
         return new ResponseEntity<>(
             new UserDTO(
             	user.getId(),
@@ -120,7 +126,7 @@ public class AccountResource {
                 user.getEmail(),
                 user.getLangKey(),
                 roles,
-                user.isTeacher()),
+                iT),
             HttpStatus.OK);
     }
 

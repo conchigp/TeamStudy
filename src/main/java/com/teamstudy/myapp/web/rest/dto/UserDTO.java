@@ -45,7 +45,7 @@ public class UserDTO {
 
 	private List<String> roles;
 
-	private boolean isTeacher;
+	private String isTeacher;
 
 	@URL
 	private String imageUrl;
@@ -55,7 +55,7 @@ public class UserDTO {
 
 	public UserDTO(String id, String login, String password, String firstName,
 			String lastName, String email, String langKey, List<String> roles,
-			boolean isTeacher) {
+			String isTeacher) {
 		this.id = id;
 		this.login = login;
 		this.password = password;
@@ -69,7 +69,7 @@ public class UserDTO {
 
 	public UserDTO(String login, String password, String firstName,
 			String lastName, String email, String langKey, List<String> roles,
-			boolean isTeacher) {
+			String isTeacher) {
 		this.login = login;
 		this.password = password;
 		this.firstName = firstName;
@@ -82,7 +82,7 @@ public class UserDTO {
 
 	public UserDTO(String login, String password, String firstName,
 			String lastName, String email, String langKey, List<String> roles,
-			boolean isTeacher, String imageUrl) {
+			String isTeacher, String imageUrl) {
 		this.login = login;
 		this.password = password;
 		this.firstName = firstName;
@@ -122,16 +122,12 @@ public class UserDTO {
 		return roles;
 	}
 
-	public boolean isTeacher() {
+	public String getIsTeacher() {
 		return isTeacher;
 	}
 
 	public String getImageUrl() {
 		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl;
 	}
 
 	@Override
