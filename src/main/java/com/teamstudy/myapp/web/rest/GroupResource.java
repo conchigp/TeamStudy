@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,6 +21,7 @@ import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.repository.GroupRepository;
+import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
 import com.teamstudy.myapp.service.GroupService;
 import com.teamstudy.myapp.web.rest.dto.GroupDTO;
@@ -31,13 +30,14 @@ import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 @RequestMapping("/api")
 public class GroupResource {
 
-	private final Logger log = LoggerFactory.getLogger(GroupResource.class);
-
 	@Inject
 	private GroupRepository groupRepository;
 
 	@Inject
 	private GroupService groupService;
+
+	@Inject
+	private UserRepository userRepository;
 
 	// Get students from group
 	@RequestMapping(value = "/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -45,15 +45,20 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<User> getAllByGroup(@RequestParam("groupId") String groupId,
 			HttpServletResponse response) {
-		log.debug("REST request to get all Users");
-		return groupService.getStudentsByGroup(groupId);
+		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return groupService.getStudentsByGroup(groupId);
+		}
 	}
 
 	@RequestMapping(value = "/group", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<String> delete(
-			@RequestParam("groupId") String groupId, HttpServletRequest request) throws Exception {
+			@RequestParam("groupId") String groupId, HttpServletRequest request)
+			throws Exception {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
 			return ResponseEntity.badRequest()
@@ -68,10 +73,14 @@ public class GroupResource {
 	@RequestMapping(value = "/group/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public List<Group> getAllGroupByUser(
-			@RequestParam("userId") String userId, HttpServletResponse response) {
-		log.debug("REST request to get all groups for user => " + userId);
-		return groupService.getGroupsForUser(userId);
+	public List<Group> getAllGroupByUser(@RequestParam("userId") String userId,
+			HttpServletResponse response) {
+		if (userRepository.findOneById(new ObjectId(userId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return groupService.getGroupsForUser(userId);
+		}
 	}
 
 	@RequestMapping(value = "/group", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
@@ -87,9 +96,11 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> update(@Valid @RequestBody GroupDTO groupDTO,
 			HttpServletRequest request) {
-		Group group = groupRepository.findOneById(new ObjectId(groupDTO.getId()));
+		Group group = groupRepository
+				.findOneById(new ObjectId(groupDTO.getId()));
 		if (group == null) {
-			return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN)
+			return ResponseEntity.badRequest()
+					.contentType(MediaType.TEXT_PLAIN)
 					.body("This group does not exist");
 		} else {
 			groupService.updateGroupInformation(groupDTO);

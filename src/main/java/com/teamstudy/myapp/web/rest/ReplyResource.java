@@ -62,7 +62,12 @@ public class ReplyResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Reply> getAllByMessage(@RequestParam("messageId") String messageId,
 			HttpServletResponse response) {
-		return replyService.findAllByMessage(messageId);
+		if (messageRepository.findOneById(new ObjectId(messageId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return replyService.findAllByMessage(messageId);
+		}
 	}
 
 	@RequestMapping(value = "/reply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +75,12 @@ public class ReplyResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Reply getOne(@RequestParam("replyId") String replyId,
 			HttpServletResponse response) {
-		return replyRepository.findOneById(new ObjectId(replyId));
+		if (replyRepository.findOneById(new ObjectId(replyId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return replyRepository.findOneById(new ObjectId(replyId));
+		}
 	}
 	
 	/* POST Methods */

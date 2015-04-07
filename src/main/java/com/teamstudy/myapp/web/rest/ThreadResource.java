@@ -57,7 +57,12 @@ public class ThreadResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Thread> getAllByGroup(@RequestParam("groupId") String groupId,
 			HttpServletResponse response) {
-		return threadRepository.findAllByGroupId(groupId);
+		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return threadRepository.findAllByGroupId(groupId);
+		}
 	}
 
 	@RequestMapping(value = "/thread", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -65,7 +70,12 @@ public class ThreadResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Thread getOne(@RequestParam("threadId") String threadId,
 			HttpServletResponse response) {
-		return threadRepository.findOneById(new ObjectId(threadId));
+		if (threadRepository.findOneById(new ObjectId(threadId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return threadRepository.findOneById(new ObjectId(threadId));
+		}
 	}
 
 	/* POST Methods */

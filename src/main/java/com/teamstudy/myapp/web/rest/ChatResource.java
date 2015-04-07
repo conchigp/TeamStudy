@@ -49,7 +49,12 @@ public class ChatResource {
 	public List<MessageChat> getAllByGroup(
 			@RequestParam("groupId") String groupId,
 			HttpServletResponse httpServletResponse) {
-		return chatService.findAllByGroup(groupId);
+		if(groupRepository.findOneById(new ObjectId(groupId)) == null){
+			httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}else{
+			return chatService.findAllByGroup(groupId);
+		}
 	}
 
 	/* POST Methods */

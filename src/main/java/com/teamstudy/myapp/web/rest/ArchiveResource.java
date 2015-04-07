@@ -62,8 +62,20 @@ public class ArchiveResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Archive getOne(@PathVariable String folderId,
 			@RequestParam("gridId") String gridId,
-			HttpServletResponse httpServletResponse) {
-		return folderService.findOne(gridId, folderId);
+			HttpServletResponse httpServletResponse){
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
+		if(folder == null){
+			httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}else{
+			Archive archive = folderService.findOne(gridId, folderId);
+			if(archive == null){
+				httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				return null;
+			}else{
+				return folderService.findOne(gridId, folderId);
+			}
+		}
 	}
 
 	@RequestMapping(value = "/archive/download/{folderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)

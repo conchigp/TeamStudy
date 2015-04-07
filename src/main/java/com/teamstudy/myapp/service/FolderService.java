@@ -87,7 +87,7 @@ public class FolderService {
 	
 	public Archive findOne(String gridId, String folderId){
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
-		Archive archive = new Archive();
+		Archive archive = null;
 		for (Archive a: folder.getArchives()){
 			if(a.getGridId().equals(gridId)){
 				archive = a;

@@ -53,10 +53,14 @@ public class NewResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<New> getAllByUser(@RequestParam("userId") String userId,
 			HttpServletResponse response) {
-		List<Group> groups = groupService.getGroupsForUser(userId);
-		List<New> news = newService.getAllByGroups(groups);
-
-		return news;
+		if(userRepository.findOneById(new ObjectId(userId)) == null){
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}else{
+			List<Group> groups = groupService.getGroupsForUser(userId);
+			List<New> news = newService.getAllByGroups(groups);
+			return news;
+		}
 	}
 
 	@RequestMapping(value = "/news", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
