@@ -7,7 +7,7 @@ angular.module('teamstudyApp')
     	$scope.create = function () {
             Group.update($scope.group,
                 function () {
-                    $('#saveBookModal').modal('hide');
+                    $('#saveGroupModal').modal('hide');
                     $scope.clear();
                 });
         };
@@ -15,18 +15,14 @@ angular.module('teamstudyApp')
         $scope.update = function (id) {
             Group.get({id: id}, function(result) {
                 $scope.group = result;
-                $('#saveBookModal').modal('show');
+                $('#saveGroupModal').modal('show');
             });
         };
         
         $scope.clear = function () {
-        	//El teacherID lo acabo de iniciar a ver si mostraba algo de información sobre él.
             $scope.group = {name: null, description: null};
             $scope.editForm.$setPristine();
             $scope.editForm.$setUntouched();
         };
-        
-        
-
-       
+               
         });
