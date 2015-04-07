@@ -24,7 +24,8 @@
             </div>
 
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
-            	<img ng-src="{{ registerAccount.imageUrl }}" style="width: 150px; height: 150px; margin-left:40%; background-image: url(../../../assets/images/user.png); border: 0px" /><br/>
+            	<img ng-src="{{ registerAccount.imageSRC }}" ng-show="registerAccount.imageUrl == null" style="width: 150px; height: 150px; margin-left:40%; border: 0px" /><br/>
+            	<img ng-src="{{ registerAccount.imageUrl }}" ng-show="registerAccount.imageUrl != null" style="width: 150px; height: 150px; margin-left:40%; border: 0px" /><br/>
 				<div class="form-group">
                     <label translate="global.form.image">Image URL</label>
                     <input type="text" class="form-control" name="imageUrl" placeholder="{{'global.form.image.placeholder' | translate}}"

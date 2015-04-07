@@ -2,12 +2,14 @@
 
 angular.module('teamstudyApp')
     .controller('RegisterController', function ($scope, $translate, $timeout, Auth) {
+
         $scope.success = null;
         $scope.error = null;
         $scope.doNotMatch = null;
         $scope.errorUserExists = null;
         $scope.registerAccount = {};
-        $timeout(function (){angular.element('[ng-model="registerAccount.login"]').focus();});
+    	$scope.registerAccount.imageSRC = "../../../assets/images/user.png";
+        $timeout(function (){angular.element('[ng-model="regisuser.pnterAccount.login"]').focus();});
 
         $scope.register = function () {
             if ($scope.registerAccount.password !== $scope.confirmPassword) {
