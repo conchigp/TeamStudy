@@ -9,11 +9,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -26,15 +24,12 @@ import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
-import com.teamstudy.myapp.security.SecurityUtils;
 import com.teamstudy.myapp.service.GroupService;
 import com.teamstudy.myapp.web.rest.dto.GroupDTO;
 
 @RestController
 @RequestMapping("/api")
 public class GroupResource {
-
-	private final Logger log = LoggerFactory.getLogger(GroupResource.class);
 
 	@Inject
 	private GroupRepository groupRepository;
@@ -51,221 +46,65 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<User> getAllByGroup(@RequestParam("groupId") String groupId,
 			HttpServletResponse response) {
-		log.debug("REST request to get all Users");
-		return groupService.getStudentsByGroup(groupId);
-	}
-
-	// Delete student from group
-	@RequestMapping(value = "/group/{groupId}/remove", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> deleteStudent(@PathVariable String groupId,
-			@RequestParam("studentId") String studentId,
-			HttpServletRequest request) {
-		Group group = groupRepository.findOneById(new ObjectId(groupId));
-		User student = userRepository.findOneById(new ObjectId(studentId));
-		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
 		} else {
-			if (student == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This student does not exist");
-			} else {
-				if (student.isTeacher()) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("This user is not a student");
-				} else {
-					if (!group.getAlums().contains(studentId)) {
-						return ResponseEntity.badRequest()
-								.contentType(MediaType.TEXT_PLAIN)
-								.body("This student is not in the group");
-					} else {
-						groupService.deleteStudent(studentId, groupId);
-						return ResponseEntity.ok("Student removed");
-					}
-				}
-			}
-		}
-
-	}
-
-	// Add student from group
-	@RequestMapping(value = "/group/{groupId}/add", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> addStudent(@PathVariable String groupId,
-			@RequestParam("studentId") String studentId,
-			HttpServletRequest request) {
-		Group group = groupRepository.findOneById(new ObjectId(groupId));
-		User student = userRepository.findOneById(new ObjectId(studentId));
-		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
-		} else {
-			if (student == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This student does not exist");
-			} else {
-				if (student.isTeacher()) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("This user is not a student");
-				} else {
-					if (group.getAlums().contains(studentId)) {
-						return ResponseEntity.badRequest()
-								.contentType(MediaType.TEXT_PLAIN)
-								.body("This student is already in the group");
-					} else {
-						groupService.addStudent(studentId, groupId);
-						return ResponseEntity.ok("Student added");
-					}
-				}
-			}
-		}
-	}
-
-	// Add teacher from group
-	@RequestMapping(value = "/group/{groupId}/add", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> addTeacher(@PathVariable String groupId,
-			@RequestParam("teacherId") String teacherId,
-			HttpServletRequest request) {
-		Group group = groupRepository.findOneById(new ObjectId(groupId));
-		User teacher = userRepository.findOneById(new ObjectId(teacherId));
-		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
-		} else {
-			if (teacher == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This teacher does not exist");
-			} else {
-				if (!teacher.isTeacher()) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("This user is not a teacher");
-				} else {
-					if (group.getTeacherId() != null) {
-						return ResponseEntity.badRequest()
-								.contentType(MediaType.TEXT_PLAIN)
-								.body("This group has already a teacher");
-					} else {
-						groupService.addTeacher(teacherId, groupId);
-						return ResponseEntity.ok("Teacher added");
-					}
-				}
-			}
-		}
-	}
-
-	// Remove teacher from group
-	@RequestMapping(value = "/group/{groupId}/remove", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> deleteTeacher(@PathVariable String groupId,
-			HttpServletRequest request) {
-		Group group = groupRepository.findOneById(new ObjectId(groupId));
-		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
-		} else {
-			if (group.getTeacherId() == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This group has not a teacher");
-			} else {
-				groupService.deleteTeacher(groupId);
-				return ResponseEntity.ok("Teacher removed");
-			}
+			return groupService.getStudentsByGroup(groupId);
 		}
 	}
 
 	@RequestMapping(value = "/group", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<String> deleteGroup(
-			@RequestParam("groupId") String groupId, HttpServletRequest request) throws Exception {
+	public ResponseEntity<String> delete(
+			@RequestParam("groupId") String groupId, HttpServletRequest request)
+			throws Exception {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		if (group == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			groupService.deleteGroup(groupId);
-			return ResponseEntity.ok("Group deleted");
+			return new ResponseEntity<>("Group deleted", HttpStatus.ACCEPTED);
 		}
 	}
 
-	@RequestMapping(value = "/groups", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/group/user", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public List<Group> getAllGroupForUSer(
-			@RequestParam("userId") String userId, HttpServletResponse response) {
-		log.debug("REST request to get all groups for user => " + userId);
-		return groupService.getGroupsForUser(userId);
+	public List<Group> getAllGroupByUser(@RequestParam("userId") String userId,
+			HttpServletResponse response) {
+		if (userRepository.findOneById(new ObjectId(userId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return groupService.getGroupsForUser(userId);
+		}
 	}
 
 	@RequestMapping(value = "/group", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> createGroup(@Valid @RequestBody GroupDTO groupDTO) {
+	public ResponseEntity<?> create(@Valid @RequestBody GroupDTO groupDTO) {
 		groupService.createGroup(groupDTO);
-		return ResponseEntity.ok("Group created");
+		return new ResponseEntity<>("Group created", HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/group", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public ResponseEntity<?> updateGroup(@Valid @RequestBody GroupDTO groupDTO,
+	public ResponseEntity<?> update(@Valid @RequestBody GroupDTO groupDTO,
 			HttpServletRequest request) {
-		Group group = groupRepository.findOneById(new ObjectId(groupDTO.getId()));
+		if(groupDTO.getId() == null){
+			return create(groupDTO);
+		}
+		Group group = groupRepository
+				.findOneById(new ObjectId(groupDTO.getId()));
 		if (group == null) {
-			return ResponseEntity.badRequest().contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
+			return new ResponseEntity<>("Group not exist", HttpStatus.NOT_FOUND);
 		} else {
 			groupService.updateGroupInformation(groupDTO);
-			return ResponseEntity.ok("Group updated");
-		}
-	}
-
-	@RequestMapping(value = "/group/wiki", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> updateGroupWiki(
-			@Valid @RequestBody GroupDTO groupDTO,
-			@RequestParam("groupId") String groupId, HttpServletRequest request) {
-		if (groupDTO == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This group does not exist");
-		} else {
-			User user = userRepository.findOneByLogin(SecurityUtils
-					.getCurrentLogin());
-			Group group = groupRepository.findOneById(new ObjectId(groupId));
-			if (!user.isTeacher()) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not modify this wiky");
-			} else if (user.isTeacher()
-					&& !(new ObjectId(group.getTeacherId())
-							.equals(user.getId()))) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not modify this wiky");
-			} else {
-				groupService.updateGroupInformation(groupDTO);
-				return ResponseEntity.ok("Group update");
-			}
+			return new ResponseEntity<>("Group updated", HttpStatus.ACCEPTED);
 		}
 	}
 

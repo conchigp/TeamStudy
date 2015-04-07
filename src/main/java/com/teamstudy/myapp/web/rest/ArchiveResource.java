@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -48,7 +49,7 @@ public class ArchiveResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/archives", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/archive", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Archive> getAllByFolder(
@@ -62,8 +63,20 @@ public class ArchiveResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Archive getOne(@PathVariable String folderId,
 			@RequestParam("gridId") String gridId,
-			HttpServletResponse httpServletResponse) {
-		return folderService.findOne(gridId, folderId);
+			HttpServletResponse httpServletResponse){
+		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
+		if(folder == null){
+			httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		}else{
+			Archive archive = folderService.findOne(gridId, folderId);
+			if(archive == null){
+				httpServletResponse.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				return null;
+			}else{
+				return folderService.findOne(gridId, folderId);
+			}
+		}
 	}
 
 	@RequestMapping(value = "/archive/download/{folderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
@@ -74,35 +87,25 @@ public class ArchiveResource {
 			throws Exception, IOException {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if (folder == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This folder does not exist");
+			return new ResponseEntity<>("Folder not exist", HttpStatus.NOT_FOUND);
 		} else {
-			Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
-			User user = userRepository.findOneByLogin(SecurityUtils
-					.getCurrentLogin());
-			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-				return ResponseEntity
-						.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to upload files to this group(U)");
-			} else if (user.isTeacher()
-					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity
-						.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to upload files to this group(T)");
-			} else {
-				if (!folderService.existFile(gridId)) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("The file does not exist");
+			if (!folderService.existFile(gridId)) {
+				return new ResponseEntity<>("File not exist", HttpStatus.NOT_FOUND);
+			}else{
+				Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
+				User user = userRepository.findOneByLogin(SecurityUtils
+						.getCurrentLogin());
+				if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
+					return new ResponseEntity<>("Can not download a file", HttpStatus.UNAUTHORIZED);
+				} else if (user.isTeacher()
+						&& !group.getTeacherId().equals(user.getId())) {
+					return new ResponseEntity<>("Can not download a file", HttpStatus.UNAUTHORIZED);
 				} else {
 					/*OutputStream os = folderService.download(gridId, response);
 					os.flush();
 					os.close();*/
 					folderService.download(gridId, response);
-					return ResponseEntity.ok("Downloading");
+					return new ResponseEntity<>("Downloading", HttpStatus.OK);
 				}
 			}
 		}
@@ -118,34 +121,24 @@ public class ArchiveResource {
 			HttpServletRequest request) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if (filePath == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("Folder path can not be null");
+			return new ResponseEntity<>("Filepath can not be null", HttpStatus.BAD_REQUEST);
 		} else {
 			if (folder == null) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("This folder does not exist");
+				return new ResponseEntity<>("Folder not exist", HttpStatus.NOT_FOUND);
 			} else {
 				Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
 				User user = userRepository.findOneByLogin(SecurityUtils
 						.getCurrentLogin());
 				if (!user.isTeacher()
 						&& !group.getAlums().contains(user.getId())) {
-					return ResponseEntity
-							.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You do not have permission to upload files to this group(U)");
+					return new ResponseEntity<>("Can not upload a file", HttpStatus.UNAUTHORIZED);
 				} else if (user.isTeacher()
 						&& !group.getTeacherId().equals(user.getId())) {
-					return ResponseEntity
-							.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You do not have permission to upload files to this group(T)");
+					return new ResponseEntity<>("Can not upload a file", HttpStatus.UNAUTHORIZED);
 				} else {
 					File file = new File(filePath);
 					folderService.add(file, folderId);
-					return ResponseEntity.ok("File has been upload");
+					return new ResponseEntity<>("File uploaded", HttpStatus.CREATED);
 				}
 			}
 		}
@@ -163,22 +156,16 @@ public class ArchiveResource {
 		Archive archive = folderService.findOne(gridId, folderId);
 		Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
 		if (archive == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This archive does not exist");
+			return new ResponseEntity<>("Archive not exist", HttpStatus.NOT_FOUND);
 		} else {
 			if (!user.isTeacher() && !archive.getUserId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to delete this file");
+				return new ResponseEntity<>("Can not delete this file", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !user.getId().equals(group.getTeacherId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You do not have permission to delete this file");
+				return new ResponseEntity<>("Can not delete this file", HttpStatus.UNAUTHORIZED);
 			} else {
 				folderService.remove(folderId, gridId);
-				return ResponseEntity.ok("Archive deleted");
+				return new ResponseEntity<>("Archive deleted", HttpStatus.ACCEPTED);
 			}
 		}
 	}

@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,13 +58,18 @@ public class MessageResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/messages", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/message/thread", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Message> getAllByThread(
 			@RequestParam("threadId") String threadId,
 			HttpServletResponse response) {
-		return messageService.findAllByThread(threadId);
+		if (threadRepository.findOneById(new ObjectId(threadId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return messageService.findAllByThread(threadId);
+		}
 	}
 
 	@RequestMapping(value = "/message", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -71,7 +77,12 @@ public class MessageResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Message getOne(@RequestParam("messageId") String messageId,
 			HttpServletResponse response) {
-		return messageRepository.findOneById(new ObjectId(messageId));
+		if (messageRepository.findOneById(new ObjectId(messageId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return messageRepository.findOneById(new ObjectId(messageId));
+		}
 	}
 
 	/* POST Methods */
@@ -79,31 +90,25 @@ public class MessageResource {
 	@RequestMapping(value = "/message", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> createMessage(
-			@Valid @RequestBody MessageDTO messageDTO,
+	public ResponseEntity<?> create(@Valid @RequestBody MessageDTO messageDTO,
 			@RequestParam("threadId") String threadId,
 			HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		Thread thread = threadRepository.findOneById(new ObjectId(threadId));
 		if (thread == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Thread not exist", HttpStatus.NOT_FOUND);
 		} else {
-			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
+			Group group = groupRepository.findOneById(new ObjectId(thread
+					.getGroupId()));
 			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not create a Message in this group");
+				return new ResponseEntity<>("Can not create a Message", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not create a Message in this group");
+				return new ResponseEntity<>("Can not create a Message", HttpStatus.UNAUTHORIZED);
 			} else {
 				messageService.create(messageDTO, threadId);
-				return ResponseEntity.ok("Message created");
+				return new ResponseEntity<>("Message created", HttpStatus.CREATED);
 			}
 		}
 	}
@@ -111,39 +116,32 @@ public class MessageResource {
 	@RequestMapping(value = "/message", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> updateMessage(
-			@Valid @RequestBody MessageDTO messageDTO,
+	public ResponseEntity<?> update(@Valid @RequestBody MessageDTO messageDTO, @RequestParam("threadId") String threadId,
 			HttpServletRequest httpServletRequest) {
-
+		if(messageDTO.getId()==null){
+			return create(messageDTO, threadId, httpServletRequest);
+		}
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
-		Message message = messageRepository.findOneById(new ObjectId(messageDTO.getId()));
+		Message message = messageRepository.findOneById(new ObjectId(messageDTO
+				.getId()));
 		List<Reply> replies = replyService.findAllByMessage(messageDTO.getId());
 		if (message == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Message not exist", HttpStatus.NOT_FOUND);
 		} else {
 			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
 			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
-			if (!user.isTeacher()
-					&& !messageDTO.getUserId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not update a Message in this group");
+			if (!user.isTeacher() && !messageDTO.getUserId().equals(user.getId())) {
+				return new ResponseEntity<>("Can not update a Message", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not update a Message in this group");
+				return new ResponseEntity<>("Can not update a Message", HttpStatus.UNAUTHORIZED);
 			} else {
 				if (!user.isTeacher() && !replies.isEmpty()) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You can not update a Message with replies");
+					return new ResponseEntity<>("Can not update a Message", HttpStatus.UNAUTHORIZED);
 				} else {
 					messageService.update(messageDTO);
-					return ResponseEntity.ok("Message updated");
+					return new ResponseEntity<>("Message updated", HttpStatus.ACCEPTED);
 				}
 			}
 		}
@@ -152,39 +150,34 @@ public class MessageResource {
 	@RequestMapping(value = "/message", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> deleteMessage(
+	public ResponseEntity<?> delete(
 			@RequestParam("messageId") String messageId,
 			HttpServletRequest httpServletRequest) {
-		Message message = messageRepository.findOneById(new ObjectId(messageId));
+		Message message = messageRepository
+				.findOneById(new ObjectId(messageId));
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		if (message == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This message does not exist");
+			return new ResponseEntity<>("Message not exist", HttpStatus.NOT_FOUND);
 		} else {
 			List<Reply> replies = replyService
 					.findAllByMessage(message.getId());
-			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
-			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
+			Thread thread = threadRepository.findOneById(new ObjectId(message
+					.getThreadId()));
+			Group group = groupRepository.findOneById(new ObjectId(thread
+					.getGroupId()));
 			if (!user.isTeacher() && !replies.isEmpty()) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not delete a thread with messages");
+				return new ResponseEntity<>("Can not delete a message with replies", HttpStatus.UNAUTHORIZED);
 			} else {
 				if (!user.isTeacher()
 						&& !message.getUserId().equals(user.getId())) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You can not update a Message in this group");
+					return new ResponseEntity<>("Can not delete a message", HttpStatus.UNAUTHORIZED);
 				} else if (user.isTeacher()
 						&& !group.getTeacherId().equals(user.getId())) {
-					return ResponseEntity.badRequest()
-							.contentType(MediaType.TEXT_PLAIN)
-							.body("You can not update a Message in this group");
+					return new ResponseEntity<>("Can not delete a message", HttpStatus.UNAUTHORIZED);
 				} else {
 					messageService.delete(messageId);
-					return ResponseEntity.ok("Message deleted");
+					return new ResponseEntity<>("Message deleted", HttpStatus.ACCEPTED);
 				}
 			}
 		}

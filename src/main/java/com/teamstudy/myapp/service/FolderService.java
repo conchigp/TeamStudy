@@ -87,7 +87,7 @@ public class FolderService {
 	
 	public Archive findOne(String gridId, String folderId){
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
-		Archive archive = new Archive();
+		Archive archive = null;
 		for (Archive a: folder.getArchives()){
 			if(a.getGridId().equals(gridId)){
 				archive = a;
@@ -155,10 +155,11 @@ public class FolderService {
 
 		archive.setCreationMoment(new Date());
 		archive.setSize(file.getTotalSpace());
-		archive.setTitle(file.getName());
+		archive.setTitle(file.getName().substring(0,file.getName().lastIndexOf(".")));
 		archive.setUserId(userRepository.findOneByLogin(
 				SecurityUtils.getCurrentLogin()).getId().toString());
-
+		
+		archive.setFormat(file.getName().substring(file.getName().lastIndexOf(".")+1));
 		GridFS fs = connectDatabase();
 		GridFSInputFile in = fs.createFile(file);
 		in.save();

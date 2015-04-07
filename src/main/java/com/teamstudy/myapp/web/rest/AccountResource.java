@@ -63,7 +63,7 @@ public class AccountResource {
             }
             user = userService.createUserInformation(userDTO.getLogin(), userDTO.getPassword(),
             userDTO.getFirstName(), userDTO.getLastName(), userDTO.getEmail().toLowerCase(),
-            userDTO.getLangKey(), userDTO.isTeacher());
+            userDTO.getLangKey(), userDTO.isTeacher(), userDTO.getImageUrl());
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
     }

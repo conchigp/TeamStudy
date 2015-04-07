@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -57,12 +58,17 @@ public class ReplyResource {
 
 	/* GET Methods */
 
-	@RequestMapping(value = "/replies", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/reply/message", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public List<Reply> getAllByMessage(@RequestParam("messageId") String messageId,
 			HttpServletResponse response) {
-		return replyService.findAllByMessage(messageId);
+		if (messageRepository.findOneById(new ObjectId(messageId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return replyService.findAllByMessage(messageId);
+		}
 	}
 
 	@RequestMapping(value = "/reply", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +76,12 @@ public class ReplyResource {
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public Reply getOne(@RequestParam("replyId") String replyId,
 			HttpServletResponse response) {
-		return replyRepository.findOneById(new ObjectId(replyId));
+		if (replyRepository.findOneById(new ObjectId(replyId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return replyRepository.findOneById(new ObjectId(replyId));
+		}
 	}
 	
 	/* POST Methods */
@@ -78,30 +89,24 @@ public class ReplyResource {
 	@RequestMapping(value = "/reply", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> createReply(
+	public ResponseEntity<?> create(
 			@Valid @RequestBody ReplyDTO replyDTO,
 			@RequestParam("messageId") String messageId, HttpServletRequest httpServletRequest) {
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		Message message = messageRepository.findOneById(new ObjectId(messageId));
 		if (message == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This message does not exist");
+			return new ResponseEntity<>("Message not exist", HttpStatus.NOT_FOUND);
 		} else {
 			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
 			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not create a Reply in this group");
+				return new ResponseEntity<>("Can not create a Reply", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not create a Reply in this group");
+				return new ResponseEntity<>("Can not create a Reply", HttpStatus.UNAUTHORIZED);
 			} else {
 				replyService.create(replyDTO, messageId);
-				return ResponseEntity.ok("Message created");
+				return new ResponseEntity<>("Message created", HttpStatus.CREATED);
 			}
 		}
 	}
@@ -109,34 +114,30 @@ public class ReplyResource {
 	@RequestMapping(value = "/reply", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> updateReply(
-			@Valid @RequestBody ReplyDTO replyDTO,
+	public ResponseEntity<?> update(
+			@Valid @RequestBody ReplyDTO replyDTO, @RequestParam("messageId") String messageId,
 			HttpServletRequest httpServletRequest) {
-
+		if(replyDTO.getId() == null){
+			return create(replyDTO, messageId, httpServletRequest);
+		}
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		Message message = messageRepository.findOneById(new ObjectId(replyDTO.getMessageId()));
 		Reply reply = replyRepository.findOneById(new ObjectId(replyDTO.getId()));
 		if (reply == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Reply not exist", HttpStatus.NOT_FOUND);
 		} else {
 			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
 			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher()
 					&& !replyDTO.getUserId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not update this reply");
+				return new ResponseEntity<>("You can not update this reply", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not update this reply");
+				return new ResponseEntity<>("You can not update this reply", HttpStatus.UNAUTHORIZED);
 			} else {
 				replyService.update(replyDTO);
-				return ResponseEntity.ok("Reply updated");
+				return new ResponseEntity<>("Reply updated", HttpStatus.ACCEPTED);
 			}
 		}
 	}
@@ -144,7 +145,7 @@ public class ReplyResource {
 	@RequestMapping(value = "/reply", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> deleteReply(
+	public ResponseEntity<?> delete(
 			@RequestParam("replyId") String replyId,
 			HttpServletRequest httpServletRequest) {
 
@@ -152,26 +153,20 @@ public class ReplyResource {
 				.getCurrentLogin());
 		Reply reply = replyRepository.findOneById(new ObjectId(replyId));
 		if (reply == null) {
-			return ResponseEntity.badRequest()
-					.contentType(MediaType.TEXT_PLAIN)
-					.body("This thread does not exist");
+			return new ResponseEntity<>("Reply not exist", HttpStatus.NOT_FOUND);
 		} else {
 			Message message = messageRepository.findOneById(new ObjectId(reply.getMessageId()));
 			Thread thread = threadRepository.findOneById(new ObjectId(message.getThreadId()));
 			Group group = groupRepository.findOneById(new ObjectId(thread.getGroupId()));
 			if (!user.isTeacher()
 					&& !reply.getUserId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not delete this reply");
+				return new ResponseEntity<>("You can not delete this reply", HttpStatus.UNAUTHORIZED);
 			} else if (user.isTeacher()
 					&& !group.getTeacherId().equals(user.getId())) {
-				return ResponseEntity.badRequest()
-						.contentType(MediaType.TEXT_PLAIN)
-						.body("You can not delete this reply");
+				return new ResponseEntity<>("You can not delete this reply", HttpStatus.UNAUTHORIZED);
 			} else {
 				replyService.delete(replyId);
-				return ResponseEntity.ok("Reply delete");
+				return new ResponseEntity<>("Reply delete", HttpStatus.ACCEPTED);
 			}
 		}
 	}

@@ -1,11 +1,13 @@
 package com.teamstudy.myapp.web.rest.dto;
 
-import org.hibernate.validator.constraints.Email;
+import java.util.List;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
-import java.util.List;
+
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.URL;
 
 public class UserDTO {
 
@@ -45,6 +47,9 @@ public class UserDTO {
 
 	private boolean isTeacher;
 
+	@URL
+	private String imageUrl;
+
 	public UserDTO() {
 	}
 
@@ -73,6 +78,20 @@ public class UserDTO {
 		this.langKey = langKey;
 		this.roles = roles;
 		this.isTeacher = isTeacher;
+	}
+
+	public UserDTO(String login, String password, String firstName,
+			String lastName, String email, String langKey, List<String> roles,
+			boolean isTeacher, String imageUrl) {
+		this.login = login;
+		this.password = password;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.langKey = langKey;
+		this.roles = roles;
+		this.isTeacher = isTeacher;
+		this.imageUrl = imageUrl;
 	}
 
 	public String getPassword() {
@@ -107,12 +126,20 @@ public class UserDTO {
 		return isTeacher;
 	}
 
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
 	@Override
 	public String toString() {
 		return "UserDTO{" + "login='" + login + '\'' + ", password='"
 				+ password + '\'' + ", firstName='" + firstName + '\''
 				+ ", lastName='" + lastName + '\'' + ", email='" + email + '\''
 				+ ", langKey='" + langKey + '\'' + ", roles=" + roles + '\''
-				+ ", isTeacher=" + isTeacher + '}';
+				+ ", isTeacher=" + isTeacher + '\'' + ", imageUrl=" + imageUrl + '}';
 	}
 }

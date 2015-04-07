@@ -2,8 +2,6 @@ package com.teamstudy.myapp.config;
 
 import javax.inject.Inject;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -19,8 +17,6 @@ import com.mongodb.Mongo;
 @EnableMongoRepositories("com.teamstudy.myapp.repository")
 @Profile(Constants.SPRING_PROFILE_CLOUD)
 public class CloudMongoDbConfiguration extends AbstractMongoConfiguration  {
-
-    private final Logger log = LoggerFactory.getLogger(CloudDatabaseConfiguration.class);
 
     @Inject
     private MongoDbFactory mongoDbFactory;

@@ -47,7 +47,7 @@ public class UserService {
 	}
 
 	public User createUserInformation(String login, String password,
-			String firstName, String lastName, String email, String langKey, boolean isTeacher) {
+			String firstName, String lastName, String email, String langKey, boolean isTeacher, String imageUrl) {
 		User newUser = new User();
 		Authority authority = new Authority();
 		authority.setName("ROLE_USER");
@@ -55,7 +55,6 @@ public class UserService {
 		String encryptedPassword = passwordEncoder.encode(password);
 		newUser.setTeacher(isTeacher);
 		newUser.setLogin(login);
-		// new user gets initially a generated password
 		newUser.setPassword(encryptedPassword);
 		newUser.setFirstName(firstName);
 		newUser.setLastName(lastName);
@@ -65,6 +64,7 @@ public class UserService {
 		newUser.setActivationKey(RandomUtil.generateActivationKey());
 		authorities.add(authority);
 		newUser.setAuthorities(authorities);
+		newUser.setImageUrl(imageUrl);
 		userRepository.save(newUser);
 		log.debug("Created Information for Student: {}", newUser);
 		return newUser;
