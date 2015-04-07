@@ -5,15 +5,16 @@
 				<div class="page-headerST">
 					<h4>Tus Grupos</h4>
 					<button class="" ng-if="account.teacher" data-toggle="modal"
-						data-target="#saveBookModal" ng-click="clear()">
+						data-target="#saveGroupModal" ng-click="clear()">
 						<a class="close-link">
 							<h6>
 								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 							</h6>
 						</a>
 					</button>
-					<div class="modal fade" id="saveBookModal" tabindex="-1"
-						role="dialog" aria-labelledby="myBookLabel" aria-hidden="true"
+<!-- 					<li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li> -->
+					<div class="modal fade" id="saveGroupModal" tabindex="-1"
+						role="dialog" aria-labelledby="myGroupLabel" aria-hidden="true"
 						style="display: none;">
 						<div class="modal-dialog">
 							<div class="modal-content">
@@ -66,7 +67,14 @@
 					</div>
 
 				</div>
+				
 				<div class="list-group">
+					<div ng-repeat="group in groups">
+						<div class="box-name">
+							<b>{{group.name}}</b>
+						</div>
+						
+					</div>
 					<div ng-repeat="group in groups">
 						<div class="box">
 							<div class="box-header">
@@ -76,7 +84,7 @@
 								<div class="box-icons">
 									<a><span class="glyphicon glyphicon-edit"
 										aria-hidden="true" data-toggle="modal"
-										data-target="#saveBookModal" ng-click="clear()"></span></a>
+										data-target="#saveGroupModal" ng-click="clear()"></span></a>
 
 								</div>
 							</div>
