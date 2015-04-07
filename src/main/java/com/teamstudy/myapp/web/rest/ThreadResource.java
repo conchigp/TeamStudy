@@ -111,8 +111,11 @@ public class ThreadResource {
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> update(
-			@Valid @RequestBody ThreadDTO threadDTO,
+			@Valid @RequestBody ThreadDTO threadDTO, @RequestParam("groupId") String groupId,
 			HttpServletRequest httpServletRequest) {
+		if(threadDTO.getId() == null){
+			return create(threadDTO, groupId, httpServletRequest);
+		}
 		User user = userRepository.findOneByLogin(SecurityUtils.getCurrentLogin());
 		Thread thread = threadRepository.findOneById(new ObjectId(threadDTO.getId()));
 		List<Message> messages = messageService.findAllByThread(threadDTO.getId());

@@ -116,9 +116,11 @@ public class MessageResource {
 	@RequestMapping(value = "/message", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> update(@Valid @RequestBody MessageDTO messageDTO,
+	public ResponseEntity<?> update(@Valid @RequestBody MessageDTO messageDTO, @RequestParam("threadId") String threadId,
 			HttpServletRequest httpServletRequest) {
-
+		if(messageDTO.getId()==null){
+			return create(messageDTO, threadId, httpServletRequest);
+		}
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		Message message = messageRepository.findOneById(new ObjectId(messageDTO

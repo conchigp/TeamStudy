@@ -35,7 +35,7 @@ public class TeacherResource {
 	private UserRepository userRepository;
 
 	// Add teacher from group
-	@RequestMapping(value = "/teacher", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/teacher", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> add(@RequestParam("groupId") String groupId,

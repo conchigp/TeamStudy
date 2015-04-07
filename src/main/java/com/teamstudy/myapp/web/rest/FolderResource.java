@@ -100,7 +100,10 @@ public class FolderResource {
 	@RequestMapping(value = "/folder", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> update(@Valid @RequestBody FolderDTO folderDTO) {
+	public ResponseEntity<?> update(@Valid @RequestBody FolderDTO folderDTO, @RequestParam("groupId") String groupId) {
+		if(folderDTO.getId() == null){
+			return create(folderDTO, groupId);
+		}
 		Group group = groupRepository.findOneById(new ObjectId(folderDTO
 				.getGroupId()));
 		User user = userRepository.findOneByLogin(SecurityUtils

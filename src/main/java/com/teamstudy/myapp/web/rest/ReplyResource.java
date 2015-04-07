@@ -115,9 +115,11 @@ public class ReplyResource {
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
 	public ResponseEntity<?> update(
-			@Valid @RequestBody ReplyDTO replyDTO,
+			@Valid @RequestBody ReplyDTO replyDTO, @RequestParam("messageId") String messageId,
 			HttpServletRequest httpServletRequest) {
-
+		if(replyDTO.getId() == null){
+			return create(replyDTO, messageId, httpServletRequest);
+		}
 		User user = userRepository.findOneByLogin(SecurityUtils
 				.getCurrentLogin());
 		Message message = messageRepository.findOneById(new ObjectId(replyDTO.getMessageId()));

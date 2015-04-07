@@ -95,6 +95,9 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> update(@Valid @RequestBody GroupDTO groupDTO,
 			HttpServletRequest request) {
+		if(groupDTO.getId() == null){
+			return create(groupDTO);
+		}
 		Group group = groupRepository
 				.findOneById(new ObjectId(groupDTO.getId()));
 		if (group == null) {

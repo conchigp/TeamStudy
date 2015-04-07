@@ -64,7 +64,7 @@ public class StudentResource {
 	}
 
 	// Add student from group
-	@RequestMapping(value = "/student", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/student", method = RequestMethod.PUT, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> add(
