@@ -2,11 +2,11 @@
 
 angular.module('teamstudyApp').controller('SidebarleftController',
 		function($scope, Group, Principal) {
-			$scope.isInRole = Principal.isInRole;
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
+				$scope.isInRole = Principal.isInRole;
 			}).then(function() {
 				$scope.groups = Group.get({
 					userId : $scope.account.id
