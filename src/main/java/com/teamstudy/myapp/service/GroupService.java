@@ -88,7 +88,7 @@ public class GroupService {
 		List<Group> myGroups = new ArrayList<Group>();
 		if(user.isTeacher()){
 			for (Group g : groups){
-				if (g.getTeacherId().equals(user.getId().toString())){
+				if (g.getTeacherId() != null && g.getTeacherId().equals(user.getId().toString())){
 					myGroups.add(g);
 				}
 			}	
