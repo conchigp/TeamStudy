@@ -69,4 +69,28 @@ public final class SecurityUtils {
         }
         return false;
     }
+    
+    public static boolean isAdmin() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        if(authentication != null) {
+            if (authentication.getPrincipal() instanceof UserDetails) {
+                UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+                return springSecurityUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"));
+            }
+        }
+        return false;
+    }
+    
+    public static boolean isUser() {
+        SecurityContext securityContext = SecurityContextHolder.getContext();
+        Authentication authentication = securityContext.getAuthentication();
+        if(authentication != null) {
+            if (authentication.getPrincipal() instanceof UserDetails) {
+                UserDetails springSecurityUser = (UserDetails) authentication.getPrincipal();
+                return springSecurityUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_USER"));
+            }
+        }
+        return false;
+    }
 }

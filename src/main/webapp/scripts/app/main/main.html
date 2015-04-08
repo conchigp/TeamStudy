@@ -1,15 +1,15 @@
 <div ng-cloak>
 	<div class="row"  >
 		<!--Start Content-->
-		<div id="ct" class="" ng-switch="isAuthenticated()">
-			<div class="btn-group btn-group-justified" role="group" aria-label="...">
-				<div ui-sref-active="active" class="btn-group" role="group" ng-switch-when="true">
+		<div id="ct" class="">
+			<div class="btn-group btn-group-justified" role="group" aria-label="..." ng-show="isInRole('ROLE_USER')">
+				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="wiki" type="button" class="btn btn-default">Wiki</button>
 				</div>
-				<div ui-sref-active="active" class="btn-group" role="group" ng-switch-when="true">
+				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="repository" type="button" class="btn btn-default">Repository</button>
 				</div>
-				<div class="btn-group" role="group" ng-switch-when="true">
+				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default">Forum</button>
 				</div>
 			</div>

@@ -3,7 +3,7 @@
 		<!--Sidebar Right -->
 		<div id="sright" class="">
 			<div>
-				<div class="page-headerST" id="firstTable">
+				<div class="page-headerST" id="firstTable" ng-show="isInRole('ROLE_USER')">
 					<div class="header">
 						<div class="title">
 							<h2>Alumnos</h2>
@@ -12,7 +12,7 @@
 					<div class="content"></div>
 				</div>
 
-				<div class="page-headerST" id="secondTable">
+				<div class="page-headerST" id="secondTable" ng-show="isInRole('ROLE_USER')">
 					<div class="header">
 						<div class="title">
 							<h2>Chat</h2>

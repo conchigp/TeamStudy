@@ -2,6 +2,7 @@
 
 angular.module('teamstudyApp').controller('SidebarleftController',
 		function($scope, Group, Principal) {
+			$scope.isInRole = Principal.isInRole;
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -15,12 +16,9 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 			$scope.create = function () {
 	            Group.update($scope.group,
 	                function () {
-	                    $('#saveGroupModal').modal('hide');
 	                    $scope.clear();
 	                });
-	        };
-	        $scope.close = function(){
-                   $('#saveGroupModal').modal('hide');
+	            $('#saveGroupModal').modal('hide');
 	        };
 	        
 	        $scope.update = function (id) {
