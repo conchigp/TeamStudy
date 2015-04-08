@@ -30,8 +30,9 @@
 					</span>
 				</a>
 					<ul class="dropdown-menu">
-						<!-- JHipster will add entities to the menu here -->
+						
 					</ul></li>
+					
 				<li ng-class="{active: $state.includes('account')}"
 					class="dropdown pointer"><a class="dropdown-toggle"
 					data-toggle="dropdown" href=""> <span> <span
@@ -54,11 +55,6 @@
 						<li ui-sref-active="active" ng-switch-when="false"><a
 							ui-sref="login"><span class="glyphicon glyphicon-log-in"></span>
 								&#xA0;<span translate="global.menu.account.login">Authenticate</span></a></li>
-
-						<li ui-sref-active="active" ng-switch-when="false"><a
-							ui-sref="register"><span
-								class="glyphicon glyphicon-plus-sign"></span> &#xA0;<span
-								translate="global.menu.account.register">Register</span></a></li>
 					</ul></li>
 				<li ng-class="{active: $state.includes('admin')}"
 					ng-switch-when="true" ng-show="isInRole('ROLE_ADMIN')"
@@ -88,6 +84,10 @@
 						<li ui-sref-active="active"><a ui-sref="docs"><span
 								class="glyphicon glyphicon-book"></span> &#xA0;<span
 								translate="global.menu.admin.apidocs">API Docs</span></a></li>
+						<li ui-sref-active="active"><a
+							ui-sref="register"><span
+								class="glyphicon glyphicon-plus-sign"></span> &#xA0;<span
+								translate="global.menu.account.register">Register</span></a></li>
 					</ul></li>
 				<li ui-sref-active="active" class="dropdown pointer"
 					ng-controller="LanguageController"><a class="dropdown-toggle"
