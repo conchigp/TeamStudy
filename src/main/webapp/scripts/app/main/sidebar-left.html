@@ -1,12 +1,12 @@
 <div ng-cloak>
 		<div class="row">
 			<!-- Sidebar Left -->
-			<div id="sleft" class="">
+			<div id="sleft" ng-switch="isAuthenticated()" class="">
 				<div class="page-headerST">
 					<h4>Tus Grupos</h4>
 <!-- 				ng-if="account.teacher"  -->
 <!-- 				Esta línea anterior estaba dentro del button e impedía la aparición del botón para crear. -->
-					<button class="" data-toggle="modal"
+					<button class="" ng-switch-when="true" ng-show="isInRole('ROLE_ADMIN')" data-toggle="modal"
 						data-target="#saveGroupModal" ng-click="clear()">
 						<a class="close-link">
 							<h6>
