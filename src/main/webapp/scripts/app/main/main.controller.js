@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('MainController',
-		function($scope, Group, Principal) {
+		function($scope, GroupList, Principal) {
 			$scope.isInRole = Principal.isInRole;
 			Principal.identity().then(function(account) {
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
 				
 			}).then(function() {
-				$scope.groups = Group.get({
+				$scope.groups = GroupList.get({
 					userId : $scope.account.id
 				});
 			});

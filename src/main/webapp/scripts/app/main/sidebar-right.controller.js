@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('SidebarrightController',
-		function($scope, Group, Principal) {
+		function($scope, GroupList, Principal) {
 			$scope.isInRole = Principal.isInRole;
 			
 

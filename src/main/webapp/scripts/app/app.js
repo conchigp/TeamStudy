@@ -98,14 +98,6 @@ angular
 											'navbar@' : {
 												templateUrl : 'scripts/components/navbar/navbar.html',
 												controller : 'NavbarController'
-											},
-											'sidebar-left@' : {
-												templateUrl : 'scripts/app/main/sidebar-left.html',
-												controller : 'SidebarleftController'
-											},
-											'sidebar-right@' : {
-												templateUrl : 'scripts/app/main/sidebar-right.html',
-												controller : 'SidebarrightController'
 											}
 											
 										},
