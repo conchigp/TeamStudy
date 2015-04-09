@@ -110,9 +110,6 @@ public class GroupService {
 		Group group = groupRepository.findOneById(new ObjectId(groupDTO.getId()));
 		group.setName(groupDTO.getName());
 		group.setDescription(groupDTO.getDescription());
-		group.setTeacherId(groupDTO.getTeacherId());
-		group.setAlums(groupDTO.getAlums());
-		group.setWiki(groupDTO.getWiki());
 		groupRepository.save(group);
 		log.debug("Changed Information for Group: {}", group);
 	}
