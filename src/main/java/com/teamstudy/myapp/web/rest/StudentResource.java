@@ -1,5 +1,7 @@
 package com.teamstudy.myapp.web.rest;
 
+import java.util.List;
+
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +22,7 @@ import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
 import com.teamstudy.myapp.service.GroupService;
+import com.teamstudy.myapp.service.UserService;
 
 @RestController
 @RequestMapping("/api")
@@ -30,9 +33,19 @@ public class StudentResource {
 
 	@Inject
 	private GroupService groupService;
+	
+	@Inject
+	private UserService userService;
 
 	@Inject
 	private UserRepository userRepository;
+	
+	@RequestMapping(value = "/student", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public List<User> getAll(){
+		return userService.getStudents();
+	}
 
 	@RequestMapping(value = "/student", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed

@@ -107,5 +107,12 @@ public class GroupResource {
 			return new ResponseEntity<>("Group updated", HttpStatus.ACCEPTED);
 		}
 	}
+	
+	@RequestMapping(value = "/groups", method = RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	public List<Group> getAll(HttpServletResponse response){
+		return groupRepository.findAll();
+	}
 
 }

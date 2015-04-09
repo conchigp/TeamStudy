@@ -21,7 +21,7 @@ public interface UserRepository extends MongoRepository<User, String> {
 
     User findOneByEmail(String email);
     
-    User findOneByIsTeacher(String isTeacher);
+    List<User> findAllByIsTeacher(boolean isTeacher);
     
     User findOneById(ObjectId objectId);
 

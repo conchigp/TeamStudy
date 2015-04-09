@@ -96,7 +96,14 @@ public class UserService {
 		currentUser.getAuthorities().size(); // eagerly load the association
 		return currentUser;
 	}
-
+	
+	public List<User> getStudents(){
+		return userRepository.findAllByIsTeacher(false);
+	}
+	
+	public List<User> getTeachers(){
+		return userRepository.findAllByIsTeacher(true);
+	}
 
 	/**
 	 * Not activated users should be automatically deleted after 3 days.
