@@ -8,7 +8,6 @@ import com.teamstudy.myapp.domain.Wiki;
 
 public class GroupDTO {
 
-	
 	private String id;
 
 	@NotNull
@@ -21,7 +20,7 @@ public class GroupDTO {
 	private List<String> alums;
 
 	private Wiki wiki;
-	
+
 	public GroupDTO() {
 	}
 
@@ -35,9 +34,9 @@ public class GroupDTO {
 		this.alums = alums;
 		this.wiki = wiki;
 	}
-	
-	public GroupDTO(String name, String description,
-			String teacherId, List<String> alums, Wiki wiki) {
+
+	public GroupDTO(String name, String description, String teacherId,
+			List<String> alums, Wiki wiki) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -45,13 +44,19 @@ public class GroupDTO {
 		this.alums = alums;
 		this.wiki = wiki;
 	}
-	
+
 	public GroupDTO(String name, String description) {
 		super();
 		this.name = name;
 		this.description = description;
 	}
 
+	public GroupDTO(String id, String name, String description) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
 
 	public String getName() {
 		return name;
@@ -80,7 +85,7 @@ public class GroupDTO {
 	public void setId(String id) {
 		this.id = id;
 	}
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
