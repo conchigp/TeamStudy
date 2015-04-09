@@ -1,18 +1,22 @@
 <div ng-cloak>
-		<div class="row">
-			<!-- Sidebar Left -->
-			
-			<div id="sleft" class="">
-				<div class="page-headerST">
-					<div ng-show="isInRole('ROLE_ADMIN')" >
-						<button class="" data-toggle="modal" data-target="#saveGroupModal" ng-click="clear()">
-							<a class="close-link">
-								<h6>
-									<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-								</h6>
-							</a>
-						</button>
-						<div class="modal fade" id="saveGroupModal" tabindex="-1"
+	<div class="row">
+		<!-- Sidebar Left -->
+
+		<div id="sleft" class="">
+			<div class="page-headerST">
+				<div ng-show="isInRole('ROLE_ADMIN')">
+					<button class="" data-toggle="modal" data-target="#saveGroupModal"
+						ng-click="clear()">
+						<a class="close-link">
+							<h6>
+								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+							</h6>
+						</a>
+					</button>
+
+
+
+					<div class="modal fade" id="saveGroupModal" tabindex="-1"
 							role="dialog" aria-labelledby="myGroupLabel" aria-hidden="true"
 							style="display: none;">
 							<div class="modal-dialog">
@@ -63,50 +67,67 @@
 									</form>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div ng-show="isInRole('ROLE_USER')">
-						<h4>Tus Grupos</h4>			
-<!-- 					<li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li> -->
-					</div>
+						
+
+
+
 				</div>
-				
-				<div class="list-group" ng-show="isInRole('ROLE_USER')">
-					<div ng-repeat="group in groups">
-						<div class="box">
-							<div class="box-header">
-								<div class="box-name">
-									<b>{{group.name}}</b>
-									
-								</div>
-								<div class="box-icons">
-									<a type="submit" ng-click="update(group.id)"><span class="glyphicon glyphicon-edit"
-										aria-hidden="true" data-toggle="modal"
-										data-target="#saveGroupModal" ></span></a>
-									
-
-								</div>
-							</div>
-							<div class="box-content">
-
-
-								<p>{{group.description}}</p>
-								<b>{{group.id}}</b>
-								<footer>{{group.creationMoment | date: "dd-MM-yyyy" }}</footer>
-
-							</div>
-						</div>
-					</div>
+				<div ng-show="isInRole('ROLE_USER')">
+					<h4>Tus Grupos</h4>
+					<!-- 					<li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li> -->
 				</div>
-				
-				
 			</div>
-			<!-- End Sidebar Left -->
-			
-			
+
+			<div class="list-group" ng-show="isInRole('ROLE_USER')">
+				<div ng-repeat="group in groups">
+					<div class="box">
+						<div class="box-header">
+							<div class="box-name">
+								<b>{{group.name}}</b>
+
+							</div>
+							<div class="box-icons">
+								<a  ng-click=""><span
+									class="glyphicon glyphicon-edit" aria-hidden="true"
+									data-toggle="modal" data-target="#saveGroupModal"></span></a>
+								<button type="submit" ng-click="update(group.id)"
+									class="btn btn-primary">
+									<span data-toggle="modal" data-target="#saveGroupModal"
+										class="glyphicon glyphicon-pencil"></span>&nbsp;<span
+										translate="entity.action.edit"> Edit</span>
+								</button>
+								<button type="submit" ng-click="confirmDelete(group.id)"
+									class="btn btn-danger">
+									<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
+										translate="entity.action.delete"> Delete</span>
+								</button>
+								<!-- 								<a type="submit" ng-click="update(group.id)"><span -->
+								<!-- 									class="glyphicon glyphicon-edit" aria-hidden="true" -->
+								<!-- 									data-toggle="modal" data-target="#saveGroupModal"></span></a> -->
+
+
+							</div>
+						</div>
+						<div class="box-content">
+
+
+							<p>{{group.description}}</p>
+							<b>{{group.id}}</b>
+							<footer>{{group.creationMoment | date: "dd-MM-yyyy" }}</footer>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+
 		</div>
+		<!-- End Sidebar Left -->
+
 
 	</div>
+
+</div>
 
 
 
