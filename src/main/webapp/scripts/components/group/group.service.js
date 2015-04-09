@@ -1,6 +1,6 @@
 (function() {
 	'use strict';
-	
+
 	function GroupListAdmin($resource) {
 		return $resource('api/groups', {}, {
 			'get' : {
@@ -39,8 +39,6 @@
 		});
 	}
 
-	
-
 	function GroupCRUDAdmin($resource) {
 		return $resource('api/group', {}, {
 			'get' : {
@@ -48,7 +46,7 @@
 				params : {
 					groupId : '@groupId'
 				},
-				isArray : true,
+				isArray : false,
 				interceptor : {
 					response : function(response) {
 						// expose response

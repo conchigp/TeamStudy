@@ -29,10 +29,19 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 
 			$scope.update = function(id) {
 				GroupCRUDAdmin.get({groupId : id}, function(result) {
-					$scope.group = result;
+					$scope.grupo = result;
 					$('#saveGroupModal').modal('show');
 				});
 			};
+			
+			$scope.confirmDelete = function (id) {
+	            GroupCRUDAdmin.delete({groupId: id},
+	                function () {
+	                    $scope.loadAll();
+//	                    $('#deleteBookConfirmation').modal('hide');
+	                    $scope.clear();
+	                });
+	        };
 
 			$scope.clear = function() {
 				$scope.group = {
