@@ -72,16 +72,6 @@ public class GroupService {
 		groupRepository.save(group);
 	}
 	
-	public List<User> getStudentsByGroup(String groupId){
-		Group group = groupRepository.findOneById(new ObjectId(groupId));
-		List<User> students = new ArrayList<User>();
-		for(String s: group.getAlums()){
-			User user = userRepository.findOneById(new ObjectId(s));
-			students.add(user);
-		}
-		return students;
-	}
-	
 	public List<Group> getGroupsForUser(String userId){
 		User user = userRepository.findOneById(new ObjectId(userId));
 		List<Group> groups = groupRepository.findAll();

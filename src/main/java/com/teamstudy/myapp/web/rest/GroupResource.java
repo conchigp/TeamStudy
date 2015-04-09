@@ -12,7 +12,6 @@ import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.Group;
-import com.teamstudy.myapp.domain.User;
 import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.AuthoritiesConstants;
@@ -41,19 +39,19 @@ public class GroupResource {
 	@Inject
 	private UserRepository userRepository;
 
-	// Get students from group
-//	@RequestMapping(value = "/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-//	@Timed
-//	@RolesAllowed(AuthoritiesConstants.USER)
-//	public List<User> getAllByGroup(@RequestParam("groupId") String groupId,
-//			HttpServletResponse response) {
-//		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
-//			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-//			return null;
-//		} else {
-//			return groupService.getStudentsByGroup(groupId);
-//		}
-//	}
+
+	@RequestMapping(value = "/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public Group getOne(@RequestParam("groupId") String groupId,
+			HttpServletResponse response) {
+		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return groupRepository.findOneById(new ObjectId(groupId));
+		}
+	}
 
 	@RequestMapping(value = "/group", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
@@ -114,18 +112,6 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public List<Group> getAll(HttpServletResponse response){
 		return groupRepository.findAll();
-	}
-	
-
-	// Get group from id
-	@RequestMapping(value = "/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public Group getGroup(@RequestParam("groupId") String groupId,
-			HttpServletResponse response) {
-		
-			return groupRepository.findOneById(new ObjectId(groupId));
-		
 	}
 
 }

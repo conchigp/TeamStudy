@@ -1,11 +1,13 @@
 package com.teamstudy.myapp.service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
 
+import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,7 +16,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.teamstudy.myapp.domain.Authority;
+import com.teamstudy.myapp.domain.Group;
 import com.teamstudy.myapp.domain.User;
+import com.teamstudy.myapp.repository.GroupRepository;
 import com.teamstudy.myapp.repository.UserRepository;
 import com.teamstudy.myapp.security.SecurityUtils;
 import com.teamstudy.myapp.service.util.RandomUtil;
@@ -32,6 +36,9 @@ public class UserService {
 
 	@Inject
 	private UserRepository userRepository;
+	
+	@Inject
+	private GroupRepository groupRepository;
 
 	public User activateRegistration(String key) {
 		log.debug("Activating user for activation key {}", key);
@@ -68,6 +75,16 @@ public class UserService {
 		userRepository.save(newUser);
 		log.debug("Created Information for Student: {}", newUser);
 		return newUser;
+	}
+	
+	public List<User> getStudentsByGroup(String groupId){
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		List<User> students = new ArrayList<User>();
+		for(String s: group.getAlums()){
+			User user = userRepository.findOneById(new ObjectId(s));
+			students.add(user);
+		}
+		return students;
 	}
 	
 	public void updateUserInformation(String firstName, String lastName,

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
@@ -40,11 +41,24 @@ public class StudentResource {
 	@Inject
 	private UserRepository userRepository;
 	
-	@RequestMapping(value = "/student", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/students", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public List<User> getAll(){
 		return userService.getStudents();
+	}
+	
+	@RequestMapping(value = "/student", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed(AuthoritiesConstants.USER)
+	public List<User> getAllByGroup(@RequestParam("groupId") String groupId,
+			HttpServletResponse response) {
+		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			return userService.getStudentsByGroup(groupId);
+		}
 	}
 
 	@RequestMapping(value = "/student", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
