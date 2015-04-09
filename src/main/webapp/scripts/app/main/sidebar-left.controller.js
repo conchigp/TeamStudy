@@ -22,14 +22,15 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 			$scope.create = function() {
 				GroupCRUDAdmin.update($scope.group, function() {
 					$scope.clear();
-					scope.groups = GroupListAdmin.get();
+					
 				});
 				$('#saveGroupModal').modal('hide');
+				console.log('hola');
 			};
 
 			$scope.update = function(id) {
 				GroupCRUDAdmin.get({groupId : id}, function(result) {
-					$scope.grupo = result;
+					$scope.group = result.data;
 					$('#saveGroupModal').modal('show');
 				});
 			};
