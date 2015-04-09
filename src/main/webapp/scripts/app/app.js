@@ -121,11 +121,7 @@ angular
 													} ]
 										}
 									});
-//							.state('wiki', {
-//					            url:'/wiki',
-//					            templateUrl: 'scripts/app/wiki/wiki.html',
-//					            controller: 'WikiController'
-//					        });
+
 
 					$httpProvider.interceptors.push('authInterceptor');
 

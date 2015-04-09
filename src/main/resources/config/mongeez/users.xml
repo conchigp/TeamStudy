@@ -46,7 +46,7 @@
                 "lang_key": "en",
                 "created_by": "system",
                 "created_date": new Date(),
-                "authorities": [{"_id": "ROLE_ADMIN"}, {"_id": "ROLE_USER"}]
+                "authorities": [{"_id": "ROLE_ADMIN"}]
             });
             db.T_USER.insert(
             {

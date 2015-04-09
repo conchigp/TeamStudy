@@ -2,37 +2,16 @@
 
 angular.module('teamstudyApp').controller('MainController',
 		function($scope, GroupList, Principal) {
-			$scope.isInRole = Principal.isInRole;
+			
 			Principal.identity().then(function(account) {
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
-				
+				$scope.isInRole = Principal.isInRole;
 			}).then(function() {
-				$scope.groups = GroupList.get({
-					userId : $scope.account.id
-				});
+				
 			});
 			
-			$scope.create = function () {
-	            Group.update($scope.group,
-	                function () {
-	                    $('#saveBookModal').modal('hide');
-	                    $scope.clear();
-	                });
-	        };
-	        
-	        $scope.update = function (id) {
-	            Group.get({id: id}, function(result) {
-	                $scope.group = result;
-	                $('#saveBookModal').modal('show');
-	            });
-	        };
-	        
-	        $scope.clear = function () {
-	            $scope.group = {name: null, description: null};
-	            $scope.editForm.$setPristine();
-	            $scope.editForm.$setUntouched();
-	        };
+		
 	        
 	    
 

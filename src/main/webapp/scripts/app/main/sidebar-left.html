@@ -17,117 +17,115 @@
 
 
 					<div class="modal fade" id="saveGroupModal" tabindex="-1"
-							role="dialog" aria-labelledby="myGroupLabel" aria-hidden="true"
-							style="display: none;">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<form name="editForm" role="form" novalidate=""
-										ng-submit="create()" show-validation=""
-										class="ng-valid ng-pristine">
-	
-										<div class="modal-header">
-											<button type="button" class="close" data-dismiss="modal"
-												aria-hidden="true" ng-click="clear()">×</button>
-											<h4 class="modal-title ng-scope" id="myGroupLabel"
-												translate="">Crear o editar un grupo</h4>
-										</div>
-										<div class="modal-body">
-											<div class="form-group">
-												<label translate="" class="ng-scope">Nombre</label> <input
-													type="text"
-													class="form-control ng-valid ng-pristine ng-untouched"
-													name="name" ng-model="group.name">
-	
-												<div ng-show="editForm.name.$invalid" class="ng-hide">
-												</div>
+						role="dialog" aria-labelledby="myGroupLabel" aria-hidden="true"
+						style="display: none;">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<form name="editForm" role="form" novalidate=""
+									ng-submit="create()" show-validation=""
+									class="ng-valid ng-pristine">
+
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true" ng-click="clear()">×</button>
+										<h4 class="modal-title ng-scope" id="myGroupLabel"
+											translate="">Crear o editar un grupo</h4>
+									</div>
+									<div class="modal-body">
+										<div class="form-group">
+											<label translate="" class="ng-scope">Nombre</label> <input
+												type="text"
+												class="form-control ng-valid ng-pristine ng-untouched"
+												name="name" ng-model="group.name">
+
+											<div ng-show="editForm.name.$invalid" class="ng-hide">
 											</div>
-											<div class="form-group">
-												<label translate="" class="ng-scope">Descripcion</label> <input
-													type="text"
-													class="form-control ng-valid ng-pristine ng-untouched"
-													name="description" ng-model="group.description">
-	
-												<div ng-show="editForm.description.$invalid" class="ng-hide">
-												</div>
+										</div>
+										<div class="form-group">
+											<label translate="" class="ng-scope">Descripcion</label> <input
+												type="text"
+												class="form-control ng-valid ng-pristine ng-untouched"
+												name="description" ng-model="group.description">
+
+											<div ng-show="editForm.description.$invalid" class="ng-hide">
 											</div>
-	
 										</div>
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default"
-												data-dismiss="modal" ng-click="clear()">
-												<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
-													translate="entity.action.cancel" class="ng-scope">Cancel</span>
-											</button>
-											<button type="submit" ng-disabled="editForm.$invalid"
-												class="btn btn-primary">
-												<span class="glyphicon glyphicon-save"></span>&nbsp;<span
-													translate="entity.action.save" class="ng-scope">Save</span>
-											</button>
-										</div>
-									</form>
-								</div>
-							</div>
-						
 
-
-
-				</div>
-				<div ng-show="isInRole('ROLE_USER')">
-					<h4>Tus Grupos</h4>
-					<!-- 					<li class="sidebar-brand"><a id="menu-toggle" href="#">Menu<span id="main_icon" class="glyphicon glyphicon-align-justify"></span></a></li> -->
-				</div>
-			</div>
-
-			<div class="list-group" ng-show="isInRole('ROLE_USER')">
-				<div ng-repeat="group in groups">
-					<div class="box">
-						<div class="box-header">
-							<div class="box-name">
-								<b>{{group.name}}</b>
-
-							</div>
-							<div class="box-icons">
-								<a  ng-click=""><span
-									class="glyphicon glyphicon-edit" aria-hidden="true"
-									data-toggle="modal" data-target="#saveGroupModal"></span></a>
-								<button type="submit" ng-click="update(group.id)"
-									class="btn btn-primary">
-									<span data-toggle="modal" data-target="#saveGroupModal"
-										class="glyphicon glyphicon-pencil"></span>&nbsp;<span
-										translate="entity.action.edit"> Edit</span>
-								</button>
-								<button type="submit" ng-click="confirmDelete(group.id)"
-									class="btn btn-danger">
-									<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
-										translate="entity.action.delete"> Delete</span>
-								</button>
-								<!-- 								<a type="submit" ng-click="update(group.id)"><span -->
-								<!-- 									class="glyphicon glyphicon-edit" aria-hidden="true" -->
-								<!-- 									data-toggle="modal" data-target="#saveGroupModal"></span></a> -->
-
-
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal" ng-click="clear()">
+											<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+												translate="entity.action.cancel" class="ng-scope">Cancel</span>
+										</button>
+										<button type="submit" ng-disabled="editForm.$invalid"
+											class="btn btn-primary">
+											<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+												translate="entity.action.save" class="ng-scope">Save</span>
+										</button>
+									</div>
+								</form>
 							</div>
 						</div>
-						<div class="box-content">
 
 
-							<p>{{group.description}}</p>
-							<b>{{group.id}}</b>
-							<footer>{{group.creationMoment | date: "dd-MM-yyyy" }}</footer>
 
+
+					</div>
+					<div ng-show="isInRole('ROLE_USER')">
+						<h4>Tus Grupos</h4>
+					</div>
+				</div>
+
+				<div class="list-group">
+					<div ng-repeat="group in groups">
+						<div class="box">
+							<div class="box-header">
+
+								<div ng-show="isInRole('ROLE_ADMIN')" ui-sref-active="active"
+									class="box-name">
+									<a ui-sref="management({ groupId: group.id })">{{group.name}}</a>
+
+								</div>
+								<div ng-show="isInRole('ROLE_USER')" 
+									class="box-name">
+									<a>{{group.name}}</a>
+
+								</div>
+
+								<div ng-show="isInRole('ROLE_ADMIN')" class="box-icons">
+									<!-- 									<a type="submit" ng-click=""> <span -->
+									<!-- 										class="glyphicon glyphicon-user"></span>&nbsp;<span -->
+									<!-- 										translate="entity.action.delete"> Add</span> -->
+									<!-- 									</a>  -->
+									<a type="submit" ng-click="update(group.id)"> <span
+										data-toggle="modal" data-target="#saveGroupModal"
+										class="glyphicon glyphicon-edit"></span>&nbsp;<span
+										translate="entity.action.edit"> Edit</span>
+									</a> <a type="submit" ng-click="confirmDelete(group.id)"> <span
+										class="glyphicon glyphicon-remove"></span>&nbsp;<span
+										translate="entity.action.delete"> Delete</span>
+									</a>
+								</div>
+
+
+							</div>
+							<div class="box-content">
+
+
+								<p>{{group.description}}</p>
+								<footer>{{group.creationMoment | date: "dd-MM-yyyy" }}</footer>
+
+							</div>
 						</div>
 					</div>
 				</div>
+
+
 			</div>
+			<!-- End Sidebar Left -->
 
 
 		</div>
-		<!-- End Sidebar Left -->
-
 
 	</div>
-
-</div>
-
-
-
