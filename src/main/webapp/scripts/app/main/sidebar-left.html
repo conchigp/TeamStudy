@@ -71,13 +71,7 @@
 					</div>
 				</div>
 				
-				<div class="list-group" ng-show="isInRole('ROLE_USER'">
-					<div ng-repeat="group in groups">
-						<div class="box-name">
-							<b>{{group.name}}</b>
-						</div>
-						
-					</div>
+				<div class="list-group" ng-show="isInRole('ROLE_USER')">
 					<div ng-repeat="group in groups">
 						<div class="box">
 							<div class="box-header">

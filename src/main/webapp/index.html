@@ -1,51 +1,81 @@
-<!doctype html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!-->
-<html class="no-js">
-<!--<![endif]-->
+<!DOCTYPE html>
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<title>TeamStudy</title>
+<title>teamstudy</title>
 <meta name="description" content="">
-<meta name="viewport" content="width=device-width">
-<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-<!-- build:css assets/styles/vendor.css -->
-<link rel="stylesheet"
-	href="../../../bower_components/bootstrap/dist/css/bootstrap.css" />
-<link rel="stylesheet" href="assets/styles/style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- 		<link href="plugins/bootstrap/bootstrap.css" rel="stylesheet"> -->
+<link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
+<link
+	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
+	rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Righteous'
+	rel='stylesheet' type='text/css'>
+<link href="plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
+<link href="plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
+<link href="plugins/xcharts/xcharts.min.css" rel="stylesheet">
+<link href="plugins/select2/select2.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles/main.css">
+<link href="bower_components/bootstrap/dist/css/bootstrap.css"
+	rel="stylesheet" />
+<link href="css/style.css" rel="stylesheet">
 
-<!-- bower:css -->
-<link rel="stylesheet" href="../../../bower_components/bootstrap/dist/css/bootstrap.css" />
-<!-- endbower -->
-<!-- endbuild -->
 
 </head>
 <body ng-app="teamstudyApp">
-	<!--[if lt IE 10]>
+<!--[if lt IE 10]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-	<div ng-show="false" class="development" ng-cloak=""></div>
-	<div ui-view="navbar" ng-cloak=""></div>
-	<div id="prueba" class="prueba">
-		<div class="row" style="margin-top: -15px">
- 			<div id="sleft" class="col-xs-4 col-sm-2 col-md-2" ui-view="sidebar-left"></div>
-  			<div id="ct" class="col-xs-10 col-sm-8 col-md-8" ui-view="content"></div>
-  			<div id="sright" class="col-xs-4 col-sm-2 col-md-2" ui-view="sidebar-right"></div>
+	
+	<header class="navbar">
+
+		<div id="logo" class="col-xs-12 col-sm-2">
+			<a href="#" class="show-sidebar"><i>Mostrar/Ocultar paneles</i> </a>
 		</div>
-<!-- 		<div id="main" class="container-fluid" style="margin-top: -15px"> -->
-<!-- 					<div id="sleft" class="sidebar-left" ui-view="sidebar-left"></div> -->
-<!-- 					<div id="ct" class="content" ui-view="content"></div> -->
-<!-- 					<div id="sright" class="sidebar-right" ui-view="sidebar-right"></div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-		<div class="footer">
-			<p translate="footer">This is your footer</p>
+
+		<div ui-view="navbar" ng-cloak="" class="container-fluid expanded-panel col-xs-10"></div>
+	</header>
+	<!--End Header --!>
+
+
+<!--Start Container-->
+	<div id="main" class="container-fluid">
+		<div class="row">
+			<div id="sidebar-left" ui-view="sidebar-left" class="col-xs-4 col-sm-2 col-md-2">
+			</div>
+
+			<div id="sidebar-right"  class="col-xs-4 col-sm-2 col-md-2" ui-view="sidebar-right">
+			</div>
+
+
+			<!--Start Content-->
+			<div id="content" ui-view="content" class="col-xs-10 col-sm-8 col-md-8">
+				
+			</div>
+			<!--End Content-->
+
+
 		</div>
 	</div>
+	<!--End Container-->
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<!--<script src="http://code.jquery.com/jquery.js"></script>-->
+	<script src="plugins/jquery/jquery-2.1.0.min.js"></script>
+	<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<!-- <script src="plugins/bootstrap/bootstrap.min.js"></script> -->
+
+	<script src="plugins/justified-gallery/jquery.justifiedgallery.min.js"></script>
+	<script src="plugins/tinymce/tinymce.min.js"></script>
+	<script src="plugins/tinymce/jquery.tinymce.min.js"></script>
+	<!-- All functions for this theme + document.ready processing -->
+	<script src="js/devoops.js"></script>
+
+
+
 
 	<!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
         <script>
@@ -78,7 +108,7 @@
 	<!-- endbower -->
 	<!-- endbuild -->
 
-	<script src="scripts/devoops/devoops.js"></script>
+	
 	<!-- build:js({.tmp,src/main/webapp}) scripts/app.js -->
 	<script src="scripts/app/app.js"></script>
 	<script src="scripts/app/app.constants.js"></script>
@@ -101,23 +131,6 @@
 	<script src="scripts/components/util/truncate.filter.js"></script>
 	<script src="scripts/components/util/base64.service.js"></script>
 	<script src="scripts/components/util/parse-links.service.js"></script>
-
-	<!-- Group -->
-	<script src="scripts/components/group/group.service.js"></script>
-	<script src="scripts/app/group/group.controller.js"></script>
-	<script src="scripts/app/group/group.js"></script>
-
-	<!-- Wiki -->
-	<script src="scripts/components/wiki/wiki.service.js"></script>
-	<script src="scripts/app/wiki/wiki.controller.js"></script>
-	<script src="scripts/app/wiki/wiki.js"></script>
-
-	<!-- Sidebar-left -->
-	<script src="scripts/app/main/sidebar-left.controller.js"></script>
-
-	<!-- Sidebar-right -->
-	<script src="scripts/app/main/sidebar-right.controller.js"></script>
-
 	<script src="scripts/app/account/account.js"></script>
 	<script src="scripts/app/account/activate/activate.js"></script>
 	<script src="scripts/app/account/activate/activate.controller.js"></script>
@@ -150,6 +163,63 @@
 	<script src="scripts/app/main/main.js"></script>
 	<script src="scripts/app/main/main.controller.js"></script>
 	<script src="scripts/components/auth/provider/auth.xauth.service.js"></script>
-	<!-- endbuild -->
+
+	<!-- Group -->
+	<script src="scripts/components/group/group.service.js"></script>
+	<script src="scripts/app/group/group.controller.js"></script>
+	<script src="scripts/app/group/group.js"></script>
+
+	<!-- Wiki -->
+	<script src="scripts/components/wiki/wiki.service.js"></script>
+	<script src="scripts/app/wiki/wiki.controller.js"></script>
+	<script src="scripts/app/wiki/wiki.js"></script>
+
+	<!-- Sidebar-left -->
+	<script src="scripts/app/main/sidebar-left.controller.js"></script>
+
+	<!-- Sidebar-right -->
+	<script src="scripts/app/main/sidebar-right.controller.js"></script>
+	
+	
+<!-- 	<script src="scripts/app/entities/archive/archive.js"></script> -->
+<!-- 	<script src="scripts/app/entities/archive/archive.controller.js"></script> -->
+<!-- 	<script src="scripts/app/entities/archive/archive-detail.controller.js"></script> -->
+<!-- 	<script src="scripts/components/entities/archive/archive.service.js"></script> -->
+<!-- 	<script src="scripts/app/entities/folder/folder.js"></script> -->
+<!-- 	<script src="scripts/app/entities/folder/folder.controller.js"></script> -->
+<!-- 	<script src="scripts/app/entities/folder/folder-detail.controller.js"></script> -->
+<!-- 	<script src="scripts/components/entities/folder/folder.service.js"></script> -->
+<!-- 	<script src="scripts/app/entities/group/group.js"></script> -->
+<!-- 	<script src="scripts/app/entities/group/group.controller.js"></script> -->
+<!-- 	<script src="scripts/app/entities/group/group-detail.controller.js"></script> -->
+<!-- 	<script src="scripts/components/entities/group/group.service.js"></script> -->
+<!-- 	<script src="scripts/app/entities/message/message.js"></script> -->
+<!-- 	<script src="scripts/app/entities/message/message.controller.js"></script> -->
+<!-- 	<script src="scripts/app/entities/message/message-detail.controller.js"></script> -->
+<!-- 	<script src="scripts/components/entities/message/message.service.js"></script> -->
+<!-- 	<script src="scripts/app/entities/messageChat/messageChat.js"></script> -->
+<!-- 	<script -->
+<!-- 		src="scripts/app/entities/messageChat/messageChat.controller.js"></script> -->
+<!-- 	<script -->
+<!-- 		src="scripts/app/entities/messageChat/messageChat-detail.controller.js"></script> -->
+<!-- 	<script -->
+<!-- 		src="scripts/components/entities/messageChat/messageChat.service.js"></script> -->
+<!-- 	<script src="scripts/app/entities/new/new.js"></script> -->
+<!-- 	<script src="scripts/app/entities/new/new.controller.js"></script> -->
+<!-- 	<script src="scripts/app/entities/new/new-detail.controller.js"></script> -->
+<!-- 	<script src="scripts/components/entities/new/new.service.js"></script> -->
+<!-- 	<script src="scripts/app/entities/reply/reply.js"></script> -->
+<!-- 	<script src="scripts/app/entities/reply/reply.controller.js"></script> -->
+<!-- 	<script src="scripts/app/entities/reply/reply-detail.controller.js"></script> -->
+<!-- 	<script src="scripts/components/entities/reply/reply.service.js"></script> -->
+<!-- 	<script src="scripts/app/entities/thread/thread.js"></script> -->
+<!-- 	<script src="scripts/app/entities/thread/thread.controller.js"></script> -->
+<!-- 	<script src="scripts/app/entities/thread/thread-detail.controller.js"></script> -->
+<!-- 	<script src="scripts/components/entities/thread/thread.service.js"></script> -->
+<!-- 	<script src="scripts/app/entities/wiki/wiki.js"></script> -->
+<!-- 	<script src="scripts/app/entities/wiki/wiki.controller.js"></script> -->
+<!-- 	<script src="scripts/app/entities/wiki/wiki-detail.controller.js"></script> -->
+<!-- 	<script src="scripts/components/entities/wiki/wiki.service.js"></script> -->
+	<!--         endbuild -->
 </body>
 </html>
