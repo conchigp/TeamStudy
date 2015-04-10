@@ -3,35 +3,32 @@
 		<!--Sidebar Right -->
 		<div id="sright" class="">
 		
-		<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="management" type="button" class="btn btn-default">Management</button>
-				</div>
-			<div>
-				<div class="page-headerST" id="firstTable" ng-show="isInRole('ROLE_USER')">
-					<div class="header">
-						<div class="title">
-							<h2>Alumnos</h2>
-						</div>
-					</div>
-					<div class="content"></div>
-				</div>
-
-				<div class="page-headerST" id="secondTable" ng-show="isInRole('ROLE_USER')">
-					<div class="header">
-						<div class="title">
-							<h2>Chat</h2>
-						</div>
-					</div>
-					<div class="content">
-
-						<div class="footer"></div>
-					</div>
-				</div>
-				<span id="sb-4" class="skip-block-to"></span>
+			<div ui-sref-active="active" class="btn-group" ng-show="isInRole('ROLE_ADMIN')" role="group">
+				<button ui-sref="management" type="button" class="btn btn-default">Management</button>
 			</div>
-		</div>
-		<!-- End Sidebar Right -->
+			<div class="page-headerST" id="firstTable" ng-show="isInRole('ROLE_USER')">
+				<div class="header">
+					<div class="title">
+						<h2>Alumnos</h2>
+					</div>
+				</div>
+				<div class="content"></div>
+			</div>
+
+			<div class="page-headerST" id="secondTable" ng-show="isInRole('ROLE_USER')">
+				<div class="header">
+					<div class="title">
+						<h2>Chat</h2>
+					</div>
+				</div>
+				<div class="content">
+					<div class="footer"></div>
+				</div>
+			</div>
+			<span id="sb-4" class="skip-block-to"></span>
+			</div>
 	</div>
+		<!-- End Sidebar Right -->
 
 </div>
 
