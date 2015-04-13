@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('MainController',
-		function($scope, GroupList, Principal) {
+		function($scope, GroupList, Principal,$stateParams) {
 			
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -9,9 +9,20 @@ angular.module('teamstudyApp').controller('MainController',
 				$scope.isInRole = Principal.isInRole;
 			}).then(function() {
 				
+				$scope.groupIsSelected = function(){
+					
+					if($stateParams.groupId ==null){
+						return false;
+					}else{
+						return true;
+					}
+					
+				};
+				
 			});
 			
 		
+			
 	        
 	    
 

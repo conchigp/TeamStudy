@@ -1,8 +1,9 @@
 <div ng-cloak>
-	<div class="row">
+	<div ng-show="" class="row">
 		<!--Start Content-->
-		<div id="ct" class="">
+		<div ng-show="groupIsSelected()" id="ct" class="">
 
+		
 			<div class="btn-group btn-group-justified" role="group"
 				ng-show="isInRole('ROLE_USER')">
 				<div ui-sref-active="active" class="btn-group" role="group">
@@ -12,215 +13,16 @@
 					<button ui-sref="repository" type="button" class="btn btn-default">Repository</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref=thread type="button" class="btn btn-default">Forum</button>
+					<button ui-sref="thread" type="button" class="btn btn-default">Forum</button>
 				</div>
-<!-- 				<div class="btn-group" role="group">
+				<!-- 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default">Forum</button>
 				</div> -->
 			</div>
 
 
 
-			<div class="table-responsive col-md-6">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th>Avatar</th>
-							<th>Firstname</th>
-							<th>Lastname</th>
-							<th>Email</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr ng-repeat="book in books">
-							<td><a ui-sref="bookDetail({id:book.id})">{{book.id}}</a></td>
-							<td>{{book.title}}</td>
-							<td>{{book.description}}</td>
-							<td>{{book.publicationDate}}</td>
-							<td>{{book.price}}</td>
-							<td>
-								<button type="submit" ui-sref="bookDetail({id:book.id})"
-									class="btn btn-info">
-									<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span
-										translate="entity.action.view"> View</span>
-								</button>
-								<button type="submit" ng-click="update(book.id)"
-									class="btn btn-primary">
-									<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span
-										translate="entity.action.edit"> Edit</span>
-								</button>
-								<button type="submit" ng-click="delete(book.id)"
-									class="btn btn-danger">
-									<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span
-										translate="entity.action.delete"> Delete</span>
-								</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-				<nav>
-					<ul class="pagination">
-						<li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
-						<li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li>
-						<li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page
-								- 2}}</a></li>
-						<li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page
-								- 1}}</a></li>
-						<li class="active"><a>{{page}}</a></li>
-						<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page
-								+ 1}}</a></li>
-						<li ng-show="page < links['last'] - 1"
-							ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li>
-						<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
-						<li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
-					</ul>
-				</nav>
-			</div>
 
-			<div class="col-md-6">
-				<div class="box">
-					<div class="box-header">
-						<div class="box-name">
-							<i class="fa fa-usd"></i> <span>Lista de alumnos</span>
-						</div>
-						<div class="box-icons">
-							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
-							</a> <a class="expand-link"> <i class="fa fa-expand"></i>
-							</a> <a class="close-link"> <i class="fa fa-times"></i>
-							</a>
-						</div>
-						<div class="no-move"></div>
-					</div>
-					<div class="box-content no-padding">
-						<table
-							class="table table-bordered table-striped table-hover table-heading table-datatable"
-							id="datatable-1">
-							<thead>
-								<tr>
-									<th>Avatar</th>
-									<th>Firstname</th>
-									<th>Lastname</th>
-									<th>Email</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- Start: list_row -->
-								<tr>
-									<td>1</td>
-									<td><img class="img-rounded"
-										src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg"
-										alt="">Carlos Slim Helu & family</td>
-									<td>$73 B</td>
-									<td>74</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td><img class="img-rounded"
-										src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg"
-										alt="">Carlos Slim Helu & family</td>
-									<td>$73 B</td>
-									<td>74</td>
-								</tr>
-								<!-- End: list_row -->
-							</tbody>
-							<tfoot>
-								<tr>
-									<th>Avatar</th>
-									<th>Firstname</th>
-									<th>Lastname</th>
-									<th>Email</th>
-								</tr>
-							</tfoot>
-						</table>
-						<nav>
-							<ul class="pagination">
-								<li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li>
-								<li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li>
-								<li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page
-										- 2}}</a></li>
-								<li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page
-										- 1}}</a></li>
-								<li class="active"><a>{{page}}</a></li>
-								<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page
-										+ 1}}</a></li>
-								<li ng-show="page < links['last'] - 1"
-									ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li>
-								<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li>
-								<li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li>
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div>
-
-
-
-			<div class="col-md-6">
-				<div class="box">
-					<div class="box-header">
-						<div class="box-name">
-							<i class="fa fa-usd"></i> <span>The World's billionaries</span>
-						</div>
-						<div class="box-icons">
-							<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
-							</a> <a class="expand-link"> <i class="fa fa-expand"></i>
-							</a> <a class="close-link"> <i class="fa fa-times"></i>
-							</a>
-						</div>
-						<div class="no-move"></div>
-					</div>
-					<div class="box-content no-padding">
-						<table
-							class="table table-bordered table-striped table-hover table-heading table-datatable"
-							id="datatable-1">
-							<thead>
-								<tr>
-									<th>Rank</th>
-									<th>Name</th>
-									<th>Net Worth</th>
-									<th>Age</th>
-									<th>Source</th>
-									<th>Country of Citizenship</th>
-								</tr>
-							</thead>
-							<tbody>
-								<!-- Start: list_row -->
-								<tr>
-									<td>1</td>
-									<td><img class="img-rounded"
-										src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg"
-										alt="">Carlos Slim Helu & family</td>
-									<td>$73 B</td>
-									<td>74</td>
-									<td>telecom</td>
-									<td>Mexico</td>
-								</tr>
-								<tr>
-									<td>1</td>
-									<td><img class="img-rounded"
-										src="http://i.forbesimg.com/media/lists/people/carlos-slim-helu_50x50.jpg"
-										alt="">Carlos Slim Helu & family</td>
-									<td>$73 B</td>
-									<td>74</td>
-									<td>telecom</td>
-									<td>Mexico</td>
-								</tr>
-								<!-- End: list_row -->
-							</tbody>
-							<tfoot>
-								<tr>
-									<th>Rank</th>
-									<th>Name</th>
-									<th>Net Worth</th>
-									<th>Age</th>
-									<th>Source</th>
-									<th>Country of Citizenship</th>
-								</tr>
-							</tfoot>
-						</table>
-					</div>
-				</div>
-			</div>
 
 
 		</div>

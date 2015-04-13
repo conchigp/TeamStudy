@@ -5,10 +5,10 @@ angular.module('teamstudyApp')
         $stateProvider
             .state('thread', {
                 parent: 'site',
-                url: '/forum',
+                url: '/forum/:groupId',
                 data: {
                     roles: [],
-                    pageTitle: ''
+                    pageTitle: 'forum'
                 },
                 views: {
                     'content@': {

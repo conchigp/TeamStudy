@@ -22,7 +22,7 @@
 	}
 
 
-	angular.module('teamstudyApp').factory('ThreadListForGroup', ThreadListForGroup);
+	angular.module('teamstudyApp').factory('ThreadService', ThreadListForGroup);
 
 })();
 
