@@ -56,8 +56,8 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 			};
 			
 			$scope.local = function(groupId){
-				sessionStorage.setItem('groupId', groupId);
-// sessionStorage.setItem('wiki', wiki);
+				localStorage.setItem('groupId', groupId);
+
 			};
 
 			

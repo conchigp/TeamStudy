@@ -7,7 +7,7 @@ angular.module('teamstudyApp')
                 parent: 'site',
                 url: '/wiki',
                 data: {
-                    roles: [],
+                    roles: ['ROLE_USER','ROLE_ADMIN'],
                     pageTitle: 'Wiki'
                 },
                 views: {
