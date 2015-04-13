@@ -14,6 +14,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import com.teamstudy.myapp.domain.Authority;
 import com.teamstudy.myapp.domain.Group;
@@ -36,7 +37,7 @@ public class UserService {
 
 	@Inject
 	private UserRepository userRepository;
-	
+
 	@Inject
 	private GroupRepository groupRepository;
 
@@ -54,7 +55,8 @@ public class UserService {
 	}
 
 	public User createUserInformation(String login, String password,
-			String firstName, String lastName, String email, String langKey, String isTeacher, String imageUrl) {
+			String firstName, String lastName, String email, String langKey,
+			String isTeacher, String imageUrl) {
 		User newUser = new User();
 		Authority authority = new Authority();
 		authority.setName("ROLE_USER");
@@ -76,17 +78,17 @@ public class UserService {
 		log.debug("Created Information for Student: {}", newUser);
 		return newUser;
 	}
-	
-	public List<User> getStudentsByGroup(String groupId){
+
+	public List<User> getStudentsByGroup(String groupId) {
 		Group group = groupRepository.findOneById(new ObjectId(groupId));
 		List<User> students = new ArrayList<User>();
-		for(String s: group.getAlums()){
+		for (String s : group.getAlums()) {
 			User user = userRepository.findOneById(new ObjectId(s));
 			students.add(user);
 		}
 		return students;
 	}
-	
+
 	public void updateUserInformation(String firstName, String lastName,
 			String email) {
 		User currentUser = userRepository.findOneByLogin(SecurityUtils
@@ -113,13 +115,24 @@ public class UserService {
 		currentUser.getAuthorities().size(); // eagerly load the association
 		return currentUser;
 	}
-	
-	public List<User> getStudents(){
+
+	public List<User> getStudents() {
 		return userRepository.findAllByIsTeacher(false);
 	}
-	
-	public List<User> getTeachers(){
+
+	public List<User> getTeachers() {
 		return userRepository.findAllByIsTeacher(true);
+	}
+
+	public User getTeacherByGroup(String groupId) {
+		Group group = groupRepository.findOneById(new ObjectId(groupId));
+		String teacherId = group.getTeacherId();
+
+		Assert.notNull(teacherId);
+
+		User teacher = userRepository.findOneById(new ObjectId(teacherId));
+
+		return teacher;
 	}
 
 	/**
@@ -139,5 +152,5 @@ public class UserService {
 			userRepository.delete(user);
 		}
 	}
-	
+
 }

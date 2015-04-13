@@ -43,7 +43,7 @@
 				}
 			},
 			'delete' : {
-				method : 'PUT',
+				method : 'DELETE',
 				params : {
 					groupId : '@groupId',
 					studentId : '@studentId'

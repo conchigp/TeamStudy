@@ -6,13 +6,17 @@
 			<div class="page-headerST" ng-switch="true">
 				<div ng-show="isInRole('ROLE_ADMIN')">
 					<div style="margin: 10px;">
-						<h4>Add a new Group: <button class="" data-toggle="modal" data-target="#saveGroupModal" ng-click="clear()">
-							<a class="close-link">
-								<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
-							</a>
-						</button></h4>
+						<h4>
+							Add a new Group:
+							<button class="" data-toggle="modal"
+								data-target="#saveGroupModal" ng-click="clear()">
+								<a class="close-link"> <span
+									class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+								</a>
+							</button>
+						</h4>
 					</div>
-					
+
 					<div class="modal fade" id="saveGroupModal" tabindex="-1"
 						role="dialog" aria-labelledby="myGroupLabel" aria-hidden="true"
 						style="display: none;">
@@ -79,13 +83,15 @@
 						<div class="box" style="margin: 15px;">
 							<div class="box-header">
 
-								<div ng-show="isInRole('ROLE_ADMIN')" ui-sref-active="active"
-									class="box-name" >
-									<a ui-sref="management({ groupId: group.id })">{{group.name}}</a>
+								<div ui-sref-active="active" class="box-name">
+									<a ng-show="isInRole('ROLE_ADMIN')"
+										ui-sref="management({ groupId: group.id })">{{group.name}}</a>
+									<a ng-show="isInRole('ROLE_USER')"
+										ui-sref="wiki" ng-click="local(group.id)">{{group.name}}</a>
 
 								</div>
-								<div ng-show="isInRole('ROLE_USER')" 
-									class="box-name">
+
+								<div ng-show="isInRole('ROLE_USER')" class="box-name">
 									<a>{{group.name}}</a>
 
 								</div>
@@ -96,8 +102,7 @@
 									<!-- 										translate="entity.action.delete"> Add</span> -->
 									<!-- 									</a>  -->
 									<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
-									</a>
-									<a type="submit" ng-click="update(group.id)"> <span
+									</a> <a type="submit" ng-click="update(group.id)"> <span
 										data-toggle="modal" data-target="#saveGroupModal"
 										class="glyphicon glyphicon-edit"></span>&nbsp;<span
 										translate="entity.action.edit"> Edit</span>

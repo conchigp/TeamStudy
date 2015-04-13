@@ -1,13 +1,13 @@
 <div ng-cloak>
-	<div ng-show="" class="row">
+	<div class="row">
 		<!--Start Content-->
-		<div ng-show="groupIsSelected()" id="ct" class="">
+		<div  id="ct" class="">
 
 		
 			<div class="btn-group btn-group-justified" role="group"
 				ng-show="isInRole('ROLE_USER')">
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="wiki" type="button" class="btn btn-default">Wiki</button>
+					<button ui-sref="wiki({ groupId: groupId })" type="button" class="btn btn-default">Wiki</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="repository" type="button" class="btn btn-default">Repository</button>

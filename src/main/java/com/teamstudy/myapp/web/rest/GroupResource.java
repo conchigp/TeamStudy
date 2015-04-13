@@ -42,7 +42,7 @@ public class GroupResource {
 
 	@RequestMapping(value = "/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	@RolesAllowed({AuthoritiesConstants.USER,AuthoritiesConstants.ADMIN})
 	public Group getOne(@RequestParam("groupId") String groupId,
 			HttpServletResponse response) {
 		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {

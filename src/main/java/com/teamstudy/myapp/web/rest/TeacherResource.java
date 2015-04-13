@@ -5,6 +5,7 @@ import java.util.List;
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 import org.springframework.http.HttpStatus;
@@ -40,11 +41,34 @@ public class TeacherResource {
 	@Inject
 	private UserRepository userRepository;
 	
-	@RequestMapping(value = "/teacher", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@RequestMapping(value = "/teachers", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public List<User> getAll(){
 		return userService.getTeachers();
+	}
+	
+	@RequestMapping(value = "/teacher", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
+	@Timed
+	@RolesAllowed({AuthoritiesConstants.USER,AuthoritiesConstants.ADMIN})
+	public User getTeacherByGroup(@RequestParam("groupId") String groupId,
+			HttpServletResponse response) {
+		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
+			response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+			return null;
+		} else {
+			Group group = groupRepository.findOneById(new ObjectId(groupId));
+			
+			
+			if(group.getTeacherId() ==null){
+				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+				return null;
+			}else{
+				User teacher = userService.getTeacherByGroup(groupId);
+				return teacher;
+			}
+			
+		}
 	}
 
 	// Add teacher from group

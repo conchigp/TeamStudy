@@ -11,10 +11,12 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 				if (Principal.isInRole('ROLE_ADMIN')) {
 					$scope.groups = GroupListAdmin.get();
 				} else {
-
-					$scope.groups = GroupList.get({
-						userId : $scope.account.id
-					});
+					if(Principal.isInRole('ROLE_USER')){
+						$scope.groups = GroupList.get({
+							userId : $scope.account.id
+						});
+					}
+					
 				}
 
 			});
@@ -25,7 +27,7 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 					
 				});
 				$('#saveGroupModal').modal('hide');
-				console.log('hola');
+			
 			};
 
 			$scope.update = function(id) {
@@ -39,7 +41,7 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 	            GroupCRUDAdmin.delete({groupId: id},
 	                function () {
 	                    $scope.loadAll();
-//	                    $('#deleteBookConfirmation').modal('hide');
+// $('#deleteBookConfirmation').modal('hide');
 	                    $scope.clear();
 	                });
 	        };
@@ -51,6 +53,11 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 				};
 				$scope.editForm.$setPristine();
 				$scope.editForm.$setUntouched();
+			};
+			
+			$scope.local = function(groupId){
+				sessionStorage.setItem('groupId', groupId);
+// sessionStorage.setItem('wiki', wiki);
 			};
 
 			

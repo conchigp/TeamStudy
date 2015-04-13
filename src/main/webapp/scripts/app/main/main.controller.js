@@ -9,15 +9,7 @@ angular.module('teamstudyApp').controller('MainController',
 				$scope.isInRole = Principal.isInRole;
 			}).then(function() {
 				
-				$scope.groupIsSelected = function(){
-					
-					if($stateParams.groupId ==null){
-						return false;
-					}else{
-						return true;
-					}
-					
-				};
+				
 				
 			});
 			

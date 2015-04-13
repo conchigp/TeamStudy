@@ -1,8 +1,8 @@
 (function() {
 	'use strict';
 
-	function GroupListAdmin($resource) {
-		return $resource('api/groups', {}, {
+	function teachersListAll($resource) {
+		return $resource('api/teachers', {}, {
 			'get' : {
 				method : 'GET',
 				params : {},
@@ -19,28 +19,8 @@
 		});
 	}
 
-	function GroupList($resource) {
-		return $resource('api/group/user', {}, {
-			'get' : {
-				method : 'GET',
-				params : {
-					userId : '@userId'
-				},
-				isArray : true,
-				interceptor : {
-					response : function(response) {
-						// expose response
-						return response;
-					}
-				}
-
-			}
-
-		});
-	}
-
-	function GroupCRUDAdmin($resource) {
-		return $resource('api/group', {}, {
+	function teachersCRUD($resource) {
+		return $resource('api/teacher', {}, {
 			'get' : {
 				method : 'GET',
 				params : {
@@ -56,14 +36,24 @@
 
 			},
 			'update' : {
-				method : 'PUT'
+				method : 'PUT',
+				params : {
+					groupId : '@groupId',
+					studentId : '@studentId'
+				}
+			},
+			'delete' : {
+				method : 'DELETE',
+				params : {
+					groupId : '@groupId',
+					studentId : '@studentId'
+				}
 			}
 
 		});
 	}
 
-	angular.module('teamstudyApp').factory('GroupList', GroupList).factory(
-			'GroupListAdmin', GroupListAdmin).factory('GroupCRUDAdmin',
-			GroupCRUDAdmin);
+	angular.module('teamstudyApp').factory('teachersListAll', teachersListAll).factory(
+			'teachersCRUD', teachersCRUD);
 
 })();

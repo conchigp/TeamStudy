@@ -1,11 +1,13 @@
 'use strict';
 
 angular.module('teamstudyApp').factory('Wiki', function($resource) {
-	return $resource('api/groups/:id/wiki', {}, {
+	return $resource('api/group', {}, {
 		'get' : {
 			method : 'GET',
-			params : {},
-			isArray : true,
+			params : {
+				groupId : '@groupId'
+			},
+			isArray : false,
 			interceptor : {
 				response : function(response) {
 					// expose response
@@ -14,8 +16,9 @@ angular.module('teamstudyApp').factory('Wiki', function($resource) {
 			}
 
 		},
-		'update' : {method : 'PUT'}
-		
+		'update' : {
+			method : 'PUT'
+		}
 
 	});
 });

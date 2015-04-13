@@ -4,7 +4,7 @@ angular.module('teamstudyApp')
 		.controller(
 				'AdminManagementController',
 				function($stateParams, $scope, StudentsListAll, StudentsCRUD,
-						Principal) {
+						Principal,teachersListAll,teachersCRUD) {
 
 					Principal.identity().then(function(account) {
 						$scope.account = account;
@@ -15,6 +15,8 @@ angular.module('teamstudyApp')
 
 						var groupId = $stateParams.groupId;
 						$scope.groupId = groupId;
+						
+						
 
 						StudentsCRUD.get({
 							groupId : groupId
@@ -22,20 +24,65 @@ angular.module('teamstudyApp')
 							$scope.students = result.data;
 
 						});
+						
+						StudentsListAll.get(function(result) {
+							$scope.studentsAll = result.data;
+
+						});
+						
+						teachersListAll.get(function(result) {
+							$scope.teachersAll = result.data;
+
+						});
+						
+						teachersCRUD.get({
+							groupId : groupId
+						}, function(result) {
+							$scope.teacher = result.data;
+
+						});
+						
+						
 
 					});
 
-					$scope.getStudentsByGroup = function(groupId) {
-
-					};
-
-					$scope.update = function(id) {
-						Group.get({
-							id : id
-						}, function(result) {
-							$scope.group = result;
-							$('#saveGroupModal').modal('show');
-						});
-					};
+					
+					$scope.deleteStudent = function (studentId) {
+						
+						StudentsCRUD.delete({groupId: $stateParams.groupId,studentId: studentId}
+			                );
+			        };
+			        
+			        $scope.addStudent = function (studentId) {
+						
+						StudentsCRUD.update({groupId: $stateParams.groupId,studentId: studentId}
+			             );
+			        };
+			        
+			        
+			       
 
 				});
+
+angular.module('teamstudyApp')
+	.filter('AlumsNotAsign', function() {
+		 return function (items,students) {
+	            var result = [];
+
+	            if (items) {
+	                items.forEach(function (item) {
+	                	var entra = true;
+	                	students.forEach(function(student){
+	                		if(student.id == item.id){
+	                			entra = false;
+	                		}
+	                	});
+	                    if (entra == true) {
+	                        result.push(item);
+	                    };
+	                });
+	            }
+
+	            return result;
+	        };
+	});
