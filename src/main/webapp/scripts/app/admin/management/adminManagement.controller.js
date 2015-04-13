@@ -12,6 +12,16 @@ angular.module('teamstudyApp')
 						$scope.isInRole = Principal.isInRole;
 
 					}).then(function() {
+//						if (Principal.isInRole('ROLE_ADMIN')) {
+//							$scope.groups = GroupListAdmin.get();
+//						} else {
+//							if(Principal.isInRole('ROLE_USER')){
+//								$scope.groups = GroupList.get({
+//									userId : $scope.account.id
+//								});
+//							}
+//							
+//						}
 
 						var groupId = $stateParams.groupId;
 						$scope.groupId = groupId;

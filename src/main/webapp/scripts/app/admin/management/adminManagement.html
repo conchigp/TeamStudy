@@ -1,67 +1,13 @@
 <div ng-cloak>
-	<div class="row">
-		<!--Start Content-->
-
-		<!-- 		<div class="table-responsive col-md-6"> -->
-		<!-- 			<table class="table table-striped"> -->
-		<!-- 				<thead> -->
-		<!-- 					<tr> -->
-		<!-- 						<th>Avatar</th> -->
-		<!-- 						<th>Firstname</th> -->
-		<!-- 						<th>Lastname</th> -->
-		<!-- 						<th>Email</th> -->
-		<!-- 					</tr> -->
-		<!-- 				</thead> -->
-		<!-- 				<tbody> -->
-		<!-- 					<tr ng-repeat="student in students"> -->
-		<!-- 						<td>{{student.firstname}}</td> -->
-		<!-- 						<td>{{book.description}}</td> -->
-		<!-- 						<td>{{book.publicationDate}}</td> -->
-		<!-- 						<td>{{book.price}}</td> -->
-		<!-- 						<td> -->
-		<!-- 							<button type="submit" ui-sref="bookDetail({id:book.id})" -->
-		<!-- 								class="btn btn-info"> -->
-		<!-- 								<span class="glyphicon glyphicon-eye-open"></span>&nbsp;<span -->
-		<!-- 									translate="entity.action.view"> View</span> -->
-		<!-- 							</button> -->
-		<!-- 							<button type="submit" ng-click="update(book.id)" -->
-		<!-- 								class="btn btn-primary"> -->
-		<!-- 								<span class="glyphicon glyphicon-pencil"></span>&nbsp;<span -->
-		<!-- 									translate="entity.action.edit"> Edit</span> -->
-		<!-- 							</button> -->
-		<!-- 							<button type="submit" ng-click="delete(book.id)" -->
-		<!-- 								class="btn btn-danger"> -->
-		<!-- 								<span class="glyphicon glyphicon-remove-circle"></span>&nbsp;<span -->
-		<!-- 									translate="entity.action.delete"> Delete</span> -->
-		<!-- 							</button> -->
-		<!-- 						</td> -->
-		<!-- 					</tr> -->
-		<!-- 				</tbody> -->
-		<!-- 			</table> -->
-		<!-- 			<nav> -->
-		<!-- 				<ul class="pagination"> -->
-		<!-- 					<li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li> -->
-		<!-- 					<li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li> -->
-		<!-- 					<li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page -->
-		<!-- 							- 2}}</a></li> -->
-		<!-- 					<li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page -->
-		<!-- 							- 1}}</a></li> -->
-		<!-- 					<li class="active"><a>{{page}}</a></li> -->
-		<!-- 					<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page -->
-		<!-- 							+ 1}}</a></li> -->
-		<!-- 					<li ng-show="page < links['last'] - 1" -->
-		<!-- 						ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li> -->
-		<!-- 					<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li> -->
-		<!-- 					<li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li> -->
-		<!-- 				</ul> -->
-		<!-- 			</nav> -->
-		<!-- 		</div> -->
-
+	<div class="row" style="margin-top: 30px;">
 		<div class="col-md-6">
 			<div class="box">
 				<div class="box-header">
+<!-- 					<div class="box-name" ng-repeat="group in groups"> -->
+<!-- 						<h3><span>Lista de alumnos del {{group.name}}</span></h3> -->
+<!-- 					</div> -->
 					<div class="box-name">
-						<span>Lista de alumnos del grupo seleccionado</span>
+						<h3><span>Lista de alumnos del grupo</span></h3>
 					</div>
 					<div class="box-icons">
 						<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -72,6 +18,7 @@
 					<div class="no-move"></div>
 				</div>
 				<div class="box-content no-padding">
+					Search: <input ng-model="query">
 					<table
 						class="table table-bordered table-striped table-hover table-heading table-datatable"
 						id="datatable-1">
@@ -85,7 +32,7 @@
 						</thead>
 						<tbody>
 
-							<tr ng-repeat="student in students">
+							<tr ng-repeat="student in students | filter:query">
 
 								<td>{{student.firstName}}</td>
 								<td>{{student.lastName}}</td>
@@ -106,23 +53,6 @@
 							</tr>
 						</tfoot>
 					</table>
-					<!-- 					<nav> -->
-					<!-- 						<ul class="pagination"> -->
-					<!-- 							<li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li> -->
-					<!-- 							<li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li> -->
-					<!-- 							<li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page -->
-					<!-- 									- 2}}</a></li> -->
-					<!-- 							<li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page -->
-					<!-- 									- 1}}</a></li> -->
-					<!-- 							<li class="active"><a>{{page}}</a></li> -->
-					<!-- 							<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page -->
-					<!-- 									+ 1}}</a></li> -->
-					<!-- 							<li ng-show="page < links['last'] - 1" -->
-					<!-- 								ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li> -->
-					<!-- 							<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li> -->
-					<!-- 							<li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li> -->
-					<!-- 						</ul> -->
-					<!-- 					</nav> -->
 				</div>
 			</div>
 		</div>
@@ -131,7 +61,7 @@
 			<div class="box">
 				<div class="box-header">
 					<div class="box-name">
-						<span>Lista de alumnos del sistema</span>
+						<h3><span>Lista de alumnos del sistema</span></h3>
 					</div>
 					<div class="box-icons">
 						<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -175,30 +105,13 @@
 							</tr>
 						</tfoot>
 					</table>
-					<!-- 					<nav> -->
-					<!-- 						<ul class="pagination"> -->
-					<!-- 							<li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li> -->
-					<!-- 							<li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li> -->
-					<!-- 							<li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page -->
-					<!-- 									- 2}}</a></li> -->
-					<!-- 							<li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page -->
-					<!-- 									- 1}}</a></li> -->
-					<!-- 							<li class="active"><a>{{page}}</a></li> -->
-					<!-- 							<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page -->
-					<!-- 									+ 1}}</a></li> -->
-					<!-- 							<li ng-show="page < links['last'] - 1" -->
-					<!-- 								ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li> -->
-					<!-- 							<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li> -->
-					<!-- 							<li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li> -->
-					<!-- 						</ul> -->
-					<!-- 					</nav> -->
 				</div>
 			</div>
 		</div>
 
-		<div id="teacher" class="col-md-6">
+		<div id="teacher" class="col-md-6" style="margin-top: 20px; position: static;">
 
-			<h3>Profesor del grupo seleccionado</h3>
+			<h2>Profesor del grupo seleccionado</h2>
 			
 			<div ng-if="teacherGroup!=null">
 
@@ -215,16 +128,11 @@
 
 		</div>
 
-
-
-
-
-
-		<div class="col-md-6">
+		<div class="col-md-6" style="margin-top: 20px;">
 			<div class="box">
 				<div class="box-header">
 					<div class="box-name">
-						<span>Lista de profesores del sistema</span>
+						<h3><span>Lista de profesores del sistema</span></h3>
 					</div>
 					<div class="box-icons">
 						<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -235,6 +143,7 @@
 					<div class="no-move"></div>
 				</div>
 				<div class="box-content no-padding">
+				Search: <input ng-model="tea">
 					<table
 						class="table table-bordered table-striped table-hover table-heading table-datatable"
 						id="datatable-1">
@@ -248,7 +157,7 @@
 						</thead>
 						<tbody>
 
-							<tr ng-repeat="teacher in teachersAll">
+							<tr ng-repeat="teacher in teachersAll | filter:tea">
 
 								<td>{{teacher.firstName}}</td>
 								<td>{{teacher.lastName}}</td>
