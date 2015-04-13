@@ -5,7 +5,7 @@ angular.module('teamstudyApp')
         $stateProvider
             .state('management', {
                 parent: 'site',
-                url: '/',
+                url: '/:groupId',
                 data: {
                     roles: [],
                     pageTitle: 'Management'

@@ -50,7 +50,7 @@ public class StudentResource {
 	
 	@RequestMapping(value = "/student", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	@RolesAllowed(AuthoritiesConstants.USER)
+	@RolesAllowed({AuthoritiesConstants.USER,AuthoritiesConstants.ADMIN})
 	public List<User> getAllByGroup(@RequestParam("groupId") String groupId,
 			HttpServletResponse response) {
 		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {

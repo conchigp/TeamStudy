@@ -326,7 +326,6 @@ a.show-sidebar:hover {
 }
 .box {
   display: block;
-  z-index: 1999;
   position: relative;
   border: 1px solid #f8f8f8;
   box-shadow: 0 0 4px #D8D8D8;
@@ -475,6 +474,7 @@ a.show-sidebar:hover {
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
   transition: 0.2s;
+  z-index:6000;
 }
 .no-padding {
   padding:0 !important;

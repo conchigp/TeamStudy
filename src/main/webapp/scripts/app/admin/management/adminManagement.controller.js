@@ -13,17 +13,20 @@ angular.module('teamstudyApp')
 
 					}).then(function() {
 
+						var groupId = $stateParams.groupId;
+						$scope.groupId = groupId;
+
+						StudentsCRUD.get({
+							groupId : groupId
+						}, function(result) {
+							$scope.students = result.data;
+
+						});
+
 					});
-					
-					var prueba = $stateParams;
-					
-					$scope.groupId = prueba;
 
 					$scope.getStudentsByGroup = function(groupId) {
-						StudentsCRUD.get({groupId : groupId}, function(result) {
-							$scope.students = result.data;
-							
-						});
+
 					};
 
 					$scope.update = function(id) {
