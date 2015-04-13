@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('SidebarleftController',
-		function($scope, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal) {
+		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal) {
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -57,6 +57,7 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 			
 			$scope.local = function(groupId){
 				localStorage.setItem('groupId', groupId);
+				 $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
 
 			};
 
