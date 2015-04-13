@@ -38,9 +38,11 @@ angular.module('teamstudyApp')
 						teachersCRUD.get({
 							groupId : groupId
 						}, function(result) {
-							$scope.teacher = result.data;
+							$scope.teacherGroup = result.data;
 
 						});
+						
+						
 						
 						
 
@@ -56,6 +58,18 @@ angular.module('teamstudyApp')
 			        $scope.addStudent = function (studentId) {
 						
 						StudentsCRUD.update({groupId: $stateParams.groupId,studentId: studentId}
+			             );
+			        };
+			        
+			        $scope.addTeacher = function (teacherId) {
+						
+			        	teachersCRUD.update({groupId: $stateParams.groupId,teacherId: teacherId}
+			             );
+			        };
+			        
+			        $scope.deleteTeacher = function (teacherId) {
+						
+			        	teachersCRUD.delete({groupId: $stateParams.groupId}
 			             );
 			        };
 			        

@@ -39,14 +39,13 @@
 				method : 'PUT',
 				params : {
 					groupId : '@groupId',
-					studentId : '@studentId'
+					teacherId : '@teacherId'
 				}
 			},
 			'delete' : {
 				method : 'DELETE',
 				params : {
 					groupId : '@groupId',
-					studentId : '@studentId'
 				}
 			}
 

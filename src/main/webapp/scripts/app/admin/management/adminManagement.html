@@ -200,15 +200,17 @@
 
 			<h3>Profesor del grupo seleccionado</h3>
 			
-			<div ng-if="teacher!=null">
+			<div ng-if="teacherGroup!=null">
 
-				<p>Name: {{teacher.firstName}}</p>
-				<p>Surname: {{teacher.lastName}}</p>
-				<p>Email: {{teacher.email}}</p>
+				<p>Name: {{teacherGroup.firstName}}</p>
+				<p>Surname: {{teacherGroup.lastName}}</p>
+				<p>Email: {{teacherGroup.email}}</p>
+				<b>Si desea eliminar este profesor del grupo, haga clic </b><a ng-click="deleteTeacher(teacher.id)">aqui</a>
 			</div>
 
-			<div ng-if="teacher==null">
-				<p>Actualmente el grupo no tiene ningun profesor asignado</p>
+			<div ng-if="teacherGroup==null">
+				<p>Actualmente el grupo no tiene ningun profesor asignado, puede añadir un profesor en la tabla donde se
+				muestran los profesores del sistema.</p>
 			</div>
 
 		</div>
@@ -251,9 +253,10 @@
 								<td>{{teacher.firstName}}</td>
 								<td>{{teacher.lastName}}</td>
 								<td>{{teacher.email}}</td>
-								<td><a type="submit" ng-click="addTeacher(teacher.id)">
+								<td ng-if="teacherGroup==null"><a type="submit" ng-click="addTeacher(teacher.id)">
 										<span class="glyphicon glyphicon-plus"></span>&nbsp;
 								</a></td>
+								<td ng-if="teacherGroup!=null" class="alert alert-danger">Ya existe un profesor asignado</td>
 							</tr>
 
 						</tbody>
@@ -266,6 +269,7 @@
 							</tr>
 						</tfoot>
 					</table>
+				
 					<!-- 										<nav> -->
 					<!-- 											<ul class="pagination"> -->
 					<!-- 												<li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li> -->
