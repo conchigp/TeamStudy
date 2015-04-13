@@ -3,7 +3,7 @@
 angular.module('teamstudyApp')
 		.controller(
 				'AdminManagementController',
-				function($stateParams, $scope, StudentsListAll, StudentsCRUD,
+				function($stateParams,$state, $scope, StudentsListAll, StudentsCRUD,
 						Principal,teachersListAll,teachersCRUD) {
 
 					Principal.identity().then(function(account) {
@@ -60,6 +60,7 @@ angular.module('teamstudyApp')
 						StudentsCRUD.update({groupId: $stateParams.groupId,studentId: studentId}
 			             );
 						$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+
 			        };
 			        
 			        $scope.addTeacher = function (teacherId) {
