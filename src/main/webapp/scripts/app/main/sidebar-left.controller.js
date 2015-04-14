@@ -17,16 +17,17 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 							userId : $scope.account.id
 						});
 					}
-					//ESTO LO ESTABA PROBANDO PARA QUE FUNCIONE EL LISTAR ALUMNOS EN USER (DIEGO)
-//					var groupId = $stateParams.groupId;
-//					$scope.groupId = groupId;
+					// ESTO LO ESTABA PROBANDO PARA QUE FUNCIONE EL LISTAR
+					// ALUMNOS EN USER (DIEGO)
+// var groupId = $stateParams.groupId;
+// $scope.groupId = groupId;
 //					
-//					StudentsCRUD.get({
-//						groupId : groupId
-//					}, function(result) {
-//						$scope.students = result.data;
+// StudentsCRUD.get({
+// groupId : groupId
+// }, function(result) {
+// $scope.students = result.data;
 //
-//					});
+// });
 					
 				}
 
@@ -35,11 +36,9 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 			$scope.create = function() {
 				GroupCRUDAdmin.update($scope.group, function() {
 					$scope.clear();
-					
 				});
 				$('#saveGroupModal').modal('hide');
-				
-			
+				$state.reload();
 			};
 
 			$scope.update = function(id) {
@@ -52,10 +51,12 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 			$scope.confirmDelete = function (id) {
 	            GroupCRUDAdmin.delete({groupId: id},
 	                function () {
-	                    $scope.loadAll();
-// $('#deleteBookConfirmation').modal('hide');
-	                    $scope.clear();
+//	                    $scope.clear();
+	            		$state.reload();
 	                });
+	          
+	           
+
 	        };
 
 			$scope.clear = function() {

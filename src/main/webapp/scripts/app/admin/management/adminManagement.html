@@ -72,6 +72,7 @@
 					<div class="no-move"></div>
 				</div>
 				<div class="box-content no-padding">
+				Search: <input ng-model="sea">
 					<table
 						class="table table-bordered table-striped table-hover table-heading table-datatable"
 						id="datatable-1">
@@ -85,7 +86,7 @@
 						</thead>
 						<tbody>
 
-							<tr ng-repeat="student in studentsAll | AlumsNotAsign : students">
+							<tr ng-repeat="student in studentsAll | AlumsNotAsign : students | filter:sea">
 
 								<td>{{student.firstName}}</td>
 								<td>{{student.lastName}}</td>
