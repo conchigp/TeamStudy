@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('SidebarleftController',
-		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin,StudentsCRUD, Principal) {
+		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal) {
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -35,7 +35,7 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 
 			$scope.create = function() {
 				GroupCRUDAdmin.update($scope.group, function() {
-					$scope.clear();
+//					$scope.clear();
 				});
 				$('#saveGroupModal').modal('hide');
 				$state.reload();
@@ -46,15 +46,16 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 					$scope.group = result.data;
 					$('#saveGroupModal').modal('show');
 				});
+				
 			};
 			
 			$scope.confirmDelete = function (id) {
 	            GroupCRUDAdmin.delete({groupId: id},
 	                function () {
 //	                    $scope.clear();
-	            		$state.reload();
+	            		
 	                });
-	          
+	            $state.reload();
 	           
 
 	        };
