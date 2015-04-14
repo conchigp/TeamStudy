@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('SidebarleftController',
-		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal) {
+		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin,StudentsCRUD, Principal) {
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -12,10 +12,21 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 					$scope.groups = GroupListAdmin.get();
 				} else {
 					if(Principal.isInRole('ROLE_USER')){
+						
 						$scope.groups = GroupList.get({
 							userId : $scope.account.id
 						});
 					}
+					//ESTO LO ESTABA PROBANDO PARA QUE FUNCIONE EL LISTAR ALUMNOS EN USER (DIEGO)
+//					var groupId = $stateParams.groupId;
+//					$scope.groupId = groupId;
+//					
+//					StudentsCRUD.get({
+//						groupId : groupId
+//					}, function(result) {
+//						$scope.students = result.data;
+//
+//					});
 					
 				}
 
