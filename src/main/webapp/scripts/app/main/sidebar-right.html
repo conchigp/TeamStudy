@@ -1,19 +1,16 @@
 <div ng-cloak>
 	<div class="row">
 		<!--Sidebar Right -->
-		<div id="sright" class="">
-		
-			
-			<div class="page-headerST" id="firstTable" ng-show="isInRole('ROLE_USER')">
-				<div class="header">
-					<div class="title">
-						<h2>Alumnos</h2>
-					</div>
-				</div>
-				<div class="content"></div>
+		<div id="sright" class="" ng-model="isAuthenticated">
+			<div class="box-content" style="margin: 10px;">
+				<h3 class="page-header" ng-switch="true">Students from group</h3>
+				<h4></h4>
+				<ol>
+					<li ng-repeat="student in students">{{student.lastName}},{{student.firstName}}</li>
+				</ol>
 			</div>
-
-			<div class="page-headerST" id="secondTable" ng-show="isInRole('ROLE_USER')">
+			<div class="page-headerST" id="secondTable"
+				ng-show="isInRole('ROLE_USER')">
 				<div class="header">
 					<div class="title">
 						<h2>Chat</h2>
@@ -23,13 +20,10 @@
 					<div class="footer"></div>
 				</div>
 			</div>
-			<span id="sb-4" class="skip-block-to"></span>
-			</div>
+		</div>
+		<!--End Sidebar Right -->
 	</div>
-		<!-- End Sidebar Right -->
-
 </div>
-
 
 
 
