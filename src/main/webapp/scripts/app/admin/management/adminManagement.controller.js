@@ -57,19 +57,36 @@ angular.module('teamstudyApp')
 						
 
 					});
+					
+					 $scope.loadAll = function() {
+						 StudentsListAll.query(function(result) {
+								$scope.studentsAll = result.data;
+
+							});
+				        };
+						
+					
 
 					
 					$scope.deleteStudent = function (studentId) {
 						
 						StudentsCRUD.delete({groupId: $stateParams.groupId,studentId: studentId}
 			                );
+						$state.reload();
 			        };
 			        
 			        $scope.addStudent = function (studentId) {
 						
-						StudentsCRUD.update({groupId: $stateParams.groupId,studentId: studentId}
-			             );
-						$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+						StudentsCRUD.update({groupId: $stateParams.groupId,studentId: studentId},function () {
+		                  $state.reload();
+		                });
+			             
+//						$state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+//						$state.reload();
+						
+					
+					
+						
 
 			        };
 			        
@@ -77,12 +94,14 @@ angular.module('teamstudyApp')
 						
 			        	teachersCRUD.update({groupId: $stateParams.groupId,teacherId: teacherId}
 			             );
+			        	$state.reload();
 			        };
 			        
 			        $scope.deleteTeacher = function (teacherId) {
 						
 			        	teachersCRUD.delete({groupId: $stateParams.groupId}
 			             );
+			        	$state.reload();
 			        };
 			        
 			        

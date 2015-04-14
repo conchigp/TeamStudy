@@ -27,6 +27,7 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 					
 				});
 				$('#saveGroupModal').modal('hide');
+				
 			
 			};
 

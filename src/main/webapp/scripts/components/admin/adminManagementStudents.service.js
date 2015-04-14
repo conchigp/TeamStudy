@@ -3,6 +3,7 @@
 
 	function StudentsListAll($resource) {
 		return $resource('api/students', {}, {
+			'query': { method: 'GET', isArray: true},
 			'get' : {
 				method : 'GET',
 				params : {},
