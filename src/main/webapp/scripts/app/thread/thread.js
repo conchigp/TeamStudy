@@ -5,9 +5,9 @@ angular.module('teamstudyApp')
         $stateProvider
             .state('thread', {
                 parent: 'site',
-                url: '/forum/:groupId',
+                url: '/:groupId',
                 data: {
-                    roles: [],
+                    roles: ['ROLE_USER'],
                     pageTitle: 'forum'
                 },
                 views: {
@@ -26,7 +26,7 @@ angular.module('teamstudyApp')
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('thread');
+                        $translatePartialLoader.addPart('wiki');
                         return $translate.refresh();
                     }]
                 }

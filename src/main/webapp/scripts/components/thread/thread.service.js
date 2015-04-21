@@ -20,9 +20,41 @@
 
 		});
 	}
+	function ThreadCRUD($resource) {
+		return $resource('api/thread', {}, {
+			'get' : {
+				method : 'GET',
+				params : {
+					threadId : '@threadId'
+				},
+				isArray : false,
+				interceptor : {
+					response : function(response) {
+						// expose response
+						return response;
+					}
+				}
+
+			},
+			'update' : {
+				method : 'PUT',
+				params : {
+					threadId : '@threadId'
+				}
+			},
+			'delete' : {
+				method : 'DELETE',
+				params : {
+					threadId : '@threadId'
+				}
+			}
+
+		});
+	}
 
 
-	angular.module('teamstudyApp').factory('ThreadService', ThreadListForGroup);
+	angular.module('teamstudyApp').factory('ThreadListForGroup', ThreadListForGroup).factory('ThreadCRUD',
+			ThreadCRUD);
 
 })();
 
