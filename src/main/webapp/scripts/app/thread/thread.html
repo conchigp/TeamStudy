@@ -18,38 +18,16 @@
 					<button type="button" class="btn btn-default">Forum</button>
 				</div> -->
 			</div>
-
-
-			<h2>Aquí va a ir la información del Forum</h2>
-			
-			
-			
-			<div class="list-thread">
-				<div ng-repeat="thread in threadsAll">
-					{{thread.title}}
-					{{thread.description}}
-					{{thread}}
-					{{thread.id}}
+	
+			<div class="container">
+				<div class="list-group">
+				  <a href="/" class="list-group-item" ng-repeat="thread in threadsAll">
+				    <h4 class="list-group-item-heading">{{thread.title}}</h4>
+				    <p class="list-group-item-text">{{thread.description}}</p>
+				  </a>
 				</div>
 			</div>
-			<div class="list-group">
-				<div ng-repeat="thread in threads">
-					{{group.thread}}
-					{{thread.title}}
-					{{thread.description}}
-					{{thread}}
-					{{threadId}}
-				</div>
-			</div>
-			<div class="list-group">
-				<div ng-repeat="thread in threadsAll2">
-					{{group.thread}}
-					{{thread.title}}
-					{{thread.description}}
-					{{thread}}
-					{{threadId}}
-				</div>
-			</div>
+			
 		</div>
 	</div>
 </div>

@@ -26,21 +26,15 @@ angular.module('teamstudyApp')
 //
 //    		});
     		
-    		ThreadListForGroup.get(function(result) {
+    		ThreadListForGroup.get({
+				groupId : groupId
+			},function(result) {
     			$scope.threadsAll = result.data;
 
     		});
-    		
-    		
-    	});
-    	
-    	$scope.loadAll = function() {
-    		ThreadListForGroup.query(function(result) {
-    				$scope.threadsAll2 = result.data;
 
-    		});
-    	};
-    	
+    	});
+    
 //    	$scope.deleteThread = function (threadId) {
 //    		ThreadCRUD.delete({threadId: $stateParams.threadId});
 //    		$state.reload();
