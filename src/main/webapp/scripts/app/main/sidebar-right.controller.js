@@ -9,7 +9,7 @@ angular.module('teamstudyApp').controller('SidebarrightController',
 				
 				}).then(function() {
 					
-					var groupId = $stateParams.groupId;
+					var groupId = localStorage.getItem('groupId');
 					$scope.groupId = groupId;
 					
 					StudentsCRUD.get({
