@@ -4,7 +4,7 @@
 		<div id="ct" class="">
 
 			<div class="btn-group btn-group-justified" role="group"
-				ng-show="isInRole('ROLE_USER')">
+				ng-show="isInRole[0] == 'ROLE_USER'">
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="wiki({ groupId: groupId })" type="button" class="btn btn-default">Wiki</button>
 				</div>
