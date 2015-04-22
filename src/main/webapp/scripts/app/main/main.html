@@ -1,35 +1,78 @@
 <div ng-cloak>
 	<div class="row">
-		<!--Start Content-->
-		<div  id="ct" class="">
 
-		
+		<!--Start Content-->
+		<div id="ct" class="">
+
+
+
+
 			<div class="btn-group btn-group-justified" role="group"
 				ng-show="isInRole('ROLE_USER')">
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="wiki({ groupId: groupId })" type="button" class="btn btn-default">Wiki</button>
+					<button ui-sref="wiki({ groupId: groupId })" type="button"
+						class="btn btn-default">Wiki</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="repository" type="button" class="btn btn-default">Repository</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="thread({ groupId: groupId })" type="button" class="btn btn-default">Forum</button>
+					<button ui-sref="thread({ groupId: groupId })" type="button"
+						class="btn btn-default">Forum</button>
 				</div>
 				<!-- 				<div class="btn-group" role="group">
 					<button type="button" class="btn btn-default">Forum</button>
 				</div> -->
 			</div>
-			
+
 			<div class="" ng-switch="isAuthenticated()">
 				<div class="" ng-switch-when="false">
-					<p class="text-center" style="font-size:xx-large;">Bienvenido a TeamStudy!</p>
-					<img alt="foto grupal" src="../../../img/grupo2.png" style="width: 100%">
-					<p class="text-center" style="font-size:x-large;">Visite nuestra página web corporativa en www.teamstudy.me</p>
+					<p class="text-center" style="font-size: xx-large;">Bienvenido
+						a TeamStudy!</p>
+					<img alt="foto grupal" src="../../../img/grupo2.png"
+						style="width: 100%">
+					<p class="text-center" style="font-size: x-large;">Visite
+						nuestra página web corporativa en www.teamstudy.me</p>
+
+
+				
+
+
+
+					<h1>
+
+						<ul class="social-links">
+						
+							<li class="facebook"><a target="_blank"
+								href="https://www.facebook.com/pages/Team-Study/983102101709976"><i
+									class="fa fa-facebook"></i></a></li>
+							<li class="twitter"><a target="_blank"
+								href="https://twitter.com/teamStudyProj"><i
+									class="fa fa-twitter"></i></a></li>
+							<li class="googleplus"><a target="_blank"
+								href="https://plus.google.com/u/0/104964100393429901817/posts"><i
+									class="fa fa-google-plus"></i></a></li>
+							<li class="youtube"><a target="_blank"
+								href="https://www.youtube.com/channel/UCSQEvJHuqY92-w7PPwgJjMA"><i
+									class="fa fa-youtube"></i></a></li>
+						</ul>
+					</h1>
+
+
+
 				</div>
 			</div>
-			
+
+
+
+
+
+
+
+
 			<div class="" ng-show="isInRole('ROLE_ADMIN')">
-				<h3 class="text-center">Por favor seleccione algún grupo para gestionarlo</h3>
+				<h3 class="text-center">Por favor seleccione algún grupo para
+					gestionarlo</h3>
 			</div>
 
 

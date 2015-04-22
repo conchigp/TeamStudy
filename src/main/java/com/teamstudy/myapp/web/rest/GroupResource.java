@@ -39,10 +39,9 @@ public class GroupResource {
 	@Inject
 	private UserRepository userRepository;
 
-
 	@RequestMapping(value = "/group", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	@RolesAllowed({AuthoritiesConstants.USER,AuthoritiesConstants.ADMIN})
+	@RolesAllowed({ AuthoritiesConstants.USER, AuthoritiesConstants.ADMIN })
 	public Group getOne(@RequestParam("groupId") String groupId,
 			HttpServletResponse response) {
 		if (groupRepository.findOneById(new ObjectId(groupId)) == null) {
@@ -94,7 +93,7 @@ public class GroupResource {
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
 	public ResponseEntity<?> update(@Valid @RequestBody GroupDTO groupDTO,
 			HttpServletRequest request) {
-		if(groupDTO.getId() == null){
+		if (groupDTO.getId() == null) {
 			return create(groupDTO);
 		}
 		Group group = groupRepository
@@ -106,11 +105,11 @@ public class GroupResource {
 			return new ResponseEntity<>("Group updated", HttpStatus.ACCEPTED);
 		}
 	}
-	
-	@RequestMapping(value = "/groups", method = RequestMethod.GET, produces= MediaType.APPLICATION_JSON_VALUE)
+
+	@RequestMapping(value = "/groups", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.ADMIN)
-	public List<Group> getAll(HttpServletResponse response){
+	public List<Group> getAll(HttpServletResponse response) {
 		return groupRepository.findAll();
 	}
 
