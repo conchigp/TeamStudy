@@ -5,7 +5,7 @@ angular
 				'teamstudyApp',
 				[ 'LocalStorageModule', 'tmh.dynamicLocale', 'ngResource',
 						'ui.router', 'ngCookies', 'pascalprecht.translate',
-						'ngCacheBuster', 'infinite-scroll' ])
+						'ngCacheBuster', 'infinite-scroll','ngCkeditor'])
 
 		.run(
 				function($rootScope, $location, $window, $http, $state,
