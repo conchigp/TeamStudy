@@ -1,18 +1,16 @@
 <nav class="navbar navbar-default" role="navigation">
 	<div class="">
-		<!-- 		        <div class="navbar-header"> -->
-		<!-- 		            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse"> -->
-		<!-- 		                <span class="sr-only">Toggle navigation</span> -->
-		<!-- 		                <span class="icon-bar"></span> -->
-		<!-- 		                <span class="icon-bar"></span> -->
-		<!-- 		                <span class="icon-bar"></span> -->
-		<!-- 		            </button> -->
-		<!-- 		            <a class="navbar-brand" href="#"><span translate="global.title">jhipster</span> <span class="navbar-version">v{{VERSION}}</span></a> -->
-		<!-- 		        </div> -->
-		<div id="logo" class="col-xs-12 col-sm-2">
-			<!-- 			<a href="index.html">TeamStudy</a> -->
+		<div class="navbar-header">
+
 			
+			<button type="button" class="navbar-toggle col-xs-1" data-toggle="collapse"
+				data-target="#navbar-collapse">
+				<span class="sr-only">Toggle navigation</span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
 		</div>
+
 
 		<div class="collapse navbar-collapse" id="navbar-collapse"
 			ng-switch="isAuthenticated()">
@@ -45,9 +43,8 @@
 					ng-switch-when="true" ng-show="isInRole('ROLE_ADMIN')"
 					class="dropdown pointer"><a class="dropdown-toggle"
 					data-toggle="dropdown" href=""> <span> <span
-							class="fa fa-tachometer"></span> <span
-							class="hidden-tablet" translate="global.menu.admin.main">Admin</span>
-							<b class="caret"></b>
+							class="fa fa-tachometer"></span> <span class="hidden-tablet"
+							translate="global.menu.admin.main">Admin</span> <b class="caret"></b>
 					</span>
 				</a>
 					<ul class="dropdown-menu">
@@ -88,9 +85,8 @@
 						</li>
 					</ul></li>
 				<li ui-sref-active="active" ng-switch-when="true"><a href=""
-							ng-click="logout()"><span class="fa fa-power-off"></span>
-								&#xA0;<span translate="global.menu.account.logout">Log
-									out</span></a></li>
+					ng-click="logout()"><span class="fa fa-power-off"></span>
+						&#xA0;<span translate="global.menu.account.logout">Log out</span></a></li>
 			</ul>
 		</div>
 	</div>
