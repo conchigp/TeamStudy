@@ -73,9 +73,6 @@
 
 
 					</div>
-					<div ng-show="isInRole('ROLE_USER')">
-						<h4>Tus Grupos</h4>
-					</div>
 				</div>
 
 				<div class="list-group">
@@ -85,9 +82,10 @@
 
 								<div ui-sref-active="active" class="box-name">
 									<a ng-show="isInRole('ROLE_ADMIN')"
-										ui-sref="management({ groupId: group.id })">{{group.name}}</a>
-									<a ng-show="isInRole('ROLE_USER')"
-										ui-sref="wiki"  ng-click="local(group.id)">{{group.name}}</a>
+										ui-sref="management({ groupId: group.id })"
+										ng-click="local(group.id)"> {{group.name}}</a> <a
+										ng-show="isInRole('ROLE_USER')" ui-sref="wiki"
+										ng-click="local(group.id)">{{group.name}}</a>
 
 								</div>
 
@@ -97,10 +95,7 @@
 								</div>
 
 								<div ng-show="isInRole('ROLE_ADMIN')" class="box-icons">
-									<!-- 									<a type="submit" ng-click=""> <span -->
-									<!-- 										class="glyphicon glyphicon-user"></span>&nbsp;<span -->
-									<!-- 										translate="entity.action.delete"> Add</span> -->
-									<!-- 									</a>  -->
+
 									<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
 									</a> <a type="submit" ng-click="update(group.id)"> <span
 										data-toggle="modal" data-target="#saveGroupModal"
@@ -125,7 +120,6 @@
 					</div>
 				</div>
 
-
 			</div>
 			<!-- End Sidebar Left -->
 
@@ -133,3 +127,4 @@
 		</div>
 
 	</div>
+</div>
