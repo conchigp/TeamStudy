@@ -34,12 +34,42 @@ angular.module('teamstudyApp')
     		});
 
     	});
+    	
+    	$scope.create = function() {
+    		ThreadCRUD.update($scope.thread, function(){
+    			//$scope.clear();
+    		});
+    		$('#saveThreadModal').modal('hide');
+			$state.reload();
+    	};
+    	
+    	$scope.update = function(id){
+    		ThreadCRUD.get({threadId : id}, function(result) {
+    			$scope.thread = result.data;
+    			$('#saveThreadModal').modal('show');
+    		});
+    	};
+    	
+    	$scope.clear = function() {
+			$scope.thread = {
+				title : null,
+				description : null
+			};
+			$scope.editForm.$setPristine();
+			$scope.editForm.$setUntouched();
+		};
+		
+		$scope.local = function(threadId){
+			localStorage.setItem('threadId', threadId);
+			 $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+
+		};
     
-//    	$scope.deleteThread = function (threadId) {
-//    		ThreadCRUD.delete({threadId: $stateParams.threadId});
-//    		$state.reload();
-//    	};
-//    	
+    	$scope.deleteThread = function (threadId) {
+    		ThreadCRUD.delete({threadId: $stateParams.threadId});
+    		$state.reload();
+    	};
+    	
 //    	$scope.addThread = function (threadId) {
 //    		ThreadCRUD.update({threadId: $stateParams.threadId},function () {
 //    	      $state.reload();

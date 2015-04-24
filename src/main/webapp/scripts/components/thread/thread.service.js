@@ -39,7 +39,7 @@
 			'update' : {
 				method : 'PUT',
 				params : {
-					threadId : '@threadId'
+					groupId : '@groupId'
 				}
 			},
 			'delete' : {
