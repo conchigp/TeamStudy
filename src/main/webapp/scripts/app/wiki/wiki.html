@@ -19,8 +19,9 @@
 				</div> -->
 			</div>
 
-			<textarea ckeditor="editorOptions" ng-model="group.wiki.text"></textarea>
-			<h2>{{group.wiki.text}}</h2>
+			<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea>
+			{{group.wiki.text}}
+			test: <p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
 		</div>
 	</div>
 </div>

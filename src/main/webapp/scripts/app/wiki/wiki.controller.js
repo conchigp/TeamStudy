@@ -2,7 +2,7 @@
 
 angular.module('teamstudyApp').controller(
 		'WikiController',
-		function($stateParams, $scope, GroupCRUDAdmin, Principal) {
+		function($stateParams, $scope, $sce,GroupCRUDAdmin, Principal) {
 
 			var groupId = localStorage.getItem('groupId');
 			$scope.groupId = groupId;
@@ -21,7 +21,11 @@ angular.module('teamstudyApp').controller(
 			$scope.editorOptions = {
 				language : 'es'
 			};
-
+			
+			$scope.trustAsHtml = function(string) {
+			    return $sce.trustAsHtml(string);
+			};
+			
 			$scope.editorOptions.toolbar = [
 					{
 						name : 'basicstyles',
