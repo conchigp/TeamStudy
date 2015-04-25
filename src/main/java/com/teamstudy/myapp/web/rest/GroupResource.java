@@ -82,7 +82,7 @@ public class GroupResource {
 
 	@RequestMapping(value = "/group", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	@RolesAllowed({AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER})
 	public ResponseEntity<?> create(@Valid @RequestBody GroupDTO groupDTO) {
 		groupService.createGroup(groupDTO);
 		return new ResponseEntity<>("Group created", HttpStatus.CREATED);
@@ -90,7 +90,7 @@ public class GroupResource {
 
 	@RequestMapping(value = "/group", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
 	@Timed
-	@RolesAllowed(AuthoritiesConstants.ADMIN)
+	@RolesAllowed({AuthoritiesConstants.ADMIN, AuthoritiesConstants.USER})
 	public ResponseEntity<?> update(@Valid @RequestBody GroupDTO groupDTO,
 			HttpServletRequest request) {
 		if (groupDTO.getId() == null) {

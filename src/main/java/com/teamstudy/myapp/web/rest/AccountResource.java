@@ -114,7 +114,7 @@ public class AccountResource {
         if(user.isTeacher()){
         	iT = "true";
         }else{
-        	iT = "true";
+        	iT = "false";
         }
         return new ResponseEntity<>(
             new UserDTO(

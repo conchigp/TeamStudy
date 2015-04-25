@@ -18,10 +18,14 @@
 					<button type="button" class="btn btn-default">Forum</button>
 				</div> -->
 			</div>
-
+			<div ng-if="account.isTeacher == 'true'">
 			<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea>
-			{{group.wiki.text}}
-			test: <p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
+			<button type = "button" class="btn btn-primary" ng-click="save()"> Save</button>
+			</div>
+			
+			<div class = "box-content" style="margin: 15px;" ng-if="account.isTeacher == 'false'">
+			<p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
+			</div>		
 		</div>
 	</div>
 </div>

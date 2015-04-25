@@ -9,6 +9,10 @@ angular.module('teamstudyApp').controller(
 			$scope.group = GroupCRUDAdmin.get({
 				groupId : groupId
 			});
+			
+			$scope.save = function() {
+				GroupCRUDAdmin.update($scope.group);
+			};
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -47,11 +51,13 @@ angular.module('teamstudyApp').controller(
 						name : 'styles',
 						items : [ 'Format', 'FontSize' ]
 					}, {
+						name:'color' , items : ['TextColor','BGColor']
+					} ,{
 						name : 'clipboard',
 						groups : [ 'undo' ],
 						items : [ 'Undo', 'Redo' ]
 					}, {
 						name : 'tools',
-						items : [ 'Maximize' ]
+						items : [ 'Maximize','Preview' ]
 					}, ];
 		});
