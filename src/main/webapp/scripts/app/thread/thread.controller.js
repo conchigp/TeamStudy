@@ -12,8 +12,7 @@ angular.module('teamstudyApp')
     	}).then(function(){
     		
     		
-    		var groupId = localStorage.getItem('groupId');
-
+    		var groupId = localStorage.getItem('groupId')
 			$scope.groupId = groupId;
     		
     		var threadId = $stateParams.threadId;
@@ -36,6 +35,12 @@ angular.module('teamstudyApp')
     	});
     	
     	$scope.create = function() {
+    		$scope.threadAux = {
+    				title : $scope.thread.title,
+    				description : $scope.thread.description,
+					id : $scope.thread.id,
+					groupId : localStorage.getItem('groupId')
+				};
     		ThreadCRUD.update($scope.thread, function(){
     			//$scope.clear();
     		});
@@ -66,7 +71,7 @@ angular.module('teamstudyApp')
 		};
     
     	$scope.deleteThread = function (threadId) {
-    		ThreadCRUD.delete({threadId: $stateParams.threadId});
+    		ThreadCRUD.delete({threadId: threadId});
     		$state.reload();
     	};
     	
