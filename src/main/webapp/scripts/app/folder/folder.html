@@ -72,14 +72,14 @@
 			<div class="list-group" ng-repeat="folder in folders" style="margin: 15px;">
 				<a href="/" class="list-group-item">
 					<h4 class="list-group-item-heading">{{folder.title}}</h4>
-					<p class="list-group-item-text">{{folder.archives.size}}</p>
+					<p class="list-group-item-text">Number of files: {{folder.archives.length}}</p>
 				</a> 
 				<button type="submit" ng-click="update(folder.id)"> <span
 					data-toggle="modal" data-target="#saveFolderModal"
 					class="glyphicon glyphicon-edit"></span>&nbsp;<span
 					translate="entity.action.edit"> Edit</span>
 				</button> 
-				<button type="submit" ng-click="confirmDelete(folder.id)"> <span
+				<button type="submit" ng-click="deleteFolder(folder.id)"> <span
 					class="glyphicon glyphicon-remove"></span>&nbsp;<span
 					translate="entity.action.delete"> Delete</span>
 				</button>

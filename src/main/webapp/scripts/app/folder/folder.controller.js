@@ -29,6 +29,7 @@ angular.module('teamstudyApp')
        $scope.create = function() {
     	   	$scope.folderAux = {
 					title : $scope.folder.title,
+					id : $scope.folder.id,
 					groupId : localStorage.getItem('groupId')
 				};
 			Folder.update($scope.folderAux, function() {
@@ -38,15 +39,15 @@ angular.module('teamstudyApp')
 			$state.reload();
 		};
 	
-			$scope.update = function(id) {
-				Folder.get({folderId : id}, function(result) {
-					$scope.folder = result.data;
-					$('#saveFolderModal').modal('show');
-				});
-			};
+		$scope.update = function(id) {
+			Folder.get({folderId : id}, function(result) {
+				$scope.folder = result.data;
+				$('#saveFolderModal').modal('show');
+			});
+		};
 			
-			$scope.deleteFolder = function (threadId) {
-	    		Folder.delete({folderId: $stateParams.folderId});
+			$scope.deleteFolder = function (folderId) {
+	    		Folder.delete({folderId: folderId});
 	    		$state.reload();
 	    	};
 	

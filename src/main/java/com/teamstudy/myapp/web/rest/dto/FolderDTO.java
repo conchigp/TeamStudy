@@ -15,6 +15,12 @@ public class FolderDTO {
 		this.id = id;
 		this.title = title;
 	}
+	
+	public FolderDTO(String id, String title, String groupId) {
+		this.id = id;
+		this.title = title;
+		this.groupId = groupId;
+	}
 
 	public FolderDTO(String title) {
 		this.title = title;

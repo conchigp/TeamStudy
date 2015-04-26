@@ -8,7 +8,7 @@
 				params : {
 					folderId : '@folderId'
 				},
-				isArray : true,
+				isArray : false,
 				interceptor : {
 					response : function(response) {
 						// expose response
