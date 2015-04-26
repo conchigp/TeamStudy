@@ -3,17 +3,17 @@
 angular.module('teamstudyApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('repository', {
+            .state('folder', {
                 parent: 'site',
-                url: '/repository/:groupId',
+                url: '/:groupId',
                 data: {
                     roles: ['ROLE_USER'],
-                    pageTitle: 'repository'
+                    pageTitle: 'Repository'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/entities/repository/repository.html',
-                        controller: 'RepositoryController'
+                        templateUrl: 'scripts/app/folder/folder.html',
+                        controller: 'FolderController'
                     },
 					'sidebar-left@' : {
 						templateUrl : 'scripts/app/main/sidebar-left.html',
@@ -26,7 +26,7 @@ angular.module('teamstudyApp')
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('repository');
+                        $translatePartialLoader.addPart('wiki');
                         return $translate.refresh();
                     }]
                 }
