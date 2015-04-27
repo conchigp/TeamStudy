@@ -32,12 +32,12 @@
 			<div class="box-content">
 				
 				<div ng-repeat="messageChat in messagesChat" class="list-group-item">
-				<div class = "col-12">Usuario: {{messageChat.userId}}, Enviado: {{messageChat.creationMoment}}</div>
+				<div class = "col-12">Usuario: {{messageChat.username}}, Enviado: {{messageChat.creationMoment  | date:'dd/MMM/yyyy h:mma'}}</div>
 				<div class = "col-12">Mensaje: {{messageChat.content}}</div>
 				
 				
 				</div>
-				Prueba: {{archive}}
+	
 				
 			</div>
 		</div>

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('SidebarrightController',
-		function($stateParams,$state, $scope,StudentsCRUD, StudentsListAll, MessageChatListForGroup, MessageChatCRUD, Principal) {
+		function($stateParams,$state, $scope,StudentsCRUD, StudentsListAll, MessageChatListForGroup, MessageChatCRUD, UserById, Principal) {
 			Principal.identity().then(function(account) {
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
@@ -30,6 +30,17 @@ angular.module('teamstudyApp').controller('SidebarrightController',
 						groupId : $scope.groupId
 					},function(result){
 						$scope.messagesChat = result.data;
+						
+		    			$scope.messagesChat.forEach(function (item) {
+		    				
+		    				UserById.get({
+		    					userId : item.userId
+		    				},function(result){
+		    					item.username = result.data.login;
+		    				});
+		    				
+		    			});
+						
 					});
 					
 //					$scope.userId = messageChat.userId;

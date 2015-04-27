@@ -58,6 +58,6 @@
 	}
 
 	angular.module('teamstudyApp').factory('MessageChatListForGroup', MessageChatListForGroup).factory('MessageChatCRUD',
-			MessageChatCRUD);
+			MessageChatCRUD).factory('UserById', UserById);
 
 })();
