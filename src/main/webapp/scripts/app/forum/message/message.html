@@ -6,136 +6,133 @@
 			<div class="btn-group btn-group-justified" role="group"
 				ng-show="isInRole('ROLE_USER')">
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="wiki({ groupId: groupId })" type="button" class="btn btn-default">Wiki</button>
+					<button ui-sref="wiki({ groupId: groupId })" type="button"
+						class="btn btn-default">Wiki</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="folder({ groupId: groupId })" type="button" class="btn btn-default">Repository</button>
+					<button ui-sref="folder({ groupId: groupId })" type="button"
+						class="btn btn-default">Repository</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="thread({ groupId: groupId })" type="button" class="btn btn-default">Forum</button>
+					<button ui-sref="thread({ groupId: groupId })" type="button"
+						class="btn btn-default">Forum</button>
 				</div>
 			</div>
-			
-			<div class="container">
-				<button class="" data-toggle="modal" data-target="#saveMessageModal"
-					ng-click="clear()">
-					<a class="close-link"> Nuevo Mensaje </a>
-				</button>
-				<div class="modal fade" id="saveMessageModal" tabindex="-1"
-					role="dialog" aria-labelledby="myMessageLabel" aria-hidden="true"
-					style="display: none;">
-					<div class="modal-dialog">
-						<div class="modal-content"  style="margin: 90px;">
-							<form name="editForm" role="form" novalidate=""
-								ng-submit="create()" show-validation=""
-								class="ng-valid ng-pristine">
-
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true" ng-click="clear()">×</button>
-									<h4 class="modal-title ng-scope" id="myFolderLabel"
-										translate="">Nuevo Mensaje</h4>
-								</div>
-								<div class="modal-body">
-									<div class="form-group">
-										<label translate="" class="ng-scope">Descripcion</label> <input
-											type="text"
-											class="form-control ng-valid ng-pristine ng-untouched"
-											name="description" ng-model="message.description">
-
-										<div ng-show="editForm.description.$invalid" class="ng-hide">
-										</div>
-									</div>
-
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal" ng-click="clear()">
-										<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
-											translate="entity.action.cancel" class="ng-scope">Cancel</span>
-									</button>
-									<button type="submit" ng-disabled="editForm.$invalid"
-										class="btn btn-primary">
-										<span class="glyphicon glyphicon-save"></span>&nbsp;<span
-											translate="entity.action.save" class="ng-scope">Save</span>
-									</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="list-group" ng-repeat="message in messages" style="margin: 15px;">
-				<a href="/" class="list-group-item">
-					<h4 class="list-group-item-heading">{{message.description}}</h4>
-				</a> 
-				<div id="" class="" ng-repeat="reply in message.replies">
-					{{reply.description}}
-				</div>
-				<button type="submit" ng-click="update(message.id)"> <span
-					data-toggle="modal" data-target="#saveMessageModal"
-					class="glyphicon glyphicon-edit"></span>&nbsp;<span
-					translate="entity.action.edit"> Edit</span>
-				</button> 
-				<button type="submit" ng-click="deleteMessage(message.id)"> <span
-					class="glyphicon glyphicon-remove"></span>&nbsp;<span
-					translate="entity.action.delete"> Delete</span>
-				</button>
-				<div class="crear">
-				<button class="" data-toggle="modal" data-target="#saveReplyModal"
-					ng-click="clearReply()">
-					<a class="close-link"> Nueva Respuesta </a>
-				</button>
-				<div class="modal fade" id="saveReplyModal" tabindex="-1"
-					role="dialog" aria-labelledby="myReplyLabel" aria-hidden="true"
-					style="display: none;">
-					<div class="modal-dialog">
-						<div class="modal-content"  style="margin: 90px;">
-							<form name="editForm" role="form" novalidate=""
-								ng-submit="createReply(message.id)" show-validation=""
-								class="ng-valid ng-pristine">
-
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true" ng-click="clearReply()">×</button>
-									<h4 class="modal-title ng-scope" id="myReplyLabel"
-										translate="">Nueva Respuesta</h4>
-								</div>
-								<div class="modal-body">
-									<div class="form-group">
-										<label translate="" class="ng-scope">Descripcion</label> <input
-											type="text"
-											class="form-control ng-valid ng-pristine ng-untouched"
-											name="description" ng-model="reply.description">
-
-										<div ng-show="editForm.description.$invalid" class="ng-hide">
-										</div>
-									</div>
-
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal" ng-click="clearReply()">
-										<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
-											translate="entity.action.cancel" class="ng-scope">Cancel</span>
-									</button>
-									<button type="submit" ng-disabled="editForm.$invalid"
-										class="btn btn-primary">
-										<span class="glyphicon glyphicon-save"></span>&nbsp;<span
-											translate="entity.action.save" class="ng-scope">Save</span>
-									</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-			</div>
-			</div>
-			
-			<!-- Content -->
-			
-
 
 		</div>
+
+		<div class="container">
+			<button class="" data-toggle="modal" data-target="#saveMessageModal"
+				ng-click="clear()">
+				<a class="close-link"> Nuevo Mensaje </a>
+			</button>
+			<div class="modal fade" id="saveMessageModal" tabindex="-1"
+				role="dialog" aria-labelledby="myMessageLabel" aria-hidden="true"
+				style="display: none;">
+				<div class="modal-dialog">
+					<div class="modal-content" style="margin: 90px;">
+						<form name="editForm" role="form" novalidate=""
+							ng-submit="create()" show-validation=""
+							class="ng-valid ng-pristine">
+
+							<div class="moddival-header">
+								<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true" ng-click="clear()">×</button>
+								<h4 class="modal-title ng-scope" id="myFolderLabel" translate="">Nuevo
+									Mensaje</h4>
+							</div>
+							<div class="modal-body">
+								<div class="form-group">
+									<label translate="" class="ng-scope">Descripcion</label> <input
+										type="text"
+										class="form-control ng-valid ng-pristine ng-untouched"
+										name="description" ng-model="message.description">
+
+									<div ng-show="editForm.description.$invalid" class="ng-hide">
+									</div>
+								</div>
+
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal" ng-click="clear()">
+									<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+										translate="entity.action.cancel" class="ng-scope">Cancel</span>
+								</button>
+								<button type="submit" ng-disabled="editForm.$invalid"
+									class="btn btn-primary">
+									<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+										translate="entity.action.save" class="ng-scope">Save</span>
+								</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row" style="margin: 15px;">
+			<div class="col-xs-12 page-feed">
+
+				<div class="box col-xs-12" ng-repeat="message in messages">
+					<div class="page-feed-content">
+						<small class="time">{{message.createdBy}} ,
+							{{message.createdDate | date:'MMM/dd/yyyy h:mma'}}</small>
+
+						<h4>{{message.description}}</h4>
+
+						<div class="box" style="margin: 15px;">
+							<div class="box-header">
+								<div class="box-name">Respuestas({{message.replies.length}})</div>
+							</div>
+							<div class="box-icons">
+								<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+							</div>
+							<div class="box-content" style="display: none;">
+
+								<div id="" class="" ng-repeat="reply in message.replies">
+									{{reply.description}}</div>
+
+								<form name="editForm" role="form" novalidate=""
+									ng-submit="createReply(message.id,replyToCreate.description)"
+									show-validation="" class="ng-valid ng-pristine">
+
+									<label translate="" class="ng-scope">Responder</label> <input
+										type="text"
+										class="form-control ng-valid ng-pristine ng-untouched"
+										name="description" ng-model="replyToCreate.description">
+									<button type="submit" ng-disabled="editForm.$invalid"
+										class="btn btn-primary">
+										<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+											class="ng-scope">Save</span>
+									</button>
+
+								</form>
+
+							</div>
+
+						</div>
+						<div class="likebox" ng-if="message.replies.length == 0">
+							<div class="btn-group" role="group">
+								<button type="submit" ng-click="update(message.id)"
+									class="btn btn-default">
+									<span data-toggle="modal" data-target="#saveMessageModal"
+										class="glyphicon glyphicon-edit"></span>&nbsp;<span
+										translate="entity.action.edit"> Edit</span>
+								</button>
+								<button type="submit" ng-click="deleteMessage(message.id)"
+									class="btn btn-default">
+									<span class="glyphicon glyphicon-remove"></span>&nbsp;<span
+										translate="entity.action.delete"> Delete</span>
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+
 	</div>
+
 </div>

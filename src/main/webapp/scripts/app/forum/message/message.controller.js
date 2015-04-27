@@ -22,7 +22,6 @@ angular.module('teamstudyApp')
     			$scope.messages = result.data;
     			
     			$scope.messages.forEach(function (item) {
-    			console.log(item);	
     				
     				ReplyList.get({
     					messageId : item.id
@@ -48,10 +47,9 @@ angular.module('teamstudyApp')
 			$state.reload();
 		};
 		
-		$scope.createReply = function(messageId) {
+		$scope.createReply = function(messageId,reply) {
     	   	$scope.replyAux = {
-					description : $scope.reply.description,
-					id : $scope.reply.id,
+					description : reply,
 					messageId : messageId,
 					userId : $scope.account.id
 				};
