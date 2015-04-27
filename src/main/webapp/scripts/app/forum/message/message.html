@@ -69,7 +69,9 @@
 				<a href="/" class="list-group-item">
 					<h4 class="list-group-item-heading">{{message.description}}</h4>
 				</a> 
-				{{message}}
+				<div id="" class="" ng-repeat="reply in message.replies">
+					{{reply.description}}
+				</div>
 				<button type="submit" ng-click="update(message.id)"> <span
 					data-toggle="modal" data-target="#saveMessageModal"
 					class="glyphicon glyphicon-edit"></span>&nbsp;<span
@@ -79,6 +81,55 @@
 					class="glyphicon glyphicon-remove"></span>&nbsp;<span
 					translate="entity.action.delete"> Delete</span>
 				</button>
+				<div class="crear">
+				<button class="" data-toggle="modal" data-target="#saveReplyModal"
+					ng-click="clearReply()">
+					<a class="close-link"> Nueva Respuesta </a>
+				</button>
+				<div class="modal fade" id="saveReplyModal" tabindex="-1"
+					role="dialog" aria-labelledby="myReplyLabel" aria-hidden="true"
+					style="display: none;">
+					<div class="modal-dialog">
+						<div class="modal-content"  style="margin: 90px;">
+							<form name="editForm" role="form" novalidate=""
+								ng-submit="createReply(message.id)" show-validation=""
+								class="ng-valid ng-pristine">
+
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal"
+										aria-hidden="true" ng-click="clearReply()">×</button>
+									<h4 class="modal-title ng-scope" id="myReplyLabel"
+										translate="">Nueva Respuesta</h4>
+								</div>
+								<div class="modal-body">
+									<div class="form-group">
+										<label translate="" class="ng-scope">Descripcion</label> <input
+											type="text"
+											class="form-control ng-valid ng-pristine ng-untouched"
+											name="description" ng-model="reply.description">
+
+										<div ng-show="editForm.description.$invalid" class="ng-hide">
+										</div>
+									</div>
+
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-default"
+										data-dismiss="modal" ng-click="clearReply()">
+										<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+											translate="entity.action.cancel" class="ng-scope">Cancel</span>
+									</button>
+									<button type="submit" ng-disabled="editForm.$invalid"
+										class="btn btn-primary">
+										<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+											translate="entity.action.save" class="ng-scope">Save</span>
+									</button>
+								</div>
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
 			</div>
 			
 			<!-- Content -->
