@@ -26,10 +26,22 @@ angular.module('teamstudyApp').controller('SidebarrightController',
 					
 					//messageChat
 					
-					$scope.messagesChat = MessageChatListForGroup.get({
+					MessageChatListForGroup.get({
 						groupId : $scope.groupId
+					},function(result){
+						$scope.messagesChat = result.data;
 					});
 					
+//					$scope.userId = messageChat.userId;
+//					
+//					UserById.get({
+//						userId : $scope.userId
+//					},function(result){
+//						$scope.userId = result.data.id;
+//					});
+
+
+						  
 					$scope.createMessageChat = function(id) {
 						MessageChatCRUD.update({groupId: id}, function() {
 						});
