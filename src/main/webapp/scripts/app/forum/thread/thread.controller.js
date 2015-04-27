@@ -41,7 +41,7 @@ angular.module('teamstudyApp')
 					id : $scope.thread.id,
 					groupId : localStorage.getItem('groupId')
 				};
-    		ThreadCRUD.update($scope.thread, function(){
+    		ThreadCRUD.update($scope.threadAux, function(){
     			//$scope.clear();
     		});
     		$('#saveThreadModal').modal('hide');

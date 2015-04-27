@@ -3,17 +3,17 @@
 angular.module('teamstudyApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('thread', {
+            .state('message', {
                 parent: 'site',
-                url: '/:groupId',
+                url: '/:threadId',
                 data: {
                     roles: ['ROLE_USER'],
-                    pageTitle: 'forum'
+                    pageTitle: 'Message'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/thread/thread.html',
-                        controller: 'ThreadController'
+                        templateUrl: 'scripts/app/forum/message/message.html',
+                        controller: 'MessageController'
                     },
 					'sidebar-left@' : {
 						templateUrl : 'scripts/app/main/sidebar-left.html',
