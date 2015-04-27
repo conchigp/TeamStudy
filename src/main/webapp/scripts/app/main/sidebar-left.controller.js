@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp').controller('SidebarleftController',
-		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal) {
+		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal,$q) {
 
 			Principal.identity().then(function(account) {
 				$scope.groups = [];
@@ -11,20 +11,7 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 			}).then(function() {
 				
 				
-				$scope.loadAllAdmin = function() {
-					GroupListAdmin.get(function(result) {
-		               
-		                for (var i = 0; i < result.data.length; i++) {
-		                    $scope.groups.push(result.data[i]);
-		                }
-		            });
-	        };
-	        
-	    	$scope.reset = function() {
-		           
-	            $scope.groups = [];
-	            $scope.loadAllAdmin();
-	        };
+				
 				if (Principal.isInRole('ROLE_ADMIN')) {
 					
 					$scope.loadAllAdmin();
@@ -51,13 +38,23 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 				}
 	        
 			});
+			
+			$scope.loadAllAdmin = function() {
+				$scope.groups.$promise = GroupListAdmin.get(function(result) {
+	               
+	                for (var i = 0; i < result.data.length; i++) {
+	                    $scope.groups.push(result.data[i]);
+	                }
+	            });
+        };
+        
+    	$scope.reset = function() {
+	           
+            $scope.groups = [];
+            $scope.loadAllAdmin();
+        };
 	        
 	    
-				
-				
-				
-			
-				
 				
 				
 				$scope.create = function() {

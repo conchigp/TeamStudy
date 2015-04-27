@@ -1,9 +1,7 @@
 (function() {
 	'use strict';
 
-	function GroupListAdmin($resource, $q) {
-		var defered = $q.defer();
-		var promise = defered.promise;
+	function GroupListAdmin($resource) {
 		return $resource('api/groups', {}, {
 			'get' : {
 				method : 'GET',
@@ -42,7 +40,6 @@
 	}
 
 	function GroupCRUDAdmin($resource) {
-
 		return $resource('api/group', {}, {
 			'get' : {
 				method : 'GET',
@@ -59,16 +56,7 @@
 
 			},
 			'update' : {
-				method : 'PUT',
-				interceptor : {
-					response : function(response) {
-						// expose response
-						var deferred = $q.defer();
-						deferred.resolve(response);
-
-						return deferred.promise;
-					}
-				}
+				method : 'PUT'
 			}
 
 		});
