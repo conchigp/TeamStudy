@@ -57,7 +57,7 @@ File Description:Main CSS file of the template */
 
 /* Buttons
 ---------------------------------- */
-.btn {
+.btnnew {
 	padding: 8px 15px;
 	font-size: 14px;
 	line-height: 1.42857143;
@@ -71,7 +71,7 @@ File Description:Main CSS file of the template */
 	-o-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 }
-.btn-default {
+.btn-defaultnew {
 	color: #55acee;
 	border: 1px solid #cccccc;
 }
