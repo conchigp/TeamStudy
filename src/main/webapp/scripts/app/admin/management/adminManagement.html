@@ -1,6 +1,6 @@
 <div ng-cloak>
 	<div class="row" style="margin-top: 30px;">
-		<div class="col-md-6">
+		<div class="col-md-12">
 			<div class="box">
 				<div class="box-header">
 <!-- 					<div class="box-name" ng-repeat="group in groups"> -->
@@ -57,7 +57,7 @@
 			</div>
 		</div>
 
-		<div class="col-md-6">
+		<div class="col-md-12">
 			<div class="box">
 				<div class="box-header">
 					<div class="box-name">
@@ -110,11 +110,11 @@
 			</div>
 		</div>
 
-		<div id="teacher" class="col-md-6" style="margin-top: 20px; position: static;">
+		<div ng-if="teacherGroup!=null" id="teacher" class="col-md-12" style="margin-top: 20px; position: static;">
 
 			<h2>Profesor del grupo seleccionado</h2>
 			
-			<div ng-if="teacherGroup!=null">
+			<div >
 
 				<p>Name: {{teacherGroup.firstName}}</p>
 				<p>Surname: {{teacherGroup.lastName}}</p>
@@ -122,14 +122,12 @@
 				<b>Si desea eliminar este profesor del grupo, haga clic </b><a ng-click="deleteTeacher(teacher.id)">aqui</a>
 			</div>
 
-			<div ng-if="teacherGroup==null">
-				<p>Actualmente el grupo no tiene ningun profesor asignado, puede añadir un profesor en la tabla donde se
-				muestran los profesores del sistema.</p>
-			</div>
 
 		</div>
 
-		<div class="col-md-6" style="margin-top: 20px;">
+		
+		
+		<div ng-if="teacherGroup==null" class="col-md-12" style="margin-top: 20px;">
 			<div class="box">
 				<div class="box-header">
 					<div class="box-name">

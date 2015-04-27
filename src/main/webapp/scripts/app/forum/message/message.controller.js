@@ -42,9 +42,10 @@ angular.module('teamstudyApp')
 				};
 			Message.update($scope.messageAux, function() {
 				// $scope.clear();
+				$state.reload();
 			});
 			$('#saveMessageModal').modal('hide');
-			$state.reload();
+			
 		};
 		
 		$scope.createReply = function(messageId,reply) {
@@ -75,8 +76,11 @@ angular.module('teamstudyApp')
 		};
 			
 			$scope.deleteMessage = function (messageId) {
-	    		Message.delete({messageId: messageId});
-	    		$state.reload();
+	    		Message.delete({messageId: messageId},function(){
+	    			
+	    			$state.reload();
+	    		});
+	    		
 	    	};
 	    	
 	    	$scope.deleteReply = function (replyId) {
