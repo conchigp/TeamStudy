@@ -120,7 +120,8 @@
 							</div>
 
 						</div>
-						<div class="likebox" ng-if="message.replies.length == 0">
+						
+						<div class="likebox" ng-if="message.replies.length == 0 || account.isTeacher == 'true'">
 							<div class="btn-group" role="group">
 								<button type="submit" ng-click="update(message.id)"
 									class="btn btn-default">
