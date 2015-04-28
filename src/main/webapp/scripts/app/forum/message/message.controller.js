@@ -56,9 +56,9 @@ angular.module('teamstudyApp')
 				};
 			Reply.update($scope.replyAux, function() {
 				// $scope.clear();
+				$state.reload();
 			});
 			$('#saveReplyModal').modal('hide');
-			$state.reload();
 		};
 	
 		$scope.update = function(id) {

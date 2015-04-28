@@ -90,8 +90,16 @@
 							</div>
 							<div class="box-content" style="display: none;">
 
-								<div id="" class="" ng-repeat="reply in message.replies">
-									{{reply.description}}</div>
+
+								<div ng-repeat="reply in message.replies"
+									class="list-group-item">
+
+									<small class="time">{{reply.createdBy}} ,{{reply.createdDate | date:'MMM/dd/yyyy h:mma'}} </small>
+									<div class="col-12"><h5>{{reply.description}}<h5></div>
+
+								</div>
+
+
 
 								<form name="editForm" role="form" novalidate=""
 									ng-submit="createReply(message.id,replyToCreate.description)"
