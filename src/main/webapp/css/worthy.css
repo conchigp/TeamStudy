@@ -194,4 +194,8 @@ textarea {
 .enlaces li.pinterest a:hover {
 	color: #cb2027;
 }
+.scroll-area {
+	height: 15em;
+	position: relative;
+	overflow: auto;
 

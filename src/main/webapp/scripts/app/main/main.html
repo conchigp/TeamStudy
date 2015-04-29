@@ -25,28 +25,94 @@
 
 			<div class="" ng-switch="isAuthenticated()">
 				<div class="" ng-switch-when="false">
-					<p class="text-center" style="font-size: xx-large;">Bienvenido
-						a TeamStudy.</p>
+					<div class="col-md-12">
+						<h1 id="about" class="title1 text-center">
+							Bienvenido a <span class ="azul">Team Study</span>
+						</h1>
+						<p class="lead text-center">Team Study is a web platform
+							structured in groups.</p>
+						<div class="space"></div>
+						<div class="row">
+							<div class="col-md-6">
+								<div style="height: 500px">
+									<carousel interval="myInterval"> <slide
+										ng-repeat="slide in slides" active="slide.active"> <img
+										ng-src="{{slide.image}}" style="margin: auto;">
+									<div class="carousel-caption">
+										<h4>Slide {{$index}}</h4>
+										<p>{{slide.text}}</p>
+									</div>
+									</slide> </carousel>
+								</div>
+
+								<p class="text-center" style="font-size: x-large;">
+									Visite nuestra página web corporativa en <a
+										href="www.teamstudy.me">www.teamstudy.me</a>
+								</p>
+								<div class="space"></div>
+							</div>
+							<div class="col-md-6">
+								<p>Team Study is a structured web application for managing
+									groups of classes in secondary and primary levels for schools
+									and private institutes or academies management support.</p>
+								<p>The groups are made up of students and the teacher or
+									teachers who will serve as administrators group. The members of
+									each group will have at their disposal five main tools are:</p>
+								<ul class="list-unstyled">
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i>
+										Wiki</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i>
+										Document Repository</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i>
+										Forum</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i>
+										Chat</li>
+									<li><i class="fa fa-caret-right pr-10 text-colored"></i>
+										Control Panel</li>
+								</ul>
+							</div>
+						</div>
+						<div class="space"></div>
+						<h2>Groups can be associated subgroups</h2>
+						<div class="row">
+							<div class="col-md-6">
+								<p>In this way makes it easy for teachers manage work in
+									groups, for example being able to use the repository of
+									documents for deliveries of work, and students providing basic
+									when managing a project tools, such as a forum, and initiating
+									them into simple management tools real projects.</p>
+
+
+							</div>
+
+						</div>
+					</div>
+
+
+
+
+
+
 					<!-- carrusel  -->
 
-					
-					<div style="height: 500px">
-						<carousel interval="myInterval"> <slide
-							ng-repeat="slide in slides" active="slide.active"> <img
-							ng-src="{{slide.image}}" style="margin: auto;">
-						<div class="carousel-caption">
-							<h4>Slide {{$index}}</h4>
-							<p>{{slide.text}}</p>
-						</div>
-						</slide> </carousel>
-					</div>
-					
-					<p class="text-center" style="font-size: x-large;">
-						Visite nuestra página web corporativa en <a
-							href="www.teamstudy.me">www.teamstudy.me</a>
-					</p>
-					
-					
+
+					<!-- 					<div style="height: 500px"> -->
+					<!-- 						<carousel interval="myInterval"> <slide -->
+					<!-- 							ng-repeat="slide in slides" active="slide.active"> <img -->
+					<!-- 							ng-src="{{slide.image}}" style="margin: auto;"> -->
+					<!-- 						<div class="carousel-caption"> -->
+					<!-- 							<h4>Slide {{$index}}</h4> -->
+					<!-- 							<p>{{slide.text}}</p> -->
+					<!-- 						</div> -->
+					<!-- 						</slide> </carousel> -->
+					<!-- 					</div> -->
+
+					<!-- 					<p class="text-center" style="font-size: x-large;"> -->
+					<!-- 						Visite nuestra página web corporativa en <a -->
+					<!-- 							href="www.teamstudy.me">www.teamstudy.me</a> -->
+					<!-- 					</p> -->
+
+
 
 					<br> <br>
 
