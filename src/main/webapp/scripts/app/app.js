@@ -5,8 +5,8 @@ angular
 				'teamstudyApp',
 				[ 'LocalStorageModule', 'tmh.dynamicLocale', 'ngResource',
 						'ui.router', 'ngCookies', 'pascalprecht.translate',
-						'ngCacheBuster', 'infinite-scroll','ngCkeditor','ngSanitize'])
-
+						'ngCacheBuster', 'infinite-scroll', 'ngCkeditor',
+						'ngSanitize','ui.bootstrap'])
 		.run(
 				function($rootScope, $location, $window, $http, $state,
 						$translate, Auth, Principal, Language, ENV, VERSION) {
@@ -99,7 +99,7 @@ angular
 												templateUrl : 'scripts/components/navbar/navbar.html',
 												controller : 'NavbarController'
 											}
-											
+
 										},
 										resolve : {
 											authorize : [
@@ -121,7 +121,6 @@ angular
 													} ]
 										}
 									});
-
 
 					$httpProvider.interceptors.push('authInterceptor');
 

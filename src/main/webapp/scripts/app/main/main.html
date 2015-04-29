@@ -3,7 +3,7 @@
 
 		<!--Start Content-->
 		<div id="ct" class="">
-		
+
 			<div class="btn-group btn-group-justified" role="group"
 				ng-show="isInRole('ROLE_USER')">
 				<div ui-sref-active="active" class="btn-group" role="group">
@@ -27,26 +27,44 @@
 				<div class="" ng-switch-when="false">
 					<p class="text-center" style="font-size: xx-large;">Bienvenido
 						a TeamStudy.</p>
-					<img alt="foto grupal" src="../../../img/teamstudy.png"
-						style="width: 100%">
+					<!-- carrusel  -->
+
+					
+					<div style="height: 500px">
+						<carousel interval="myInterval"> <slide
+							ng-repeat="slide in slides" active="slide.active"> <img
+							ng-src="{{slide.image}}" style="margin: auto;">
+						<div class="carousel-caption">
+							<h4>Slide {{$index}}</h4>
+							<p>{{slide.text}}</p>
+						</div>
+						</slide> </carousel>
+					</div>
+					
 					<p class="text-center" style="font-size: x-large;">
 						Visite nuestra página web corporativa en <a
 							href="www.teamstudy.me">www.teamstudy.me</a>
 					</p>
-					<br>
-					<br>
+					
+					
+
+					<br> <br>
 
 					<div id="" class=" enlaces text-center">
 
 						<ul>
-							<li ui-sref-active="active"><a ui-sref="laws">Privacidad</a></li> |
-							<li ui-sref-active="active"><a  ui-sref="condiciones">Condiciones</a></li> |
-							<li ui-sref-active="active"><a ui-sref="cookies">Cookies</a></li> |
+							<li ui-sref-active="active"><a ui-sref="laws">Privacidad</a></li>
+							|
+							<li ui-sref-active="active"><a ui-sref="condiciones">Condiciones</a></li>
+							|
+							<li ui-sref-active="active"><a ui-sref="cookies">Cookies</a></li>
+							|
 							<li ui-sref-active="active"><a ui-sref="equipo">Equipo</a></li> |
-							<li ui-sref-active="active"><a ui-sref="contacta">Contacta con nosotros</a></li>
-						</ul>		
-					</div>	
-				</div>	
+							<li ui-sref-active="active"><a ui-sref="contacta">Contacta
+									con nosotros</a></li>
+						</ul>
+					</div>
+				</div>
 			</div>
 			<div class="" ng-show="isInRole('ROLE_ADMIN')">
 				<h3 class="text-center">Por favor seleccione algún grupo para
@@ -54,9 +72,9 @@
 			</div>
 		</div>
 	</div>
-	<br>
-	<br>
-		<p class="text-center">Copyright &copy 2015 Team Study.</p>
+	<br> <br>
+	<p class="text-center">Copyright &copy 2015 Team Study.</p>
+
 </div>
 
 

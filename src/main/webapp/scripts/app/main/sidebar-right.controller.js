@@ -59,6 +59,9 @@ angular.module('teamstudyApp').controller('SidebarrightController',
 						$state.reload();
 					};
 					
+					
 				});
+				
 
 		});
+
