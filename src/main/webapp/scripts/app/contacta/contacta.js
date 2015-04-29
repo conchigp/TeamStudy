@@ -3,17 +3,17 @@
 angular.module('teamstudyApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('laws', {
+            .state('contacta', {
                 parent: 'site',
-                url: '/:laws',
+                url: '/:contacta',
                 data: {
                     roles: [],
-                    pageTitle: 'laws'
+                    pageTitle: 'contacta'
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/laws/laws.html',
-                        controller: 'LawsController'
+                        templateUrl: 'scripts/app/contacta/contacta.html',
+                        controller: 'ContactaController'
                     },
 					'sidebar-left@' : {
 						templateUrl : 'scripts/app/main/sidebar-left.html',
@@ -26,7 +26,7 @@ angular.module('teamstudyApp')
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {
-                        $translatePartialLoader.addPart('laws');
+                        $translatePartialLoader.addPart('contacta');
                         return $translate.refresh();
                     }]
                 }

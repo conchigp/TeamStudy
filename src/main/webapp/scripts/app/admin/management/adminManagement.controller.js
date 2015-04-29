@@ -100,8 +100,11 @@ angular.module('teamstudyApp')
 			        $scope.deleteTeacher = function (teacherId) {
 						
 			        	teachersCRUD.delete({groupId: $stateParams.groupId}
-			             );
-			        	$state.reload();
+			             ,function(){
+			            	 $state.reload();
+			            	 
+			             });
+			        	
 			        };
 			        
 			        

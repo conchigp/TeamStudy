@@ -22,6 +22,28 @@
 
 		});
 	}
+	
+	function UserById($resource) {
+		return $resource('api/users/id', {}, {
+			'get' : {
+				method : 'GET',
+				params : {
+					userId : '@userId'
+				},
+				isArray : false,
+				interceptor : {
+					response : function(response) {
+						// expose response
+						return response;
+					}
+				}
+
+			}
+
+		});
+	}
+	
+	
 
 	function MessageChatCRUD($resource) {
 		return $resource('api/chat', {}, {
@@ -36,6 +58,6 @@
 	}
 
 	angular.module('teamstudyApp').factory('MessageChatListForGroup', MessageChatListForGroup).factory('MessageChatCRUD',
-			MessageChatCRUD);
+			MessageChatCRUD).factory('UserById', UserById);
 
 })();

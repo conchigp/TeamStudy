@@ -10,7 +10,8 @@
 						class="btn btn-default">Wiki</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="folder({ groupId: groupId })" type="button" class="btn btn-default">Repository</button>
+					<button ui-sref="folder({ groupId: groupId })" type="button"
+						class="btn btn-default">Repository</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="thread({ groupId: groupId })" type="button"
@@ -29,7 +30,7 @@
 					role="dialog" aria-labelledby="myThreadLabel" aria-hidden="true"
 					style="display: none;">
 					<div class="modal-dialog">
-						<div class="modal-content"  style="margin: 90px;">
+						<div class="modal-content" style="margin: 90px;">
 							<form name="editForm" role="form" novalidate=""
 								ng-submit="create()" show-validation=""
 								class="ng-valid ng-pristine">
@@ -79,20 +80,29 @@
 				</div>
 			</div>
 
-			<div class="list-group" ng-repeat="thread in threadsAll" style="margin: 15px;">
-				<a ui-sref="message({ threadId: thread.id })" class="list-group-item">
+			<div class="list-group" ng-repeat="thread in threadsAll"
+				style="margin: 15px;">
+				<a ui-sref="message({ threadId: thread.id })"
+					class="list-group-item">
 					<h4 class="list-group-item-heading">{{thread.title}}</h4>
 					<p class="list-group-item-text">{{thread.description}}</p>
-				</a> 
-				<button type="submit" ng-click="update(thread.id)"> <span
-					data-toggle="modal" data-target="#saveThreadModal"
-					class="glyphicon glyphicon-edit"></span>&nbsp;<span
-					translate="entity.action.edit"> Edit</span>
-				</button> 
-				<button type="submit" ng-click="deleteThread(thread.id)"> <span
-					class="glyphicon glyphicon-remove"></span>&nbsp;<span
-					translate="entity.action.delete"> Delete</span>
-				</button>
+				</a>
+						<div class="likebox" ng-if="message.replies.length == 0">
+
+				<div class="btn-group" role="group">
+					<button ng-click="update(thread.id)" class= "btn btn-default">
+						<span data-toggle="modal" data-target="#saveThreadModal"
+							class="glyphicon glyphicon-edit"></span>&nbsp;<span
+							translate="entity.action.edit"> Edit</span>
+					</button>
+					<button ng-click="deleteThread(thread.id)" class= "btn btn-default">
+						<span class="glyphicon glyphicon-remove"></span>&nbsp;<span
+							translate="entity.action.delete"> Delete</span>
+					</button>
+				</div>
+				</div>
+
+
 			</div>
 		</div>
 

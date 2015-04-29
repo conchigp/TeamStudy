@@ -22,7 +22,6 @@ angular.module('teamstudyApp')
     			$scope.messages = result.data;
     			
     			$scope.messages.forEach(function (item) {
-    			console.log(item);	
     				
     				ReplyList.get({
     					messageId : item.id
@@ -43,23 +42,23 @@ angular.module('teamstudyApp')
 				};
 			Message.update($scope.messageAux, function() {
 				// $scope.clear();
+				$state.reload();
 			});
 			$('#saveMessageModal').modal('hide');
-			$state.reload();
+			
 		};
 		
-		$scope.createReply = function(messageId) {
+		$scope.createReply = function(messageId,reply) {
     	   	$scope.replyAux = {
-					description : $scope.reply.description,
-					id : $scope.reply.id,
+					description : reply,
 					messageId : messageId,
 					userId : $scope.account.id
 				};
 			Reply.update($scope.replyAux, function() {
 				// $scope.clear();
+				$state.reload();
 			});
 			$('#saveReplyModal').modal('hide');
-			$state.reload();
 		};
 	
 		$scope.update = function(id) {
@@ -77,8 +76,11 @@ angular.module('teamstudyApp')
 		};
 			
 			$scope.deleteMessage = function (messageId) {
-	    		Message.delete({messageId: messageId});
-	    		$state.reload();
+	    		Message.delete({messageId: messageId},function(){
+	    			
+	    			$state.reload();
+	    		});
+	    		
 	    	};
 	    	
 	    	$scope.deleteReply = function (replyId) {
