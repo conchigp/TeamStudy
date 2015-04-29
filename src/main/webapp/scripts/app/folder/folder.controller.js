@@ -46,22 +46,47 @@ angular.module('teamstudyApp')
 			});
 		};
 			
-			$scope.deleteFolder = function (folderId) {
-	    		Folder.delete({folderId: folderId});
-	    		$state.reload();
-	    	};
-	
-			$scope.clear = function() {
-				$scope.folder = {
-					title : null
-				};
-				$scope.editForm.$setPristine();
-				$scope.editForm.$setUntouched();
-			};
-			
-			$scope.local = function(folderId){
-				localStorage.setItem('folderId', folderId);
-				 $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+		$scope.deleteFolder = function (folderId) {
+    		Folder.delete({folderId: folderId});
+    		$state.reload();
+    	};
 
+		$scope.clear = function() {
+			$scope.folder = {
+				title : null
 			};
+			$scope.editForm.$setPristine();
+			$scope.editForm.$setUntouched();
+		};
+		
+		$scope.local = function(folderId){
+			localStorage.setItem('folderId', folderId);
+			 $state.transitionTo($state.current, $stateParams, { reload: true, inherit: false, notify: true });
+		};
+		
+		$scope.upload = function(folderId, file) {
+			console.log(folderId);
+			console.log(file);
+			Archive.update({folderId : folderId}, {file : file});
+			$state.reload();
+		};
+		
+		$scope.deleteArchive = function (folderId) {
+    		Folder.delete({gridId: gridId});
+    		$state.reload();
+    	};
 	});
+
+angular.module('teamstudyApp')
+	.directive('uploaderModel', ["$parse", function ($parse) {
+	return {
+		restrict: 'A',
+		link: function (scope, iElement, iAttrs) 
+		{
+			iElement.on("change", function(e)
+			{
+				$parse(iAttrs.uploaderModel).assign(scope, iElement[0].files[0]);
+			});
+		}
+	};
+}])

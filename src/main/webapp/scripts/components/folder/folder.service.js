@@ -50,24 +50,21 @@
 	}
 
 	function Archive($resource) {
-		return $resource('api/archive/:folderId', {}, {
-			'get' : {
-				method : 'GET',
-				params : {
-					gridId : '@gridId'
-				},
-				isArray : true,
-				interceptor : {
-					response : function(response) {
-						// expose response
-						return response;
-					}
-				}
-
-			},
+		return $resource('api/archive', {}, {
 			'update' : {
-				method : 'POST'
-			}
+				method : 'POST',
+				params : {
+					folderId : '@folderId'
+				}
+			},
+			'delete' : {
+				method : 'DELETE',
+				params : {
+					folderId : '@folderId',
+					gridId : '@gridId'
+				}
+			},
+			
 
 		});
 	}

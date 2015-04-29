@@ -1,6 +1,5 @@
 package com.teamstudy.myapp.service;
 
-import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.mongodb.DB;
 import com.mongodb.Mongo;
@@ -148,20 +148,20 @@ public class FolderService {
 	
 	/* POST Methods */ 
 
-	public void add(File file, String folderId) throws Exception {
+	public void add(MultipartFile file, String folderId) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		List<Archive> archives = folder.getArchives();
 		Archive archive = new Archive();
 
 		archive.setCreationMoment(new Date());
-		archive.setSize(file.getTotalSpace());
+		archive.setSize(file.getSize());
 		archive.setTitle(file.getName().substring(0,file.getName().lastIndexOf(".")));
 		archive.setUserId(userRepository.findOneByLogin(
 				SecurityUtils.getCurrentLogin()).getId().toString());
 		
 		archive.setFormat(file.getName().substring(file.getName().lastIndexOf(".")+1));
 		GridFS fs = connectDatabase();
-		GridFSInputFile in = fs.createFile(file);
+		GridFSInputFile in = fs.createFile(file.getBytes());
 		in.save();
 
 		archive.setGridId(in.getId().toString());

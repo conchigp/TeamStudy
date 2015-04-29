@@ -1,6 +1,5 @@
 package com.teamstudy.myapp.web.rest;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
@@ -14,10 +13,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.Archive;
@@ -113,14 +114,13 @@ public class ArchiveResource {
 
 	/* POST Methods */
 
-	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/archive", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> upload(@PathVariable String folderId,
-			@RequestParam("filePath") String filePath,
+	public ResponseEntity<?> upload(@RequestParam("folderId") String folderId, @RequestBody MultipartFile file,
 			HttpServletRequest request) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
-		if (filePath == null) {
+		if (file == null) {
 			return new ResponseEntity<>("Filepath can not be null", HttpStatus.BAD_REQUEST);
 		} else {
 			if (folder == null) {
@@ -136,7 +136,6 @@ public class ArchiveResource {
 						&& !group.getTeacherId().equals(user.getId())) {
 					return new ResponseEntity<>("Can not upload a file", HttpStatus.UNAUTHORIZED);
 				} else {
-					File file = new File(filePath);
 					folderService.add(file, folderId);
 					return new ResponseEntity<>("File uploaded", HttpStatus.CREATED);
 				}
@@ -144,10 +143,10 @@ public class ArchiveResource {
 		}
 	}
 
-	@RequestMapping(value = "/archive/{folderId}", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
+	@RequestMapping(value = "/archive", method = RequestMethod.DELETE, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> delete(@PathVariable String folderId,
+	public ResponseEntity<?> delete(@RequestParam("folderId") String folderId,
 			@RequestParam("gridId") String gridId, HttpServletRequest request)
 			throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));

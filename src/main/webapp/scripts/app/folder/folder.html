@@ -69,25 +69,87 @@
 				</div>
 			</div>
 			
-			<div class="list-group" ng-repeat="folder in folders" style="margin: 15px;">
-				<a href="/" class="list-group-item">
-					<h4 class="list-group-item-heading">{{folder.title}}</h4>
-					<p class="list-group-item-text">Number of files: {{folder.archives.length}}</p>
-				</a> 
-				<button type="submit" ng-click="update(folder.id)"> <span
-					data-toggle="modal" data-target="#saveFolderModal"
-					class="glyphicon glyphicon-edit"></span>&nbsp;<span
-					translate="entity.action.edit"> Edit</span>
-				</button> 
-				<button type="submit" ng-click="deleteFolder(folder.id)"> <span
-					class="glyphicon glyphicon-remove"></span>&nbsp;<span
-					translate="entity.action.delete"> Delete</span>
-				</button>
-			</div>
-			
-			<!-- Content -->
-			
+			<div class="box" ng-repeat="folder in folders" style="margin: 15px;  ">
+				<div class="box-header">
+					<div class="box-name">{{folder.title}}</div>
+				</div>
+				<div class="box-icons">
+					<a ng-click="deleteFolder(folder.id)"> <i class="fa fa-times"></i> </a>
+					<a ng-click="update(folder.id)"> <i class="fa fa-pencil-square-o"></i> </a>
+					
+					
+					<a class="" data-toggle="modal" data-target="#saveUploadModal"
+					ng-click="clearUpload()"> <i class="fa fa-upload"></i> </a>
+					
+						<div class="modal fade" id="saveUploadModal" tabindex="-1"
+							role="dialog" aria-labelledby="myUploadLabel" aria-hidden="true"
+							style="display: none;">
+							<div class="modal-dialog">
+								<div class="modal-content"  style="margin: 90px;">
+									<form name="uploadForm" enctype="multipart/form-data" role="form" novalidate=""
+										ng-submit="upload(folder.id, file)" show-validation=""
+										class="ng-valid ng-pristine">
 
+										<div class="modal-header">
+											<button type="button" class="close" data-dismiss="modal"
+												aria-hidden="true" ng-click="clearUpload()">Ã—</button>
+											<h4 class="modal-title ng-scope" id="myUploadLabel"
+												translate="">Subir archivo</h4>
+										</div>
+										<div class="modal-body">
+											<div class="form-group">
+												<label translate="" class="ng-scope">Selecciona un archivo: </label> <input
+													type="file" uploader-model="file"
+													class="form-control ng-valid ng-pristine ng-untouched"
+													name="file">
+											</div>
+
+										</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default"
+												data-dismiss="modal" ng-click="clearUpload()">
+												<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+													translate="entity.action.cancel" class="ng-scope">Cancelar</span>
+											</button>
+											<button type="submit" ng-disabled="upload.$invalid"
+												class="btn btn-primary">
+												<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+													translate="entity.action.save" class="ng-scope">Subir</span>
+											</button>
+										</div>
+									</form>
+								</div>
+							</div>
+					</div>
+					
+					
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+				</div>
+				<div class="box-content">
+					<div ng-switch="folder.archives.length==0">
+						<div class="box" ng-repeat="archive in folder.archives" ng-switch-when="false">
+							<div class="box-header">
+								<div class="box-name">{{archive.title}}</div>
+							</div>
+							<div class="box-icons">
+								<a ng-click="deleteArchive(folder.id, archive.gridId)"> <i class="fa fa-download"></i> </a>
+								<a ng-click="download(archive.gridId)"> <i class="fa fa-times"></i> </a>
+								<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+							</div>
+							<div class="box-content">
+								<div class="col-12">Formato: .{{archive.format}}</div>
+								<div class="col-12">Tamaño: {{archive.size}}</div>
+							</div>
+						</div>
+						<div ng-switch-when="true">
+							<div class="box-header">
+								<div class="box-name">No hay archivos</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- Content -->
 
 		</div>
 	</div>
