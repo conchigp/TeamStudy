@@ -150,3 +150,48 @@ textarea {
 	color: #cb2027;
 }
 
+/* enlaces
+---------------------------------- */
+.enlaces {
+	
+	list-style: none;
+	margin: 15px 0;
+}
+.enlaces li {
+/* 	margin: 10px 10px 10px 0; */
+	display: inline-block;
+	font-size: 15px;
+}
+.enlaces li a {
+	color: #333333;
+	-webkit-transition: all 0.2s ease-in-out;
+	-moz-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+}
+.enlaces li.twitter a:hover {
+	color: #55acee;
+}
+.enlaces li.skype a:hover {
+	color: #00aff0;
+}
+.enlaces li.linkedin a:hover {
+	color: #0976b4;
+}
+.enlaces li.googleplus a:hover {
+	color: #dd4b39;
+}
+.enlaces li.youtube a:hover {
+	color: #b31217;
+}
+.enlaces li.flickr a:hover {
+	color: #ff0084;
+}
+.enlaces li.facebook a:hover {
+	color: #3b5998;
+}
+.enlaces li.pinterest a:hover {
+	color: #cb2027;
+}
+
