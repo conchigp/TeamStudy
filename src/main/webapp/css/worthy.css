@@ -198,4 +198,23 @@ textarea {
 	height: 15em;
 	position: relative;
 	overflow: auto;
+	
+}
 
+.title1 {
+	margin-top: 0;
+	font-size: 38px;
+	font-weight: 700;
+	margin-bottom: 20px;
+	color: #333333;
+	text-align: center;
+	box-sizing: border-box;
+	-webkit-margin-before: 0.67em;
+	-webkit-margin-after: 0.67em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+}
+
+.azul {
+	color: #339BEB;
+}
