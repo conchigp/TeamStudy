@@ -19,24 +19,13 @@
 		</div>
 	</div>
 	<div id="myfirstchart" style="height: 250px;"></div>
-	
+	{{array}}
 	<div ng-repeat="thread in threadsAll" class="">
 		{{thread.title}}	
 		{{thread.tamano.length}}	
 	</div>
 		
 </div>
-
-<script type="text/javascript">
-	function(){
-		var threads = threadsAll;
-		var array = [];
-		
-		threads.forEach(){
-			
-		}
-	}
-</script>
 
 <script type="text/javascript">
 	new Morris.Line({

@@ -40,6 +40,15 @@ angular.module('teamstudyApp')
 			    				
 			    			});
 			    		});
-			    	});  
+			    		function getArray(){
+							var array = [];
+							$scope.threadsAll.forEach(function(item){
+								array.push(item.title, item.tamano);
+							});
+							return $scope.array=array;
+						}
+						getArray();
+			    	});
 				});
+
 
