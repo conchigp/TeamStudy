@@ -289,6 +289,23 @@ hr {
 	-webkit-margin-after: 1em;
 	-webkit-margin-start: 0px;
 	-webkit-margin-end: 0px;
-	text-indent:0.5cm;
-/* 	text-align: center; */
+	text-indent: 0.5cm;
+	/* 	text-align: center; */
+}
+
+.estiloequipo {
+	margin-left: 33.33333333%;
+	width: 33.33333333%;
+	float: left;
+	position: relative;
+	min-height: 1px;
+	padding-right: 15px;
+	padding-left: 15px;
+	box-sizing: border-box;
+	display: block;
+	color: #444;
+	font-family: 'Lato', sans-serif;
+	font-size: 14px;
+	line-height: 1.42857143;
+	box-sizing: border-box;
 }
