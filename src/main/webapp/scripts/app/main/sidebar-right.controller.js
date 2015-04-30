@@ -18,6 +18,8 @@ angular.module('teamstudyApp').controller('SidebarrightController',
 						$scope.students = result.data;
 
 					});
+					
+
 								
 					StudentsListAll.get(function(result) {
 						$scope.studentsAll = result.data;
@@ -43,21 +45,21 @@ angular.module('teamstudyApp').controller('SidebarrightController',
 						
 					});
 					
-//					$scope.userId = messageChat.userId;
-//					
-//					UserById.get({
-//						userId : $scope.userId
-//					},function(result){
-//						$scope.userId = result.data.id;
-//					});
 
-
-						  
-					$scope.createMessageChat = function(id) {
-						MessageChatCRUD.update({groupId: id}, function() {
-						});
-						$state.reload();
+					$scope.create = function() {
+//						$scope.chat.id = 
+//						$scope.chat.groupId = 
+//						$scope.chat.userId = $scope.account;
+//						$scope.chat.creationMoment = moment();
+						MessageChatCRUD.create($scope.chat);
+//						$scope.reset();
+//						$scope.clear();
+						
 					};
+
+
+					
+
 					
 					
 				});

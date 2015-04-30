@@ -47,15 +47,27 @@
 
 	function MessageChatCRUD($resource) {
 		return $resource('api/chat', {}, {
-			'update' : {
-				method : 'PUT',
+			'get' : {
+				method : 'GET',
 				params : {
 					groupId : '@groupId'
+				},
+				isArray : false,
+				interceptor : {
+					response : function(response) {
+						// expose response
+						return response;
+					}
 				}
+
+			},
+			'create' : {
+				method : 'POST'
 			}
 
 		});
 	}
+
 
 	angular.module('teamstudyApp').factory('MessageChatListForGroup', MessageChatListForGroup).factory('MessageChatCRUD',
 			MessageChatCRUD).factory('UserById', UserById);
