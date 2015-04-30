@@ -2,31 +2,25 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+
 <title>teamstudy</title>
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- 		<link href="plugins/bootstrap/bootstrap.css" rel="stylesheet"> -->
 <link href="plugins/jquery-ui/jquery-ui.min.css" rel="stylesheet">
-<link
-	href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css"
-	rel="stylesheet">
-<link href='http://fonts.googleapis.com/css?family=Righteous'
-	rel='stylesheet' type='text/css'>
+<link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
 <link href="plugins/fancybox/jquery.fancybox.css" rel="stylesheet">
 <link href="plugins/fullcalendar/fullcalendar.css" rel="stylesheet">
 <link href="plugins/xcharts/xcharts.min.css" rel="stylesheet">
 <link href="plugins/select2/select2.css" rel="stylesheet">
 <link rel="stylesheet" href="assets/styles/main.css">
-<link href="bower_components/bootstrap/dist/css/bootstrap.css"
-	rel="stylesheet" />
-
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+<link href="bower_components/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
 <link href="css/style.css" rel="stylesheet">
 <link href="css/worthy.css" rel="stylesheet">
-
-
-
-
 </head>
+
 <body ng-app="teamstudyApp">
 <!--[if lt IE 10]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -42,7 +36,6 @@
 		<div ui-view="navbar" ng-cloak="" class="container-fluid expanded-panel col-xs-1"></div>
 	</header>
 	<!--End Header --!>
-
 
 <!--Start Container-->
 	<div id="main" class="container-fluid">
@@ -63,7 +56,6 @@
 	</div>
 	<!--End Container-->
 
-
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<!--<script src="http://code.jquery.com/jquery.js"></script>-->
 	<script src="plugins/jquery/jquery-2.1.0.min.js"></script>
@@ -76,9 +68,6 @@
 	<script src="plugins/tinymce/jquery.tinymce.min.js"></script>
 	<!-- All functions for this theme + document.ready processing -->
 	<script src="js/devoops.js"></script>
-
-
-
 
 	<!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
         <script>
@@ -113,7 +102,6 @@
 	
 	<!-- endbower -->
 	<!-- endbuild -->
-
 	
 	<!-- build:js({.tmp,src/main/webapp}) scripts/app.js -->
 	<script src="scripts/app/app.js"></script>
@@ -155,8 +143,7 @@
 	<script src="scripts/app/admin/audits/audits.js"></script>
 	<script src="scripts/app/admin/audits/audits.controller.js"></script>
 	<script src="scripts/app/admin/configuration/configuration.js"></script>
-	<script
-		src="scripts/app/admin/configuration/configuration.controller.js"></script>
+	<script src="scripts/app/admin/configuration/configuration.controller.js"></script>
 	<script src="scripts/app/admin/docs/docs.js"></script>
 	<script src="scripts/app/admin/health/health.js"></script>
 	<script src="scripts/app/admin/health/health.controller.js"></script>
@@ -184,15 +171,21 @@
 	<script src="scripts/app/group/group.controller.js"></script>
 	<script src="scripts/app/group/group.js"></script>
 	
+	<!-- Morris -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
 	
-
+	<!-- Dashboard -->
+	<script src="scripts/app/dashboard/dashboard.controller.js"></script>
+	<script src="scripts/app/dashboard/dashboard.js"></script>
+	
 	<!-- Wiki -->
 	<script src="scripts/components/wiki/wiki.service.js"></script>
 	<script src="scripts/app/wiki/wiki.controller.js"></script>
 	<script src="scripts/app/wiki/wiki.js"></script>
 	<script src="scripts/app/wiki/ng-ckeditor.js"></script>
 	<script src="//cdn.ckeditor.com/4.4.2/full-all/ckeditor.js"></script>
-	
 	
 	<!-- Forum -->
 	<script src="scripts/components/forum/thread/thread.service.js"></script>
@@ -205,40 +198,33 @@
 	<script src="scripts/app/forum/reply/reply.controller.js"></script>
 	<script src="scripts/app/forum/reply/reply.js"></script>
 	
-	
 	<!-- Chat -->
 	<script src="scripts/components/messageChat/messageChat.service.js"></script>
 	<script src="scripts/app/messageChat/messageChat.controller.js"></script>
 	<script src="scripts/app/messageChat/messageChat.js"></script>
 	
 	<!-- Folder -->
-	
 	<script src="scripts/components/folder/folder.service.js"></script>
 	<script src="scripts/app/folder/folder.controller.js"></script>
 	<script src="scripts/app/folder/folder.js"></script>
 	
 	<!-- Laws -->
-	
 	<script src="scripts/app/laws/laws.controller.js"></script>
 	<script src="scripts/app/laws/laws.js"></script>
 	
 	<!-- Condiciones -->
-	
 	<script src="scripts/app/condiciones/condiciones.controller.js"></script>
 	<script src="scripts/app/condiciones/condiciones.js"></script>
 	
 	<!-- Cookies -->
-	
 	<script src="scripts/app/cookies/cookies.controller.js"></script>
 	<script src="scripts/app/cookies/cookies.js"></script>
 	
 	<!-- Contacta -->
-	
 	<script src="scripts/app/contacta/contacta.controller.js"></script>
 	<script src="scripts/app/contacta/contacta.js"></script>
 	
 	<!-- Equipo -->
-	
 	<script src="scripts/app/equipo/equipo.controller.js"></script>
 	<script src="scripts/app/equipo/equipo.js"></script>
 
@@ -248,40 +234,5 @@
 	<!-- Sidebar-right -->
 	<script src="scripts/app/main/sidebar-right.controller.js"></script>
 	
-	
-<!-- 	<script src="scripts/components/entities/archive/archive.service.js"></script> -->
-<!-- 	<script src="scripts/components/entities/folder/folder.service.js"></script> -->
-<!-- 	<script src="scripts/app/entities/group/group.js"></script> -->
-<!-- 	<script src="scripts/app/entities/group/group.controller.js"></script> -->
-<!-- 	<script src="scripts/app/entities/group/group-detail.controller.js"></script> -->
-<!-- 	<script src="scripts/components/entities/group/group.service.js"></script> -->
-<!-- 	<script src="scripts/app/entities/message/message.js"></script> -->
-<!-- 	<script src="scripts/app/entities/message/message.controller.js"></script> -->
-<!-- 	<script src="scripts/app/entities/message/message-detail.controller.js"></script> -->
-<!-- 	<script src="scripts/components/entities/message/message.service.js"></script> -->
-<!-- 	<script src="scripts/app/entities/messageChat/messageChat.js"></script> -->
-<!-- 	<script -->
-<!-- 		src="scripts/app/entities/messageChat/messageChat.controller.js"></script> -->
-<!-- 	<script -->
-<!-- 		src="scripts/app/entities/messageChat/messageChat-detail.controller.js"></script> -->
-<!-- 	<script -->
-<!-- 		src="scripts/components/entities/messageChat/messageChat.service.js"></script> -->
-<!-- 	<script src="scripts/app/entities/new/new.js"></script> -->
-<!-- 	<script src="scripts/app/entities/new/new.controller.js"></script> -->
-<!-- 	<script src="scripts/app/entities/new/new-detail.controller.js"></script> -->
-<!-- 	<script src="scripts/components/entities/new/new.service.js"></script> -->
-<!-- 	<script src="scripts/app/entities/reply/reply.js"></script> -->
-<!-- 	<script src="scripts/app/entities/reply/reply.controller.js"></script> -->
-<!-- 	<script src="scripts/app/entities/reply/reply-detail.controller.js"></script> -->
-<!-- 	<script src="scripts/components/entities/reply/reply.service.js"></script> -->
-<!-- 	<script src="scripts/app/entities/thread/thread.js"></script> -->
-<!-- 	<script src="scripts/app/entities/thread/thread.controller.js"></script> -->
-<!-- 	<script src="scripts/app/entities/thread/thread-detail.controller.js"></script> -->
-<!-- 	<script src="scripts/components/entities/thread/thread.service.js"></script> -->
-<!-- 	<script src="scripts/app/entities/wiki/wiki.js"></script> -->
-<!-- 	<script src="scripts/app/entities/wiki/wiki.controller.js"></script> -->
-<!-- 	<script src="scripts/app/entities/wiki/wiki-detail.controller.js"></script> -->
-<!-- 	<script src="scripts/components/entities/wiki/wiki.service.js"></script> -->
-	<!--         endbuild -->
 </body>
 </html>
