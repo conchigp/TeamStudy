@@ -237,7 +237,7 @@ textarea {
 	font-size: 21px;
 	margin-bottom: 20px;
 	margin: 0 0 10px;
-	font-weight: 300;
+	font-weight: 600;
 	line-height: 1.4;
 	box-sizing: border-box;
 	display: block;
@@ -267,4 +267,28 @@ textarea {
 	content: "\f0da";
 	box-sizing: border-box;
 	color: #339BEB;
+}
+
+hr {
+	border: 0;
+	border-top: 1px solid #999;
+	border-bottom: 1px solid #333;
+	height: 0;
+}
+
+.enumerado {
+	font-size: 20px;
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.1;
+	color: inherit;
+	box-sizing: border-box;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	text-indent:0.5cm;
+/* 	text-align: center; */
 }
