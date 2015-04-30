@@ -5,14 +5,13 @@ Version:1.0.0
 Created:November 2014
 License:Creative Commons Attribution 3.0 License (https://creativecommons.org/licenses/by/3.0/)
 File Description:Main CSS file of the template */
-
-
 .list-icons {
 	padding: 0;
 	margin: 20px 0;
 	list-style: none;
 	font-size: 18px;
 }
+
 .list-icons li {
 	padding: 0 0 15px 0;
 }
@@ -21,39 +20,35 @@ File Description:Main CSS file of the template */
 	margin-top: 0;
 }
 
-
-
-
 /*cuadro de fondo*/
-
 .subfooter {
 	background-color: #fafafa;
 	border-top: 1px solid #f3f3f3;
 	border-bottom: 1px solid #f3f3f3;
 	padding: 40px 0;
 }
+
 .section {
 	background-color: #ffffff;
 	padding: 80px 0;
 }
 
-
-
 /* Targeting only Firefox for smoothest animations */
-
 .space {
 	padding: 20px 0;
 }
+
 .pr-10 {
 	padding-right: 10px;
 }
+
 .pl-10 {
 	padding-left: 10px;
 }
+
 .pb-clear {
 	padding-bottom: 0;
 }
-
 
 /* Buttons
 ---------------------------------- */
@@ -71,18 +66,17 @@ File Description:Main CSS file of the template */
 	-o-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 }
+
 .btn-defaultnew {
 	color: #55acee;
 	border: 1px solid #cccccc;
 }
+
 .btn-default:hover {
 	color: #ffffff;
 	background-color: #339BEB;
 	border-color: #339BEB;
 }
-
-
-
 
 /* Forms
 ---------------------------------- */
@@ -92,18 +86,18 @@ File Description:Main CSS file of the template */
 	-moz-border-radius: 0px;
 	border-radius: 0px;
 }
+
 .form-control-feedback {
 	color: #cccccc;
 }
+
 .has-feedback label.sr-only ~ .form-control-feedback {
 	top: 15px;
 }
+
 textarea {
 	resize: vertical;
 }
-
-
-
 
 /* Social Links
 ---------------------------------- */
@@ -112,11 +106,13 @@ textarea {
 	list-style: none;
 	margin: 15px 0;
 }
+
 .social-links li {
 	margin: 10px 25px 10px 0;
 	display: inline-block;
 	font-size: 36px;
 }
+
 .social-links li a {
 	color: #333333;
 	-webkit-transition: all 0.2s ease-in-out;
@@ -125,27 +121,35 @@ textarea {
 	-ms-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 }
+
 .social-links li.twitter a:hover {
 	color: #55acee;
 }
+
 .social-links li.skype a:hover {
 	color: #00aff0;
 }
+
 .social-links li.linkedin a:hover {
 	color: #0976b4;
 }
+
 .social-links li.googleplus a:hover {
 	color: #dd4b39;
 }
+
 .social-links li.youtube a:hover {
 	color: #b31217;
 }
+
 .social-links li.flickr a:hover {
 	color: #ff0084;
 }
+
 .social-links li.facebook a:hover {
 	color: #3b5998;
 }
+
 .social-links li.pinterest a:hover {
 	color: #cb2027;
 }
@@ -153,15 +157,16 @@ textarea {
 /* enlaces
 ---------------------------------- */
 .enlaces {
-	
 	list-style: none;
 	margin: 15px 0;
 }
+
 .enlaces li {
-/* 	margin: 10px 10px 10px 0; */
+	/* 	margin: 10px 10px 10px 0; */
 	display: inline-block;
 	font-size: 15px;
 }
+
 .enlaces li a {
 	color: #333333;
 	-webkit-transition: all 0.2s ease-in-out;
@@ -170,35 +175,43 @@ textarea {
 	-ms-transition: all 0.2s ease-in-out;
 	transition: all 0.2s ease-in-out;
 }
+
 .enlaces li.twitter a:hover {
 	color: #55acee;
 }
+
 .enlaces li.skype a:hover {
 	color: #00aff0;
 }
+
 .enlaces li.linkedin a:hover {
 	color: #0976b4;
 }
+
 .enlaces li.googleplus a:hover {
 	color: #dd4b39;
 }
+
 .enlaces li.youtube a:hover {
 	color: #b31217;
 }
+
 .enlaces li.flickr a:hover {
 	color: #ff0084;
 }
+
 .enlaces li.facebook a:hover {
 	color: #3b5998;
 }
+
 .enlaces li.pinterest a:hover {
 	color: #cb2027;
 }
+
 .scroll-area {
 	height: 15em;
 	position: relative;
 	overflow: auto;
-	
 }
 
 .title1 {
@@ -216,5 +229,42 @@ textarea {
 }
 
 .azul {
+	color: #339BEB;
+}
+
+.subtitulo {
+	text-align: center;
+	font-size: 21px;
+	margin-bottom: 20px;
+	margin: 0 0 10px;
+	font-weight: 300;
+	line-height: 1.4;
+	box-sizing: border-box;
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	color: #333333;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.parrafos {
+	margin: 0 0 10px;
+	box-sizing: border-box;
+	display: block;
+	-webkit-margin-before: 1em;
+	-webkit-margin-after: 1em;
+	-webkit-margin-start: 0px;
+	-webkit-margin-end: 0px;
+	font-size: 15px;
+	line-height: 1.50;
+	color: #333333;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.flechas {
+	content: "\f0da";
+	box-sizing: border-box;
 	color: #339BEB;
 }
