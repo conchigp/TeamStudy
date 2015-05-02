@@ -248,6 +248,43 @@ textarea {
 	color: #333333;
 	font-family: 'Open Sans', sans-serif;
 }
+.tablas {
+	
+	font-size: 20px;
+	
+	font-weight: 600;
+	line-height: 1.4;
+	
+	display: block;
+	
+	color: #333333;
+	font-family: 'Open Sans', sans-serif;
+}
+
+.tablas2 {
+	
+	font-size: 30px;
+	
+	font-weight: 600;
+	line-height: 1.4;
+	
+	display: block;
+	
+	color: #333333;
+	font-family: 'Open Sans', sans-serif;
+}
+.tablas3{
+	
+	font-size: 16px;
+	
+	font-weight: 600;
+	line-height: 1.4;
+	
+	display: block;
+	
+	color: #333333;
+	font-family: 'Open Sans', sans-serif;
+}
 
 .parrafos {
 	margin: 0 0 10px;
@@ -308,4 +345,11 @@ hr {
 	font-size: 14px;
 	line-height: 1.42857143;
 	box-sizing: border-box;
+}
+
+.negrita{
+	
+  font-weight: bold;
+  font-family: 'Open Sans', sans-serif;
+}
 }

@@ -14,9 +14,11 @@ angular.module('teamstudyApp').controller('MainController',
 				  $scope.addSlide = function() {
 				    var newWidth = 800 + slides.length + 1;
 				    slides.push({
-				      image: 'http://placekitten.com/' + newWidth + '/500',
+				      image: 'http://lorempixel.com/' + newWidth + '/500',
 				      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
 				        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+	    
+				   
 				    });
 				  };
 				  for (var i=0; i<4; i++) {

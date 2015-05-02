@@ -16,7 +16,7 @@
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="thread({ groupId: groupId })" type="button"
-						class="btn btn-default">Forum</button>
+						class="btn btn-default"  >Forum</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
@@ -29,10 +29,10 @@
 			<div class="" ng-switch="isAuthenticated()">
 				<div class="" ng-switch-when="false">
 					<div class="col-md-12">
-						<h1 id="about" class="title1 text-center">
+						<h1 id="about" class="title1 text-center" >
 							Bienvenido a <span class="azul">Team Study</span>
 						</h1>
-						<p class="subtitulo text-center">No es introducir la web en el aula, es intregar el aula en la web.</p>
+						<p class="subtitulo text-center" >No es introducir la web en el aula, es intregar el aula en la web.</p>
 						<div class="space"></div>
 						<div class="row">
 							<div class="col-md-6">
@@ -41,8 +41,8 @@
 										ng-repeat="slide in slides" active="slide.active"> <img
 										ng-src="{{slide.image}}" style="margin: auto;">
 									<div class="carousel-caption">
-										<h4>Slide {{$index}}</h4>
-										<p>{{slide.text}}</p>
+<!-- 										<h4>Slide {{$index}}</h4> -->
+<!-- 										<p>{{slide.text}}</p> -->
 									</div>
 									</slide> </carousel>
 								</div>
