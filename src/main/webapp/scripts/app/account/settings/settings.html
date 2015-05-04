@@ -1,85 +1,88 @@
 <div>
+<br>
+<br>
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h2 translate="settings.title" translate-values="{username: '{{settingsAccount.login}}'}">User settings for [<b>{{settingsAccount.login}}</b>]</h2>
-
-            <div class="alert alert-success" ng-show="success" translate="settings.messages.success">
-                <strong>Settings saved!</strong>
+            <h2  class = "title1" translate="" translate-values="{username: '{{settingsAccount.login}}'}">Hola <b>{{settingsAccount.login}}</b>, aqu&iacute puedes editar tu perfil.</h2>
+			<br>
+            <div class="alert alert-success" ng-show="success" translate="">
+                <strong>Cambios guardados</strong>
             </div>
 
-            <div class="alert alert-danger" ng-show="errorEmailExists" translate="settings.messages.error.emailexists">
-                <strong>E-mail is already in use!</strong> Please choose another one.
+            <div class="alert alert-danger" ng-show="errorEmailExists" translate="">
+                <strong>E-mail en uso</strong> Por favor, elija otro E-mail.
             </div>
 
-            <div class="alert alert-danger" ng-show="error" translate="settings.messages.error.fail">
-                <strong>An error has occurred!</strong> Settings could not be saved.
+            <div class="alert alert-danger" ng-show="error" translate="">
+                <strong>Ha ocurrido un error</strong> Los cambios no han sido guardados.
             </div>
 
             <form name="form" role="form" novalidate ng-submit="save()" show-validation>
 
                 <div class="form-group">
-                    <label translate="settings.form.firstname">First Name</label>
-                    <input type="text" class="form-control" name="firstName" placeholder="{{'settings.form.firstname.placeholder' | translate}}"
+                    <label translate="">Nombre</label>
+                    <input type="text" class="form-control" name="firstName" placeholder="Introduzca nombre"
                            ng-model="settingsAccount.firstName" ng-minlength=1 ng-maxlength=50 required maxlength="50">
                     <div ng-show="form.firstName.$dirty && form.firstName.$invalid">
                         <p class="help-block"
-                               ng-show="form.firstName.$error.required" translate="settings.messages.validate.firstname.required">
-                            Your first name is required.
+                               ng-show="form.firstName.$error.required" translate="">
+                            El nombre es obligatorio
                         </p>
                         <p class="help-block"
-                               ng-show="form.firstName.$error.minlength" translate="settings.messages.validate.firstname.minlength">
-                            Your first name is required to be at least 1 character
+                               ng-show="form.firstName.$error.minlength" translate="">
+                            El nombre debe tener al menos 1 car&aacutecter
                         </p>
                         <p class="help-block"
                                ng-show="form.firstName.$error.maxlength" translate="settings.messages.validate.firstname.maxlength">
-                            Your first name cannot be longer than 50 characters
+                            El nombre no debe superar los 50 car&aacutecteres
                         </p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label translate="settings.form.lastname">Last Name</label>
-                    <input type="text" class="form-control" name="lastName" placeholder="{{'settings.form.lastname.placeholder' | translate}}"
+                    <label translate="">Apellido</label>
+                    <input type="text" class="form-control" name="lastName" placeholder="Introduzca apellido"
                            ng-model="settingsAccount.lastName" ng-minlength=1 ng-maxlength=50 required maxlength="50">
                     <div ng-show="form.lastName.$dirty && form.lastName.$invalid">
                         <p class="help-block"
-                               ng-show="form.lastName.$error.required" translate="settings.messages.validate.lastname.required">
-                            Your last name is required.
+                               ng-show="form.lastName.$error.required" translate="">
+                            El apellido es obligatorio
                         </p>
                         <p class="help-block"
-                               ng-show="form.lastName.$error.minlength" translate="settings.messages.validate.lastname.minlength">
-                            Your last name is required to be at least 1 character
+                               ng-show="form.lastName.$error.minlength" translate="">
+                            El apellido debe tener al menos 1 car&aacutecter
                         </p>
                         <p class="help-block"
-                               ng-show="form.lastName.$error.maxlength" translate="settings.messages.validate.lastname.maxlength">
-                            Your last name cannot be longer than 50 characters
+                               ng-show="form.lastName.$error.maxlength" translate="">
+                            El apellido no debe superar los 50 car&aacutecteres
                         </p>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label translate="global.form.email">E-mail</label>
-                    <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
+                    <label translate="">E-mail</label>
+                    <input type="email" class="form-control" name="email" placeholder="Introduzca E-mail"
                            ng-model="settingsAccount.email" ng-minlength=5 ng-maxlength=100 required maxlength="100">
                     <div ng-show="form.email.$dirty && form.email.$invalid">
                         <p class="help-block"
-                               ng-show="form.email.$error.required" translate="global.messages.validate.email.required">
-                            Your e-mail is required.
+                               ng-show="form.email.$error.required" translate="">
+                            El E-mail es obligatorio
                         </p>
                         <p class="help-block"
-                               ng-show="form.email.$error.email" translate="global.messages.validate.email.invalid">
-                            Your e-mail is invalid.
+                               ng-show="form.email.$error.email" translate="">
+                            El E-mail no es v&aacutelido
                         </p>
                         <p class="help-block"
-                               ng-show="form.email.$error.minlength" translate="global.messages.validate.email.minlength">
-                            Your e-mail is required to be at least 5 characters
+                               ng-show="form.email.$error.minlength" translate="">
+                             El E-mail debe tener al menos 5 car&aacuteres
                         </p>
                         <p class="help-block"
-                               ng-show="form.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
-                            Your e-mail cannot be longer than 100 characters
+                               ng-show="form.email.$error.maxlength" translate="">
+                            El E-mail no debe superar los 50 car&aacutecteres
                         </p>
                     </div>
                 </div>
 
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="settings.form.button">Save</button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="">Guardar</button>
             </form>
         </div>
     </div>

@@ -29,79 +29,81 @@
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
-				<div ng-repeat="new in news" id="" class="">{{new.title}}</div>
+
+				<div ng-repeat="new in news" id="" class=""><b>{{new.title}}.</b> {{new.description}}</div>
+
 				<div class="container">
-				<button class="" data-toggle="modal" data-target="#saveNewsModal"
-					ng-click="clear()">
-					<a class="close-link"> Nueva noticia </a>
-				</button>
-				<div class="modal fade" id="saveNewsModal" tabindex="-1"
-					role="dialog" aria-labelledby="myNewsLabel" aria-hidden="true"
-					style="display: none;">
-					<div class="modal-dialog">
-						<div class="modal-content" style="margin: 90px;">
-							<form name="editForm" role="form" novalidate=""
-								ng-submit="create()" show-validation=""
-								class="ng-valid ng-pristine">
+					<button class="" data-toggle="modal" data-target="#saveNewsModal"
+						ng-click="clear()">
+						<a class="close-link"> Nueva noticia </a>
+					</button>
+					<div class="modal fade" id="saveNewsModal" tabindex="-1"
+						role="dialog" aria-labelledby="myNewsLabel" aria-hidden="true"
+						style="display: none;">
+						<div class="modal-dialog">
+							<div class="modal-content" style="margin: 90px;">
+								<form name="editForm" role="form" novalidate=""
+									ng-submit="createNews()" show-validation=""
+									class="ng-valid ng-pristine">
 
-								<div class="modal-header">
-									<button type="button" class="close" data-dismiss="modal"
-										aria-hidden="true" ng-click="clear()">×</button>
-									<h4 class="modal-title ng-scope" id="myThreadLabel"
-										translate="">Crear noticia</h4>
-								</div>
-								<div class="modal-body">
-									<div class="form-group">
-										<label translate="" class="ng-scope">Titulo</label> <input
-											type="text"
-											class="form-control ng-valid ng-pristine ng-untouched"
-											name="title" ng-model="news.title">
-
-										<div ng-show="editForm.title.$invalid" class="ng-hide">
-										</div>
+									<div class="modal-header">
+										<button type="button" class="close" data-dismiss="modal"
+											aria-hidden="true" ng-click="clear()">×</button>
+										<h4 class="modal-title ng-scope" id="myThreadLabel"
+											translate="">Crear noticia</h4>
 									</div>
-									<div class="form-group">
-										<label translate="" class="ng-scope">Descripcion</label> <input
-											type="text"
-											class="form-control ng-valid ng-pristine ng-untouched"
-											name="description" ng-model="news.description">
+									<div class="modal-body">
+										<div class="form-group">
+											<label translate="" class="ng-scope">Titulo</label> <input
+												type="text"
+												class="form-control ng-valid ng-pristine ng-untouched"
+												name="title" ng-model="news.title">
 
-										<div ng-show="editForm.description.$invalid" class="ng-hide">
+											<div ng-show="editForm.title.$invalid" class="ng-hide">
+											</div>
 										</div>
-									</div>
+										<div class="form-group">
+											<label translate="" class="ng-scope">Descripcion</label> <input
+												type="text"
+												class="form-control ng-valid ng-pristine ng-untouched"
+												name="description" ng-model="news.description">
 
-								</div>
-								<div class="modal-footer">
-									<button type="button" class="btn btn-default"
-										data-dismiss="modal" ng-click="clear()">
-										<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
-											translate="entity.action.cancel" class="ng-scope">Cancel</span>
-									</button>
-									<button type="submit" ng-disabled="editForm.$invalid"
-										class="btn btn-primary">
-										<span class="glyphicon glyphicon-save"></span>&nbsp;<span
-											translate="entity.action.save" class="ng-scope">Save</span>
-									</button>
-								</div>
-							</form>
+											<div ng-show="editForm.description.$invalid" class="ng-hide">
+											</div>
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default"
+											data-dismiss="modal" ng-click="clear()">
+											<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
+												translate="entity.action.cancel" class="ng-scope">Cancel</span>
+										</button>
+										<button type="submit" ng-disabled="editForm.$invalid"
+											class="btn btn-primary">
+											<span class="glyphicon glyphicon-save"></span>&nbsp;<span
+												translate="entity.action.save" class="ng-scope">Save</span>
+										</button>
+									</div>
+								</form>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-				</div>
-			</div>
-			<div ng-if="account.isTeacher == 'true'">
-				<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea>
-				<button type="button" class="btn btn-primary" ng-click="save()">
-					Save</button>
-			</div>
+		</div>
+		<div ng-if="account.isTeacher == 'true'">
+			<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea>
+			<button type="button" class="btn btn-primary" ng-click="save()">
+				Save</button>
+		</div>
 
-			<div class="box-content" style="margin: 15px;"
-				ng-if="account.isTeacher == 'false'">
-				<p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
-			</div>
+		<div class="box-content" style="margin: 15px;"
+			ng-if="account.isTeacher == 'false'">
+			<p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
 		</div>
 	</div>
+</div>
 </div>
 
 

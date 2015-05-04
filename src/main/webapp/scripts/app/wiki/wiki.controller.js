@@ -19,52 +19,26 @@ angular.module('teamstudyApp').controller(
 				$scope.isAuthenticated = Principal.isAuthenticated;
 				$scope.isInRole = account.roles;
 			}).then(function() {
-				$scope.news = News.get({
+				News.get({
 					userId : $scope.account.id
+				}, function(result) {
+					$scope.news = result.data;
 				});
 			});		
 			
-			$scope.create = function() {
-	    		$scope.newsAux = {
-	    				id : $scope.news.id,
-	    				title : $scope.news.title,
-	    				description : $scope.news.description
-//						groupId : localStorage.getItem('groupId')
+			$scope.createNews = function() {
+	    	   	$scope.newsAux = {
+						title : $scope.news.title,
+						description : $scope.news.description
 					};
-	    		News.create({groupId : localStorage.getItem('groupId')},$scope.newsAux, function(){
-	    			//$scope.clear();
-	    		})
-	    		$('#saveNewsModal').modal('hide');
-				$state.reload();
-	    	};
-			
-	    	$scope.clear = function() {
-				$scope.thread = {
-					title : null,
-					description : null
-				};
-				$scope.editForm.$setPristine();
-				$scope.editForm.$setUntouched();
+	    	   	News.create({groupId : localStorage.getItem('groupId')},
+	    	   			$scope.newsAux, function() {
+					// $scope.clear();
+					$state.reload();
+				});
 			};
-//			$scope.reset = function() {
-//	            $scope.groups = [];
-//	        };
-//	        
-//			$scope.create = function() {
-//				getNews.create($scope.group);
-//				$scope.reset();
-//				$('#saveNewsModal').modal('hide');
-//				$scope.clear();
-//			};
-//			$scope.clear = function() {
-//				$scope.group = {
-//					title : null,
-//					description : null,
-//					id: null
-//				};
-//				$scope.editForm.$setPristine();
-//				$scope.editForm.$setUntouched();
-//			};
+			
+			//WIKI EDITOR
 
 			$scope.editorOptions = {
 				language : 'es'
