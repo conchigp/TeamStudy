@@ -64,7 +64,7 @@
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
-											<label translate="" class="ng-scope">Titulo</label> <input
+											<label translate="" class="ng-scope">T&iacutetulo</label> <input
 												type="text"
 												class="form-control ng-valid ng-pristine ng-untouched"
 												name="title" ng-model="news.title">
@@ -73,7 +73,7 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label translate="" class="ng-scope">Descripcion</label> <input
+											<label translate="" class="ng-scope">Descripci&oacuten</label> <input
 												type="text"
 												class="form-control ng-valid ng-pristine ng-untouched"
 												name="description" ng-model="news.description">
@@ -89,6 +89,7 @@
 											<span class="glyphicon glyphicon-ban-circle"></span>&nbsp;<span
 												translate="entity.action.cancel" class="ng-scope">Cancel</span>
 										</button>
+										
 										<button type="submit" ng-disabled="editForm.$invalid"
 											class="btn btn-primary">
 											<span class="glyphicon glyphicon-save"></span>&nbsp;<span
@@ -102,19 +103,23 @@
 				</div>
 			</div>
 		</div>
-		<div ng-if="account.isTeacher == 'true'">
-			<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea>
-			<button type="button" class="btn btn-primary" ng-click="save()">
-				Save</button>
+		
+	</div>
+	
+	<div ng-if="account.isTeacher == 'true'">
+			<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea><br>
+			<button type="button" class="btn btn-default" ng-click="save()">
+				Publicar</button>
 		</div>
 
 		<div class="box-content" style="margin: 15px;"
 			ng-if="account.isTeacher == 'false'">
 			<p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
 		</div>
-	</div>
+		
+	
 </div>
-</div>
+
 
 
 
