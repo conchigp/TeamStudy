@@ -19,13 +19,6 @@ angular.module('teamstudyApp').controller('SidebarrightController',
 
 					});
 					
-
-								
-					StudentsListAll.get(function(result) {
-						$scope.studentsAll = result.data;
-						
-					});
-					
 					//messageChat
 					
 					MessageChatListForGroup.get({
