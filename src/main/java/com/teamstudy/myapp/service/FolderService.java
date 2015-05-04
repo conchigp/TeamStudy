@@ -1,5 +1,6 @@
 package com.teamstudy.myapp.service;
 
+import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
@@ -148,20 +149,24 @@ public class FolderService {
 	
 	/* POST Methods */ 
 
-	public void add(MultipartFile file, String folderId) throws Exception {
+	public void add(File file, String folderId) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		List<Archive> archives = folder.getArchives();
 		Archive archive = new Archive();
 
 		archive.setCreationMoment(new Date());
-		archive.setSize(file.getSize());
-		archive.setTitle(file.getName().substring(0,file.getName().lastIndexOf(".")));
+		archive.setSize(file.getTotalSpace());
+		archive.setTitle(file.getName());
 		archive.setUserId(userRepository.findOneByLogin(
 				SecurityUtils.getCurrentLogin()).getId().toString());
 		
-		archive.setFormat(file.getName().substring(file.getName().lastIndexOf(".")+1));
+		//archive.setFormat(file.getName().substring(file.getName().lastIndexOf(".")+1));
 		GridFS fs = connectDatabase();
-		GridFSInputFile in = fs.createFile(file.getBytes());
+		
+		// El error almacenar el archivo en la base de datos se produce aqui.
+		GridFSInputFile in = fs.createFile(file);
+		///////////////////////
+		
 		in.save();
 
 		archive.setGridId(in.getId().toString());

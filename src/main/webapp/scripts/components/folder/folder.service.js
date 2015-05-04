@@ -54,7 +54,8 @@
 			'update' : {
 				method : 'POST',
 				params : {
-					folderId : '@folderId'
+					folderId : '@folderId',
+					file : '@file'
 				}
 			},
 			'delete' : {
