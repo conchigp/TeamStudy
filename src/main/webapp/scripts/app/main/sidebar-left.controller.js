@@ -10,31 +10,14 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 				$scope.isInRole = Principal.isInRole;
 			}).then(function() {
 				
-				
-				
 				if (Principal.isInRole('ROLE_ADMIN')) {
-					
 					$scope.loadAllAdmin();
-					
 				} else {
 					if(Principal.isInRole('ROLE_USER')){
-						
 						$scope.groups = GroupList.get({
 							userId : $scope.account.id
 						});
-					}
-					// ESTO LO ESTABA PROBANDO PARA QUE FUNCIONE EL LISTAR
-					// ALUMNOS EN USER (DIEGO)
-// var groupId = $stateParams.groupId;
-// $scope.groupId = groupId;
-//					
-// StudentsCRUD.get({
-// groupId : groupId
-// }, function(result) {
-// $scope.students = result.data;
-//
-// });
-					
+					}	
 				}
 	        
 			});
@@ -53,10 +36,6 @@ angular.module('teamstudyApp').controller('SidebarleftController',
             $scope.groups = [];
             $scope.loadAllAdmin();
         };
-	        
-	    
-				
-				
 				$scope.create = function() {
 					GroupCRUDAdmin.update($scope.group);
 					$scope.reset();
@@ -102,23 +81,11 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 	                   
 	                   
 		        };
-
-				
 				
 				$scope.local = function(groupId){
 					localStorage.setItem('groupId', groupId);
  $state.transitionTo($state.current, $stateParams, { reload: true, inherit:false, notify: true });
 
 				};
-				
-				
-
-			
-
-			
-			
-			
-
-			
 
 		});

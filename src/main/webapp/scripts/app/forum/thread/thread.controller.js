@@ -18,13 +18,6 @@ angular.module('teamstudyApp')
     		var threadId = $stateParams.threadId;
     		$scope.threadId = threadId;
     		
-//    		ThreadCRUD.get({
-//    			threadId : threadId
-//    		}, function(result) {
-//    			$scope.threads = result.data;
-//
-//    		});
-    		
     		ThreadListForGroup.get({
 				groupId : groupId
 			},function(result) {

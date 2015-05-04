@@ -1,7 +1,7 @@
 (function() {
 	'use strict';
 
-	function getNews($resource) {
+	function News($resource) {
 		return $resource('api/news', {}, {
 			'get' : {
 				method : 'GET',
@@ -27,7 +27,7 @@
 		});
 	}
 
-	angular.module('teamstudyApp').factory('getNews', getNews);
+	angular.module('teamstudyApp').factory('News', News);
 
 })();
 
