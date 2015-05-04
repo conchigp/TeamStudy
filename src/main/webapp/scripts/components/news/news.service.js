@@ -18,10 +18,7 @@
 
 			},
 			'create' : {
-				method : 'POST',
-				params : {
-					groupId : '@groupId'
-				}
+				method : 'POST'
 			}
 
 		});
