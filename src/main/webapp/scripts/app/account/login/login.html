@@ -3,22 +3,22 @@
 <br>
     <div class="row">
         <div class="col-md-4 col-md-offset-4 ">
-            <h1 class = "title1" translate="login.title">Autenticaci&oacuten</h1>
+            <h1 class = "title1" translate="">Autenticaci&oacuten</h1>
 
-            <div class="alert alert-danger" ng-show="authenticationError" translate="login.messages.error.authentication">
-                <strong>Authentication failed!</strong> Please check your credentials and try again.
+            <div class="alert alert-danger" ng-show="authenticationError" translate="">
+                <strong>&iexclError al autenticar!</strong> Por favor, vuelva a introducir los datos. 
             </div>
             <form class="form" role="form">
                 <div class="form-group">
-                    <label for="username" translate="global.form.username">Login</label>
-                    <input type="text" class="form-control" id="username" placeholder="{{'global.form.username.placeholder' | translate}}" ng-model="username">
+                    <label for="username" translate="">Usuario</label>
+                    <input type="text" class="form-control" id="username" placeholder="Introduzca nombre de usuario" ng-model="username">
                 </div>
                 <div class="form-group">
-                    <label for="password" translate="login.form.password">Password</label>
-                    <input type="password" class="form-control" id="password" placeholder="{{'login.form.password.placeholder' | translate}}"
+                    <label for="password" translate="">Contrase&ntildea</label>
+                    <input type="password" class="form-control" id="password" placeholder="Introduzca password"
                            ng-model="password">
                 </div>
-                <button type="submit" class="btn btn-primary" ng-click="login()" translate="login.form.button">Authenticate</button>
+                <button type="submit" class="btn btn-primary" ng-click="login()" translate="">Entrar</button>
             </form>
             <p></p>
         </div>
