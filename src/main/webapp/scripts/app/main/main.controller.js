@@ -7,7 +7,6 @@ angular.module('teamstudyApp').controller('MainController',
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
 				$scope.isInRole = Principal.isInRole;
-				console.log($scope.account);
 				/*carrusel */
 			                
 				 $scope.myInterval = 5000;

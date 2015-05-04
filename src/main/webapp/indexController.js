@@ -6,7 +6,6 @@ angular.module('teamstudyApp').controller('indexController',
 			Principal.identity().then(function(account) {
 				$scope.account = account;
 				$scope.isInRole = Principal.isInRole;
-				console.log($scope.account);
 
 			}).then(function() {
 				

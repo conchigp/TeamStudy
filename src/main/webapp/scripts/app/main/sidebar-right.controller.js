@@ -18,19 +18,38 @@ angular.module('teamstudyApp').controller(
 					groupId : groupId
 				}, function(result) {
 					$scope.students = result.data;
+					MessageChatCRUD.get({
+						groupId : $scope.groupId
+					}, function(result) {
+						$scope.messagesChat = result.data;
+						
+		    			$scope.students.forEach(function (student) {
+		    				
+		    				//student.nameUsuario;
+
+			    			$scope.messagesChat.forEach(function (message) {
+			    							   
+			    				message.nameUser;
+//			    				console.log(message.userId);
+//			    				console.log(student.id);
+			    				
+			    				if(student.id == message.userId ){
+			    					message.nameUser = student.firstName;
+			    					console.log(message.nameUser);
+			    				}
+			    				
+			    			});
+		    				
+		    			});
+
+
+					});
 
 				});
 
 				// messageChat
 
-				MessageChatCRUD.get({
-					groupId : $scope.groupId
-				}, function(result) {
-					$scope.messagesChat = result.data;
-					
 
-				});
-				
 				$scope.createMessageChat = function() {
 		    	   	$scope.messageChatAux = {
 							content : $scope.chat.content,
