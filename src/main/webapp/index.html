@@ -38,7 +38,9 @@
 	<!--End Header --!>
 <!--Start Container-->
 	<div id="main" class="container-fluid">
-		<div class="row">
+	
+		<div class="row" ng-controller="indexController">
+		
 			<div id="sidebar-left" ui-view="sidebar-left" class="col-xs-12 col-sm-2 col-md-2">
 			</div>
 
@@ -46,7 +48,9 @@
 			</div>
 
 			<!--Start Content-->
-			<div id="content" ui-view="content" class="col-xs-12 col-sm-8 col-md-8">
+			<div id="content" ui-view="content" 
+			ng-class=" {'col-xs-12 col-sm-8 col-md-8' : account ,
+			 'col-xs-12 col-sm-12 col-md-12' : account == undefined}">
 				
 			</div>
 			<!--End Content-->
@@ -235,6 +239,11 @@
 
 	<!-- Sidebar-right -->
 	<script src="scripts/app/main/sidebar-right.controller.js"></script>
+	
+	<!-- Index -->
+	<script src="indexController.js"></script>
+	
+	
 	
 </body>
 </html>
