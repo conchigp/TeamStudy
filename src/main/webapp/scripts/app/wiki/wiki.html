@@ -30,14 +30,23 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 
-				<div ng-repeat="new in news" id="" class=""><b class="h4 negrita"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> {{new.title}}: </b>  {{new.description}}</div>
+				<div ng-repeat="new in news" id="" class="">
+					<b class="h4 negrita"><span
+						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						{{new.title}}: </b> {{new.description}}
+				</div>
 
 				<div class="container">
-				<br>
-				<br>
-					<button class="btn btn-default "  data-toggle="modal" data-target="#saveNewsModal"
-						ng-click="clear()">  Nueva noticia 
-					</button>
+					<br> <br>
+					<div ng-if="account.isTeacher == 'true'">
+						<button class="btn btn-default " data-toggle="modal"
+							data-target="#saveNewsModal" ng-click="clear()">Nueva
+							noticia</button>
+					</div>
+					<div class="container" 
+						ng-if="account.isTeacher == 'false'">
+						
+					</div>
 					<div class="modal fade" id="saveNewsModal" tabindex="-1"
 						role="dialog" aria-labelledby="myNewsLabel" aria-hidden="true"
 						style="display: none;">
