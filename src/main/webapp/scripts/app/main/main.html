@@ -16,7 +16,7 @@
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="thread({ groupId: groupId })" type="button"
-						class="btn btn-default"  >Forum</button>
+						class="btn btn-default">Forum</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
@@ -29,10 +29,11 @@
 			<div class="" ng-switch="isAuthenticated()">
 				<div class="" ng-switch-when="false">
 					<div class="col-md-12">
-						<h1 id="about" class="title1 text-center" >
+						<h1 id="about" class="title1 text-center">
 							Bienvenido a <span class="azul">Team Study</span>
 						</h1>
-						<p class="subtitulo text-center" >No es introducir la web en el aula, es intregar el aula en la web.</p>
+						<p class="subtitulo text-center">No es introducir la web en
+							el aula, es intregar el aula en la web.</p>
 						<div class="space"></div>
 						<div class="row">
 							<div class="col-md-6">
@@ -40,9 +41,10 @@
 									<carousel interval="myInterval"> <slide
 										ng-repeat="slide in slides" active="slide.active"> <img
 										ng-src="{{slide.image}}" style="margin: auto;">
+										
 									<div class="carousel-caption">
-<!-- 										<h4>Slide {{$index}}</h4> -->
-<!-- 										<p>{{slide.text}}</p> -->
+										<!-- 										<h4>Slide {{$index}}</h4> -->
+										<!-- 										<p>{{slide.text}}</p> -->
 									</div>
 									</slide> </carousel>
 								</div>
@@ -51,33 +53,32 @@
 							</div>
 							<div class="col-md-6 parrafos subtitulo">
 								<h4>
-									<p>Team Study es una aplicaci&oacuten web organizada en grupos, dirigida a academias y colegios privados. </p>
-									
+									<p>Team Study es una aplicaci&oacuten web organizada en
+										grupos, dirigida a academias y colegios privados.</p>
+
 									<br>
-									<p>Los alumnos y profesores podr&aacuten compartir informaci&oacuten de inter&eacutes a trav&eacutes de Team Study.
-									Y podr&aacuten beneficiarse de las ventajas del trabajo en equipo. 
-									</p><br>
-									<p>Es una aplicaci&oacuten muy f&aacutecil de manejar y se compone de herramientas ya conocidas en la web como son:</p>
-										</h4>
+									<p>Los alumnos y profesores podr&aacuten compartir
+										informaci&oacuten de inter&eacutes a trav&eacutes de Team
+										Study. Y podr&aacuten beneficiarse de las ventajas del trabajo
+										en equipo.</p>
+									<br>
+									<p>Es una aplicaci&oacuten muy f&aacutecil de manejar y se
+										compone de herramientas ya conocidas en la web como son:</p>
+								</h4>
 							</div>
-									<ul class="list-unstyled enumerado">
-										<li><i
-											class="fa fa-caret-right pr-10 text-colored flechas"></i>
-											Wiki</li>
-										<li><i
-											class="fa fa-caret-right pr-10 text-colored flechas"></i>
-											Repositorio de documentos</li>
-										<li><i
-											class="fa fa-caret-right pr-10 text-colored flechas"></i>
-											Foro</li>
-										<li><i
-											class="fa fa-caret-right pr-10 text-colored flechas"></i>
-											Chat</li>
-										<li><i
-											class="fa fa-caret-right pr-10 text-colored flechas"></i>
-											Panel de Control</li>
-									</ul>
-							
+							<ul class="list-unstyled enumerado">
+								<li><i class="fa fa-caret-right pr-10 text-colored flechas"></i>
+									Wiki</li>
+								<li><i class="fa fa-caret-right pr-10 text-colored flechas"></i>
+									Repositorio de documentos</li>
+								<li><i class="fa fa-caret-right pr-10 text-colored flechas"></i>
+									Foro</li>
+								<li><i class="fa fa-caret-right pr-10 text-colored flechas"></i>
+									Chat</li>
+								<li><i class="fa fa-caret-right pr-10 text-colored flechas"></i>
+									Panel de Control</li>
+							</ul>
+
 
 						</div>
 						<hr />
@@ -112,8 +113,8 @@
 						<ul>
 							<li ui-sref-active="active"><a ui-sref="laws">Privacidad</a></li>
 							|
-<!-- 							<li ui-sref-active="active"><a ui-sref="condiciones">Condiciones</a></li> -->
-<!-- 							| -->
+							<!-- 							<li ui-sref-active="active"><a ui-sref="condiciones">Condiciones</a></li> -->
+							<!-- 							| -->
 							<li ui-sref-active="active"><a ui-sref="cookies">Cookies</a></li>
 							|
 							<li ui-sref-active="active"><a ui-sref="equipo">Equipo</a></li> |

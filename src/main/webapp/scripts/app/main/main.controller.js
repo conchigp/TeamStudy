@@ -13,14 +13,39 @@ angular.module('teamstudyApp').controller('MainController',
 				  var slides = $scope.slides = [];
 				  $scope.addSlide = function() {
 				    var newWidth = 800 + slides.length + 1;
-				    slides.push({
-				      image: 'http://lorempixel.com/' + newWidth + '/500',
-				      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
-				        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
-	    
-				   
-				    });
+//				    slides.push({
+//				      image: 'http://lorempixel.com/' + newWidth + '/500',
+//				      text: ['More','Extra','Lots of','Surplus'][slides.length % 4] + ' ' +
+//				        ['Cats', 'Kittys', 'Felines', 'Cutes'][slides.length % 4]
+//	    
+//				   
+//				    });
 				  };
+				  
+				  $scope.slides=[
+				   {
+				     title:'imagen1',
+				     image: '../../../img/repositorio.png',
+				     text:'tikitiki'
+				   },
+				   {
+					     title:'imagen2',
+					     image: '../../../img/wiki.png',
+					     text:'tikitiki'
+				   },
+				   {
+					     title:'imagen3',
+					     image: '../../../img/foro.png',
+					     text:'tikitiki'
+				   },
+//				   {
+//					     title:'imagen4',
+//					     image: '../../../img/conchi2.png',
+//					     text:'tikitiki'
+//				   },
+				   
+				                 
+				                 ];
 				  for (var i=0; i<4; i++) {
 				    $scope.addSlide();
 				  }
