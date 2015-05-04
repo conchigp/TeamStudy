@@ -1,27 +1,5 @@
 (function() {
 	'use strict';
-
-
-
-	function MessageChatListForGroup($resource) {
-		return $resource('api/chat', {}, {
-			'get' : {
-				method : 'GET',
-				params : {
-					groupId : '@groupId'
-				},
-				isArray : true,
-				interceptor : {
-					response : function(response) {
-						// expose response
-						return response;
-					}
-				}
-
-			}
-
-		});
-	}
 	
 	function UserById($resource) {
 		return $resource('api/users/id', {}, {
@@ -42,9 +20,6 @@
 
 		});
 	}
-	
-	
-
 	function MessageChatCRUD($resource) {
 		return $resource('api/chat', {}, {
 			'get' : {
@@ -52,7 +27,7 @@
 				params : {
 					groupId : '@groupId'
 				},
-				isArray : false,
+				isArray : true,
 				interceptor : {
 					response : function(response) {
 						// expose response
@@ -69,7 +44,7 @@
 	}
 
 
-	angular.module('teamstudyApp').factory('MessageChatListForGroup', MessageChatListForGroup).factory('MessageChatCRUD',
+	angular.module('teamstudyApp').factory('MessageChatCRUD',
 			MessageChatCRUD).factory('UserById', UserById);
 
 })();
