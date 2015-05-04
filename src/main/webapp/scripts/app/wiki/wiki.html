@@ -6,13 +6,16 @@
 			<div class="btn-group btn-group-justified" role="group"
 				ng-show="isInRole[0] == 'ROLE_USER'">
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="wiki({ groupId: groupId })" type="button" class="btn btn-default">Wiki</button>
+					<button ui-sref="wiki({ groupId: groupId })" type="button"
+						class="btn btn-default">Wiki</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="folder({ groupId: groupId })" type="button" class="btn btn-default">Repository</button>
+					<button ui-sref="folder({ groupId: groupId })" type="button"
+						class="btn btn-default">Repository</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="thread({ groupId: groupId })" type="button" class="btn btn-default">Forum</button>
+					<button ui-sref="thread({ groupId: groupId })" type="button"
+						class="btn btn-default">Forum</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
@@ -21,14 +24,24 @@
 					<button type="button" class="btn btn-default">Forum</button>
 				</div> -->
 			</div>
-			<div ng-if="account.isTeacher == 'true'">
-			<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea>
-			<button type = "button" class="btn btn-primary" ng-click="save()"> Save</button>
+			<div class="alert alert-success alert-dismissible" role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<strong>Warning!</strong> Better check yourself, you're not looking
+				too good.
 			</div>
-			
-			<div class = "box-content" style="margin: 15px;" ng-if="account.isTeacher == 'false'">
-			<p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
-			</div>		
+			<div ng-if="account.isTeacher == 'true'">
+				<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea>
+				<button type="button" class="btn btn-primary" ng-click="save()">
+					Save</button>
+			</div>
+
+			<div class="box-content" style="margin: 15px;"
+				ng-if="account.isTeacher == 'false'">
+				<p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
+			</div>
 		</div>
 	</div>
 </div>

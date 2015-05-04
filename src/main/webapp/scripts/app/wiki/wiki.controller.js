@@ -2,7 +2,7 @@
 
 angular.module('teamstudyApp').controller(
 		'WikiController',
-		function($stateParams, $scope, $sce,GroupCRUDAdmin, Principal) {
+		function($stateParams, $scope, $sce,GroupCRUDAdmin,getNews, Principal) {
 
 			var groupId = localStorage.getItem('groupId');
 			$scope.groupId = groupId;
