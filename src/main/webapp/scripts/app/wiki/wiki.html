@@ -30,12 +30,13 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 
-				<div ng-repeat="new in news" id="" class=""><b>{{new.title}}.</b> {{new.description}}</div>
+				<div ng-repeat="new in news" id="" class=""><b class="h4 negrita"><span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span> {{new.title}}: </b>  {{new.description}}</div>
 
 				<div class="container">
-					<button class="" data-toggle="modal" data-target="#saveNewsModal"
-						ng-click="clear()">
-						<a class="close-link"> Nueva noticia </a>
+				<br>
+				<br>
+					<button class="btn btn-default "  data-toggle="modal" data-target="#saveNewsModal"
+						ng-click="clear()">  Nueva noticia 
 					</button>
 					<div class="modal fade" id="saveNewsModal" tabindex="-1"
 						role="dialog" aria-labelledby="myNewsLabel" aria-hidden="true"
