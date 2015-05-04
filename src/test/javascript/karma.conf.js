@@ -12,9 +12,8 @@ module.exports = function (config) {
         // list of files / patterns to load in the browser
         files: [
             // bower:js
-            '../bower_components/modernizr/modernizr.js',
             '../bower_components/jquery/dist/jquery.js',
-            '../bower_components/bootstrap/dist/js/bootstrap.js',
+            '../bower_components/modernizr/modernizr.js',
             '../bower_components/json3/lib/json3.js',
             '../bower_components/angular/angular.js',
             '../bower_components/angular-ui-router/release/angular-ui-router.js',
@@ -27,7 +26,14 @@ module.exports = function (config) {
             '../bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js',
             '../bower_components/angular-local-storage/dist/angular-local-storage.js',
             '../bower_components/angular-cache-buster/angular-cache-buster.js',
+            '../bower_components/bootstrap/dist/js/bootstrap.js',
+            '../bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
             '../bower_components/ngInfiniteScroll/build/ng-infinite-scroll.js',
+            '../bower_components/raphael/raphael.js',
+            '../bower_components/mocha/mocha.js',
+            '../bower_components/morris.js/morris.js',
+            '../bower_components/angular-morris-chart/src/angular-morris-chart.min.js',
+            '../bower_components/ckeditor/ckeditor.js',
             '../bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',

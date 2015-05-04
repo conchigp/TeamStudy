@@ -1,0 +1,177 @@
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building teamstudy 0.0.1-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] >>> spring-boot-maven-plugin:1.2.2.RELEASE:run (default-cli) > test-compile @ teamstudy >>>
+[INFO] 
+[INFO] --- maven-enforcer-plugin:1.3.1:enforce (enforce-versions) @ teamstudy ---
+[INFO] 
+[INFO] --- yeoman-maven-plugin:0.4:build (run-frontend-build) @ teamstudy ---
+[INFO] node version :
+v0.10.37
+[INFO] npm version :
+2.7.3
+[INFO] --------------------------------------
+[INFO]          NPM INSTALL
+[INFO] --------------------------------------
+
+> yo@1.4.6 postinstall /home/ramon/workspace-prod/TeamStudy/node_modules/yo
+> yodoctor
+
+
+Yeoman Doctor
+Running sanity checks on your system
+
+✔ Global configuration file is valid
+✔ No .bowerrc file in home directory
+✔ No .yo-rc.json file in home directory
+✔ NODE_PATH matches the npm root
+
+Everything looks all right!
+[INFO] bower version :
+1.3.12
+[INFO] --------------------------------------
+[INFO]          BOWER INSTALL --NO-COLOR
+[INFO] --------------------------------------
+[INFO] gulp version :
+[14:32:10] CLI version 3.8.11
+[14:32:10] Local version 3.8.11
+[INFO] --------------------------------------
+[INFO]          GULP TEST --NO-COLOR
+[INFO] --------------------------------------
+[14:32:13] Using gulpfile ~/workspace-prod/TeamStudy/gulpfile.js
+[14:32:13] Starting 'wiredep:test'...
+[14:32:13] Starting 'ngconstant:dev'...
+[14:32:13] Finished 'ngconstant:dev' after 44 ms
+[14:32:14] Finished 'wiredep:test' after 105 ms
+[14:32:14] Starting 'test'...
+[14:32:14] Finished 'test' after 7.04 ms
+[32mINFO [karma]: [39mKarma v0.12.31 server started at http://localhost:9876/
+[32mINFO [launcher]: [39mStarting browser PhantomJS
+[32mINFO [PhantomJS 1.9.8 (Linux)]: [39mConnected on socket dIBt6rpuN07zxVil6Zcy with id 57106801
+PhantomJS 1.9.8 (Linux): Executed 0 of 21[32m SUCCESS[39m (0 secs / 0 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 1 of 21[32m SUCCESS[39m (0 secs / 0.155 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 2 of 21[32m SUCCESS[39m (0 secs / 0.206 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 3 of 21[32m SUCCESS[39m (0 secs / 0.235 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 4 of 21[32m SUCCESS[39m (0 secs / 0.264 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 5 of 21[32m SUCCESS[39m (0 secs / 0.294 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 6 of 21[32m SUCCESS[39m (0 secs / 0.349 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 7 of 21[32m SUCCESS[39m (0 secs / 0.38 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 8 of 21[32m SUCCESS[39m (0 secs / 0.408 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 9 of 21[32m SUCCESS[39m (0 secs / 0.44 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 10 of 21[32m SUCCESS[39m (0 secs / 0.467 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 11 of 21[32m SUCCESS[39m (0 secs / 0.495 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 12 of 21[32m SUCCESS[39m (0 secs / 0.535 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 13 of 21[32m SUCCESS[39m (0 secs / 0.618 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 14 of 21[32m SUCCESS[39m (0 secs / 0.647 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 15 of 21[32m SUCCESS[39m (0 secs / 0.698 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 16 of 21[32m SUCCESS[39m (0 secs / 0.727 secs)
+[1A[2K[31mPhantomJS 1.9.8 (Linux) Directive Tests  Password strength Should display the password strength bar FAILED[39m
+	Error: Unexpected request: GET i18n/en/wiki.json
+	Expected GET i18n/en/main.json
+	    at $httpBackend (/home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1227)
+	    at sendReq (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:9620)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:9335
+	    at processQueue (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:13175)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:13191
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14388
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14204
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1525
+	    at /home/ramon/workspace-prod/TeamStudy/src/test/javascript/spec/app/account/password/passwordDirectiveSpec.js:28
+PhantomJS 1.9.8 (Linux): Executed 17 of 21[31m (1 FAILED)[39m (0 secs / 0.834 secs)
+[1A[2K[31mPhantomJS 1.9.8 (Linux) Directive Tests  Password strength Should change the first 2 points of the strength bar FAILED[39m
+	Error: Unexpected request: GET i18n/en/wiki.json
+	Expected GET i18n/en/main.json
+	    at $httpBackend (/home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1227)
+	    at sendReq (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:9620)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:9335
+	    at processQueue (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:13175)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:13191
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14388
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14204
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14493
+	    at /home/ramon/workspace-prod/TeamStudy/src/test/javascript/spec/app/account/password/passwordDirectiveSpec.js:42
+	Error: [$rootScope:inprog] $digest already in progress
+	http://errors.angularjs.org/1.3.11/$rootScope/inprog?p0=%24digest
+	    at beginPhase (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14742)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14184
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1525
+	    at /home/ramon/workspace-prod/TeamStudy/src/test/javascript/spec/app/account/password/passwordDirectiveSpec.js:28
+PhantomJS 1.9.8 (Linux): Executed 18 of 21[31m (2 FAILED)[39m (0 secs / 0.895 secs)
+[1A[2K[31mPhantomJS 1.9.8 (Linux) Directive Tests  Password strength Should change the first 4 points of the strength bar FAILED[39m
+	Error: Unexpected request: GET i18n/en/wiki.json
+	Expected GET i18n/en/main.json
+	    at $httpBackend (/home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1227)
+	    at sendReq (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:9620)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:9335
+	    at processQueue (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:13175)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:13191
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14388
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14204
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14493
+	    at /home/ramon/workspace-prod/TeamStudy/src/test/javascript/spec/app/account/password/passwordDirectiveSpec.js:57
+	Error: [$rootScope:inprog] $digest already in progress
+	http://errors.angularjs.org/1.3.11/$rootScope/inprog?p0=%24digest
+	    at beginPhase (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14742)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14184
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1525
+	    at /home/ramon/workspace-prod/TeamStudy/src/test/javascript/spec/app/account/password/passwordDirectiveSpec.js:28
+PhantomJS 1.9.8 (Linux): Executed 19 of 21[31m (3 FAILED)[39m (0 secs / 0.944 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 20 of 21[31m (3 FAILED)[39m (0 secs / 1.036 secs)
+[1A[2K[31mPhantomJS 1.9.8 (Linux) Services Tests  Auth should call LocalStorageService.clearAll on logout FAILED[39m
+	Error: Unexpected request: GET i18n/en/wiki.json
+	Expected GET i18n/en/main.json
+	    at $httpBackend (/home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1227)
+	    at sendReq (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:9620)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:9335
+	    at processQueue (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:13175)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:13191
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14388
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14204
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1525
+	    at /home/ramon/workspace-prod/TeamStudy/src/test/javascript/spec/components/auth/authServicesSpec.js:41
+	Error: [$rootScope:inprog] $digest already in progress
+	http://errors.angularjs.org/1.3.11/$rootScope/inprog?p0=%24digest
+	    at beginPhase (/home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14742)
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular/angular.js:14184
+	    at /home/ramon/workspace-prod/TeamStudy/bower_components/angular-mocks/angular-mocks.js:1557
+	    at /home/ramon/workspace-prod/TeamStudy/src/test/javascript/spec/components/auth/authServicesSpec.js:29
+PhantomJS 1.9.8 (Linux): Executed 21 of 21[31m (4 FAILED)[39m (0 secs / 1.094 secs)
+[1A[2KPhantomJS 1.9.8 (Linux): Executed 21 of 21[31m (4 FAILED)[39m (0.464 secs / 1.094 secs)
+[INFO] --------------------------------------
+[INFO]          GULP BUILD --NO-COLOR
+[INFO] --------------------------------------
+[14:32:30] Using gulpfile ~/workspace-prod/TeamStudy/gulpfile.js
+[14:32:30] Starting 'build'...
+[14:32:30] Starting 'clean'...
+[14:32:30] Finished 'build' after 17 ms
+[14:32:30] Finished 'clean' after 72 ms
+[14:32:30] Starting 'copy'...
+[14:32:30] Finished 'copy' after 289 ms
+[14:32:30] Starting 'wiredep:app'...
+[14:32:30] Finished 'wiredep:app' after 141 ms
+[14:32:30] Starting 'ngconstant:prod'...
+[14:32:30] Finished 'ngconstant:prod' after 123 ms
+[14:32:30] Starting 'usemin'...
+[14:32:30] Starting 'images'...
+[14:32:30] Finished 'usemin' after 11 ms
+[14:32:40] gulp-imagemin: Minified 5 images (saved 6.48 kB - 11.8%)
+[14:32:40] Finished 'images' after 9.21 s
+[14:32:40] Starting 'styles'...
+[14:32:40] Finished 'styles' after 9.34 ms
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 07:01 min
+[INFO] Finished at: 2015-05-04T14:38:48+02:00
+[INFO] Final Memory: 16M/40M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal com.github.trecloux:yeoman-maven-plugin:0.4:build (run-frontend-build) on project teamstudy: Error during : gulp build --no-color: Process exited with an error: 8 (Exit value: 8) -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
