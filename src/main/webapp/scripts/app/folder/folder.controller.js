@@ -75,6 +75,7 @@ angular.module('teamstudyApp')
     		Folder.delete({gridId: gridId});
     		$state.reload();
     	};
+    	
 	});
 
 angular.module('teamstudyApp')
@@ -90,3 +91,4 @@ angular.module('teamstudyApp')
 		}
 	};
 }])
+
