@@ -36,9 +36,9 @@ angular.module('teamstudyApp')
 				};
     		ThreadCRUD.update($scope.threadAux, function(){
     			//$scope.clear();
+    			$state.reload();
     		});
     		$('#saveThreadModal').modal('hide');
-			$state.reload();
     	};
     	
     	$scope.update = function(id){
@@ -55,7 +55,13 @@ angular.module('teamstudyApp')
 			};
 			$scope.editForm.$setPristine();
 			$scope.editForm.$setUntouched();
-		};
+		};		
+
+    	$scope.deleteThread = function (threadId) {
+    		ThreadCRUD.delete({threadId: threadId},function(){
+    		$state.reload();
+    		});
+    	};
 		
 		$scope.local = function(threadId){
 			localStorage.setItem('threadId', threadId);
@@ -63,14 +69,4 @@ angular.module('teamstudyApp')
 
 		};
     
-    	$scope.deleteThread = function (threadId) {
-    		ThreadCRUD.delete({threadId: threadId});
-    		$state.reload();
-    	};
-    	
-//    	$scope.addThread = function (threadId) {
-//    		ThreadCRUD.update({threadId: $stateParams.threadId},function () {
-//    	      $state.reload();
-//        });
-//    	};		
 });

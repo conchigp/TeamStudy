@@ -28,8 +28,8 @@ angular.module('teamstudyApp')
 			    			groupId : groupId
 						},function(result) {
 			    			$scope.threadsAll = result.data;
-			    			var array = [];
-			    						    			
+			    			$scope.array = [];
+			    			    			
 			    			$scope.threadsAll.forEach(function (item) {
 			    				
 			    				MessageList.get({
@@ -37,24 +37,29 @@ angular.module('teamstudyApp')
 			    				},function(result){
 			    					var mensajes = result.data;
 			    					item.tamano = mensajes;
-			    					array.push(item.title, item.tamano.length);
-			    					$scope.pos0 = array[0];
-			    					$scope.pos1 = array[1];
-			    					$scope.data =[{title:$scope.pos0, tamano:$scope.pos1}];
+			    					var part = {};
+			    					part.label = item.title;
+			    					part.value = item.tamano.length;
+			    					$scope.array.push(part);
+			    					
+//			    					array.push(item.title, item.tamano.length);
+//			    					$scope.pos0 = array[0];
+//			    					$scope.pos1 = array[1];
+//			    					$scope.data =[{title:$scope.pos0, tamano:$scope.pos1}];
 			    				});
 			    			});
-			    			$scope.array=array;
+			    		
 			    		});
 			    	}).then(function(){
 			    		
-			    		new Morris.Line({
-	    				element : 'myfirstchart',
-	    				data : $scope.data,
-	    				xkey : 'title',
-	    				ykeys : [ 'tamano' ],
-	    				labels : ['Title', 'Tamano']
-			    		
-	    			});
+//			    		new Morris.Line({
+//	    				element : 'myfirstchart',
+//	    				data : $scope.data,
+//	    				xkey : 'title',
+//	    				ykeys : [ 'tamano' ],
+//	    				labels : ['Title', 'Tamano']
+//			    		
+//	    			});
 			    	
 			    	});
 					
