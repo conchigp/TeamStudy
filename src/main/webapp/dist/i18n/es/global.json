@@ -38,7 +38,12 @@
             "confirmpassword": "Confirme su nueva contraseña",
             "confirmpassword.placeholder": "Confirme su nueva contraseña",
             "email": "E-mail",
-            "email.placeholder": "E-mail"
+            "email.placeholder": "E-mail",
+            "teacher": "Elija el tipo de usuario",
+            "teacher.true": "Profesor",
+            "teacher.false": "Alumno",
+            "image": "Foto de perfil",
+           	"image.placeholder": "Url de la imagen"
         },
         "messages": {
             "info": {
