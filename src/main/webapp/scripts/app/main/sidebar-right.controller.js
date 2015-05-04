@@ -35,7 +35,8 @@ angular.module('teamstudyApp').controller(
 		    	   	$scope.messageChatAux = {
 							content : $scope.chat.content,
 						};
-		    	   	MessageChatCRUD.create({groupId : localStorage.getItem('groupId')},$scope.messageChatAux, function() {
+		    	   	MessageChatCRUD.create({groupId : localStorage.getItem('groupId')},
+		    	   			$scope.messageChatAux, function() {
 						// $scope.clear();
 		    	   		$scope.chat.creationMoment =  Date();
 		    	   		$scope.messagesChat.push($scope.chat);
