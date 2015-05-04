@@ -27,14 +27,7 @@ angular.module('teamstudyApp').controller(
 					groupId : $scope.groupId
 				}, function(result) {
 					$scope.messagesChat = result.data;
-					$scope.messagesChat.forEach(function(item) {
-						UserById.get({
-							userId : item.userId
-						}, function(result) {
-							item.username = result.data.login;
-						});
-
-					});
+					
 
 				});
 				
@@ -44,8 +37,10 @@ angular.module('teamstudyApp').controller(
 						};
 		    	   	MessageChatCRUD.create({groupId : localStorage.getItem('groupId')},$scope.messageChatAux, function() {
 						// $scope.clear();
-						$state.reload();
-					});
+		    	   		$scope.chat.creationMoment =  Date();
+		    	   		$scope.messagesChat.push($scope.chat);
+		    	   		$scope.chat == {};
+		    	   	});
 				};
 				
 				
