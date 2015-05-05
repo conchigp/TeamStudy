@@ -2,7 +2,7 @@
 
 angular.module('teamstudyApp').controller(
 		'SidebarrightController',
-		function($stateParams, $state, $scope, StudentsCRUD, StudentsListAll,MessageChatCRUD, UserById, Principal) {
+		function($stateParams, $state, $scope, StudentsCRUD, StudentsListAll,MessageChatCRUD, UserById, Principal, $interval) {
 			
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -18,6 +18,8 @@ angular.module('teamstudyApp').controller(
 					groupId : groupId
 				}, function(result) {
 					$scope.students = result.data;
+					
+					$interval(function(){
 					MessageChatCRUD.get({
 						groupId : $scope.groupId
 					}, function(result) {
@@ -25,13 +27,9 @@ angular.module('teamstudyApp').controller(
 						
 		    			$scope.students.forEach(function (student) {
 		    				
-		    				//student.nameUsuario;
-
 			    			$scope.messagesChat.forEach(function (message) {
 			    							   
 			    				message.nameUser;
-//			    				console.log(message.userId);
-//			    				console.log(student.id);
 			    				
 			    				if(student.id == message.userId ){
 			    					message.nameUser = student.firstName;
@@ -42,8 +40,8 @@ angular.module('teamstudyApp').controller(
 		    				
 		    			});
 
-
-					});
+					}); 
+					}, 2000);
 
 				});
 
@@ -60,9 +58,6 @@ angular.module('teamstudyApp').controller(
 					});
 				};
 				
-				
-
-
 			});
 
 		});
