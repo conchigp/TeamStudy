@@ -27,12 +27,12 @@
             	<img ng-src="{{ registerAccount.imageSRC }}" ng-show="registerAccount.imageUrl == null" style="width: 150px; height: 150px; margin-left:40%; border: 0px" /><br/>
             	<img ng-src="{{ registerAccount.imageUrl }}" ng-show="registerAccount.imageUrl != null" style="width: 150px; height: 150px; margin-left:40%; border: 0px" /><br/>
 				<div class="form-group">
-                    <label translate="e">Imagen</label>
-                    <input type="text" class="form-control" name="imageUrl" placeholder=""
+                    <label translate="">Imagen</label>
+                    <input type="text" class="form-control" name="imageUrl" placeholder="Elije una imagen de perfil para comenzar"
                            ng-model="registerAccount.imageUrl">     
                 </div>
                 <div class="form-group">
-                    <label translate="global.form.username">Nombre de usuario</label>
+                    <label translate="">Nombre de usuario</label>
                     <input type="text" class="form-control" name="login" placeholder="Introduzca un nombre de usuario"
                            ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
                     <div ng-show="form.login.$dirty && form.login.$invalid">
@@ -55,7 +55,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label translate="global.form.email">E-mail</label>
+                    <label translate="">E-mail</label>
                     <input type="email" class="form-control" name="email" placeholder="Intruduzca E-mail"
                            ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
                     <div ng-show="form.email.$dirty && form.email.$invalid">
@@ -78,51 +78,52 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label translate="global.form.newpassword">New password</label>
-                    <input type="password" class="form-control" name="password" placeholder="{{'global.form.newpassword.placeholder' | translate}}"
+                    <label translate="">Contrase&ntildea</label>
+                    <input type="password" class="form-control" name="password" placeholder="Introducir password"
                            ng-model="registerAccount.password" ng-minlength=5 ng-maxlength=50 required>
                     <div ng-show="form.password.$dirty && form.password.$invalid">
                         <p class="help-block"
-                               ng-show="form.password.$error.required" translate="global.messages.validate.newpassword.required">
-                            Your password is required.
+                               ng-show="form.password.$error.required" translate="">
+                            La contrase&ntildea es obligatoria.
                         </p>
                         <p class="help-block"
-                               ng-show="form.password.$error.minlength" translate="global.messages.validate.newpassword.minlength">
-                            Your password is required to be at least 5 characters
+                               ng-show="form.password.$error.minlength" translate="">
+                             La contrase&ntildea debe tener m&aacutes de 5 car&aacutecter.
                         </p>
                         <p class="help-block"
-                               ng-show="form.password.$error.maxlength" translate="global.messages.validate.newpassword.maxlength">
-                            Your password cannot be longer than 50 characters
+                               ng-show="form.password.$error.maxlength" translate="">
+                            La contrase&ntildea no debe tener m&aacutes de 50 car&aacutecteres.
                         </p>
                     </div>
                     <password-strength-bar password-to-check="registerAccount.password"></password-strength-bar>
                 </div>
                 <div class="form-group">
-                    <label translate="global.form.confirmpassword">New password confirmation</label>
-                    <input type="password" class="form-control" name="confirmPassword" placeholder="{{'global.form.confirmpassword.placeholder' | translate}}"
+                    <label translate="">Confirmar Contrase&ntildea</label>
+                    <input type="password" class="form-control" name="confirmPassword" placeholder="Confirmar password"
                            ng-model="confirmPassword" ng-minlength=5 ng-maxlength=50 required>
                     <div ng-show="form.confirmPassword.$dirty && form.confirmPassword.$invalid">
                         <p class="help-block"
-                               ng-show="form.confirmPassword.$error.required" translate="global.messages.validate.confirmpassword.required">
-                            Your password confirmation is required.
+                               ng-show="form.confirmPassword.$error.required" translate="">
+                            La confirmaci&oacuten de la contrase&ntildea es obligatoria.
                         </p>
                         <p class="help-block"
-                               ng-show="form.confirmPassword.$error.minlength" translate="global.messages.validate.confirmpassword.minlength">
-                            Your password confirmation is required to be at least 5 characters
+                               ng-show="form.confirmPassword.$error.minlength" translate="">
+                            La confirmaci&oacuten de la contrase&ntildea debe tener m&aacutes de 5 car&aacutecter.
                         </p>
                         <p class="help-block"
-                               ng-show="form.confirmPassword.$error.maxlength" translate="global.messages.validate.confirmpassword.maxlength">
-                            Your password confirmation cannot be longer than 50 characters
+                               ng-show="form.confirmPassword.$error.maxlength" translate="">
+                             La confirmaci&oacuten de la no debe tener m&aacutes de 50 car&aacutecteres.
                         </p>
                     </div>
                 </div>
                  <div class="form-group">
-                    <label translate="global.form.teacher">Teacher</label> <br/>
-                    <input type="radio" class="form-horizontal" name="isTeacher" ng-model="registerAccount.isTeacher" value="true">  {{ 'global.form.teacher.true' | translate}}<br/>
-					<input type="radio" class="form-horizontal" name="isTeacher" ng-model="registerAccount.isTeacher" value="false"> {{ 'global.form.teacher.false' | translate}}<br/>
+                    <label translate="">Seleccionar la opci&oacuten adecuada</label> <br/>
+                    <input type="radio" class="form-horizontal" name="isTeacher" ng-model="registerAccount.isTeacher" value="true">  Profesor<br/>
+					<input type="radio" class="form-horizontal" name="isTeacher" ng-model="registerAccount.isTeacher" value="false"> Alumno<br/>
                 </div>
-                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="register.form.button">Register</button>
+                <button type="submit" ng-disabled="form.$invalid" class="btn btn-primary" translate="">Terminado</button>
             </form>
+            
             <p></p>
         </div>
     </div>
