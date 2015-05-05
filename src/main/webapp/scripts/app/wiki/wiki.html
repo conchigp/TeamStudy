@@ -20,32 +20,13 @@
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
 				</div>
-				<!-- 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default">Forum</button>
-				</div> -->
 			</div>
-			<div class="alert alert-success alert-dismissible" role="alert">
-				<button type="button" class="close" data-dismiss="alert"
-					aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-
-				<div ng-repeat="new in news" id="" class="">
-					<b class="h4 negrita"><span
-						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-						{{new.title}}: </b> {{new.description}}
-				</div>
-
+			<div class="col-md-2" id="">
 				<div class="container">
 					<br> <br>
 					<div ng-if="account.isTeacher == 'true'">
 						<button class="btn btn-default " data-toggle="modal"
-							data-target="#saveNewsModal" ng-click="clear()">Nueva
-							noticia</button>
-					</div>
-					<div class="container" 
-						ng-if="account.isTeacher == 'false'">
-						
+							data-target="#saveNewsModal" ng-click="clear()">Nueva noticia</button>
 					</div>
 					<div class="modal fade" id="saveNewsModal" tabindex="-1"
 						role="dialog" aria-labelledby="myNewsLabel" aria-hidden="true"
@@ -102,6 +83,18 @@
 					</div>
 				</div>
 			</div>
+			<div class="alert alert-success alert-dismissible col-md-10" role="alert">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+
+				<div ng-repeat="new in news | " id="" class="">
+					<b class="h4 negrita"><span
+						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						{{new.title}}: </b> {{new.description}}
+				</div>
+			</div><!-- Hasta aquí el div del alert -->
 		</div>
 		
 	</div>

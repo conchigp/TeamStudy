@@ -92,17 +92,19 @@
 								<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
 							</div>
 							<div class="box-content" style="display: none;">
-
-
-								<div ng-repeat="reply in message.replies"
-									class="list-group-item">
-
+								<div ng-repeat="reply in message.replies" class="list-group-item">
 									<small class="time">{{reply.createdBy}} ,{{reply.createdDate | date:'MMM/dd/yyyy h:mma'}} </small>
-									<div class="col-12"><h5>{{reply.description}}<h5></div>
-
+									<div class="col-12">
+										<h5>{{reply.description}}</h5>
+									</div>
+									<div id="" class="" ng-if="account.isTeacher == 'true'">
+										<button type="submit" ng-click="deleteReply(reply.id)"
+											class="btn btn-default">
+											<span class="glyphicon glyphicon-remove"></span>&nbsp;<span
+												translate="entity.action.delete"> Delete</span>
+										</button>
+									</div>
 								</div>
-
-
 
 								<form name="editForm" role="form" novalidate=""
 									ng-submit="createReply(message.id,replyToCreate.description)"
@@ -123,8 +125,9 @@
 							</div>
 
 						</div>
-						
-						<div class="likebox" ng-if="message.replies.length == 0 || account.isTeacher == 'true'">
+
+						<div class="likebox"
+							ng-if="message.replies.length == 0 || account.isTeacher == 'true'">
 							<div class="btn-group" role="group">
 								<button type="submit" ng-click="update(message.id)"
 									class="btn btn-default">

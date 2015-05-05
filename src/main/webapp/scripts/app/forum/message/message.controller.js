@@ -77,7 +77,6 @@ angular.module('teamstudyApp')
 			
 			$scope.deleteMessage = function (messageId) {
 	    		Message.delete({messageId: messageId},function(){
-	    			
 	    			$state.reload();
 	    		});
 	    		
