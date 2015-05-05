@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp')
-    .controller('ThreadController', function ($stateParams,$state, $scope, ThreadCRUD, ThreadListForGroup,
+    .controller('ThreadController', function ($stateParams,$state, $scope, ThreadCRUD, ThreadListForGroup, MessageList, Message,
 			Principal) {
     	
     	Principal.identity().then(function(account) {
@@ -19,10 +19,18 @@ angular.module('teamstudyApp')
     		$scope.threadId = threadId;
     		
     		ThreadListForGroup.get({
-				groupId : groupId
+    			groupId : groupId
 			},function(result) {
-    			$scope.threadsAll = result.data;
-
+    			$scope.threads = result.data;
+    			$scope.threads.forEach(function (item) {
+    				
+    				MessageList.get({
+    					threadId : item.id
+    				},function(result){
+    					item.messages = result.data;
+    				});
+    				
+    			});
     		});
 
     	});

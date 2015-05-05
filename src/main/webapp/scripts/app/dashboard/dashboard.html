@@ -18,36 +18,61 @@
 				class="btn btn-default">Dashboard</button>
 		</div>
 	</div>
-	<div class="col-md-6">
-		<canvas id="area" class="chart chart-polar-area" data="data"
-			labels="labels"></canvas>
+	<div class="col-md-12" style="margin: 10px;">
+		<div class="col-md-6">
+			<canvas id="area" class="chart chart-polar-area" data="data"
+				labels="labels"></canvas>
+		</div>
+
+		<div class="col-md-6">
+			<table
+				class="table table-bordered table-striped table-hover table-heading table-datatable scroll-area"
+				data-spy="scroll" id="datatable-1">
+				<thead>
+					<tr>
+						<th>Titulo</th>
+						<th>Mensajes</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="thread in threadsAll">
+						<td>{{thread.title}}</td>
+						<td>{{thread.tamano.length}}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-
-	<div class="col-md-6">
-
-		<table  
-			class="table table-bordered table-striped table-hover table-heading table-datatable scroll-area"
-			data-spy="scroll"
-			id="datatable-1">
-			<thead>
-				<tr>
-					<th>Titulo</th>
-					<th>Mensajes</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="thread in threadsAll">
-					<td>{{thread.title}}</td>
-					<td>{{thread.tamano.length}}</td>
-				</tr>
-			</tbody>
-		</table>
+	<div class="col-md-12" style="margin: 10px;">
+		<div class="col-md-6">
+			<canvas id="area" class="chart chart-polar-area"
+				data="dataRepository" labels="labelsRepository"></canvas>
+		</div>
+		<div class="col-md-6">
+			<table
+				class="table table-bordered table-striped table-hover table-heading table-datatable scroll-area"
+				data-spy="scroll" id="datatable-1">
+				<thead>
+					<tr>
+						<th>Carpeta</th>
+						<th>Número de archivos</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>Apuntes de Inglés</td>
+						<td>4</td>
+					</tr>
+					<tr>
+						<td>Exámenes resueltos de Inglés</td>
+						<td>8</td>
+					</tr>
+					<tr>
+						<td>Ejercicios resueltos</td>
+						<td>5</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
 	</div>
-
-	<!-- 	<div id="myfirstchart" style="height: 250px;"></div> -->
-	{{array}}
-	<!-- 	{{data}} {{pos0}}--{{pos1}} -->
-	<!-- 	<div ng-repeat="thread in threadsAll" class="">{{thread.title}} -->
-	<!-- 		{{thread.tamano.length}}</div> -->
-
 </div>
