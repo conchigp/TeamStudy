@@ -21,12 +21,12 @@
 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
 				</div>
 			</div>
-			<div class="col-md-2" id="">
+			<div class="col-md-12" id="">
 				<div class="container">
-					<br> <br>
 					<div ng-if="account.isTeacher == 'true'">
-						<button class="btn btn-default " data-toggle="modal"
-							data-target="#saveNewsModal" ng-click="clear()">Nueva noticia</button>
+						<button class="btn " data-toggle="modal"
+							data-target="#saveNewsModal" ng-click="clear()"><h4><span class="glyphicon glyphicon-bullhorn" 
+							aria-hidden="true"></span> Nueva noticia</h4></button>
 					</div>
 					<div class="modal fade" id="saveNewsModal" tabindex="-1"
 						role="dialog" aria-labelledby="myNewsLabel" aria-hidden="true"
@@ -83,13 +83,13 @@
 					</div>
 				</div>
 			</div>
-			<div class="alert alert-success alert-dismissible col-md-10" role="alert">
+			<div class="alert alert-success alert-dismissible" style="margin: 15px; role="alert">
 				<button type="button" class="close" data-dismiss="alert"
 					aria-label="Close">
 					<span aria-hidden="true">&times;</span>
 				</button>
 
-				<div ng-repeat="new in news | " id="" class="">
+				<div ng-repeat="new in news" id="" class="">
 					<b class="h4 negrita"><span
 						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						{{new.title}}: </b> {{new.description}}
