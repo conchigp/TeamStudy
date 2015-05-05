@@ -34,9 +34,9 @@ angular.module('teamstudyApp')
 				};
 			Folder.update($scope.folderAux, function() {
 				//$scope.clear();
+				$state.reload();
 			});
 			$('#saveFolderModal').modal('hide');
-			$state.reload();
 		};
 	
 		$scope.update = function(id) {

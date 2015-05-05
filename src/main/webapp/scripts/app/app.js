@@ -6,7 +6,7 @@ angular
 				[ 'LocalStorageModule', 'tmh.dynamicLocale', 'ngResource',
 						'ui.router', 'ngCookies', 'pascalprecht.translate',
 						'ngCacheBuster', 'infinite-scroll', 'ngCkeditor',
-						'ngSanitize','ui.bootstrap'])
+						'ngSanitize','ui.bootstrap','chart.js'])
 		.run(
 				function($rootScope, $location, $window, $http, $state,
 						$translate, Auth, Principal, Language, ENV, VERSION) {
