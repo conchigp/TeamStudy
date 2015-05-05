@@ -1,79 +1,79 @@
 <div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <h1 translate="register.title">Registration</h1>
+            <h1 class = "title1" translate="">Registrar</h1>
 
-            <div class="alert alert-success" ng-show="success" translate="register.messages.success">
-                <strong>Registration saved!</strong> Please check your email for confirmation.
+            <div class="alert alert-success" ng-show="success" translate="">
+                <strong>El registro ha sido realizado</strong> Por favor, comrpuebe su E-mail para confirmarlo.
             </div>
 
-            <div class="alert alert-danger" ng-show="error" translate="register.messages.error.fail">
-                <strong>Registration failed!</strong> Please check your input and try again.
+            <div class="alert alert-danger" ng-show="error" translate="">
+                <strong>Fallo al registrar</strong> Por favor, intentar de nuevo.
             </div>
 
-            <div class="alert alert-danger" ng-show="errorUserExists" translate="register.messages.error.userexists">
-                <strong>Login name already registered!</strong> Please choose another one.
+            <div class="alert alert-danger" ng-show="errorUserExists" translate="">
+                <strong>El nombre ya est&aacute en uso</strong> Por favor, elija otro nombre.
             </div>
 
-            <div class="alert alert-danger" ng-show="errorEmailExists" translate="register.messages.error.emailexists">
-                <strong>E-mail is already in use!</strong> Please choose another one.
+            <div class="alert alert-danger" ng-show="errorEmailExists" translate="">
+                <strong>El E-mail est&aacute en uso</strong> Por favor, elija otro.
             </div>
 
-            <div class="alert alert-danger" ng-show="doNotMatch" translate="global.messages.error.dontmatch">
-                The password and its confirmation do not match!
+            <div class="alert alert-danger" ng-show="doNotMatch" translate="">
+                La contrase&ntildea y su confirmación no coinciden
             </div>
 
             <form ng-show="!success" name="form" role="form" novalidate ng-submit="register()" show-validation>
             	<img ng-src="{{ registerAccount.imageSRC }}" ng-show="registerAccount.imageUrl == null" style="width: 150px; height: 150px; margin-left:40%; border: 0px" /><br/>
             	<img ng-src="{{ registerAccount.imageUrl }}" ng-show="registerAccount.imageUrl != null" style="width: 150px; height: 150px; margin-left:40%; border: 0px" /><br/>
 				<div class="form-group">
-                    <label translate="global.form.image">Image URL</label>
-                    <input type="text" class="form-control" name="imageUrl" placeholder="{{'global.form.image.placeholder' | translate}}"
+                    <label translate="e">Imagen</label>
+                    <input type="text" class="form-control" name="imageUrl" placeholder=""
                            ng-model="registerAccount.imageUrl">     
                 </div>
                 <div class="form-group">
-                    <label translate="global.form.username">Login</label>
-                    <input type="text" class="form-control" name="login" placeholder="{{'global.form.username.placeholder' | translate}}"
+                    <label translate="global.form.username">Nombre de usuario</label>
+                    <input type="text" class="form-control" name="login" placeholder="Introduzca un nombre de usuario"
                            ng-model="registerAccount.login" ng-minlength=1 ng-maxlength=50 ng-pattern="/^[a-z0-9]*$/" required>
                     <div ng-show="form.login.$dirty && form.login.$invalid">
                         <p class="help-block"
-                               ng-show="form.login.$error.required" translate="register.messages.validate.login.required">
-                            Your login is required.
+                               ng-show="form.login.$error.required" translate="">
+                            El nombre de usuario es obligatorio.
                         </p>
                         <p class="help-block"
-                               ng-show="form.login.$error.minlength" translate="register.messages.validate.login.minlength">
-                            Your login is required to be at least 1 character
+                               ng-show="form.login.$error.minlength" translate="">
+                             El nombre de usuario debe tener m&aacutes de 1 car&aacutecter.
                         </p>
                         <p class="help-block"
-                               ng-show="form.login.$error.maxlength" translate="register.messages.validate.login.maxlength">
-                            Your login cannot be longer than 50 characters
+                               ng-show="form.login.$error.maxlength" translate="">
+                            El nombre de usuario no debe tener m&aacutes de 50 car&aacutecteres.
                         </p>
                         <p class="help-block"
-                               ng-show="form.login.$error.pattern" translate="register.messages.validate.login.pattern">
-                            Your login can only contain lower-case letters and digits
+                               ng-show="form.login.$error.pattern" translate="">
+                           Su nombre de usuario solo puede contener letras min&uacutesculas y d&iacutegitos
                     </p>
                     </div>
                 </div>
                 <div class="form-group">
                     <label translate="global.form.email">E-mail</label>
-                    <input type="email" class="form-control" name="email" placeholder="{{'global.form.email.placeholder' | translate}}"
+                    <input type="email" class="form-control" name="email" placeholder="Intruduzca E-mail"
                            ng-model="registerAccount.email" ng-minlength=5 ng-maxlength=100 required>
                     <div ng-show="form.email.$dirty && form.email.$invalid">
                         <p class="help-block"
-                               ng-show="form.email.$error.required" translate="global.messages.validate.email.required">
-                            Your e-mail is required.
+                               ng-show="form.email.$error.required" translate="">
+                            El E-mail es obligatorio.
                         </p>
                         <p class="help-block"
-                               ng-show="form.email.$error.email" translate="global.messages.validate.email.invalid">
-                            Your e-mail is invalid.
+                               ng-show="form.email.$error.email" translate="">
+                             El E-mail es incorrecto.
                         </p>
                         <p class="help-block"
-                               ng-show="form.email.$error.minlength" translate="global.messages.validate.email.minlength">
-                            Your e-mail is required to be at least 5 characters
+                               ng-show="form.email.$error.minlength" translate="">
+                            El E-mail debe tener m&aacutes de 5 car&aacutecter.
                         </p>
                         <p class="help-block"
-                               ng-show="form.email.$error.maxlength" translate="global.messages.validate.email.maxlength">
-                            Your e-mail cannot be longer than 100 characters
+                               ng-show="form.email.$error.maxlength" translate="">
+                             El E-mail no debe tener m&aacutes de 50 car&aacutecteres.
                         </p>
                     </div>
                 </div>

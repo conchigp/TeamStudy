@@ -32,8 +32,8 @@
 						<h1 id="about" class="title1 text-center">
 							Bienvenido a <span class="azul">Team Study</span>
 						</h1>
-						<p class="subtitulo text-center">No es introducir la web en
-							el aula, es intregar el aula en la web.</p>
+						<p class="subtitulo text-center">No es introducir la web en el
+							aula, es intregar el aula en la web.</p>
 						<div class="space"></div>
 						<div class="row">
 							<div class="col-md-6">
@@ -41,7 +41,7 @@
 									<carousel interval="myInterval"> <slide
 										ng-repeat="slide in slides" active="slide.active"> <img
 										ng-src="{{slide.image}}" style="margin: auto;">
-										
+
 									<div class="carousel-caption">
 										<!-- 										<h4>Slide {{$index}}</h4> -->
 										<!-- 										<p>{{slide.text}}</p> -->
@@ -93,24 +93,44 @@
 
 					<div id="" class=" enlaces text-center">
 						<ul>
-							<li ui-sref-active="active"><a ui-sref="laws">Privacidad |</a></li>
-							<li ui-sref-active="active"><a ui-sref="cookies">Cookies |</a></li>
-							<li ui-sref-active="active"><a ui-sref="equipo">Equipo |</a></li> 
-							<li ui-sref-active="active"><a ui-sref="contacta">Contacta con nosotros</a></li>
+							<li ui-sref-active="active"><a ui-sref="laws">Privacidad
+									|</a></li>
+							<li ui-sref-active="active"><a ui-sref="cookies">Cookies
+									|</a></li>
+							<li ui-sref-active="active"><a ui-sref="equipo">Equipo |</a></li>
+							<li ui-sref-active="active"><a ui-sref="contacta">Contacta
+									con nosotros</a></li>
 						</ul>
 					</div>
 					<p class="text-center">Copyright &copy 2015 Team Study.</p>
 				</div>
 			</div>
-			<div class="" ng-show="isInRole('ROLE_ADMIN')">
-				<h3 class="text-center">Por favor seleccione algún grupo para
-					gestionarlo</h3>
-			</div>
+			
 		</div>
 	</div>
 	<br> <br>
-	<h1>Bienvenido a TeamStudy! Elija un grupo para comenzar a estudiar en equipo.</h1>
+	<div class="title1 text-center alert-danger" role="alert"
+				ng-show="isInRole('ROLE_ADMIN')">
+				<br>
+				<h1>
+					&iexclBienvenido a <span class="azul">Team Study!</span>
+				</h1>
+				<p class="subtitulo text-center">Elija un grupo para comenzar a
+					gestionarlo.</p>
+				<br>
+			</div>
 	
+	<div class="title1 text-center alert-danger" role="alert"
+		ng-show="isInRole('ROLE_USER')">
+		<br>
+		<h1>
+			&iexclBienvenido a <span class="azul">Team Study!</span>
+		</h1>
+		<p class="subtitulo text-center">Elija un grupo para comenzar a
+			estudiar en equipo.</p>
+		<br>
+	</div>
+
 
 </div>
 
