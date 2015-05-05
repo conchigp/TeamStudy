@@ -18,7 +18,7 @@
 					<button ui-sref="thread({ groupId: groupId })" type="button"
 						class="btn btn-default">Foro</button>
 				</div>
-				<div ui-sref-active="active" class="btn-group" role="group">
+				<div ui-sref-active="active" class="btn-group" role="group" ng-if="account.isTeacher == 'true'">
 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
 				</div>
 				<!-- 				<div class="btn-group" role="group">

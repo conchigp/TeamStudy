@@ -33,7 +33,6 @@ angular.module('teamstudyApp').controller(
 			    				
 			    				if(student.id == message.userId ){
 			    					message.nameUser = student.firstName;
-			    					console.log(message.nameUser);
 			    				}
 			    				
 			    			});

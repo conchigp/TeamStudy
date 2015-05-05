@@ -14,7 +14,7 @@
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="thread({ groupId: groupId })" type="button" class="btn btn-default">Foro</button>
 				</div>
-				<div ui-sref-active="active" class="btn-group" role="group">
+				<div ui-sref-active="active" class="btn-group" role="group" ng-if="account.isTeacher == 'true'">
 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
 				</div>
 				<!-- 				<div class="btn-group" role="group">
@@ -140,7 +140,7 @@
 							</div>
 							<div class="box-content">
 								<div class="col-12">Formato: .{{archive.format}}</div>
-								<div class="col-12">Tamaño: {{archive.size}}</div>
+								<div class="col-12">Tamaï¿½o: {{archive.size}}</div>
 							</div>
 						</div>
 						<div ng-switch-when="true">
