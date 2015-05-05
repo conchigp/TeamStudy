@@ -89,7 +89,7 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 
-				<div ng-repeat="new in news" id="" class="">
+				<div ng-repeat="new in news" id="" class="" ng-if="new.groupId == groupId">
 					<b class="h4 negrita"><span
 						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						{{new.title}}: </b> {{new.description}}

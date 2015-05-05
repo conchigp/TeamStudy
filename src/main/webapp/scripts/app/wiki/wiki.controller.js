@@ -19,9 +19,13 @@ angular.module('teamstudyApp').controller(
 				$scope.isAuthenticated = Principal.isAuthenticated;
 				$scope.isInRole = account.roles;
 			}).then(function() {
+				
+				var newsId = $stateParams.newsId;
+	    		$scope.newsId = newsId;
+				
 				News.get({
 					userId : $scope.account.id
-				}, function(result) {
+				}, function(result){
 					$scope.news = result.data;
 				});
 			});		
