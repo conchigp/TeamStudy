@@ -15,6 +15,14 @@ angular.module('teamstudyApp')
                         templateUrl: 'scripts/app/account/password/password.html',
                         controller: 'PasswordController'
                     },
+					'sidebar-left@' : {
+						templateUrl : 'scripts/app/main/sidebar-left.html',
+						controller : 'SidebarleftController'
+					},
+					'sidebar-right@' : {
+						templateUrl : 'scripts/app/main/sidebar-right.html',
+						controller : 'SidebarrightController'
+					}
 				
                 },
                 resolve: {
