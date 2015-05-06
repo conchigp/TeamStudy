@@ -2,33 +2,32 @@
 	<div class="">
 		<div class="navbar-header">
 
-			
-			<button type="button" class="navbar-toggle col-xs-1" data-toggle="collapse"
-				data-target="#navbar-collapse">
+
+			<button type="button" class="navbar-toggle col-xs-1"
+				data-toggle="collapse" data-target="#navbar-collapse">
 				<span class="sr-only">Toggle navigation</span> <span
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
 		</div>
 
-
 		<div class="collapse navbar-collapse" id="navbar-collapse"
 			ng-switch="isAuthenticated()">
 			<ul class="nav navbar-nav nav-pills navbar-right">
 				<li ui-sref-active="active"><a ui-sref="home"> <span
-						class="glyphicon glyphicon-home"></span> <span
-						translate="">Inicio</span>
+						class="glyphicon glyphicon-home"></span> <span translate="">Inicio</span>
 				</a></li>
 
 				<li ng-class="{active: $state.includes('account')}"
 					class="dropdown pointer"><a class="dropdown-toggle"
 					data-toggle="dropdown" href=""> <span> <span
 							class="glyphicon glyphicon-user"></span> <span
-							class="hidden-tablet" translate="">
-								Cuenta </span> <b class="caret"></b>
+							class="hidden-tablet" translate=""> Cuenta </span> <b
+							class="caret"></b>
 					</span>
 				</a>
 					<ul class="dropdown-menu">
+
 						<li ui-sref-active="active" ng-switch-when="true"><a
 							ui-sref="settings"><span class="glyphicon glyphicon-wrench"></span>
 								&#xA0;<span translate="">Modificar Datos</span></a></li>
@@ -39,6 +38,9 @@
 							ui-sref="login"><span class="glyphicon glyphicon-log-in"></span>
 								&#xA0;<span translate="">Autentificar</span></a></li>
 					</ul></li>
+					
+					
+					
 				<li ng-class="{active: $state.includes('admin')}"
 					ng-switch-when="true" ng-show="isInRole('ROLE_ADMIN')"
 					class="dropdown pointer"><a class="dropdown-toggle"
@@ -48,21 +50,24 @@
 					</span>
 				</a>
 					<ul class="dropdown-menu">
-<!-- 						<li ui-sref-active="active"><a ui-sref="metrics"><span -->
-<!-- 								class="glyphicon glyphicon-dashboard"></span> &#xA0;<span -->
-<!-- 								translate="">M&eacutetricas</span></a></li> -->
-<!-- 						<li ui-sref-active="active"><a ui-sref="health"><span -->
-<!-- 								class="glyphicon glyphicon-heart"></span> &#xA0;<span -->
-<!-- 								translate="global.menu.admin.health">Health</span></a></li> -->
-<!-- 						<li ui-sref-active="active"><a ui-sref="configuration"><span -->
-<!-- 								class="glyphicon glyphicon-list-alt"></span> &#xA0;<span -->
-<!-- 								translate="">Configuraci&oacuten</span></a></li> -->
-<!-- 						<li ui-sref-active="active"><a ui-sref="audits"><span -->
-<!-- 								class="glyphicon glyphicon-bell"></span> &#xA0;<span -->
-<!-- 								translate="">Auditor&iacuteas</span></a></li> -->
-<!-- 						<li ui-sref-active="active"><a ui-sref="logs"><span -->
-<!-- 								class="glyphicon glyphicon-tasks"></span> &#xA0;<span -->
-<!-- 								translate="global.menu.admin.logs">Logs</span></a></li> -->
+						<!-- 						<li ui-sref-active="active"><a ui-sref="metrics"><span -->
+						<!-- 								class="glyphicon glyphicon-dashboard"></span> &#xA0;<span -->
+						<!-- 								translate="">M&eacutetricas</span></a></li> -->
+						<!-- 						<li ui-sref-active="active"><a ui-sref="health"><span -->
+						<!-- 								class="glyphicon glyphicon-heart"></span> &#xA0;<span -->
+						<!-- 								translate="global.menu.admin.health">Health</span></a></li> -->
+						<!-- 						<li ui-sref-active="active"><a ui-sref="configuration"><span -->
+						<!-- 								class="glyphicon glyphicon-list-alt"></span> &#xA0;<span -->
+						<!-- 								translate="">Configuraci&oacuten</span></a></li> -->
+						<!-- 						<li ui-sref-active="active"><a ui-sref="audits"><span -->
+						<!-- 								class="glyphicon glyphicon-bell"></span> &#xA0;<span -->
+						<!-- 								translate="">Auditor&iacuteas</span></a></li> -->
+						<!-- 						<li ui-sref-active="active"><a ui-sref="logs"><span -->
+						<!-- 								class="glyphicon glyphicon-tasks"></span> &#xA0;<span -->
+						<!-- 								translate="global.menu.admin.logs">Logs</span></a></li> -->
+
+
+
 						<li ui-sref-active="active"><a ui-sref="docs"><span
 								class="glyphicon glyphicon-book"></span> &#xA0;<span
 								translate="global.menu.admin.apidocs">API Docs</span></a></li>
@@ -70,11 +75,18 @@
 								class="glyphicon glyphicon-plus-sign"></span> &#xA0;<span
 								translate="">Registrar</span></a></li>
 					</ul></li>
+
+
 				
-							
+
+
 				<li ui-sref-active="active" ng-switch-when="true"><a href=""
 					ng-click="logout()"><span class="fa fa-power-off"></span>
 						&#xA0;<span translate="">Cerrar sesi&oacuten</span></a></li>
+	
+				<li ui-sref-active="active" ng-switch-when="true"><a href=""><span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+							&#xA0;<span translate=""><h4>Hola {{account.login}}</h4></span></a></li>
+
 			</ul>
 		</div>
 	</div>

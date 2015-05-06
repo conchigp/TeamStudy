@@ -7,7 +7,7 @@
 				ng-show="isInRole[0] == 'ROLE_USER'">
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="wiki({ groupId: groupId })" type="button"
-						class="btn btn-default">Wiki</button>
+						class="btn btn-principal">Wiki</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="folder({ groupId: groupId })" type="button"
@@ -17,7 +17,7 @@
 					<button ui-sref="thread({ groupId: groupId })" type="button"
 						class="btn btn-default">Foro</button>
 				</div>
-				<div ui-sref-active="active" class="btn-group" role="group">
+				<div ui-sref-active="active" class="btn-group" role="group" ng-if="account.isTeacher == 'true'">
 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
 				</div>
 			</div>
@@ -89,10 +89,12 @@
 					<span aria-hidden="true">&times;</span>
 				</button>
 
-				<div ng-repeat="new in news" id="" class="">
+				<div ng-repeat="new in news | orderBy:'-creationMoment' | limitTo:5" id="" class="" ng-if="new.groupId == groupId">
 					<b class="h4 negrita"><span
 						class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
 						{{new.title}}: </b> {{new.description}}
+						----
+						<b>{{new.creationMoment | date:'dd/MMM/yyyy'}}</b>
 				</div>
 			</div><!-- Hasta aquí el div del alert -->
 		</div>

@@ -3,7 +3,7 @@
 angular.module('teamstudyApp').controller(
 		'DashboardController',
 		function($stateParams, $state, $scope, Principal, Message, MessageList,
-				ThreadCRUD, ThreadListForGroup) {
+				ThreadCRUD, ThreadListForGroup, Reply , ReplyList ) {
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -31,6 +31,7 @@ angular.module('teamstudyApp').controller(
 					$scope.array = [];
 					$scope.labels = [];
 					$scope.data = [];
+					
 
 					$scope.threadsAll.forEach(function(item) {
 
@@ -47,6 +48,34 @@ angular.module('teamstudyApp').controller(
 					});
 
 				});
+				
+				$scope.labelsRepository = ["Apuntes de Inglés", "Exámenes resueltos de Inglés", "Ejercicios resueltos"];
+				$scope.dataRepository = [4, 8, 5];
 			});
+			
+			
+			
+//			function mensajes(threadId){
+//				console.log('hola');
+//				MessageList.get({
+//					threadId : threadId
+//				},function(result) {
+//	    			$scope.messages = result.data;
+//	    			$scope.labelsMessage = [];
+//	    			$scope.dataMessage = [];
+//	    			$scope.messages.forEach(function (item) {
+//	    				
+//	    				ReplyList.get({
+//	    					messageId : item.id
+//	    				},function(result){
+//	    					item.replies = result.data;
+//	    					$scope.labelsMessage.push(item.description);
+//							$scope.dataMessage.push(item.replies.length);
+//	    					
+//	    				});
+//	    				
+//	    			});
+//	    		});
+//			};
 
 		});

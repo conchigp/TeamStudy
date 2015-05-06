@@ -3,6 +3,8 @@
 angular.module('teamstudyApp').controller('SidebarleftController',
 		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal,$q) {
 
+	
+	
 			Principal.identity().then(function(account) {
 				$scope.groups = [];
 				$scope.account = account;

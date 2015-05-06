@@ -19,10 +19,17 @@ angular.module('teamstudyApp').controller(
 				$scope.isAuthenticated = Principal.isAuthenticated;
 				$scope.isInRole = account.roles;
 			}).then(function() {
+				
+				var newsId = $stateParams.newsId;
+	    		$scope.newsId = newsId;
+	    		
 				News.get({
 					userId : $scope.account.id
-				}, function(result) {
+				}, function(result){
 					$scope.news = result.data;
+//					$scope.news.forEach(function(item){
+//						item.dateFormat = new Date(item.creationMoment);
+//					});
 				});
 			});		
 			
@@ -31,9 +38,8 @@ angular.module('teamstudyApp').controller(
 						title : $scope.news.title,
 						description : $scope.news.description
 					};
-	    	   	News.create({groupId : localStorage.getItem('groupId')},
+	    	   	News.create({groupId : groupId},
 	    	   			$scope.newsAux, function() {
-					// $scope.clear();
 					$state.reload();
 				});
 			};

@@ -23,6 +23,7 @@ angular.module('teamstudyApp')
 						templateUrl : 'scripts/app/main/sidebar-right.html',
 						controller : 'SidebarrightController'
 					}
+					
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {

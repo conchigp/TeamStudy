@@ -102,16 +102,18 @@
 						</div>
 					</div>
 				</div>
-
+			
 			<div ng-show="isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')">
 
 				<div class="box"  style="margin: 15px;" >
 					<div class="box-header">
 						<div class="box-name tablas">Grupos</div>
 					</div>
+					
 					<div class="box-icons">
 						<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
 					</div>
+					
 					<div class="box-content">
 
 						<div ng-repeat="group in groups" class="list-group-item">
@@ -150,5 +152,8 @@
 
 		</div>
 
+	</div>
+	<div ng-if="(isInRole('ROLE_ADMIN') == false) && (isInRole('ROLE_ADMIN') == false)">
+		<h6 style="color: blue;">.</h6>
 	</div>
 </div>
