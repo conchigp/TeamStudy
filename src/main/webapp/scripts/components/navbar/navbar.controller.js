@@ -14,6 +14,7 @@ angular.module('teamstudyApp')
         $scope.logout = function () {
         	localStorage.clear();
             Auth.logout();
+            $scope.account = "ABCD";
             $state.go('home');
         };
     });

@@ -76,16 +76,13 @@
 								translate="">Registrar</span></a></li>
 					</ul></li>
 
-
-				
-
-
 				<li ui-sref-active="active" ng-switch-when="true"><a href=""
 					ng-click="logout()"><span class="fa fa-power-off"></span>
 						&#xA0;<span translate="">Cerrar sesi&oacuten</span></a></li>
 	
 				<li ui-sref-active="active" ng-switch-when="true"><a href=""><span class="glyphicon glyphicon-education" aria-hidden="true"></span>
 							&#xA0;<span translate=""><h4>Hola {{account.login}}</h4></span></a></li>
+<!-- 							ng-if="localStorage.getItem('groupId') == true" -->
 
 			</ul>
 		</div>
