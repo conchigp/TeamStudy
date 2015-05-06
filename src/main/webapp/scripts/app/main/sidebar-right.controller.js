@@ -10,10 +10,16 @@ angular.module('teamstudyApp').controller(
 				$scope.isInRole = Principal.isInRole;
 
 			}).then(function() {
-
+				
+//				function scrollDiv(){
+//				    var div = document.getElementById('scrolldiv');
+//				    console.log('Estoy dentro');
+//				    div.scrollTop = '9999';
+//				}
+				
 				var groupId = localStorage.getItem('groupId');
 				$scope.groupId = groupId;
-
+				
 				StudentsCRUD.get({
 					groupId : groupId
 				}, function(result) {

@@ -1,67 +1,78 @@
 
 <!--Sidebar Right -->
-
+<!--  ng-init="scrollDiv();" -->
 <div class="row">
 	<div id="sright" class="" ng-switch=isAuthenticated()>
-	<div ng-show="isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')">
-		<div class="box" style="margin: 15px;" >
-		
-			<div class="box-header">
-				<div class="box-name tablas">Lista de Alumnos</div>
-			</div>
-			<div class="box-icons">
-				<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
-			</div>
-			<div class="box-content">
-				
-				 <div class="scroll-area" data-spy="scroll" data-target="#myNavbar" data-offset="0">
-				
-					<div ng-repeat="student in students" class="list-group-item">
-					<div class = "col-12">{{student.lastName}},{{student.firstName}}</div>
-					<small class = "col-12">{{student.email}}</small>
-					</div>
-					
-					
+		<div ng-show="isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')">
+			<div class="box" style="margin: 15px;">
+
+				<div class="box-header">
+					<div class="box-name tablas">Lista de Alumnos</div>
 				</div>
-				
-			</div>
-		</div>
-	</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+				</div>
+				<div class="box-content">
 
-	<div ng-show="isInRole('ROLE_USER')">
-				<div class="box" style="margin: 15px;" >
-			<div class="box-header">
-				<div class="box-name tablas">Chat</div>
-			</div>
-			<div class="box-icons">
-				<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
-			</div>
-			<div class="box-content">
+					<div class="scroll-area" data-spy="scroll" data-target="#myNavbar"
+						data-offset="0">
 
-				 <div class="scroll-area" data-spy="scroll" data-target="#myNavbar" data-offset="0">
-				 	<div ng-repeat="messageChat in messagesChat" class="list-group-item">
-						<small class = "col-12">{{messageChat.nameUser}},{{messageChat.creationMoment  | date:'dd/MMM/yyyy h:mma'}}</small>
-        				<div class = "col-12">{{messageChat.content}}</div>
-        			</div>
-
-    			</div>
-				<form ng-submit="createMessageChat()">
-					<div style="text-align: center;">
-						<input type="text" class="form-control" name="content" ng-model="chat.content">
-						<div  style="padding-top: 10%;">
-							<button type="submit" class="btn btn-default" class="ng-scope">Enviar</button>
+						<div ng-repeat="student in students" class="list-group-item">
+							<div class="col-12">{{student.lastName}},{{student.firstName}}</div>
+							<small class="col-12">{{student.email}}</small>
 						</div>
+
+
 					</div>
-					  
-				</form>
+
 				</div>
-	
-				
+			</div>
+		</div>
+
+		<div ng-show="isInRole('ROLE_USER')">
+			<div class="box" style="margin: 15px;">
+				<div class="box-header">
+					<div class="box-name tablas">Chat</div>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+				</div>
+				<div class="box-content">
+
+					<div id="scrolldiv" class="scroll-area" data-spy="scroll"
+						data-target="#myNavbar">
+						<div ng-repeat="messageChat in messagesChat"
+							class="list-group-item">
+							<small class="col-12">{{messageChat.nameUser}},{{messageChat.creationMoment
+								| date:'dd/MMM/yyyy h:mma'}}</small>
+							<div class="col-12">{{messageChat.content}}</div>
+						</div>
+
+					</div>
+					<form ng-submit="createMessageChat()">
+						<div style="text-align: center;">
+							<input type="text" class="form-control" name="content"
+								ng-model="chat.content">
+							<div style="padding-top: 10%;">
+								<button type="submit" class="btn btn-default" class="ng-scope">Enviar</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+
+
 			</div>
 		</div>
 	</div>
-		</div>
-	<!--End Sidebar Right -->
 </div>
+<!--End Sidebar Right -->
 
+<!-- <!-- <script type="text/javascript"> --> -->
+<!-- // 	function scrollDiv() { -->
+<!-- // 		var div = document.getElementById('scrolldiv'); -->
+<!-- // 		alert('Estoy dentro'); -->
+<!-- // 		div.scrollTop = '9999'; -->
+<!-- // 	} -->
+<!-- <!-- </script> --> -->
 
