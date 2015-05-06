@@ -1,5 +1,6 @@
 package com.teamstudy.myapp.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.OutputStream;
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ import org.bson.types.ObjectId;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.Mongo;
 import com.mongodb.gridfs.GridFS;
@@ -63,7 +65,8 @@ public class FolderService {
 	}
 
 	public Folder update(FolderDTO folderDTO) {
-		Folder folder = folderRepository.findOneById(new ObjectId(folderDTO.getId()));
+		Folder folder = folderRepository.findOneById(new ObjectId(folderDTO
+				.getId()));
 		folder.setTitle(folderDTO.getTitle());
 		folderRepository.save(folder);
 		return folder;
@@ -72,7 +75,7 @@ public class FolderService {
 	public void delete(String folderId) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		List<Archive> archives = findAllByFolder(folderId);
-		for(Archive a : archives){
+		for (Archive a : archives) {
 			remove(folderId, a.getGridId());
 		}
 		folderRepository.delete(folder);
@@ -83,105 +86,138 @@ public class FolderService {
 	 * Archive Methods
 	 *
 	 */
-	
+
 	/* GET Methods */
-	
-	public Archive findOne(String gridId, String folderId){
+
+	public Archive findOne(String gridId, String folderId) {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		Archive archive = null;
-		for (Archive a: folder.getArchives()){
-			if(a.getGridId().equals(gridId)){
+		for (Archive a : folder.getArchives()) {
+			if (a.getGridId().equals(gridId)) {
 				archive = a;
 			}
 		}
 		return archive;
 	}
-	
-	public List<Archive> findAllByFolder(String folderId){
-		return folderRepository.findOneById(new ObjectId(folderId)).getArchives();
+
+	public List<Archive> findAllByFolder(String folderId) {
+		return folderRepository.findOneById(new ObjectId(folderId))
+				.getArchives();
 	}
-	
-	public boolean existFile(String gridId) throws Exception{
+
+	public boolean existFile(String gridId) throws Exception {
 		GridFS fs = connectDatabase();
 		GridFSDBFile file = fs.find(new ObjectId(gridId));
-		if(file != null){
+		if (file != null) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
-	
+
 	/**
 	 * 
 	 * Method 1
 	 * 
 	 */
-	/*public OutputStream download(String objectId, HttpServletResponse response) throws Exception {
-		GridFS fs = connectDatabase();
-		GridFSDBFile file = fs.find(new ObjectId(objectId));
-		InputStream is = file.getInputStream();
-		response.addHeader("Content-Type", "application/octet-stream");
-		response.addHeader("Content-Disposition", "attachment; filename={}");
-		int read = 0;
-		byte[] bytes = new byte[4096];
-		OutputStream os = response.getOutputStream();
-		while ((read = is.read(bytes)) != -1) {
-			os.write(bytes, 0, read);
-		}
-		return os;
-	}*/
-	
+	/*
+	 * public OutputStream download(String objectId, HttpServletResponse
+	 * response) throws Exception { GridFS fs = connectDatabase(); GridFSDBFile
+	 * file = fs.find(new ObjectId(objectId)); InputStream is =
+	 * file.getInputStream(); response.addHeader("Content-Type",
+	 * "application/octet-stream"); response.addHeader("Content-Disposition",
+	 * "attachment; filename={}"); int read = 0; byte[] bytes = new byte[4096];
+	 * OutputStream os = response.getOutputStream(); while ((read =
+	 * is.read(bytes)) != -1) { os.write(bytes, 0, read); } return os; }
+	 */
+
 	/**
 	 * 
 	 * Method 2
 	 * 
 	 */
-	
-	public long download(String objectId, HttpServletResponse response) throws Exception {
-		GridFS fs = connectDatabase();
-		GridFSDBFile file = fs.find(new ObjectId(objectId));
-		response.addHeader("Content-Type", "application/octet-stream");
-		response.addHeader("Content-Disposition", "attachment; filename="+file.getFilename());
-		OutputStream os = response.getOutputStream();
-		return file.writeTo(os);
-	}
-	
-	
-	/* POST Methods */ 
 
-	public void add(File file, String folderId) throws Exception {
+	// public long download(String objectId, HttpServletResponse response)
+	// throws Exception {
+	// GridFS fs = connectDatabase();
+	// GridFSDBFile file = fs.find(new ObjectId(objectId));
+	// response.addHeader("Content-Type", "application/octet-stream");
+	// String probando = "probando.txt";
+	// response.addHeader("Content-Disposition",
+	// "attachment; filename="+probando);
+	// OutputStream os = response.getOutputStream();
+	// return file.writeTo(os);
+	// }
+
+	public byte[] download(String folderId, String gridId) throws Exception {
+		GridFS fs = connectDatabase();
+		
+		System.out.println(gridId);
+
+		GridFSDBFile file = fs.findOne(new ObjectId(gridId));
+//		
+		System.out.println(file.getId());
+//
+		byte[] data = new byte[0];
+		try {
+			ByteArrayOutputStream bout = new ByteArrayOutputStream();
+			file.writeTo(bout);
+			data = bout.toByteArray();
+		} catch (Exception e) {
+			// error while reading data
+			e.printStackTrace();
+		}
+		return data;
+		
+
+	}
+
+	/* POST Methods */
+
+	public void add(MultipartFile file, String folderId) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		List<Archive> archives = folder.getArchives();
 		Archive archive = new Archive();
 
 		archive.setCreationMoment(new Date());
-		archive.setSize(file.getTotalSpace());
-		archive.setTitle(file.getName());
-		archive.setUserId(userRepository.findOneByLogin(
-				SecurityUtils.getCurrentLogin()).getId().toString());
-		
-		//archive.setFormat(file.getName().substring(file.getName().lastIndexOf(".")+1));
-		GridFS fs = connectDatabase();
-		
-		// El error almacenar el archivo en la base de datos se produce aqui.
-		GridFSInputFile in = fs.createFile(file);
-		///////////////////////
-		
-		in.save();
+		archive.setSize(file.getSize());
+		archive.setTitle(file.getOriginalFilename());
+		archive.setUserId(userRepository
+				.findOneByLogin(SecurityUtils.getCurrentLogin()).getId()
+				.toString());
+		archive.setFormat(file.getOriginalFilename().substring(
+				file.getName().lastIndexOf(".") + 1));
 
-		archive.setGridId(in.getId().toString());
+		GridFS fs = connectDatabase();
+
+		System.out.println(archive.getSize() + " " + archive.getTitle() + " "
+				+ file.getContentType());
+
+		GridFSInputFile probando = fs.createFile(file.getBytes());
+
+		probando.save();
+
+		System.out.println(probando.getId());
+		System.out.println(probando.getLength() + " " + probando.getFilename()
+				+ " " + probando.getContentType());
+
+		GridFSDBFile sacando = fs.findOne(new BasicDBObject("_id", probando.getId()));
+
+		System.out.println(sacando.toString());
+
+		archive.setGridId(probando.getId().toString());
 		archives.add(archive);
 		folder.setArchives(archives);
 		folderRepository.save(folder);
 	}
-	
-	public void remove(String folderId, String gridId) throws Exception{	
+
+	public void remove(String folderId, String gridId) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		List<Archive> archives = folder.getArchives();
 		GridFS fs = connectDatabase();
 		fs.remove(new ObjectId(gridId));
-		for(Archive a: archives){
-			if(a.getGridId().equals(gridId)){
+		for (Archive a : archives) {
+			if (a.getGridId().equals(gridId)) {
 				archives.remove(a);
 				break;
 			}

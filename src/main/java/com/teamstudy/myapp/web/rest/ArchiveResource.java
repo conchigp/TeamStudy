@@ -13,6 +13,8 @@ import org.apache.tomcat.util.http.fileupload.FileItem;
 import org.apache.tomcat.util.http.fileupload.disk.DiskFileItemFactory;
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 import org.bson.types.ObjectId;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.codahale.metrics.annotation.Timed;
 import com.teamstudy.myapp.domain.Archive;
@@ -82,44 +85,58 @@ public class ArchiveResource {
 		}
 	}
 
-	@RequestMapping(value = "/archive/download/{folderId}", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
-	@Timed
-	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> download(@PathVariable String folderId,
-			@RequestParam("gridId") String gridId, HttpServletResponse response)
-			throws Exception, IOException {
-		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
-		if (folder == null) {
-			return new ResponseEntity<>("Folder not exist", HttpStatus.NOT_FOUND);
-		} else {
-			if (!folderService.existFile(gridId)) {
-				return new ResponseEntity<>("File not exist", HttpStatus.NOT_FOUND);
-			}else{
-				Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
-				User user = userRepository.findOneByLogin(SecurityUtils
-						.getCurrentLogin());
-				if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
-					return new ResponseEntity<>("Can not download a file", HttpStatus.UNAUTHORIZED);
-				} else if (user.isTeacher()
-						&& !group.getTeacherId().equals(user.getId())) {
-					return new ResponseEntity<>("Can not download a file", HttpStatus.UNAUTHORIZED);
-				} else {
-					/*OutputStream os = folderService.download(gridId, response);
-					os.flush();
-					os.close();*/
-					folderService.download(gridId, response);
-					return new ResponseEntity<>("Downloading", HttpStatus.OK);
-				}
-			}
-		}
-	}
+//	@RequestMapping(value = "/archive/download", method = RequestMethod.GET, produces = MediaType.APPLICATION_OCTET_STREAM_VALUE)
+//	@Timed
+//	@RolesAllowed(AuthoritiesConstants.USER)
+//	public HttpEntity<byte[]> download(@RequestParam("folderId") String folderId,
+//			@RequestParam("gridId") String gridId, HttpServletResponse response)
+//			throws Exception, IOException {
+//		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
+//		if (folder == null) {
+//			return new ResponseEntity<byte[]>("Folder not exist", HttpStatus.NOT_FOUND);
+//		} else {
+//			if (!folderService.existFile(gridId)) {
+//				return new ResponseEntity<byte[]>("File not exist", HttpStatus.NOT_FOUND);
+//			}else{
+//				Group group = groupRepository.findOneById(new ObjectId(folder.getGroupId()));
+//				User user = userRepository.findOneByLogin(SecurityUtils
+//						.getCurrentLogin());
+//				if (!user.isTeacher() && !group.getAlums().contains(user.getId())) {
+//					return new ResponseEntity<byte[]>("Can not download a file", HttpStatus.UNAUTHORIZED);
+//				} else if (user.isTeacher()
+//						&& !group.getTeacherId().equals(user.getId())) {
+//					return new ResponseEntity<byte[]>("Can not download a file", HttpStatus.UNAUTHORIZED);
+//				} else {
+//					/*OutputStream os = folderService.download(gridId, response);
+//					os.flush();
+//					os.close();*/
+//					folderService.download(gridId, response);
+//					return new ResponseEntity<byte[]>("Downloading", HttpStatus.OK);
+//				}
+//			}
+//		}
+//	}
+	
+	 @RequestMapping(value = "/archive/download", method = RequestMethod.GET)
+	 @RolesAllowed(AuthoritiesConstants.USER)
+	 @Timed
+	    public HttpEntity<byte[]> download(@RequestParam("folderId") String folderId,
+				@RequestParam("gridId") String gridId, HttpServletResponse response) throws Exception {         
+	        // send it back to the client
+	        HttpHeaders httpHeaders = new HttpHeaders();
+	        httpHeaders.setContentType(MediaType.TEXT_PLAIN);
+	        
+	                
+	        byte[] data = folderService.download(folderId,gridId);
+	        return new ResponseEntity<byte[]>(data, httpHeaders, HttpStatus.OK);
+	    }
 
 	/* POST Methods */
 
 	@RequestMapping(value = "/archive", method = RequestMethod.POST, produces = MediaType.TEXT_PLAIN_VALUE)
 	@Timed
 	@RolesAllowed(AuthoritiesConstants.USER)
-	public ResponseEntity<?> upload(@RequestParam("folderId") String folderId, @RequestParam("file") File file,
+	public ResponseEntity<?> upload(@RequestParam("folderId") String folderId, @RequestParam("file") MultipartFile file,
 			HttpServletRequest request) throws Exception {
 		Folder folder = folderRepository.findOneById(new ObjectId(folderId));
 		if (file == null) {

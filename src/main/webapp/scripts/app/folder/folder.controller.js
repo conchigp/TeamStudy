@@ -2,7 +2,7 @@
 
 angular.module('teamstudyApp')
 	.controller('FolderController', function ($scope, $state, $stateParams, Folder, FolderList, Archive, ArchiveList, ParseLinks, 
-			Principal) {
+			fileUpload,Download,Principal) {
 		
 		Principal.identity().then(function(account) {
     		$scope.account = account;
@@ -33,7 +33,7 @@ angular.module('teamstudyApp')
 					groupId : localStorage.getItem('groupId')
 				};
 			Folder.update($scope.folderAux, function() {
-				//$scope.clear();
+				// $scope.clear();
 				$state.reload();
 			});
 			$('#saveFolderModal').modal('hide');
@@ -67,12 +67,26 @@ angular.module('teamstudyApp')
 		$scope.upload = function(folderId, file) {
 			console.log(folderId);
 			console.log(file);
-			Archive.update({folderId : folderId}, {file : file});
+// Archive.update({folderId : folderId}, {file : file});
+//		     console.log('file is ' + JSON.stringify(file));
+		     var uploadUrl = "api/archive";
+		     fileUpload.uploadFileToUrl(file, uploadUrl,folderId);
 			$state.reload();
 		};
 		
-		$scope.deleteArchive = function (folderId) {
-    		Folder.delete({gridId: gridId});
+		$scope.uploadFile = function(){
+	        var file = $scope.myFile;
+	        console.log('file is ' + JSON.stringify(file));
+	        var uploadUrl = "api/archive";
+	        fileUpload.uploadFileToUrl(file, uploadUrl);
+	    };
+	    
+	    $scope.download = function(folderId,gridId){
+	    	Download.get({folderId : folderId},{gridId: gridId});
+	    };
+		
+		$scope.deleteArchive = function (folderId,gridId) {
+    		Archive.delete({folderId : folderId},{gridId: gridId});
     		$state.reload();
     	};
     	
@@ -90,5 +104,23 @@ angular.module('teamstudyApp')
 			});
 		}
 	};
-}])
+}]);
+
+angular.module('teamstudyApp').service('fileUpload', ['$http', function ($http) {
+    this.uploadFileToUrl = function(file, uploadUrl,folderId){
+        var fd = new FormData();
+        fd.append('file', file);
+        fd.append('folderId',folderId);
+        $http.post(uploadUrl, fd, {
+            transformRequest: angular.identity,
+            headers: {'Content-Type': undefined}
+        })
+        .success(function(){
+        })
+        .error(function(){
+        });
+    }
+}]);
+
+
 

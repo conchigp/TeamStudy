@@ -90,13 +90,14 @@
 	}
 
 	function Download($resource) {
-		return $resource('api/archive/download/:folderId', {}, {
+		return $resource('api/archive/download', {}, {
 			'get' : {
 				method : 'GET',
 				params : {
+					folderId: '@folderId',
 					gridId : '@gridId'
 				},
-				isArray : true,
+				isArray : false,
 				interceptor : {
 					response : function(response) {
 						// expose response
