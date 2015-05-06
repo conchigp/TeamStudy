@@ -3,30 +3,33 @@
 		<div class="col-md-12">
 			<div class="box">
 				<div class="box-header">
-<!-- 					<div class="box-name" ng-repeat="group in groups"> -->
-<!-- 						<h3><span>Lista de alumnos del {{group.name}}</span></h3> -->
-<!-- 					</div> -->
+					<!-- 					<div class="box-name" ng-repeat="group in groups"> -->
+					<!-- 						<h3><span>Lista de alumnos del {{group.name}}</span></h3> -->
+					<!-- 					</div> -->
 					<div class="box-name">
-						<h3 class="tablas"><span>Lista de alumnos del grupo</span></h3>
+						<h3 class="tablas">
+							<span>Lista de alumnos del grupo</span>
+						</h3>
 					</div>
-					
+
 					<div class="box-icons">
 						<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
 						</a> <a class="expand-link"> <i class="fa fa-expand"></i>
 						</a> <a class="close-link"> <i class="fa fa-times"></i>
 						</a>
 					</div>
-					
+
 					<div class="no-move"></div>
 				</div>
 				<div class="box-content no-padding">
-					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>  <input ng-model="query">
+					<span class="glyphicon glyphicon-search azul" aria-hidden="true"></span>
+					<input ng-model="query">
 					<table
 						class="table table-bordered table-striped table-hover table-heading table-datatable "
 						id="datatable-1">
 						<thead>
 							<tr>
-								<th >Nombre</th>
+								<th>Nombre</th>
 								<th>Apellidos</th>
 								<th>Email</th>
 								<th>Borrar</th>
@@ -63,7 +66,9 @@
 			<div class="box">
 				<div class="box-header">
 					<div class="box-name">
-						<h3 class="tablas"><span>Lista de alumnos del sistema</span></h3>
+						<h3 class="tablas">
+							<span>Lista de alumnos del sistema</span>
+						</h3>
 					</div>
 					<div class="box-icons">
 						<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
@@ -74,7 +79,8 @@
 					<div class="no-move"></div>
 				</div>
 				<div class="box-content no-padding">
-				<span class="glyphicon glyphicon-search" aria-hidden="true"></span> <input ng-model="sea">
+					<span class="glyphicon glyphicon-search azul" aria-hidden="true"></span>
+					<input ng-model="sea">
 					<table
 						class="table table-bordered table-striped table-hover table-heading table-datatable"
 						id="datatable-1">
@@ -88,7 +94,8 @@
 						</thead>
 						<tbody>
 
-							<tr ng-repeat="student in studentsAll | AlumsNotAsign : students | filter:sea">
+							<tr
+								ng-repeat="student in studentsAll | AlumsNotAsign : students | filter:sea">
 
 								<td>{{student.firstName}}</td>
 								<td>{{student.lastName}}</td>
@@ -112,97 +119,120 @@
 			</div>
 		</div>
 
-		<div ng-if="teacherGroup!=null" id="teacher" class="col-md-12" style="margin-top: 20px; position: static;">
+		<div ng-if="teacherGroup!=null" id="teacher" class="col-md-8"
+			style="margin-top: 20px; position: static;">
 
-			<h2 class="tablas2">Profesor del grupo seleccionado</h2><br>
-			
-			<div >
-				
-				<p>Nombre: {{teacherGroup.firstName}}</p>
-				<p>Apellidos: {{teacherGroup.lastName}}</p>
-				<p>Email: {{teacherGroup.email}}</p>
-				<b class="tablas3">Si desea eliminar este profesor del grupo, haga clic </b><a ng-click="deleteTeacher(teacher.id)">aqu&iacute</a>
-			</div>
+			<h2 class="tablas2">Profesor del grupo seleccionado</h2>
+			<br>
 
+			<div>
 
-		</div>
-
-		
-		
-		<div ng-if="teacherGroup==null" class="col-md-12" style="margin-top: 20px;">
-			<div class="box">
-				<div class="box-header">
-					<div class="box-name">
-						<h3><span>Lista de profesores del sistema</span></h3>
-					</div>
-					<div class="box-icons">
-						<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
-						</a> <a class="expand-link"> <i class="fa fa-expand"></i>
-						</a> <a class="close-link"> <i class="fa fa-times"></i>
-						</a>
-					</div>
-					<div class="no-move"></div>
+				<div class="panel panel-default">
+					<div class="panel-body negrita">  Nombre</div>
+					<div class="panel-footer">{{teacherGroup.firstName}}</div>
 				</div>
-				<div class="box-content no-padding">
-				<span class="glyphicon glyphicon-search" aria-hidden="true"></span> <input ng-model="tea">
-					<table
-						class="table table-bordered table-striped table-hover table-heading table-datatable"
-						id="datatable-1">
-						<thead>
-							<tr>
-								<th>Nombre</th>
-								<th>Apellidos</th>
-								<th>Email</th>
-								<th>A&ntildeadir</th>
-							</tr>
-						</thead>
-						<tbody>
-
-							<tr ng-repeat="teacher in teachersAll | filter:tea">
-
-								<td>{{teacher.firstName}}</td>
-								<td>{{teacher.lastName}}</td>
-								<td>{{teacher.email}}</td>
-								<td ng-if="teacherGroup==null"><a type="submit" ng-click="addTeacher(teacher.id)">
-										<span class="glyphicon glyphicon-plus"></span>&nbsp;
-								</a></td>
-								<td ng-if="teacherGroup!=null" class="alert alert-danger">Ya existe un profesor asignado</td>
-							</tr>
-
-						</tbody>
-						<tfoot>
-							<tr>
-								<th>Nombre</th>
-								<th>Apellidos</th>
-								<th>Email</th>
-								<th>A&ntildeadir</th>
-							</tr>
-						</tfoot>
-					</table>
 				
-					<!-- 										<nav> -->
-					<!-- 											<ul class="pagination"> -->
-					<!-- 												<li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li> -->
-					<!-- 												<li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li> -->
-					<!-- 												<li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page -->
-					<!-- 														- 2}}</a></li> -->
-					<!-- 												<li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page -->
-					<!-- 														- 1}}</a></li> -->
-					<!-- 												<li class="active"><a>{{page}}</a></li> -->
-					<!-- 												<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page -->
-					<!-- 														+ 1}}</a></li> -->
-					<!-- 												<li ng-show="page < links['last'] - 1" -->
-					<!-- 													ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li> -->
-					<!-- 												<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li> -->
-					<!-- 												<li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li> -->
-					<!-- 											</ul> -->
-					<!-- 										</nav> -->
+				<div class="panel panel-default">
+					<div class="panel-body  negrita" >    Apellidos</div>
+					<div class="panel-footer">{{teacherGroup.lastName}}</div>
+				</div>
+				
+				<div class="panel panel-default">
+					<div class="panel-body  negrita" >    Email </div>
+					<div class="panel-footer">{{teacherGroup.email}}</div>
 				</div>
 			</div>
+
+			<b class="tablas3">Si desea eliminar este profesor del grupo,
+				haga clic <a ng-click="deleteTeacher(teacher.id)">aqu&iacute</a>
+			</b>
 		</div>
-
-
 
 
 	</div>
+
+
+
+	<div ng-if="teacherGroup==null" class="col-md-12"
+		style="margin-top: 20px;">
+		<div class="box">
+			<div class="box-header">
+				<div class="box-name">
+					<h3>
+						<span>Lista de profesores del sistema</span>
+					</h3>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i>
+					</a> <a class="expand-link"> <i class="fa fa-expand"></i>
+					</a> <a class="close-link"> <i class="fa fa-times"></i>
+					</a>
+				</div>
+				<div class="no-move"></div>
+			</div>
+			<div class="box-content no-padding">
+				<span class="glyphicon glyphicon-search azul" aria-hidden="true"></span>
+				<input ng-model="tea">
+				<table
+					class="table table-bordered table-striped table-hover table-heading table-datatable"
+					id="datatable-1">
+					<thead>
+						<tr>
+							<th>Nombre</th>
+							<th>Apellidos</th>
+							<th>Email</th>
+							<th>A&ntildeadir</th>
+						</tr>
+					</thead>
+					<tbody>
+
+						<tr ng-repeat="teacher in teachersAll | filter:tea">
+
+							<td>{{teacher.firstName}}</td>
+							<td>{{teacher.lastName}}</td>
+							<td>{{teacher.email}}</td>
+							<td ng-if="teacherGroup==null"><a type="submit"
+								ng-click="addTeacher(teacher.id)"> <span
+									class="glyphicon glyphicon-plus"></span>&nbsp;
+							</a></td>
+							<td ng-if="teacherGroup!=null" class="alert alert-danger">Ya
+								existe un profesor asignado</td>
+						</tr>
+
+					</tbody>
+					<tfoot>
+						<tr>
+							<th>Nombre</th>
+							<th>Apellidos</th>
+							<th>Email</th>
+							<th>A&ntildeadir</th>
+						</tr>
+					</tfoot>
+				</table>
+
+				<!-- 										<nav> -->
+				<!-- 											<ul class="pagination"> -->
+				<!-- 												<li ng-show="links['first']" ng-click="loadPage(links['first'])"><a>&lt;&lt;</a></li> -->
+				<!-- 												<li ng-show="links['prev']" ng-click="loadPage(links['prev'])"><a>&lt;</a></li> -->
+				<!-- 												<li ng-show="page > 2" ng-click="loadPage(page - 2)"><a>{{page -->
+				<!-- 														- 2}}</a></li> -->
+				<!-- 												<li ng-show="page > 1" ng-click="loadPage(page - 1)"><a>{{page -->
+				<!-- 														- 1}}</a></li> -->
+				<!-- 												<li class="active"><a>{{page}}</a></li> -->
+				<!-- 												<li ng-show="page < links['last']" ng-click="loadPage(page + 1)"><a>{{page -->
+				<!-- 														+ 1}}</a></li> -->
+				<!-- 												<li ng-show="page < links['last'] - 1" -->
+				<!-- 													ng-click="loadPage(page + 2)"><a>{{page + 2}}</a></li> -->
+				<!-- 												<li ng-show="links['next']" ng-click="loadPage(links['next'])"><a>&gt;</a></li> -->
+				<!-- 												<li ng-show="links['last']" ng-click="loadPage(links['last'])"><a>&gt;&gt;</a></li> -->
+				<!-- 											</ul> -->
+				<!-- 										</nav> -->
+			</div>
+		</div>
+	</div>
+
+
+
+
+</div>
 </div>
