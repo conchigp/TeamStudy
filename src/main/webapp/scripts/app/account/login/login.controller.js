@@ -8,6 +8,9 @@ angular.module('teamstudyApp')
         $scope.rememberMe = true;
         $timeout(function (){angular.element('[ng-model="username"]').focus();});
         $scope.login = function () {
+        	$scope.account = "Hola";
+//        	console.log('EOOOO');
+//        	alert("Hola");
             Auth.login({
                 username: $scope.username,
                 password: $scope.password,
@@ -15,7 +18,7 @@ angular.module('teamstudyApp')
             }).then(function () {
                 $scope.authenticationError = false;
                 if ($rootScope.previousStateName === 'register') {
-                    $state.go('home');
+                	$state.go('home');
                 } else {
                     $rootScope.back();
                 }
