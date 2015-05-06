@@ -382,6 +382,10 @@ a.show-sidebar:hover {
   z-index: 1;
   display: block;
 }
+@media only screen and (max-device-width: 480px) {
+ .mobile_only {
+     display:none}
+ }
 .box-content {
   position: relative;
   -webkit-border-radius: 0 0 3px 3px;
