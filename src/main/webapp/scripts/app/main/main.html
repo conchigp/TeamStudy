@@ -4,27 +4,27 @@
 		<!--Start Content-->
 		<div id="ct" class="">
 
-			<div class="btn-group btn-group-justified" role="group"
-				ng-show="isInRole('ROLE_USER')">
-				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="wiki({ groupId: groupId })" type="button"
-						class="btn btn-default">Wiki</button>
-				</div>
-				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="folder({ groupId: groupId })" type="button"
-						class="btn btn-default">Repositorio</button>
-				</div>
-				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="thread({ groupId: groupId })" type="button"
-						class="btn btn-default">Foro</button>
-				</div>
-				<div ui-sref-active="active" class="btn-group" role="group" ng-if="account.isTeacher == 'true'">
-					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button>
-				</div>
-				<!-- 				<div class="btn-group" role="group">
-					<button type="button" class="btn btn-default">Forum</button>
-				</div> -->
-			</div>
+<!-- 			<div class="btn-group btn-group-justified" role="group" -->
+<!-- 				ng-show="isInRole('ROLE_USER') && groupId != null"> -->
+<!-- 				<div ui-sref-active="active" class="btn-group" role="group"> -->
+<!-- 					<button ui-sref="wiki({ groupId: groupId })" type="button" -->
+<!-- 						class="btn btn-default">Wiki</button> -->
+<!-- 				</div> -->
+<!-- 				<div ui-sref-active="active" class="btn-group" role="group"> -->
+<!-- 					<button ui-sref="folder({ groupId: groupId })" type="button" -->
+<!-- 						class="btn btn-default">Repositorio</button> -->
+<!-- 				</div> -->
+<!-- 				<div ui-sref-active="active" class="btn-group" role="group"> -->
+<!-- 					<button ui-sref="thread({ groupId: groupId })" type="button" -->
+<!-- 						class="btn btn-default">Foro</button> -->
+<!-- 				</div> -->
+<!-- 				<div ui-sref-active="active" class="btn-group" role="group" ng-if="account.isTeacher == 'true'"> -->
+<!-- 					<button ui-sref="dashboard" type="button" class="btn btn-default">Dashboard</button> -->
+<!-- 				</div> -->
+<!-- 								<div class="btn-group" role="group">
+<!-- 					<button type="button" class="btn btn-default">Forum</button> -->
+<!-- 				</div> -->
+<!-- 			</div> -->
 
 			<div class="" ng-switch="isAuthenticated()">
 				<div class="" ng-switch-when="false">

@@ -22,11 +22,14 @@ angular.module('teamstudyApp').controller(
 				
 				var newsId = $stateParams.newsId;
 	    		$scope.newsId = newsId;
-				
+	    		
 				News.get({
 					userId : $scope.account.id
 				}, function(result){
 					$scope.news = result.data;
+//					$scope.news.forEach(function(item){
+//						item.dateFormat = new Date(item.creationMoment);
+//					});
 				});
 			});		
 			
@@ -35,9 +38,8 @@ angular.module('teamstudyApp').controller(
 						title : $scope.news.title,
 						description : $scope.news.description
 					};
-	    	   	News.create({groupId : localStorage.getItem('groupId')},
+	    	   	News.create({groupId : groupId},
 	    	   			$scope.newsAux, function() {
-					// $scope.clear();
 					$state.reload();
 				});
 			};

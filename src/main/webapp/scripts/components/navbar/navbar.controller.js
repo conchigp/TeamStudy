@@ -12,6 +12,7 @@ angular.module('teamstudyApp')
         $scope.$state = $state;
 
         $scope.logout = function () {
+        	localStorage.clear();
             Auth.logout();
             $state.go('home');
         };
