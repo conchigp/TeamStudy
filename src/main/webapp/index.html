@@ -29,7 +29,7 @@
 		<div id="logo" class="col-xs-10 col-sm-4 col-md-2">
 				<a href="#" class="show-sidebar"><img
 					src="../../../assets/images/logo.png"
-					style="width: 40px; height: 40px;"/ > TeamStudy</a>
+					style="width: 40px; height: 40px;" > Team Study </a>
 		</div>
 
 		<div ui-view="navbar" ng-cloak="" class="container-fluid expanded-panel col-xs-1"></div>
@@ -38,7 +38,7 @@
 <!--Start Container-->
 	<div id="main" class="container-fluid">
 	
-		<div class="row" ng-controller="indexController">
+		<div class="row" >
 		
 			<div id="sidebar-left" ui-view="sidebar-left" class="col-xs-12 col-sm-2 col-md-2">
 			</div>
@@ -50,8 +50,6 @@
 			<div id="content" ui-view="content" 
 			ng-class=" {'col-xs-12 col-sm-8 col-md-8' : account ,
 			 'col-xs-12 col-sm-12 col-md-12' : account == undefined}">
-				
-			</div>
 			<!--End Content-->
 
 		</div>

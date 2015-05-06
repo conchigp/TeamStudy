@@ -14,7 +14,8 @@ angular.module('teamstudyApp')
                     'content@': {
                         templateUrl: 'scripts/app/account/register/register.html',
                         controller: 'RegisterController'
-                    }
+                   
+                },
                 },
                 resolve: {
                     translatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate, $translatePartialLoader) {

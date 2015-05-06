@@ -6,6 +6,7 @@ angular.module('teamstudyApp').controller('MainController',
 			Principal.identity().then(function(account) {
 				$scope.account = account;
 				$scope.isAuthenticated = Principal.isAuthenticated;
+				
 				$scope.isInRole = Principal.isInRole;
 				/*carrusel */
 			                
