@@ -81,26 +81,30 @@ angular.module('teamstudyApp')
 	        fileUpload.uploadFileToUrl(file, uploadUrl);
 	    };
 	    
-	    $scope.download = function(folderId,gridId){
+	    $scope.download = function(folderId,archive){
 //	    	Download.get({folderId : folderId},{gridId: gridId},function(result){
 //	    		var blob = new Blob([result.data], {type: "text/plain;charset=utf-8"});
 //	    		saveAs(blob,"probando.txt");
 //	    		
 //	    	});
+	    	var gridId = archive.gridId;
 	    	 $http({
 	    		 url: "api/archive/download",
 	    		 params: {
 	    			 folderId: folderId,
 	    			 gridId: gridId
 	    		 },
-	    		 method: "GET",
+	    		 method: "GET"
 	    	 }, {responseType: 'arraybuffer'})
 	    	 
-	         .success(function(data){
-	        	 var blob = new Blob([data], {
-	        	        type: "application/pdf"
+	         .success(function(response){
+	        	 var blob = new Blob([response], {
+	        	        type: archive.contentType
 	        	      });
-	        	 saveAs(blob, 'joderya.pdf');
+	        	 
+	        	 
+	        	 
+//	        	 saveAs(blob, archive.title);
 	         })
 	         .error(function(){
 	         });

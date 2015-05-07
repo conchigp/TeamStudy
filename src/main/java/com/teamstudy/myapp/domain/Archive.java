@@ -10,6 +10,10 @@ public class Archive {
 
 	@NotNull
 	private String title;
+	
+	@NotNull
+	private String contentType;
+
 
 	@Past
 	private Date creationMoment;
@@ -71,6 +75,14 @@ public class Archive {
 
 	public void setGridId(String gridId) {
 		this.gridId = gridId;
+	}
+	
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
 	}
 
 	@Override

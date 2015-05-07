@@ -151,21 +151,23 @@ public class ArchiveResource {
 		      
 		        
 		     // set content attributes for the response
-		        response.setContentType("application/pdf");
+		        response.setContentType(data.getContentType());
 		        response.setContentLength((int) data.getLength());
 		        
 		        // set headers for the response
         String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=probandopdf");
+        String headerValue = String.format("attachment; filename="+data.getFilename());
         response.setHeader(headerKey, headerValue);
  
         // get output stream of the response
         OutputStream outStream = response.getOutputStream();
         
-        byte[] buffer = new byte[4096];
+        byte[] buffer = new byte[0];
         int bytesRead = -1;
  
         data.writeTo(outStream);
+        
+        outStream.close();
         
  
         return new ResponseEntity<byte[]>(HttpStatus.OK);

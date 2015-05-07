@@ -214,6 +214,7 @@ public class FolderService {
 				.toString());
 		archive.setFormat(file.getOriginalFilename().substring(
 				file.getName().lastIndexOf(".") + 1));
+		archive.setContentType(file.getContentType());
 
 		GridFS fs = connectDatabase();
 
