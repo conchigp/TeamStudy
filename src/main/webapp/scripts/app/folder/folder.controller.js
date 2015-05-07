@@ -101,15 +101,35 @@ angular.module('teamstudyApp')
 	        	 var blob = new Blob([response], {
 	        	        type: archive.contentType
 	        	      });
-	        	 
-	        	 
-	        	 
-//	        	 saveAs(blob, archive.title);
+//	        	 
+//	        	 
+//	        	 
+////	        	 saveAs(blob, archive.title);
 	         })
 	         .error(function(){
 	         });
 //	    	var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
 //	    	saveAs(blob, "hello world.txt");
+	    	
+	    	
+//	    	    $.fileDownload("api/archive/download", 
+//	    	    {
+//	    	        httpMethod : "GET",
+//	    	        data : {
+//	    	            folderId : folderId,
+//	    	            gridId : gridId
+//	    	        }
+//	    	    }).done(function(e, response)
+//	    	    {
+//	    	    	console.log("success");
+//	    	     // success
+//	    	    }).fail(function(e, response)
+//	    	    {
+//	    	     // failure
+//	    	    	console.log("fail");
+//	    	    });
+	    	
+	    	
 	    };
 		
 		$scope.deleteArchive = function (folderId,gridId) {

@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -149,10 +150,16 @@ public class ArchiveResource {
 		                
 		        GridFSDBFile data = folderService.download(folderId,gridId);
 		      
+		        Cookie fileDownload = new Cookie("fileDownload", "true");
+		        fileDownload.setPath("/");
+		        
+		        response.addCookie(fileDownload);
 		        
 		     // set content attributes for the response
 		        response.setContentType(data.getContentType());
 		        response.setContentLength((int) data.getLength());
+		        
+		       
 		        
 		        // set headers for the response
         String headerKey = "Content-Disposition";
