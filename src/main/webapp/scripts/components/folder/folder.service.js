@@ -98,12 +98,8 @@
 					gridId : '@gridId'
 				},
 				isArray : false,
-				interceptor : {
-					response : function(response) {
-						// expose response
-						return response;
-					}
-				}
+				responseType: 'arraybuffer'
+				
 			}
 		});
 	}

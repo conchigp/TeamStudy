@@ -1,7 +1,10 @@
 package com.teamstudy.myapp.web.rest;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import javax.annotation.security.RolesAllowed;
@@ -26,6 +29,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.codahale.metrics.annotation.Timed;
+import com.mongodb.gridfs.GridFSDBFile;
 import com.teamstudy.myapp.domain.Archive;
 import com.teamstudy.myapp.domain.Folder;
 import com.teamstudy.myapp.domain.Group;
@@ -117,19 +121,58 @@ public class ArchiveResource {
 //		}
 //	}
 	
-	 @RequestMapping(value = "/archive/download", method = RequestMethod.GET)
-	 @RolesAllowed(AuthoritiesConstants.USER)
-	 @Timed
-	    public HttpEntity<byte[]> download(@RequestParam("folderId") String folderId,
-				@RequestParam("gridId") String gridId, HttpServletResponse response) throws Exception {         
-	        // send it back to the client
-	        HttpHeaders httpHeaders = new HttpHeaders();
-	        httpHeaders.setContentType(MediaType.TEXT_PLAIN);
-	        
-	                
-	        byte[] data = folderService.download(folderId,gridId);
-	        return new ResponseEntity<byte[]>(data, httpHeaders, HttpStatus.OK);
-	    }
+//	 @RequestMapping(value = "/archive/download", method = RequestMethod.GET)
+//	 @RolesAllowed(AuthoritiesConstants.USER)
+//	 @Timed
+//	    public HttpEntity<byte[]> download(@RequestParam("folderId") String folderId,
+//				@RequestParam("gridId") String gridId, HttpServletResponse response) throws Exception {         
+//	        // send it back to the client
+//	        HttpHeaders httpHeaders = new HttpHeaders();
+//	        httpHeaders.add("Content-Type","application/pdf");
+//	        httpHeaders.add("Content-Disposition", "attachment; filename=probando.txt");
+//	        
+//	                
+//	        byte[] data = folderService.download(folderId,gridId);
+//	        return new ResponseEntity<byte[]>(data, httpHeaders, HttpStatus.OK);
+//	    }
+	    
+		 @RequestMapping(value = "/archive/download", method = RequestMethod.GET)
+		 @RolesAllowed(AuthoritiesConstants.USER)
+		 @Timed
+		    public HttpEntity<byte[]> download(@RequestParam("folderId") String folderId,
+					@RequestParam("gridId") String gridId,HttpServletRequest request, HttpServletResponse response) throws Exception {         
+		        // send it back to the client
+//		        HttpHeaders httpHeaders = new HttpHeaders();
+//		        httpHeaders.add("Content-Type","application/pdf");
+//		        httpHeaders.add("Content-Disposition", "attachment; filename=probando.txt");
+		        
+		                
+		        GridFSDBFile data = folderService.download(folderId,gridId);
+		      
+		        
+		     // set content attributes for the response
+		        response.setContentType("application/pdf");
+		        response.setContentLength((int) data.getLength());
+		        
+		        // set headers for the response
+        String headerKey = "Content-Disposition";
+        String headerValue = String.format("attachment; filename=probandopdf");
+        response.setHeader(headerKey, headerValue);
+ 
+        // get output stream of the response
+        OutputStream outStream = response.getOutputStream();
+        
+        byte[] buffer = new byte[4096];
+        int bytesRead = -1;
+ 
+        data.writeTo(outStream);
+        
+ 
+        return new ResponseEntity<byte[]>(HttpStatus.OK);
+       
+		        
+		        
+		    }
 
 	/* POST Methods */
 
