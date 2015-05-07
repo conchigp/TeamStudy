@@ -4,22 +4,32 @@
         db.T_GROUP.insert(
         {
                 "_id" : new ObjectId("551523074df1e47ccf055634"),
-                "name" : "grupo0",
-                "description" : "Descripción del grupo-0",
+                "name" : "Matemáticas",
+                "description" : "Grupo de matemáticas",
                 "creationMoment": new Date(),
-                "teacherId": "551522ff4df1e47ccf05562b",
-                "alums": ["551523004df1e47ccf05562c","551523014df1e47ccf05562d"],
-                "wiki": {"text": "Está viendo la wiki del grupo-0"}
+                "teacherId": "554b99e9e4b08b11c7c3c7ec",
+                "alums": ["554b9cabe4b08b11c7c3c7ef","554b9d65e4b08b11c7c3c7f0"],
+                "wiki": {"text": "Aquí se expondrá el material de la asignatura"}
             });
             db.T_GROUP.insert(
             {
-                  "_id" : new ObjectId("551523084df1e47ccf055635"),
-                  "name" : "grupo1",
-                  "description" : "Descripción del grupo-1",
+                  "_id" : new ObjectId("554ba295e4b08b11c7c3c7fe"),
+                  "name" : "Física",
+                  "description" : "Grupo de física",
                   "creationMoment": new Date(),
-                  "teacherId": "551522fe4df1e47ccf05562a",
-                  "alums": ["551522f94df1e47ccf055629"],
-                  "wiki": {"text": "Está viendo la wiki del grupo-1"}
+                  "teacherId": "554b9ae9e4b08b11c7c3c7ed",
+                  "alums": ["554b9e30e4b08b11c7c3c7f1","554b9efde4b08b11c7c3c7f2"],
+                  "wiki": {"text": "Fundamentos físicos de la informática"}
+                });
+                db.T_GROUP.insert(
+            {
+                  "_id" : new ObjectId("554ba370e4b08b11c7c3c7ff"),
+                  "name" : "Ingles",
+                  "description" : "Grupo de ingles",
+                  "creationMoment": new Date(),
+                  "teacherId": "554b9bb7e4b08b11c7c3c7ee",
+                  "alums": ["554ba07ae4b08b11c7c3c7fc","554ba116e4b08b11c7c3c7fd"],
+                  "wiki": {"text": "Hello class! Here is the results:"}
                 });
 
         </script>
