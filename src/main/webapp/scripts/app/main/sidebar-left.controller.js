@@ -82,15 +82,9 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 		        };
 		        
 		        $scope.confirmDelete = function (id) {
-		        	GroupCRUDAdmin.delete({groupId: id},
-		                function () {
-		                   
-		                });
-		        		$scope.reset();
+		        	GroupCRUDAdmin.delete({groupId: id});
+		        		$window.location.reload();
 		        		$('#deleteGroupConfirmation').modal('hide');
-	                    $scope.clear();
-	                   
-	                   
 		        };
 				
 				$scope.local = function(groupId){

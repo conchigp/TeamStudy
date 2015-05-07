@@ -83,8 +83,9 @@ angular.module('teamstudyApp')
 	    	};
 	    	
 	    	$scope.deleteReply = function (replyId) {
-	    		Reply.delete({replyId: replyId});
-	    		$state.reload();
+	    		Reply.delete({replyId: replyId},function(){
+	    			$state.reload();
+	    		});
 	    	};
 	
 			$scope.clear = function() {

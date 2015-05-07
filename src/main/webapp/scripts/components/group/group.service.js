@@ -60,6 +60,12 @@
 			},
 			'create' : {
 				method : 'POST'
+			},
+			'delete' : {
+				method : 'DELETE',
+				params : {
+					groupId : '@groupId'
+				}
 			}
 
 		});

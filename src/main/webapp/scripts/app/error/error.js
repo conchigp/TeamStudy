@@ -9,7 +9,7 @@ angular.module('teamstudyApp')
                 url: '/',
                 data: {
                     roles: [],
-                    pageTitle: 'errors.title'
+                    pageTitle: 'teamStudy'
                 },
                 views: {
                 	'content@' : {
@@ -27,7 +27,7 @@ angular.module('teamstudyApp')
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-                        $translatePartialLoader.addPart('error');
+                        $translatePartialLoader.addPart('wiki');
                         return $translate.refresh();
                     }]
                 }
@@ -54,7 +54,7 @@ angular.module('teamstudyApp')
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
-                        $translatePartialLoader.addPart('error');
+                        $translatePartialLoader.addPart('wiki');
                         return $translate.refresh();
                     }]
                 }
