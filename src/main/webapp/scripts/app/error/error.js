@@ -1,19 +1,29 @@
 'use strict';
 
+//Archivo retocado por DIEGO para que mande al home en el momento que se pulsa atrás o se recarga.
 angular.module('teamstudyApp')
     .config(function ($stateProvider) {
         $stateProvider
             .state('error', {
                 parent: 'site',
-                url: '/error',
+                url: '/',
                 data: {
                     roles: [],
                     pageTitle: 'errors.title'
                 },
                 views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/error/error.html'
-                    }
+                	'content@' : {
+						templateUrl : 'scripts/app/main/main.html',
+						controller : 'MainController'
+					},
+					'sidebar-left@' : {
+						templateUrl : 'scripts/app/main/sidebar-left.html',
+						controller : 'SidebarleftController'
+					},
+					'sidebar-right@' : {
+						templateUrl : 'scripts/app/main/sidebar-right.html',
+						controller : 'SidebarrightController'
+					}
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
@@ -24,14 +34,23 @@ angular.module('teamstudyApp')
             })
             .state('accessdenied', {
                 parent: 'site',
-                url: '/accessdenied',
+                url: '/',
                 data: {
                     roles: []
                 },
                 views: {
-                    'content@': {
-                        templateUrl: 'scripts/app/error/accessdenied.html'
-                    }
+                	'content@' : {
+						templateUrl : 'scripts/app/main/main.html',
+						controller : 'MainController'
+					},
+					'sidebar-left@' : {
+						templateUrl : 'scripts/app/main/sidebar-left.html',
+						controller : 'SidebarleftController'
+					},
+					'sidebar-right@' : {
+						templateUrl : 'scripts/app/main/sidebar-right.html',
+						controller : 'SidebarrightController'
+					}
                 },
                 resolve: {
                     mainTranslatePartialLoader: ['$translate', '$translatePartialLoader', function ($translate,$translatePartialLoader) {
