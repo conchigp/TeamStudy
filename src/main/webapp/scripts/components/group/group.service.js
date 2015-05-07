@@ -57,6 +57,9 @@
 			},
 			'update' : {
 				method : 'PUT'
+			},
+			'create' : {
+				method : 'POST'
 			}
 
 		});

@@ -3,7 +3,8 @@
 angular.module('teamstudyApp').controller('SidebarleftController',
 		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal,$q) {
 
-	
+			var groupId = localStorage.getItem('groupId');
+			$scope.groupId = groupId;
 	
 			Principal.identity().then(function(account) {
 				$scope.groups = [];
@@ -38,14 +39,28 @@ angular.module('teamstudyApp').controller('SidebarleftController',
             $scope.groups = [];
             $scope.loadAllAdmin();
         };
+//				MODELO ANTIGUO QUE NO RECARGA y DENTRO LLAMABA AL UPDATE
 				$scope.create = function() {
 					GroupCRUDAdmin.update($scope.group);
 					$scope.reset();
 					$('#saveGroupModal').modal('hide');
 					$scope.clear();
-					
-// $state.reload();
 				};
+				
+//				MODELO NUEVO QUE CREA Y RECARGA AL HACERLO PERO SE CARGA EL UPDATE
+//				$scope.create = function() {
+//		    	   	$scope.groupAux = {
+//							name : $scope.group.name,
+//							description : $scope.group.description
+//						};
+//		    	   	GroupCRUDAdmin.create($scope.groupAux, function() {
+//						$('#saveGroupModal').modal('hide');
+//						console.log('ABCDE');
+//						$scope.reset();
+//						$scope.clear();
+//		    	   		$state.reload();
+//					});
+//				};
 
 				$scope.update = function(id) {
 					GroupCRUDAdmin.get({groupId : id}, function(result) {
