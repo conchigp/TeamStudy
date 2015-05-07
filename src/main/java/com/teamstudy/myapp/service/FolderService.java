@@ -149,7 +149,30 @@ public class FolderService {
 	// return file.writeTo(os);
 	// }
 
-	public byte[] download(String folderId, String gridId) throws Exception {
+//	public byte[] download(String folderId, String gridId) throws Exception {
+//		GridFS fs = connectDatabase();
+//		
+//		System.out.println(gridId);
+//
+//		GridFSDBFile file = fs.findOne(new ObjectId(gridId));
+////		
+//		System.out.println(file.getId());
+////
+//		byte[] data = new byte[0];
+//		try {
+//			ByteArrayOutputStream bout = new ByteArrayOutputStream();
+//			file.writeTo(bout);
+//			data = bout.toByteArray();
+//		} catch (Exception e) {
+//			// error while reading data
+//			e.printStackTrace();
+//		}
+//		return data;
+//		
+//
+//	}
+	
+	public GridFSDBFile download(String folderId, String gridId) throws Exception {
 		GridFS fs = connectDatabase();
 		
 		System.out.println(gridId);
@@ -157,17 +180,21 @@ public class FolderService {
 		GridFSDBFile file = fs.findOne(new ObjectId(gridId));
 //		
 		System.out.println(file.getId());
+		
+
 //
-		byte[] data = new byte[0];
-		try {
-			ByteArrayOutputStream bout = new ByteArrayOutputStream();
-			file.writeTo(bout);
-			data = bout.toByteArray();
-		} catch (Exception e) {
-			// error while reading data
-			e.printStackTrace();
-		}
-		return data;
+//		byte[] data = new byte[0];
+//		try {
+//			ByteArrayOutputStream bout = new ByteArrayOutputStream();
+//			file.writeTo(bout);
+//			data = bout.toByteArray();
+//		} catch (Exception e) {
+//			// error while reading data
+//			e.printStackTrace();
+//		}
+//		return data;
+        
+        return file;
 		
 
 	}
@@ -194,6 +221,9 @@ public class FolderService {
 				+ file.getContentType());
 
 		GridFSInputFile probando = fs.createFile(file.getBytes());
+		
+		probando.setContentType(file.getContentType());
+		probando.setFilename(file.getOriginalFilename());
 
 		probando.save();
 

@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('teamstudyApp')
-	.controller('FolderController', function ($scope, $state, $stateParams, Folder, FolderList, Archive, ArchiveList, ParseLinks, 
+	.controller('FolderController', function ($scope, $state, $stateParams, $http,Folder, FolderList, Archive, ArchiveList, ParseLinks, 
 			fileUpload,Download,Principal) {
 		
 		Principal.identity().then(function(account) {
@@ -82,7 +82,30 @@ angular.module('teamstudyApp')
 	    };
 	    
 	    $scope.download = function(folderId,gridId){
-	    	Download.get({folderId : folderId},{gridId: gridId});
+//	    	Download.get({folderId : folderId},{gridId: gridId},function(result){
+//	    		var blob = new Blob([result.data], {type: "text/plain;charset=utf-8"});
+//	    		saveAs(blob,"probando.txt");
+//	    		
+//	    	});
+	    	 $http({
+	    		 url: "api/archive/download",
+	    		 params: {
+	    			 folderId: folderId,
+	    			 gridId: gridId
+	    		 },
+	    		 method: "GET",
+	    	 }, {responseType: 'arraybuffer'})
+	    	 
+	         .success(function(data){
+	        	 var blob = new Blob([data], {
+	        	        type: "application/pdf"
+	        	      });
+	        	 saveAs(blob, 'joderya.pdf');
+	         })
+	         .error(function(){
+	         });
+//	    	var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
+//	    	saveAs(blob, "hello world.txt");
 	    };
 		
 		$scope.deleteArchive = function (folderId,gridId) {

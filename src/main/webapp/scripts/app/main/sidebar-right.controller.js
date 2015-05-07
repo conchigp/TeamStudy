@@ -18,35 +18,35 @@ angular.module('teamstudyApp').controller(
 				var groupId = localStorage.getItem('groupId');
 				$scope.groupId = groupId;	
 
-				StudentsCRUD.get({
-					groupId : groupId
-				}, function(result) {
-					$scope.students = result.data;
-					if (Principal.isInRole('ROLE_USER')) {
-						$interval(function() {
-							MessageChatCRUD.get({
-								groupId : $scope.groupId
-							}, function(result) {
-								$scope.messagesChat = result.data;
-
-								$scope.students.forEach(function(student) {
-
-									$scope.messagesChat.forEach(function(message) {
-
-										message.nameUser;
-
-										if (student.id == message.userId) {
-											message.nameUser = student.firstName;
-										}
-
-									});
-
-								});
-
-							});
-						}, 2000);
-					};
-				});
+//				StudentsCRUD.get({
+//					groupId : groupId
+//				}, function(result) {
+//					$scope.students = result.data;
+//					if (Principal.isInRole('ROLE_USER')) {
+//						$interval(function() {
+//							MessageChatCRUD.get({
+//								groupId : $scope.groupId
+//							}, function(result) {
+//								$scope.messagesChat = result.data;
+//
+//								$scope.students.forEach(function(student) {
+//
+//									$scope.messagesChat.forEach(function(message) {
+//
+//										message.nameUser;
+//
+//										if (student.id == message.userId) {
+//											message.nameUser = student.firstName;
+//										}
+//
+//									});
+//
+//								});
+//
+//							});
+//						}, 2000);
+//					};
+//				});
 
 				// messageChat
 

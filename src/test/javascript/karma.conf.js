@@ -32,6 +32,7 @@ module.exports = function (config) {
             'main/webapp/bower_components/ckeditor/ckeditor.js',
             'main/webapp/bower_components/Chart.js/Chart.js',
             'main/webapp/bower_components/angular-chart.js/dist/angular-chart.js',
+            'main/webapp/bower_components/file-saver.js/FileSaver.js',
             'main/webapp/bower_components/angular-mocks/angular-mocks.js',
             // endbower
             'main/webapp/scripts/app/app.js',
