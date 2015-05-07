@@ -12,6 +12,9 @@ angular.module('teamstudyApp').controller(
 
 			}).then(function() {
 				
+//				var scrolldiv = document.getElementById('scrolldiv');
+//				scrolldiv.scrollTop = scrolldiv.scrollHeight;
+				
 				var groupId = localStorage.getItem('groupId');
 				$scope.groupId = groupId;	
 
