@@ -4,18 +4,26 @@
           db.T_NEW.insert(
          {
                  "_id" : new ObjectId("551523094df1e47ccf055636"),
-                 "title" : "new0",
-                 "description" : "description of new0",
+                 "title" : "Examen del lunes",
+                 "description" : "Entrarán los temas de Álgebra.",
                  "creationMoment": new Date(),
                  "groupId" : "551523074df1e47ccf055634"
              });
              db.T_NEW.insert(
             {
                     "_id" : new ObjectId("5515230a4df1e47ccf055637"),
-                    "title" : "new1",
-                    "description" : "description of new1",
+                    "title" : "Apuntes",
+                    "description" : "Se repartirán el próximo dia.",
                     "creationMoment": new Date(),
-                    "groupId" : "551523084df1e47ccf055635"
+                    "groupId" : "554ba295e4b08b11c7c3c7fe"
+                });
+                 db.T_NEW.insert(
+            {
+                    "_id" : new ObjectId("5515230a4df1e47ccf055638"),
+                    "title" : "Result of last exam",
+                    "description" : "You can find it in the wiki.",
+                    "creationMoment": new Date(),
+                    "groupId" : "554ba370e4b08b11c7c3c7ff"
                 });
         </script>
     </changeSet>

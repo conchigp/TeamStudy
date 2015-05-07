@@ -4,7 +4,7 @@
          db.T_FOLDER.insert(
         {
                   "_id" : new ObjectId("5515230d4df1e47ccf05563a"),
-                  "title" : "folder0",
+                  "title" : "Apuntes",
                   "creationMoment": new Date(),
                   "groupId" : "551523074df1e47ccf055634",
                   "archives": []
@@ -12,9 +12,9 @@
             db.T_FOLDER.insert(
            {
                    "_id" : new ObjectId("5515230e4df1e47ccf05563b"),
-                   "title" : "folder1",
+                   "title" : "Temario",
                    "creationMoment": new Date(),
-                   "groupId" : "551523084df1e47ccf055635",
+                   "groupId" : "554ba295e4b08b11c7c3c7fe",
                    "archives": []
                });
         </script>

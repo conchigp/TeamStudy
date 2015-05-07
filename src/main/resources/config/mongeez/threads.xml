@@ -4,20 +4,11 @@
 			db.T_THREAD.insert(
 			{
 				"_id" : new ObjectId("551523024df1e47ccf05562e"),
-				"title" : "title of thread0",
-				"description" : "description of thread0",
+				"title" : "Problema con derivadas",
+				"description" : "¿Cúal es la solución de x ^2?",
 				"creationMoment": new Date(),
 				"groupId" : "551523074df1e47ccf055634",
-				"userId" : "55151cb763d138142cd840e6",
-			});
-			db.T_THREAD.insert(
-			{
-				"_id" : new ObjectId("551523024df1e47ccf05562f"),
-				"title" : "title of thread1",
-				"description" : "description of thread1",
-				"creationMoment": new Date(),
-				"groupId" : "551523084df1e47ccf055635",
-				"userId" : "551523004df1e47ccf05562c",
+				"userId" : "554b9cabe4b08b11c7c3c7ef",
 			});
 		</script>
 	</changeSet>
