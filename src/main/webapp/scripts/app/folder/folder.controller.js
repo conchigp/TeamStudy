@@ -16,6 +16,8 @@ angular.module('teamstudyApp')
 			
 			var folderId = $stateParams.folderId;
     		$scope.folderId = folderId;
+    		
+    		 $scope.uploading = false;
 	    	
 			FolderList.get({
 				groupId : groupId
@@ -69,18 +71,15 @@ angular.module('teamstudyApp')
 		};
 		
 		$scope.upload = function(folderId, file) {
-			console.log(folderId);
-			console.log(file);
 // Archive.update({folderId : folderId}, {file : file});
 //		     console.log('file is ' + JSON.stringify(file));
 		     var uploadUrl = "api/archive";
+		     $scope.uploading = true;
 		     fileUpload.uploadFileToUrl(file, uploadUrl,folderId);
-			$state.reload();
 		};
 		
 		$scope.uploadFile = function(){
 	        var file = $scope.myFile;
-	        console.log('file is ' + JSON.stringify(file));
 	        var uploadUrl = "api/archive";
 	        fileUpload.uploadFileToUrl(file, uploadUrl);
 	    };
@@ -208,7 +207,6 @@ angular.module('teamstudyApp').service('fileUpload', ['$http','$state', function
             headers: {'Content-Type': undefined}
         })
         .success(function(){
-        	console.log("exito");
         	$state.reload();
         })
         .error(function(){

@@ -212,8 +212,9 @@ public class FolderService {
 		archive.setUserId(userRepository
 				.findOneByLogin(SecurityUtils.getCurrentLogin()).getId()
 				.toString());
-		archive.setFormat(file.getOriginalFilename().substring(
-				file.getName().lastIndexOf(".") + 1));
+		String filename = file.getOriginalFilename();
+		int extension = filename.indexOf(".");
+		archive.setFormat(filename.substring(extension+1));
 		archive.setContentType(file.getContentType());
 
 		GridFS fs = connectDatabase();
