@@ -39,7 +39,7 @@ angular.module('teamstudyApp').controller(
 								});
 
 							});
-						}, 20000);
+						}, 2000);
 					};
 				});
 

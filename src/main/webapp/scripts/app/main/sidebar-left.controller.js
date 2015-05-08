@@ -60,6 +60,7 @@ angular.module('teamstudyApp').controller('SidebarleftController',
         	$('#saveGroupModal').modal('hide');
         	
         	$window.location.href = '/#';
+        	$window.location.reload();
         	
         };
 
@@ -93,6 +94,8 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 		        $scope.confirmDelete = function (id) {
 		        	GroupCRUDAdmin.delete({groupId: id});
 		        	$window.location.href = '/#';
+		        	$window.location.reload();
+		        	$state.reload();
 		        	$('#deleteGroupConfirmation').modal('hide');
 		        	
 		        };

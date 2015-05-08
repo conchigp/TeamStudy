@@ -69,11 +69,10 @@ angular.module('teamstudyApp')
 
 					
 					$scope.deleteStudent = function (studentId) {
-						
-						StudentsCRUD.delete({groupId: $stateParams.groupId,studentId: studentId}
-			                );
-						$state.reload();
-			        };
+						StudentsCRUD.delete({groupId: $stateParams.groupId,studentId: studentId},function(){
+							$state.reload();
+			    		});
+			    	};
 			        
 			        $scope.addStudent = function (studentId) {
 						
@@ -99,17 +98,11 @@ angular.module('teamstudyApp')
 			        
 			        $scope.deleteTeacher = function (teacherId) {
 						
-			        	teachersCRUD.delete({groupId: $stateParams.groupId}
-			             ,function(){
+			        	teachersCRUD.delete({groupId: $stateParams.groupId},function(){
 			            	 $state.reload();
-			            	 
 			             });
-			        	
 			        };
 			        
-			        
-			       
-
 				}).filter('AlumsNotAsign', function() {
 					
 					 return function (items,students) {
