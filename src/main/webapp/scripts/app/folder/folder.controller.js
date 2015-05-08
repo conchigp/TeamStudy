@@ -47,8 +47,9 @@ angular.module('teamstudyApp')
 		};
 			
 		$scope.deleteFolder = function (folderId) {
-    		Folder.delete({folderId: folderId});
-    		$state.reload();
+    			Folder.delete({folderId: folderId});
+    			$state.reload();
+    		});
     	};
 
 		$scope.clear = function() {
@@ -170,16 +171,12 @@ angular.module('teamstudyApp')
              }).error(function(data, status, headers, config) {
 
              });
-        
-	    	
-	    	
-	    	
-	    	
 	    };
 		
 		$scope.deleteArchive = function (folderId,gridId) {
-    		Archive.delete({folderId : folderId},{gridId: gridId});
-    		$state.reload();
+    		Archive.delete({folderId : folderId},{gridId: gridId},function(){
+    			$state.reload();
+    		});
     	};
     	
 	});

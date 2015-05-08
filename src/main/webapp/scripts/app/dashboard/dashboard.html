@@ -13,7 +13,8 @@
 			<button ui-sref="thread({ groupId: groupId })" type="button"
 				class="btn btn-default">Foro</button>
 		</div>
-		<div ui-sref-active="active" class="btn-group" role="group" ng-if="account.isTeacher == 'true'">
+		<div ui-sref-active="active" class="btn-group" role="group"
+			ng-if="account.isTeacher == 'true'">
 			<button ui-sref="dashboard({ groupId: groupId })" type="button"
 				class="btn btn-principal">Dashboard</button>
 		</div>
@@ -43,36 +44,31 @@
 			</table>
 		</div>
 	</div>
+	
 	<div class="col-md-12" style="margin: 10px;">
 		<div class="col-md-6">
-			<canvas id="area" class="chart chart-polar-area"
-				data="dataRepository" labels="labelsRepository"></canvas>
+			<canvas id="area" class="chart chart-polar-area" data="data2"
+				labels="labels2"></canvas>
 		</div>
+
 		<div class="col-md-6">
 			<table
 				class="table table-bordered table-striped table-hover table-heading table-datatable scroll-area"
 				data-spy="scroll" id="datatable-1">
 				<thead>
 					<tr>
-						<th>Carpeta</th>
-						<th>Número de archivos</th>
+						<th>Titulo</th>
+						<th>Archivos</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>Apuntes de Inglés</td>
-						<td>4</td>
-					</tr>
-					<tr>
-						<td>Exámenes resueltos de Inglés</td>
-						<td>8</td>
-					</tr>
-					<tr>
-						<td>Ejercicios resueltos</td>
-						<td>5</td>
+					<tr ng-repeat="folder in foldersAll">
+						<td>{{folder.title}}</td>
+						<td>{{folder.tamano.length}}</td>
 					</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
+	
 </div>

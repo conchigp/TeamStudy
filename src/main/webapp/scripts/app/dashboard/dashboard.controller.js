@@ -3,7 +3,7 @@
 angular.module('teamstudyApp').controller(
 		'DashboardController',
 		function($stateParams, $state, $scope, Principal, Message, MessageList,
-				ThreadCRUD, ThreadListForGroup, Reply , ReplyList ) {
+				ThreadCRUD, ThreadListForGroup,FolderList,ArchiveList, Reply , ReplyList ) {
 
 			Principal.identity().then(function(account) {
 				$scope.account = account;
@@ -49,33 +49,34 @@ angular.module('teamstudyApp').controller(
 
 				});
 				
-				$scope.labelsRepository = ["Apuntes de Inglés", "Exámenes resueltos de Inglés", "Ejercicios resueltos"];
-				$scope.dataRepository = [4, 8, 5];
+				FolderList.get({
+					groupId : groupId
+				}, function(result) {
+					$scope.foldersAll = result.data;
+					$scope.array2 = [];
+					$scope.labels2 = [];
+					$scope.data2 = [];
+					
+
+					$scope.foldersAll.forEach(function(item) {
+
+						ArchiveList.get({
+							folderId : item.id
+						}, function(result) {
+							var archives = result.data;
+							item.tamano = archives;
+							if (item.tamano.length != 0) {
+								$scope.labels2.push(item.title);
+								$scope.data2.push(item.tamano.length);
+							}
+						});
+					});
+
+				});
+				
+//				$scope.labelsRepository = ["Apuntes de Inglés", "Exámenes resueltos de Inglés", "Ejercicios resueltos"];
+//				$scope.dataRepository = [4, 8, 5];
 			});
 			
-			
-			
-//			function mensajes(threadId){
-//				console.log('hola');
-//				MessageList.get({
-//					threadId : threadId
-//				},function(result) {
-//	    			$scope.messages = result.data;
-//	    			$scope.labelsMessage = [];
-//	    			$scope.dataMessage = [];
-//	    			$scope.messages.forEach(function (item) {
-//	    				
-//	    				ReplyList.get({
-//	    					messageId : item.id
-//	    				},function(result){
-//	    					item.replies = result.data;
-//	    					$scope.labelsMessage.push(item.description);
-//							$scope.dataMessage.push(item.replies.length);
-//	    					
-//	    				});
-//	    				
-//	    			});
-//	    		});
-//			};
 
 		});
