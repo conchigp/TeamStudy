@@ -2,7 +2,7 @@
 
 angular.module('teamstudyApp')
 	.controller('FolderController', function ($scope, $state, $stateParams, $http,Folder, FolderList, Archive, ArchiveList, ParseLinks, 
-			fileUpload,Download,Principal) {
+			fileUpload,Download,localStorageService,Principal) {
 		
 		Principal.identity().then(function(account) {
     		$scope.account = account;
@@ -11,7 +11,7 @@ angular.module('teamstudyApp')
 
     	}).then(function(){
     	
-			var groupId = localStorage.getItem('groupId')
+			var groupId = localStorage.getItem('groupId');
 			$scope.groupId = groupId;
 			
 			var folderId = $stateParams.folderId;
@@ -88,30 +88,41 @@ angular.module('teamstudyApp')
 //	    		
 //	    	});
 	    	var gridId = archive.gridId;
-	    	 $http({
-	    		 url: "api/archive/download",
-	    		 params: {
-	    			 folderId: folderId,
-	    			 gridId: gridId
-	    		 },
-	    		 method: "GET"
-	    	 }, {responseType: 'arraybuffer'})
-	    	 
-	         .success(function(response){
-	        	 var blob = new Blob([response], {
-	        	        type: archive.contentType
-	        	      });
-//	        	 
-//	        	 
-//	        	 
-////	        	 saveAs(blob, archive.title);
-	         })
-	         .error(function(){
-	         });
+	    	var contentType = archive.contentType;
+	    	
+	    	//primer metodo
+	    	
+//	    	 $http({
+//	    		 url: "api/archive/download",
+//	    		 params: {
+//	    			 folderId: folderId,
+//	    			 gridId: gridId
+//	    		 },
+//	    		 method: "GET"
+//	    	 }, {responseType: 'arraybuffer'})
+//	    	 
+//	         .success(function(response){
+//	        	 var blob = new Blob([response], {
+//	        	        type: archive.contentType
+//	        	      });
+	        	 
+	        	 
+	        	 
+//	        	 saveAs(blob, archive.title);
+//	         })
+//	         .error(function(){
+//	         });
 //	    	var blob = new Blob(["Hello, world!"], {type: "text/plain;charset=utf-8"});
 //	    	saveAs(blob, "hello world.txt");
 	    	
 	    	
+	    	//segundo metodo
+	    	
+//	    	var tokenfull = localStorageService.get('token');
+//	    	var token = tokenfull.token;
+//	    	console.log(token);
+//	    	
+//	 
 //	    	    $.fileDownload("api/archive/download", 
 //	    	    {
 //	    	        httpMethod : "GET",
@@ -119,6 +130,7 @@ angular.module('teamstudyApp')
 //	    	            folderId : folderId,
 //	    	            gridId : gridId
 //	    	        }
+//	    	        
 //	    	    }).done(function(e, response)
 //	    	    {
 //	    	    	console.log("success");
@@ -128,6 +140,39 @@ angular.module('teamstudyApp')
 //	    	     // failure
 //	    	    	console.log("fail");
 //	    	    });
+	    	
+	    	
+	    	//tercer metodo
+	    	
+	    	 $http({
+                 url : 'api/archive/download',
+                 method : 'POST',
+                 params : {
+                	 folderId : folderId,
+	    	         gridId : gridId
+                 },
+                 headers : {
+                     'Content-type' : contentType,
+                 },
+                 responseType : 'arraybuffer'
+             }).success(function(data, status, headers, config) {
+                 var file = new Blob([ data ], {
+                     type : contentType
+                 });
+                 //trick to download store a file having its URL
+                 var fileURL = URL.createObjectURL(file);
+                 var a         = document.createElement('a');
+                 a.href        = fileURL; 
+                 a.target      = '_blank';
+                 a.download    = archive.title;
+                 document.body.appendChild(a);
+                 a.click();
+             }).error(function(data, status, headers, config) {
+
+             });
+        
+	    	
+	    	
 	    	
 	    	
 	    };
