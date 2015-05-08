@@ -47,10 +47,13 @@ angular.module('teamstudyApp')
 		};
 			
 		$scope.deleteFolder = function (folderId) {
-    			Folder.delete({folderId: folderId});
-    			$state.reload();
-    		});
-    	};
+    			Folder.delete({folderId: folderId},function(){
+    				$state.reload();
+    			});
+    			
+    		};
+    		
+    	
 
 		$scope.clear = function() {
 			$scope.folder = {
@@ -195,7 +198,7 @@ angular.module('teamstudyApp')
 	};
 }]);
 
-angular.module('teamstudyApp').service('fileUpload', ['$http', function ($http) {
+angular.module('teamstudyApp').service('fileUpload', ['$http','$state', function ($http,$state) {
     this.uploadFileToUrl = function(file, uploadUrl,folderId){
         var fd = new FormData();
         fd.append('file', file);
@@ -205,6 +208,8 @@ angular.module('teamstudyApp').service('fileUpload', ['$http', function ($http) 
             headers: {'Content-Type': undefined}
         })
         .success(function(){
+        	console.log("exito");
+        	$state.reload();
         })
         .error(function(){
         });
