@@ -3,8 +3,7 @@
 angular.module('teamstudyApp').controller('SidebarleftController',
 		function($scope,$state,$stateParams, GroupList, GroupListAdmin, GroupCRUDAdmin, Principal,$q, $window) {
 
-			var groupId = localStorage.getItem('groupId');
-			$scope.groupId = groupId;
+			
 	
 			Principal.identity().then(function(account) {
 				$scope.groups = [];
@@ -12,6 +11,9 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 				$scope.isAuthenticated = Principal.isAuthenticated;
 				$scope.isInRole = Principal.isInRole;
 			}).then(function() {
+				
+				var groupId = localStorage.getItem('groupId');
+				$scope.groupId = groupId;
 				
 				if (Principal.isInRole('ROLE_ADMIN')) {
 					$scope.loadAllAdmin();
@@ -49,26 +51,33 @@ angular.module('teamstudyApp').controller('SidebarleftController',
         			alums : $scope.group.alums,
         			wiki : $scope.group.wiki
         	};
-        	GroupCRUDAdmin.update($scope.groupAux);
-        	$('#saveGroupModal').modal('hide');
-        	$scope.clear();
+        	GroupCRUDAdmin.update($scope.groupAux, function(){
+        		
+        	});
+    		$scope.clear();
         	$scope.reset();
-        	$window.location.reload();
+        	//$state.go('management', {id : $scope.group.id}, {reload : true});
+        	$('#saveGroupModal').modal('hide');
+        	
+        	$window.location.href = '/#';
+        	
         };
 
-				$scope.update = function(id) {
-					GroupCRUDAdmin.get({groupId : id}, function(result) {
-						$scope.group = result.data;
-						$('#saveGroupModal').modal('show');
-					});
-					
-				};
+		$scope.update = function(id) {
+			GroupCRUDAdmin.get({groupId : id}, function(result) {
+				$scope.group = result.data;
+				$('#saveGroupModal').modal('show');
+			});
+		};
 				
 				$scope.clear = function() {
 					$scope.group = {
-						name : null,
-						description : null,
-						id: null
+							id : null,
+		        			name : null,
+		        			description : null,
+		        			teacherId : null,
+		        			alums : null,
+		        			wiki : null
 					};
 					$scope.editForm.$setPristine();
 					$scope.editForm.$setUntouched();
@@ -83,13 +92,14 @@ angular.module('teamstudyApp').controller('SidebarleftController',
 		        
 		        $scope.confirmDelete = function (id) {
 		        	GroupCRUDAdmin.delete({groupId: id});
-		        		$window.location.reload();
-		        		$('#deleteGroupConfirmation').modal('hide');
+		        	$window.location.href = '/#';
+		        	$('#deleteGroupConfirmation').modal('hide');
+		        	
 		        };
 				
 				$scope.local = function(groupId){
 					localStorage.setItem('groupId', groupId);
- $state.transitionTo($state.current, $stateParams, { reload: true, inherit:false, notify: true });
+					$state.transitionTo($state.current, $stateParams, { reload: true, inherit:false, notify: true });
 
 				};
 
