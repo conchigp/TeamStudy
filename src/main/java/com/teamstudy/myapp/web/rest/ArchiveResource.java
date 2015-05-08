@@ -137,8 +137,7 @@ public class ArchiveResource {
 //	        return new ResponseEntity<byte[]>(data, httpHeaders, HttpStatus.OK);
 //	    }
 	    
-		 @RequestMapping(value = "/archive/download", method = RequestMethod.GET)
-		 @RolesAllowed(AuthoritiesConstants.USER)
+		 @RequestMapping(value = "/archive/download", method = RequestMethod.POST)
 		 @Timed
 		    public HttpEntity<byte[]> download(@RequestParam("folderId") String folderId,
 					@RequestParam("gridId") String gridId,HttpServletRequest request, HttpServletResponse response) throws Exception {         
