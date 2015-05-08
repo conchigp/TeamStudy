@@ -4,7 +4,7 @@
 		<div id="ct" class="">
 
 			<div class="btn-group btn-group-justified" role="group"
-				ng-show="isInRole[0] == 'ROLE_USER'">
+				ng-show="isInRole('ROLE_USER')">
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="wiki({ groupId: groupId })" type="button"
 						class="btn btn-principal">Wiki</button>
@@ -32,7 +32,7 @@
 						role="dialog" aria-labelledby="myNewsLabel" aria-hidden="true"
 						style="display: none;">
 						<div class="modal-dialog">
-							<div class="modal-content" style="margin: 90px;">
+							<div class="modal-content" style="margin: 90px; z-index=99999;">
 								<form name="editForm" role="form" novalidate=""
 									ng-submit="createNews()" show-validation=""
 									class="ng-valid ng-pristine">
@@ -100,16 +100,24 @@
 		</div>
 		
 	</div>
-	
-	<div ng-if="account.isTeacher == 'true'">
+	<div class="alert alert-danger alert-dismissible" style="margin: 15px; role="alert" ng-if="account.isTeacher == 'true' && screenSize <= 480">
+				<button type="button" class="close" data-dismiss="alert"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			<h5>La wiki no puede ser editada en dispositivos móviles, disculpen las molestias.</h5>
+				
+			</div>
+	<div ng-if="account.isTeacher == 'true' && screenSize > 480">
 			<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea><br>
 			<button type="button" class="btn btn-default" ng-click="save()">
 				Publicar</button>
 		</div>
 
 		<div class="box-content" style="margin: 15px;"
-			ng-if="account.isTeacher == 'false'">
+			ng-if="account.isTeacher == 'false' || screenSize <= 480">
 			<p ng-bind-html="trustAsHtml(group.wiki.text)"></p>
+			
 		</div>
 		
 	

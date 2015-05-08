@@ -10,6 +10,8 @@ angular.module('teamstudyApp').controller(
 				groupId : groupId
 			});
 			
+			$scope.screenSize = screen.width;
+			
 			$scope.save = function() {
 				GroupCRUDAdmin.update($scope.group);
 			};

@@ -44,7 +44,7 @@ angular.module('teamstudyApp').controller(
 								});
 
 							});
-						}, 2000);
+						}, 60000);
 					};
 				});
 
