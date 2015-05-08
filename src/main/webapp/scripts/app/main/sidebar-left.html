@@ -34,8 +34,9 @@
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
-											<label translate="" class="ng-scope">Nombre</label> <input
-												type="text"
+											<label translate="" class="ng-scope">Nombre</label> <input autofocus
+												type="text" maxlength="20" placeholder="Puede tener 20 caracteres como maximo"
+												required="required"
 												class="form-control ng-valid ng-pristine ng-untouched"
 												name="name" ng-model="group.name">
 
@@ -44,7 +45,8 @@
 										</div>
 										<div class="form-group">
 											<label translate="" class="ng-scope">Descripci&oacuten</label> <input
-												type="text"
+												type="text" maxlength="100" placeholder="Introduzca una breve descripción"
+												required="required" size="100"
 												class="form-control ng-valid ng-pristine ng-untouched"
 												name="description" ng-model="group.description">
 

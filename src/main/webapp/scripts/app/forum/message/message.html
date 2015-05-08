@@ -47,7 +47,8 @@
 							<div class="modal-body">
 								<div class="form-group">
 									<label translate="" class="ng-scope">Descripcion</label> <input
-										type="text"
+										type="text" maxlength="100" placeholder="Escriba su mensaje"
+										required="required" size="100"
 										class="form-control ng-valid ng-pristine ng-untouched"
 										name="description" ng-model="message.description">
 
@@ -111,7 +112,8 @@
 									show-validation="" class="ng-valid ng-pristine">
 
 									<label translate="" class="ng-scope">Responder</label> <input
-										type="text"
+										type="text" maxlength="500" placeholder=""
+										required="required" size="500"
 										class="form-control ng-valid ng-pristine ng-untouched"
 										name="description" ng-model="replyToCreate.description">
 									<button type="submit" ng-disabled="editForm.$invalid"

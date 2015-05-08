@@ -11,10 +11,7 @@ angular.module('teamstudyApp').controller(
 				$scope.isInRole = Principal.isInRole;
 
 			}).then(function() {
-				
-//				var scrolldiv = document.getElementById('scrolldiv');
-//				scrolldiv.scrollTop = scrolldiv.scrollHeight;
-				
+								
 				var groupId = localStorage.getItem('groupId');
 				$scope.groupId = groupId;	
 
@@ -28,11 +25,11 @@ angular.module('teamstudyApp').controller(
 								groupId : $scope.groupId
 							}, function(result) {
 								$scope.messagesChat = result.data;
-
+								
 								$scope.students.forEach(function(student) {
-
+									console.log('ABCD');
 									$scope.messagesChat.forEach(function(message) {
-
+										console.log('1234');
 										message.nameUser;
 
 										if (student.id == message.userId) {
@@ -44,7 +41,7 @@ angular.module('teamstudyApp').controller(
 								});
 
 							});
-						}, 60000);
+						}, 20000);
 					};
 				});
 

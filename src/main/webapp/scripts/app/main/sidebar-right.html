@@ -1,9 +1,9 @@
 
 <!--Sidebar Right -->
 <!--  ng-init="scrollDiv();" -->
-<div class="row">
+<div class="row" >
 	<div id="sright" class="" ng-switch=isAuthenticated()>
-		<div ng-show="isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')">
+		<div ng-show="(isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')) && groupId != undefined">
 			<div class="box" style="margin: 15px;">
 
 				<div class="box-header">
@@ -25,7 +25,7 @@
 			</div>
 		</div>
 
-		<div ng-show="isInRole('ROLE_USER')">
+		<div ng-show="isInRole('ROLE_USER') && groupId != undefined"">
 			<div class="box" style="margin: 15px;">
 				<div class="box-header">
 					<div class="box-name tablas">Chat</div>
