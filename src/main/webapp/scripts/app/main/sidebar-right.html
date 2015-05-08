@@ -1,9 +1,10 @@
 
 <!--Sidebar Right -->
 <!--  ng-init="scrollDiv();" -->
-<div class="row" >
+<div class="row">
 	<div id="sright" class="" ng-switch=isAuthenticated()>
-		<div ng-show="(isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')) && groupId != undefined">
+		<div
+			ng-show="(isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')) && groupId != undefined">
 			<div class="box" style="margin: 15px;">
 
 				<div class="box-header">
@@ -14,7 +15,8 @@
 				</div>
 				<div class="box-content mobile_only">
 
-					<div class="scroll-area" data-spy="scroll" data-target="#myNavbar" data-offset="0">
+					<div class="scroll-area" data-spy="scroll" data-target="#myNavbar"
+						data-offset="0">
 						<div ng-repeat="student in students" class="list-group-item">
 							<div class="col-12">{{student.lastName}},{{student.firstName}}</div>
 							<small class="col-12">{{student.email}}</small>
@@ -35,31 +37,51 @@
 				</div>
 				<div class="box-content mobile_only">
 
-					<div id="scrolldiv" class="scroll-area" data-spy="scroll" data-target="#myNavbar">
-						<div ng-repeat="messageChat in messagesChat | orderBy:'-creationMoment' | limitTo:10"
-							class="list-group-item">
-							<small class="col-12">{{messageChat.nameUser}},{{messageChat.creationMoment
+
+
+					<div id="scrolldiv" class="scroll-area" data-spy="scroll"
+						data-target="#myNavbar">
+						<div ng-repeat="messageChat in messagesChat | orderBy:'-creationMoment' | limitTo:10">
+
+						<div ng-show="account.firstName == messageChat.nameUser"
+								class=" alert alert-info" role="alert">
+							<large class="col-12 letragrande" ><b>{{messageChat.nameUser}}</b></large>, <small class="col-12 negrita">{{messageChat.creationMoment
 								| date:'dd/MMM/yyyy h:mma'}}</small>
+
 							<div class="col-12">{{messageChat.content}}</div>
 						</div>
+						<div ng-show="account.firstName != messageChat.nameUser"
+								class=" alert alert-warning" role="alert">
+							<large class="col-12 letragrande"><b>{{messageChat.nameUser}}</b></large>, <small class="col-12 negrita">{{messageChat.creationMoment
+								| date:'dd/MMM/yyyy -- h:mma'}}</small>
 
-					</div>
-					<form ng-submit="createMessageChat()">
-						<div style="text-align: center;">
-							<input type="text" class="form-control" name="content"
-								ng-model="chat.content">
-							<div style="padding-top: 10%;">
-								<button type="submit" class="btn btn-default" class="ng-scope">Enviar</button>
-							</div>
+							<div class="col-12">{{messageChat.content}}</div>
 						</div>
+					</div>
 
-					</form>
+
+
 				</div>
 
 
+
+
+				<form ng-submit="createMessageChat()">
+					<div style="text-align: center;">
+						<input type="text" class="form-control" name="content"
+							ng-model="chat.content">
+						<div style="padding-top: 10%;">
+							<button type="submit" class="btn btn-default" class="ng-scope">Enviar</button>
+						</div>
+					</div>
+
+				</form>
 			</div>
+
+
 		</div>
 	</div>
+</div>
 </div>
 <!--End Sidebar Right -->
 

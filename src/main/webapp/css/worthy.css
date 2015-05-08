@@ -407,4 +407,8 @@ hr {
 	line-height: 18px;
 	text-align: -webkit-match-parent;
 }
+
+.letragrande{
+	font-size: 16px;
+}
 }
