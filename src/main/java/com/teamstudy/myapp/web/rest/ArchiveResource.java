@@ -149,10 +149,6 @@ public class ArchiveResource {
 		                
 		        GridFSDBFile data = folderService.download(folderId,gridId);
 		      
-		        Cookie fileDownload = new Cookie("fileDownload", "true");
-		        fileDownload.setPath("/");
-		        
-		        response.addCookie(fileDownload);
 		        
 		     // set content attributes for the response
 		        response.setContentType(data.getContentType());
