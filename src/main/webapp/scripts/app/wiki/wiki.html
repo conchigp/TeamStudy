@@ -113,7 +113,10 @@
 	<div ng-if="account.isTeacher == 'true' && screenSize > 480">
 			<textarea ckeditor="editorOptions" ng-model=group.wiki.text></textarea><br>
 			<button type="button" class="btn btn-default" ng-click="save()">
-				Publicar</button>
+				Publicar</button> {{success}}
+			<div class="alert alert-success" ng-show="success" translate="">
+                <strong>El registro ha sido realizado correctamente</strong> &iexclYa puedes empezar a trabajar en equipo!
+            </div>
 		</div>
 
 		<div class="box-content" style="margin: 15px;"

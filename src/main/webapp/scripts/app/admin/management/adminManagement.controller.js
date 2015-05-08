@@ -110,27 +110,27 @@ angular.module('teamstudyApp')
 			        
 			       
 
+				}).filter('AlumsNotAsign', function() {
+					
+					 return function (items,students) {
+						 if(students != undefined){
+				            var result = [];
+
+				            if (items) {
+				                items.forEach(function (item) {
+				                	var entra = true;
+				                	students.forEach(function(student){
+				                		if(student.id == item.id){
+				                			entra = false;
+				                		}
+				                	});
+				                    if (entra == true) {
+				                        result.push(item);
+				                    };
+				                });
+				            }
+
+				            return result;
+						 }};
 				});
-
-angular.module('teamstudyApp')
-	.filter('AlumsNotAsign', function() {
-		 return function (items,students) {
-	            var result = [];
-
-	            if (items) {
-	                items.forEach(function (item) {
-	                	var entra = true;
-	                	students.forEach(function(student){
-	                		if(student.id == item.id){
-	                			entra = false;
-	                		}
-	                	});
-	                    if (entra == true) {
-	                        result.push(item);
-	                    };
-	                });
-	            }
-
-	            return result;
-	        };
-	});
+	

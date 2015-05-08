@@ -3,7 +3,8 @@
 angular.module('teamstudyApp').controller(
 		'WikiController',
 		function($stateParams, $scope,$state, $sce,GroupCRUDAdmin, News, Principal) {
-
+			
+			$scope.success = null;
 			var groupId = localStorage.getItem('groupId');
 			$scope.groupId = groupId;
 			$scope.group = GroupCRUDAdmin.get({
@@ -13,7 +14,9 @@ angular.module('teamstudyApp').controller(
 			$scope.screenSize = screen.width;
 			
 			$scope.save = function() {
-				GroupCRUDAdmin.update($scope.group);
+				GroupCRUDAdmin.update($scope.group).then(function(){
+					$scope.success = 'OK';
+				});
 			};
 
 			Principal.identity().then(function(account) {

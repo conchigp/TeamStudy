@@ -13,16 +13,16 @@ angular.module('teamstudyApp').controller(
 			}).then(function() {
 								
 				var groupId = localStorage.getItem('groupId');
-				$scope.groupId = groupId;	
+				$scope.groupId = localStorage.getItem('groupId');
 
 				StudentsCRUD.get({
-					groupId : groupId
+					groupId : localStorage.getItem('groupId')
 				}, function(result) {
 					$scope.students = result.data;
 					if (Principal.isInRole('ROLE_USER')) {
 						$interval(function() {
 							MessageChatCRUD.get({
-								groupId : $scope.groupId
+								groupId : localStorage.getItem('groupId')
 							}, function(result) {
 								$scope.messagesChat = result.data;
 								
