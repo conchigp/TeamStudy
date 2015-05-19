@@ -90,7 +90,7 @@
 								<div class="box-name">Respuestas({{message.replies.length}})</div>
 							</div>
 							<div class="box-icons">
-								<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+								<a class="collapse-link"> <i class="fa fa-chevron-down"></i></a>
 							</div>
 							<div class="box-content" style="display: none;">
 								<div ng-repeat="reply in message.replies" class="list-group-item">
@@ -102,7 +102,7 @@
 										<button type="submit" ng-click="deleteReply(reply.id)"
 											class="btn btn-default">
 											<span class="glyphicon glyphicon-remove"></span>&nbsp;<span
-												translate="entity.action.delete"> Delete</span>
+												translate="entity.action.delete"> Borrar</span>
 										</button>
 									</div>
 								</div>
@@ -119,28 +119,26 @@
 									<button type="submit" ng-disabled="editForm.$invalid"
 										class="btn btn-primary">
 										<span class="glyphicon glyphicon-save"></span>&nbsp;<span
-											class="ng-scope">Save</span>
+											class="ng-scope">Guardar</span>
 									</button>
 
 								</form>
 
 							</div>
-
 						</div>
-
-						<div class="likebox"
-							ng-if="message.replies.length == 0 || account.isTeacher == 'true'">
-							<div class="btn-group" role="group">
+						
+						<div class="likebox" ng-if="message.replies.length == 0">
+							<div class="btn-group" role="group" ng-if="account.isTeacher == 'true'">
 								<button type="submit" ng-click="update(message.id)"
 									class="btn btn-default">
 									<span data-toggle="modal" data-target="#saveMessageModal"
 										class="glyphicon glyphicon-edit"></span>&nbsp;<span
-										translate="entity.action.edit"> Edit</span>
+										translate=""> Editar</span>
 								</button>
 								<button type="submit" ng-click="deleteMessage(message.id)"
 									class="btn btn-default">
 									<span class="glyphicon glyphicon-remove"></span>&nbsp;<span
-										translate="entity.action.delete"> Delete</span>
+										translate=""> Borrar</span>
 								</button>
 							</div>
 						</div>

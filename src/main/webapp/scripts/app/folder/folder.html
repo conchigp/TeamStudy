@@ -9,7 +9,7 @@
 					<button ui-sref="wiki({ groupId: groupId })" type="button" class="btn btn-default">Wiki</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
-					<button ui-sref="folder({ groupId: groupId })" type="button" class="btn btn-default">Repositorio</button>
+					<button ui-sref="folder({ groupId: groupId })" type="button" class="btn btn-principal">Repositorio</button>
 				</div>
 				<div ui-sref-active="active" class="btn-group" role="group">
 					<button ui-sref="thread({ groupId: groupId })" type="button" class="btn btn-default">Foro</button>
@@ -44,7 +44,8 @@
 								<div class="modal-body">
 									<div class="form-group">
 										<label translate="" class="ng-scope">Titulo</label> <input
-											type="text"
+											type="text" maxlength="25" placeholder="Escriba su titulo"
+											required="required" size="100"
 											class="form-control ng-valid ng-pristine ng-untouched"
 											name="title" ng-model="folder.title">
 
@@ -62,7 +63,7 @@
 									<button type="submit" ng-disabled="editForm.$invalid"
 										class="btn btn-primary">
 										<span class="glyphicon glyphicon-save"></span>&nbsp;<span
-											translate="entity.action.save" class="ng-scope">Guardar</span>
+											translate="" class="ng-scope">Guardar</span>
 									</button>
 								</div>
 							</form>
@@ -101,7 +102,7 @@
 										<div class="modal-body">
 											<div class="form-group">
 												<label translate="" class="ng-scope">Selecciona un archivo: </label> <input
-													type="file" uploader-model="file"
+													type="file" uploader-model="file" required="required"
 													class="form-control ng-valid ng-pristine ng-untouched"
 													name="file">
 											Cuando haga clic en "Subir",por favor espere a que se complete la subida del archivo.		
