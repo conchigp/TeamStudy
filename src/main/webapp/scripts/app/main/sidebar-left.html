@@ -34,8 +34,9 @@
 									</div>
 									<div class="modal-body">
 										<div class="form-group">
-											<label translate="" class="ng-scope">Nombre</label> <input autofocus
-												type="text" maxlength="20" placeholder="Puede tener 20 caracteres como maximo"
+											<label translate="" class="ng-scope">Nombre</label> <input
+												autofocus type="text" maxlength="20"
+												placeholder="Puede tener 20 caracteres como maximo"
 												required="required"
 												class="form-control ng-valid ng-pristine ng-untouched"
 												name="name" ng-model="group.name">
@@ -44,8 +45,9 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label translate="" class="ng-scope">Descripci&oacuten</label> <input
-												type="text" maxlength="100" placeholder="Introduzca una breve descripción"
+											<label translate="" class="ng-scope">Descripci&oacuten</label>
+											<input type="text" maxlength="100"
+												placeholder="Introduzca una breve descripción"
 												required="required" size="100"
 												class="form-control ng-valid ng-pristine ng-untouched"
 												name="description" ng-model="group.description">
@@ -84,10 +86,12 @@
 								<div class="modal-header">
 									<button type="button" class="close" data-dismiss="modal"
 										aria-hidden="true" ng-click="clear()">&times;</button>
-									<h4 class="modal-title">Confirma la operaci&oacuten de eliminar</h4>
+									<h4 class="modal-title">Confirma la operaci&oacuten de
+										eliminar</h4>
 								</div>
 								<div class="modal-body">
-									<p>¿Est&aacutes seguro de que quieres eliminar el grupo {{group.name}}?</p>
+									<p>¿Est&aacutes seguro de que quieres eliminar el grupo
+										{{group.name}}?</p>
 								</div>
 								<div class="modal-footer">
 									<button type="button" class="btn btn-default"
@@ -103,58 +107,88 @@
 						</div>
 					</div>
 				</div>
-			
-			<div ng-show="isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')">
 
-				<div class="box"  style="margin: 15px;" >
-					<div class="box-header">
-						<div class="box-name tablas">Grupos</div>
-					</div>
-					
-					<div class="box-icons">
-						<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
-					</div>
-					
-					<div class="box-content mobile_only">
+				<div ng-show="isInRole('ROLE_USER') || isInRole('ROLE_ADMIN')">
 
-						<div ng-repeat="group in groups" class="list-group-item">
+					<div class="box" style="margin: 15px;">
+						<div class="box-header">
+							<div class="box-name tablas">Grupos</div>
+						</div>
 
-							<div class="col-md-12">
-								<h4>
-									<a ng-show="isInRole('ROLE_USER')" ui-sref="wiki"
-										ng-click="local(group.id)">{{group.name}}</a><a
-										ng-show="isInRole('ROLE_ADMIN')"
-										ui-sref="management({ groupId: group.id })"
-										ng-click="local(group.id)"> {{group.name}}</a>
-								</h4>
+						<div class="box-icons">
+							<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+						</div>
+
+						<div class="box-content mobile_only">
+							<div ng-repeat="group in groups">
+
+								<div ng-show="group.id == groupId" class="list-group-item">
+									<div class="alert alert-info">
+										<div class="col-md-12">
+											<h4>
+												<a ng-show="isInRole('ROLE_USER')" ui-sref="wiki"
+													ng-click="local(group.id)">{{group.name}}</a><a
+													ng-show="isInRole('ROLE_ADMIN')"
+													ui-sref="management({ groupId: group.id })"
+													ng-click="local(group.id)"> {{group.name}}</a>
+											</h4>
+										</div>
+										<div class="col-md-12">{{group.description}}</div>
+
+										<small>{{group.creationMoment | date:'dd/MMM/yyyy
+											h:mma'}}</small>
+										<div ng-show="isInRole('ROLE_ADMIN')" class="box-icons">
+
+											<a type="submit" ng-click="update(group.id)"> <span
+												data-toggle="modal" data-target="#saveGroupModal"
+												class="glyphicon glyphicon-edit"></span></span>
+
+											</a> <a type="submit" ng-click="delete(group.id)"> <span
+												class="glyphicon glyphicon-remove"></span></span>
+											</a>
+										</div>
+									</div>
+								</div>
+								<!-- Hasta aqui el primer div -->
+								<div ng-show="group.id != groupId" class="list-group-item">
+									<div class="col-md-12">
+										<h4>
+											<a ng-show="isInRole('ROLE_USER')" ui-sref="wiki"
+												ng-click="local(group.id)">{{group.name}}</a><a
+												ng-show="isInRole('ROLE_ADMIN')"
+												ui-sref="management({ groupId: group.id })"
+												ng-click="local(group.id)"> {{group.name}}</a>
+										</h4>
+									</div>
+									<div class="col-md-12">{{group.description}}</div>
+
+									<small>{{group.creationMoment | date:'dd/MMM/yyyy
+										h:mma'}}</small>
+									<div ng-show="isInRole('ROLE_ADMIN')" class="box-icons">
+
+										<a type="submit" ng-click="update(group.id)"> <span
+											data-toggle="modal" data-target="#saveGroupModal"
+											class="glyphicon glyphicon-edit"></span></span>
+
+										</a> <a type="submit" ng-click="delete(group.id)"> <span
+											class="glyphicon glyphicon-remove"></span></span>
+										</a>
+									</div>
+
+								</div>
 							</div>
-							<div class="col-md-12">{{group.description}}</div>
-							
-							<small>{{group.creationMoment | date:'dd/MMM/yyyy
-								h:mma'}}</small>
-							<div ng-show="isInRole('ROLE_ADMIN')" class="box-icons">
-
-								<a type="submit" ng-click="update(group.id)"> <span
-									data-toggle="modal" data-target="#saveGroupModal"
-									class="glyphicon glyphicon-edit"></span></span>
-									
-								</a> <a type="submit" ng-click="delete(group.id)"> <span
-									class="glyphicon glyphicon-remove"></span></span>
-								</a>
-							</div>
-
 						</div>
 					</div>
-				</div>
-			
-			</div>
-			<!-- End Sidebar Left -->
 
+				</div>
+				<!-- End Sidebar Left -->
+
+
+			</div>
 
 		</div>
-
+		<div
+			ng-if="(isInRole('ROLE_ADMIN') == false) && (isInRole('ROLE_ADMIN') == false)">
+			<h6 style="color: blue;">.</h6>
+		</div>
 	</div>
-	<div ng-if="(isInRole('ROLE_ADMIN') == false) && (isInRole('ROLE_ADMIN') == false)">
-		<h6 style="color: blue;">.</h6>
-	</div>
-</div>
