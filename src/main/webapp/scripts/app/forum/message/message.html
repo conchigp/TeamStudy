@@ -106,8 +106,9 @@
 										</button>
 									</div>
 								</div>
-
-								<form name="editForm" role="form" novalidate=""
+							</div>
+						</div>
+						<form name="editForm" role="form" novalidate=""
 									ng-submit="createReply(message.id,replyToCreate.description)"
 									show-validation="" class="ng-valid ng-pristine">
 
@@ -123,9 +124,6 @@
 									</button>
 
 								</form>
-
-							</div>
-						</div>
 						
 						<div class="likebox" ng-if="message.replies.length == 0">
 							<div class="btn-group" role="group" ng-if="account.isTeacher == 'true'">
