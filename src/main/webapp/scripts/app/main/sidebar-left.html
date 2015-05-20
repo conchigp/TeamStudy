@@ -1,7 +1,7 @@
 <div ng-cloak>
 	<div class="row">
 		<!-- Sidebar Left -->
-
+		
 		<div id="sleft" class="" ng-model="isAuthenticated">
 			<div class="page-headerST" ng-switch="true">
 				<div ng-show="isInRole('ROLE_ADMIN')">
@@ -121,7 +121,6 @@
 
 						<div class="box-content mobile_only">
 							<div ng-repeat="group in groups">
-
 								<div ng-show="group.id == groupId" class="list-group-item">
 									<div class="alert alert-info">
 										<div class="col-md-12">
@@ -137,7 +136,7 @@
 
 										<small>{{group.creationMoment | date:'dd/MMM/yyyy
 											h:mma'}}</small>
-										<div ng-show="isInRole('ROLE_ADMIN')" class="box-icons">
+										<div ng-show="isInRole('ROLE_ADMIN')" class="box-icons alert alert-warning">
 
 											<a type="submit" ng-click="update(group.id)"> <span
 												data-toggle="modal" data-target="#saveGroupModal"
