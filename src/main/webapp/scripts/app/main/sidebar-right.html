@@ -42,7 +42,9 @@
 					<div id="scrolldiv" class="scroll-area" data-spy="scroll"
 						data-target="#myNavbar">
 						<div ng-repeat="messageChat in messagesChat | orderBy:'-creationMoment' | limitTo:10">
-
+<!-- 						{{messageChat.userId}}-LL{{student}}-{{teacherGroup.id}} -->
+<!-- 						X{{messageChat.nameTeacher}} -- Y{{teacherGroup.firstName}} -->
+<!-- 						Z{{messageChat.nameUser}} -- Y{{student.firstName}} -->
 						<div ng-show="account.firstName == messageChat.nameUser"
 								class=" alert alert-info" role="alert">
 							<large class="col-12 letragrande" ><b>{{messageChat.nameUser}}</b></large>, <small class="col-12 negrita">{{messageChat.creationMoment
