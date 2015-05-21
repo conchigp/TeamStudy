@@ -16,34 +16,37 @@ angular.module('teamstudyApp').controller(
 				$scope.groupId = localStorage.getItem('groupId');		
 				
 //				teachersCRUD.get({groupId : groupId}, function(result){
-//					$scope.teacherGroup = result.data;
+//					$scope.teacher = result.data;
 //						MessageChatCRUD.get({
 //							groupId : $scope.groupId
 //						}, function(result) {
 //							$scope.messagesChat = result.data;
 //								$scope.messagesChat.forEach(function(message) {
 //									message.nameTeacher;
-//									if (teacherGroup.id == message.userId) {
-//										message.nameTeacher = teacherGroup.firstName;
+//									if (teacher.id == message.userId) {
+//										message.nameTeacher = teacher.firstName;
 //									}
 //								});
 //						});
-//				});
-
+//				
+				
 				StudentsCRUD.get({groupId : groupId}, function(result) {
 					$scope.students = result.data;
 					if (Principal.isInRole('ROLE_USER')) {
+						teachersCRUD.get({groupId : groupId}, function(result){
+							$scope.teacher = result.data;
+						});
 						$interval(function() {
 							MessageChatCRUD.get({
 								groupId : $scope.groupId
 							}, function(result) {
 								$scope.messagesChat = result.data;
-								
 								$scope.students.forEach(function(student) {
 									$scope.messagesChat.forEach(function(message) {
-										message.nameUser;
 										if (student.id == message.userId) {
-											message.nameUser = student.firstName;
+											message.name = student.firstName;
+//										}else{
+//											message.name = $scope.teacher.firstName;
 										}
 									});
 								});

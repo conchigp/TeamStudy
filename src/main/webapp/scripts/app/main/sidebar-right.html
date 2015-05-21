@@ -8,6 +8,25 @@
 			<div class="box" style="margin: 15px;">
 
 				<div class="box-header">
+					<div class="box-name tablas">Profesor</div>
+				</div>
+				<div class="box-icons">
+					<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+				</div>
+				<div class="box-content mobile_only">
+
+					<div class="" data-target="#myNavbar">
+						<div class="list-group-item">
+							<div class="col-12">{{teacher.lastName}},{{teacher.firstName}}</div>
+							<small class="col-12">{{teacher.email}}</small>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<div class="box" style="margin: 15px;">
+
+				<div class="box-header">
 					<div class="box-name tablas">Alumnos</div>
 				</div>
 				<div class="box-icons">
@@ -42,19 +61,23 @@
 					<div id="scrolldiv" class="scroll-area" data-spy="scroll"
 						data-target="#myNavbar">
 						<div ng-repeat="messageChat in messagesChat | orderBy:'-creationMoment' | limitTo:10">
-<!-- 						{{messageChat.userId}}-LL{{student}}-{{teacherGroup.id}} -->
-<!-- 						X{{messageChat.nameTeacher}} -- Y{{teacherGroup.firstName}} -->
-<!-- 						Z{{messageChat.nameUser}} -- Y{{student.firstName}} -->
-						<div ng-show="account.firstName == messageChat.nameUser"
+<!-- 						{{messageChat.userId}}--LL--{{teacher.id}} -->
+<!-- 						--ZZ--{{teacher.firstName}} -->
+							{{messageChat.name}}-+-+-{{messageChat.userId}}
+						<div ng-show="account.firstName == messageChat.name"
 								class=" alert alert-info" role="alert">
-							<large class="col-12 letragrande" ><b>{{messageChat.nameUser}}</b></large>, <small class="col-12 negrita">{{messageChat.creationMoment
+							<large class="col-12 letragrande">
+								<b ng-if="messageChat.name == undefined">{{teacher.firstName}}</b>
+								<b ng-if="messageChat.name != undefined">{{messageChat.name}}</b>
+							</large>, 
+							<small class="col-12 negrita">{{messageChat.creationMoment
 								| date:'dd/MMM/yyyy h:mma'}}</small>
 
 							<div class="col-12">{{messageChat.content}}</div>
 						</div>
-						<div ng-show="account.firstName != messageChat.nameUser"
+						<div ng-show="account.firstName != messageChat.name"
 								class=" alert alert-warning" role="alert">
-							<large class="col-12 letragrande"><b>{{messageChat.nameUser}}</b></large>, <small class="col-12 negrita">{{messageChat.creationMoment
+							<large class="col-12 letragrande"><b>{{messageChat.name}}</b></large>, <small class="col-12 negrita">{{messageChat.creationMoment
 								| date:'dd/MMM/yyyy -- h:mma'}}</small>
 
 							<div class="col-12">{{messageChat.content}}</div>
