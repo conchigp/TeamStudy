@@ -17,25 +17,11 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 #logo {
   z-index: 50000;
-  position:relative;
-  background: #525252 url(../img/devoops_pattern_b10.png) 0 0 repeat;
+  position:absolute;
+  top: 1em;
+/*   background: #525252 url(../img/devoops_pattern_b10.png) 0 0 repeat; */
 }
-#logo a {
-  color: #fff;
-  font-family: 'Righteous', cursive;
-  display: block;
-  font-size: 15px;
-  line-height: 50px;
-  background: url(../img/logo.png) right 42px no-repeat;
-  -webkit-transition: 0.5s;
-  -moz-transition: 0.5s;
-  -o-transition: 0.5s;
-  transition: 0.5s;
-}
-#logo a:hover {
-  background-position: right 25px;
-  text-decoration: none;
-}
+
 .navbar {
   margin: 0;
   border: 0;
@@ -54,14 +40,14 @@ h1, .h1, h2, .h2, h3, .h3 {
 }
 a.show-sidebar {
   
-  color:#6d6d6d;
+/*   color:#6d6d6d; */
   -webkit-transition: 0.2s;
   -moz-transition: 0.2s;
   -o-transition: 0.2s;
   transition: 0.2s;
 }
 a.show-sidebar:hover {
-  color:#000;
+  color:#fff;
 }
 #sidebar-left {
   position:relative;

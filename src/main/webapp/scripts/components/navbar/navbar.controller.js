@@ -10,6 +10,7 @@ angular.module('teamstudyApp')
         $scope.isAuthenticated = Principal.isAuthenticated;
         $scope.isInRole = Principal.isInRole;
         $scope.$state = $state;
+        $scope.screenSize = screen.width;
 
         $scope.logout = function () {
         	localStorage.clear();

@@ -12,11 +12,12 @@ angular
 						$translate, Auth, Principal, Language, ENV, VERSION) {
 					$rootScope.ENV = ENV;
 					$rootScope.VERSION = VERSION;
+					
 					$rootScope.$on('$stateChangeStart', function(event,
 							toState, toStateParams) {
 						$rootScope.toState = toState;
 						$rootScope.toStateParams = toStateParams;
-
+						
 						if (Principal.isIdentityResolved()) {
 							Auth.authorize();
 						}
@@ -33,6 +34,7 @@ angular
 
 						$rootScope.previousStateName = fromState.name;
 						$rootScope.previousStateParams = fromParams;
+						
 
 						// Set the page title key to the one configured in state
 						// or use
